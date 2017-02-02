@@ -28,12 +28,10 @@ public abstract class Level extends Screen{
         inputBuddy = new InputBuddy(input);
     }
 
-    float lastFrame;
-    float thisFrame;
+
     @Override
     public void draw(Canvas canvas, float deltaTime)
     {
-        lastFrame = thisFrame;
         for (Sprite sprite: sprites) {
             sprite.draw(canvas, deltaTime);
         }

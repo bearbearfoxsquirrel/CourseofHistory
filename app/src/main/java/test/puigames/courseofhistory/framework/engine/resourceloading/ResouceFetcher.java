@@ -22,7 +22,6 @@ public class ResouceFetcher {
         this.jsonBourne = new JSONBourne();
     }
 
-
     public InputStream getInputStream(String url) throws IOException {
         return androidFileIO.readFile(url);
     }
