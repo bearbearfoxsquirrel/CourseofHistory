@@ -9,7 +9,7 @@ import test.puigames.courseofhistory.framework.engine.Game;
 import test.puigames.courseofhistory.framework.engine.Level;
 import test.puigames.courseofhistory.framework.game.Board.Board;
 import test.puigames.courseofhistory.framework.game.cards.Card;
-import test.puigames.courseofhistory.framework.implementation.GraphicsIO;
+import test.puigames.courseofhistory.framework.engine.resourceloading.GraphicsIO;
 import test.puigames.courseofhistory.framework.input.AndroidInput;
 
 /**

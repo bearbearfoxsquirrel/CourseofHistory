@@ -15,8 +15,8 @@ import test.puigames.courseofhistory.framework.audio.AndroidAudio;
 import test.puigames.courseofhistory.framework.audio.Audio;
 import test.puigames.courseofhistory.framework.graphics.AndroidGraphics;
 import test.puigames.courseofhistory.framework.graphics.Graphics;
-import test.puigames.courseofhistory.framework.implementation.AndroidFileIO;
-import test.puigames.courseofhistory.framework.implementation.GraphicsIO;
+import test.puigames.courseofhistory.framework.engine.resourceloading.AndroidFileIO;
+import test.puigames.courseofhistory.framework.engine.resourceloading.GraphicsIO;
 import test.puigames.courseofhistory.framework.input.AndroidInput;
 import test.puigames.courseofhistory.framework.input.Input;
 

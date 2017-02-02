@@ -6,7 +6,7 @@ import android.graphics.Canvas;
 import test.puigames.courseofhistory.framework.engine.Drawable;
 import test.puigames.courseofhistory.framework.engine.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.Sprite;
-import test.puigames.courseofhistory.framework.implementation.GraphicsIO;
+import test.puigames.courseofhistory.framework.engine.resourceloading.GraphicsIO;
 import test.puigames.courseofhistory.framework.input.Input.TouchEvent;
 
 /**

@@ -4,7 +4,7 @@ import android.graphics.Canvas;
 
 import java.util.List;
 
-import test.puigames.courseofhistory.framework.implementation.GraphicsIO;
+import test.puigames.courseofhistory.framework.engine.resourceloading.GraphicsIO;
 import test.puigames.courseofhistory.framework.input.AndroidInput;
 
 /**

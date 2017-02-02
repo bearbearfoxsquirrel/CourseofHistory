@@ -8,7 +8,7 @@ import java.io.IOException;
 import test.puigames.courseofhistory.framework.engine.Drawable;
 import test.puigames.courseofhistory.framework.engine.Game;
 import test.puigames.courseofhistory.framework.engine.InputBuddy;
-import test.puigames.courseofhistory.framework.implementation.GraphicsIO;
+import test.puigames.courseofhistory.framework.engine.resourceloading.GraphicsIO;
 
 /**
  * Created by 40123577 on 14/11/2016.

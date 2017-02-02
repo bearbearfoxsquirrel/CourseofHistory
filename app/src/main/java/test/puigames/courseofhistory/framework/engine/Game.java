@@ -5,7 +5,7 @@ package test.puigames.courseofhistory.framework.engine;
 import test.puigames.courseofhistory.framework.FileIO;
 import test.puigames.courseofhistory.framework.audio.Audio;
 import test.puigames.courseofhistory.framework.graphics.Graphics;
-import test.puigames.courseofhistory.framework.implementation.GraphicsIO;
+import test.puigames.courseofhistory.framework.engine.resourceloading.GraphicsIO;
 import test.puigames.courseofhistory.framework.input.Input;
 
 /**
