@@ -25,7 +25,7 @@ public class ResouceFetcher {
     }
 
 
-    public InputStream getJSONInputStream(String url) throws IOException {
+    public InputStream getInputStream(String url) throws IOException {
         return androidFileIO.readFile(url);
     }
 
@@ -46,7 +46,7 @@ public class ResouceFetcher {
         JSONArray jsonArray;
 
         try {
-            jsonString = getJsonString(getJSONInputStream(url));
+            jsonString = getJsonString(getInputStream(url));
         } catch (IOException e) {
             Log.d("Loading Resource: ", "Error loading resource " + url);
         }
