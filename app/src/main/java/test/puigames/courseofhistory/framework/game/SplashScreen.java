@@ -17,7 +17,6 @@ import test.puigames.courseofhistory.framework.input.AndroidInput;
 public class SplashScreen extends Level
 {
 
-    private GraphicsIO graphicsIO;
     Bitmap logo;
     Bitmap scaledLogo;
     int height;

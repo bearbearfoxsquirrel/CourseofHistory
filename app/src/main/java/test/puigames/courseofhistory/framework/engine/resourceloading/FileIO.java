@@ -1,4 +1,4 @@
-package test.puigames.courseofhistory.framework;
+package test.puigames.courseofhistory.framework.engine.resourceloading;
 
 import java.io.IOException;
 import java.io.InputStream;

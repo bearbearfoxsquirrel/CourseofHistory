@@ -18,12 +18,6 @@ import test.puigames.courseofhistory.framework.input.AndroidInput;
 
 public class TestLevel extends Level
 {
-   // AndroidInput input;
-//    AssetManager assets;
-   private GraphicsIO graphicsIO;
-
-    //Card card1;
-    //Card card2;
     Card[] cards = new Card[2];
     Board board;
     Bitmap boardImage;

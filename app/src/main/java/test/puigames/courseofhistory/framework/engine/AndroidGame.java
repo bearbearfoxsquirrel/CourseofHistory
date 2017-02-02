@@ -10,13 +10,13 @@ import android.util.DisplayMetrics;
 import android.view.Window;
 import android.view.WindowManager;
 
-import test.puigames.courseofhistory.framework.FileIO;
 import test.puigames.courseofhistory.framework.audio.AndroidAudio;
 import test.puigames.courseofhistory.framework.audio.Audio;
+import test.puigames.courseofhistory.framework.engine.resourceloading.AndroidFileIO;
+import test.puigames.courseofhistory.framework.engine.resourceloading.FileIO;
+import test.puigames.courseofhistory.framework.engine.resourceloading.ResourceFetcher;
 import test.puigames.courseofhistory.framework.graphics.AndroidGraphics;
 import test.puigames.courseofhistory.framework.graphics.Graphics;
-import test.puigames.courseofhistory.framework.engine.resourceloading.AndroidFileIO;
-import test.puigames.courseofhistory.framework.engine.resourceloading.GraphicsIO;
 import test.puigames.courseofhistory.framework.input.AndroidInput;
 import test.puigames.courseofhistory.framework.input.Input;
 
@@ -27,8 +27,8 @@ import test.puigames.courseofhistory.framework.input.Input;
 public class AndroidGame extends Activity implements Game, Runnable
 {
     AndroidFastRenderView renderView;
+    ResourceFetcher resourceFetcher;
     Graphics graphics;
-    GraphicsIO graphicsIO;
     Audio audio;
     AndroidInput input;
     FileIO fileIO;
@@ -70,7 +70,7 @@ public class AndroidGame extends Activity implements Game, Runnable
         fileIO = new AndroidFileIO(this);
         audio = new AndroidAudio(this);
         graphics = new AndroidGraphics(getAssets());
-        graphicsIO = new GraphicsIO(this);
+        resourceFetcher = new ResourceFetcher(this);
         screen = getStartScreen();
         setContentView(renderView);
 
@@ -176,7 +176,10 @@ public class AndroidGame extends Activity implements Game, Runnable
         return graphics;
     }
 
-    public GraphicsIO getGraphicsIO() { return graphicsIO; }
+    @Override
+    public ResourceFetcher getResourceFetcher() {
+        return resourceFetcher;
+    }
 
     @Override
     public Audio getAudio() {

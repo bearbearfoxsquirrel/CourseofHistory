@@ -1,6 +1,7 @@
 package test.puigames.courseofhistory.framework.engine.resourceloading;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -13,20 +14,21 @@ import java.io.InputStream;
  * Created by Michael on 01/02/2017.
  */
 
-public class ResouceFetcher {
+public class ResourceFetcher implements FetchingIO {
     AndroidFileIO androidFileIO;
     JSONBourne jsonBourne;
 
-    public ResouceFetcher(Context context) {
+    public ResourceFetcher(Context context) {
         this.androidFileIO = new AndroidFileIO(context);
         this.jsonBourne = new JSONBourne();
     }
 
-    public InputStream getInputStream(String url) throws IOException {
+    private InputStream getInputStream(String url) throws IOException {
         return androidFileIO.readFile(url);
     }
 
-    public JSONArray getArrayFromJSONFile(String url) {
+    @Override
+    public JSONArray getJSONArrayFromJSONFile(String url) {
         String jsonString = "";
         JSONArray jsonArray;
 
@@ -42,6 +44,11 @@ public class ResouceFetcher {
         } catch (JSONException e){
             Log.d("Loading Resource: ",  "Error Processing JSON at " + url);
         }
+        return null;
+    }
+
+    @Override
+    public Bitmap getBitmapFromFile(String url) {
         return null;
     }
 }

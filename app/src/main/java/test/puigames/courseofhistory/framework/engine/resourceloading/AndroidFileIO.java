@@ -12,8 +12,6 @@ import android.content.res.AssetManager;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 
-import test.puigames.courseofhistory.framework.FileIO;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
