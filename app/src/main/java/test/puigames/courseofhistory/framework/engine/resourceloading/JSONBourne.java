@@ -34,6 +34,8 @@ public class JSONBourne {
         return new JSONObject(jsonString);
     }
 
+
+
     public String getJsonString(InputStream jsonStream) throws IOException {
         //From a input stream a string in json format will be returned
         BufferedReader reader = new BufferedReader(new InputStreamReader(jsonStream));

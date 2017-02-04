@@ -1,6 +1,7 @@
 {
   "cards" : [
     {
+      "id" : "ghandi_tier_2",
       "name" : "Ghandi",
       "description" : "The measure of a man is what he does with power",
       "mana" : 4,

@@ -33,6 +33,8 @@ public class AndroidFileIO implements FileIO
                 .getAbsolutePath() + File.separator;
     }
 
+
+
     public InputStream readAsset(String fileName) throws IOException
     {
         return assets.open(fileName);
@@ -42,6 +44,8 @@ public class AndroidFileIO implements FileIO
     {
         return new FileInputStream(externalStoragePath + fileName);
     }
+
+
 
     public OutputStream writeFile(String fileName) throws IOException
     {

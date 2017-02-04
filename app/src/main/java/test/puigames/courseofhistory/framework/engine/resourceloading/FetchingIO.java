@@ -2,8 +2,6 @@ package test.puigames.courseofhistory.framework.engine.resourceloading;
 
 import android.graphics.Bitmap;
 
-import org.json.JSONArray;
-
 import test.puigames.courseofhistory.framework.game.cards.CharacterCard;
 
 /**
@@ -11,7 +9,7 @@ import test.puigames.courseofhistory.framework.game.cards.CharacterCard;
  */
 
 public interface FetchingIO {
-    public JSONArray getJSONArrayFromJSONFile(String url);
+    //public JSONArray getJSONArrayFromJSONFile(String url);
 
     public Bitmap getBitmapFromFile(String url);
 

@@ -9,7 +9,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 import test.puigames.courseofhistory.framework.game.cards.CharacterCard;
 
@@ -22,32 +21,25 @@ public class ResourceFetcher implements FetchingIO {
     GraphicsIO graphicsIO;
     JSONBourne jsonBourne;
 
+
     public ResourceFetcher(Context context) {
         this.androidFileIO = new AndroidFileIO(context);
         this.jsonBourne = new JSONBourne();
         this.graphicsIO = new GraphicsIO(context);
     }
 
-    private InputStream getInputStream(String url) throws IOException {
-        return androidFileIO.readAsset(url);
+    //gets a usable JSON string from the AndroidFileIO
+    public String getJSONString(String url) throws IOException{
+            return jsonBourne.getJsonString(androidFileIO.readAsset(url));
     }
 
-    public String getJSONString(String url) throws NullPointerException{
-        try {
-            return jsonBourne.getJsonString(getInputStream(url));
-        } catch (IOException e  ) {
-        }
-        throw  new NullPointerException();
-
-    }
-
-    @Override
+   /* @Override
     public JSONArray getJSONArrayFromJSONFile(String url) throws NullPointerException{
         String jsonString = "";
         JSONArray jsonArray;
 
         try {
-            jsonString =jsonBourne.getJsonString(getInputStream(url));
+            jsonString =jsonBourne.getJsonString(androidFileIO.readAsset(url));
         } catch (IOException e) {
             Log.d("Loading Resource: ", "Error loading resource " + url);
         }
@@ -60,16 +52,20 @@ public class ResourceFetcher implements FetchingIO {
         }
         throw new NullPointerException();
     }
+*/
 
+    //take a string in and return a single character card
     @Override
     public CharacterCard loadCharacterCard(int cardID, String jsonString) throws NullPointerException {
-        JSONObject card= new JSONObject();
+        JSONObject card;
         try {
             JSONObject json = new JSONObject(jsonString);
             JSONArray cards = json.getJSONArray("cards");
+            card = cards.getJSONObject(cardID);
 
-            card = cards.getJSONObject(0);
-            return new CharacterCard(getBitmapFromFile("blank-card.png"), 500, 700,
+            //creating a new character card with attributes from JSONObject
+            // an arbitrary spawn point is also set until we decide how to spawn cards
+            return new CharacterCard(getBitmapFromFile("blank-card.png"), (float) Math.random() * 1000, (float) Math.random() * 1000,
                     card.getString("name"),
                     card.getString("description"),
                     card.getInt("mana"),

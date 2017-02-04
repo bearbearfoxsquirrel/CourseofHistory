@@ -20,16 +20,13 @@ public class TestLevel extends Level
     Board board;
     CharacterCard cards1;
 
-
     public TestLevel(Game game) {
         super(game);
         //this.graphicsIO = game.getGraphicsIO();
         game.calculateScreenSize();
         Bitmap cardImage = null;
         Bitmap boardImage = null;
-
         try {
-
             cardImage = game.getResourceFetcher().getBitmapFromFile("blank-card.png");// graphicsIO.loadBitmap("blank-card.png", Bitmap.Config.ARGB_4444);
             boardImage = game.getResourceFetcher().getBitmapFromFile("board.png");
         } catch (NullPointerException e) {
@@ -37,9 +34,7 @@ public class TestLevel extends Level
         }
         board = new Board(boardImage, game);
 
-        //cards[0] = new Card(cardImage, 400, 300);
-        cards1 = game.getResourceFetcher().loadCharacterCard(0, game.getResourceFetcher().getJSONString("cardtests.json"));
-       // cards[0] = new Card(cardImage, 400, 300);
+        cards1 = resourceFetcher.loadCharacterCard(0, game.getResourceFetcher().getJSONString("cardtests.json"));
         cards[1] = new Card(cardImage, 1000, 300);
 
 
