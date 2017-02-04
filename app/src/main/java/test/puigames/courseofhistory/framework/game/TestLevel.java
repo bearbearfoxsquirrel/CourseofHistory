@@ -2,6 +2,9 @@ package test.puigames.courseofhistory.framework.game;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.util.Log;
+
+import java.io.IOException;
 
 import test.puigames.courseofhistory.framework.engine.Game;
 import test.puigames.courseofhistory.framework.engine.Level;
@@ -33,8 +36,11 @@ public class TestLevel extends Level
             e.printStackTrace();
         }
         board = new Board(boardImage, game);
-
-        cards1 = resourceFetcher.loadCharacterCard(0, game.getResourceFetcher().getJSONString("cardtests.json"));
+        try {
+            cards1 = resourceFetcher.loadCharacterCard(0, game.getResourceFetcher().getJSONString("cardtests.json"));
+        } catch (IOException e){
+            Log.d("Loading asset: ", "Failed to load assets");
+        }
         cards[1] = new Card(cardImage, 1000, 300);
 
 

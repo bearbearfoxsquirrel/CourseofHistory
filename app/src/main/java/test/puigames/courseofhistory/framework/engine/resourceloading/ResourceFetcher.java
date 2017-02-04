@@ -56,26 +56,27 @@ public class ResourceFetcher implements FetchingIO {
 
     //take a string in and return a single character card
     @Override
-    public CharacterCard loadCharacterCard(int cardID, String jsonString) throws NullPointerException {
-        JSONObject card;
+    public CharacterCard loadCharacterCard(int cardID, String jsonString) {
+        JSONObject jsonCard;
+        CharacterCard card = null;
         try {
             JSONObject json = new JSONObject(jsonString);
             JSONArray cards = json.getJSONArray("cards");
-            card = cards.getJSONObject(cardID);
-
+            jsonCard = cards.getJSONObject(cardID);
+            card = new CharacterCard(getBitmapFromFile("blank-card.png"), (float) Math.random() * 1000, (float) Math.random() * 1000,
+                    jsonCard.getString("name"),
+                    jsonCard.getString("description"),
+                    jsonCard.getInt("mana"),
+                    jsonCard.getInt("attack"),
+                    jsonCard.getInt("health"),
+                    jsonCard.getString("abilityDescription"));
             //creating a new character card with attributes from JSONObject
             // an arbitrary spawn point is also set until we decide how to spawn cards
-            return new CharacterCard(getBitmapFromFile("blank-card.png"), (float) Math.random() * 1000, (float) Math.random() * 1000,
-                    card.getString("name"),
-                    card.getString("description"),
-                    card.getInt("mana"),
-                    card.getInt("attack"),
-                    card.getInt("health"),
-                    card.getString("abilityDescription"));
         } catch (JSONException e) {
             Log.d("Loading Resource: ",  "Cannot find card of ID: " + cardID);
         }
-        throw new NullPointerException();
+        return card;
+
     }
 
     @Override
