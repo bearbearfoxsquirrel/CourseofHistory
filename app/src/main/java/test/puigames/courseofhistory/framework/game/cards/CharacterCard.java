@@ -27,6 +27,7 @@ public class CharacterCard extends Card {
 
     }
 
+
     //constructor
 //    CharacterCard(String name, String CharDescription, int Mana, int Health, int Attack, String abilityDescription)
 //    {

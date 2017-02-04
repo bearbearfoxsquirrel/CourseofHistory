@@ -4,7 +4,6 @@ import android.graphics.Canvas;
 
 import java.util.List;
 
-import test.puigames.courseofhistory.framework.engine.resourceloading.GraphicsIO;
 import test.puigames.courseofhistory.framework.input.AndroidInput;
 
 /**
@@ -12,7 +11,6 @@ import test.puigames.courseofhistory.framework.input.AndroidInput;
  */
 
 public abstract class Level extends Screen{
-    protected GraphicsIO graphicsIO;
     List<Sprite> sprites;
     protected InputBuddy inputBuddy;
 
@@ -23,6 +21,8 @@ public abstract class Level extends Screen{
    // public void load() {
 
   //  }
+
+
 
     @Override
     public void update(float deltaTime, AndroidInput input) {

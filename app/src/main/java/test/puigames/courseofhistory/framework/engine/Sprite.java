@@ -18,10 +18,10 @@ public abstract class Sprite implements Drawable {
     protected Matrix matrix;
     protected Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-    public Sprite(Bitmap bitmap, float spawnX, float spawnY, ) {
+    public Sprite(Bitmap bitmap, float spawnX, float spawnY, int width, int height) {
         this.width = width;
         this.height = height;
-        this.origin = new Origin(x, y);
+        this.origin = new Origin(spawnX, spawnY);
         this.boundingBox = new BoundingBox(width, height, origin);
         this.image = bitmap;
         this.matrix = new Matrix();

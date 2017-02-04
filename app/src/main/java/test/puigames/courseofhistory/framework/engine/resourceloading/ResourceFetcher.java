@@ -6,9 +6,12 @@ import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+
+import test.puigames.courseofhistory.framework.game.cards.CharacterCard;
 
 /**
  * Created by Michael on 01/02/2017.
@@ -26,7 +29,16 @@ public class ResourceFetcher implements FetchingIO {
     }
 
     private InputStream getInputStream(String url) throws IOException {
-        return androidFileIO.readFile(url);
+        return androidFileIO.readAsset(url);
+    }
+
+    public String getJSONString(String url) throws NullPointerException{
+        try {
+            return jsonBourne.getJsonString(getInputStream(url));
+        } catch (IOException e  ) {
+        }
+        throw  new NullPointerException();
+
     }
 
     @Override
@@ -45,6 +57,27 @@ public class ResourceFetcher implements FetchingIO {
             return jsonArray;
         } catch (JSONException e){
             Log.d("Loading Resource: ",  "Error Processing JSON at " + url);
+        }
+        throw new NullPointerException();
+    }
+
+    @Override
+    public CharacterCard loadCharacterCard(int cardID, String jsonString) throws NullPointerException {
+        JSONObject card= new JSONObject();
+        try {
+            JSONObject json = new JSONObject(jsonString);
+            JSONArray cards = json.getJSONArray("cards");
+
+            card = cards.getJSONObject(0);
+            return new CharacterCard(getBitmapFromFile("blank-card.png"), 500, 700,
+                    card.getString("name"),
+                    card.getString("description"),
+                    card.getInt("mana"),
+                    card.getInt("attack"),
+                    card.getInt("health"),
+                    card.getString("abilityDescription"));
+        } catch (JSONException e) {
+            Log.d("Loading Resource: ",  "Cannot find card of ID: " + cardID);
         }
         throw new NullPointerException();
     }
