@@ -4,7 +4,6 @@ import android.graphics.Canvas;
 
 import java.util.List;
 
-import test.puigames.courseofhistory.framework.engine.resourceloading.FetchingIO;
 import test.puigames.courseofhistory.framework.engine.resourceloading.GraphicsIO;
 import test.puigames.courseofhistory.framework.input.AndroidInput;
 
@@ -13,14 +12,12 @@ import test.puigames.courseofhistory.framework.input.AndroidInput;
  */
 
 public abstract class Level extends Screen{
-    FetchingIO fetchingIO;
     protected GraphicsIO graphicsIO;
     List<Sprite> sprites;
     protected InputBuddy inputBuddy;
 
     public Level(Game game) {
         super(game);
-        FetchingIO fecther = game.getResourceFetcher();
     }
 
    // public void load() {

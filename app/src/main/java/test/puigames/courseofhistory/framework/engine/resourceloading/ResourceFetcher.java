@@ -16,11 +16,13 @@ import java.io.InputStream;
 
 public class ResourceFetcher implements FetchingIO {
     AndroidFileIO androidFileIO;
+    GraphicsIO graphicsIO;
     JSONBourne jsonBourne;
 
     public ResourceFetcher(Context context) {
         this.androidFileIO = new AndroidFileIO(context);
         this.jsonBourne = new JSONBourne();
+        this.graphicsIO = new GraphicsIO(context);
     }
 
     private InputStream getInputStream(String url) throws IOException {
@@ -28,7 +30,7 @@ public class ResourceFetcher implements FetchingIO {
     }
 
     @Override
-    public JSONArray getJSONArrayFromJSONFile(String url) {
+    public JSONArray getJSONArrayFromJSONFile(String url) throws NullPointerException{
         String jsonString = "";
         JSONArray jsonArray;
 
@@ -44,11 +46,16 @@ public class ResourceFetcher implements FetchingIO {
         } catch (JSONException e){
             Log.d("Loading Resource: ",  "Error Processing JSON at " + url);
         }
-        return null;
+        throw new NullPointerException();
     }
 
     @Override
-    public Bitmap getBitmapFromFile(String url) {
-        return null;
+    public Bitmap getBitmapFromFile(String url) throws NullPointerException{
+        try {
+            return graphicsIO.loadBitmap(url, Bitmap.Config.ARGB_4444);
+        } catch (IOException e) {
+            Log.d("Loading Resource: ",  "Error Processing Image at " + url);
+        }
+        throw  new NullPointerException();
     }
 }

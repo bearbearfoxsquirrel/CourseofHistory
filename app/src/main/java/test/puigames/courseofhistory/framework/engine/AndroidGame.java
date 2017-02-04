@@ -12,8 +12,6 @@ import android.view.WindowManager;
 
 import test.puigames.courseofhistory.framework.audio.AndroidAudio;
 import test.puigames.courseofhistory.framework.audio.Audio;
-import test.puigames.courseofhistory.framework.engine.resourceloading.AndroidFileIO;
-import test.puigames.courseofhistory.framework.engine.resourceloading.FileIO;
 import test.puigames.courseofhistory.framework.engine.resourceloading.ResourceFetcher;
 import test.puigames.courseofhistory.framework.graphics.AndroidGraphics;
 import test.puigames.courseofhistory.framework.graphics.Graphics;
@@ -31,7 +29,6 @@ public class AndroidGame extends Activity implements Game, Runnable
     Graphics graphics;
     Audio audio;
     AndroidInput input;
-    FileIO fileIO;
     Screen screen;
     WakeLock wakeLock;
     Thread renderThread = null;
@@ -67,7 +64,6 @@ public class AndroidGame extends Activity implements Game, Runnable
         renderView = new AndroidFastRenderView(this);
 
 
-        fileIO = new AndroidFileIO(this);
         audio = new AndroidAudio(this);
         graphics = new AndroidGraphics(getAssets());
         resourceFetcher = new ResourceFetcher(this);
@@ -137,8 +133,6 @@ public class AndroidGame extends Activity implements Game, Runnable
         }
         if(isFinishing())   //if activity is destroyed, clean up
             screen.dispose();
-
-
     }
 
 
@@ -154,7 +148,6 @@ public class AndroidGame extends Activity implements Game, Runnable
     }
 
     public void calculateScreenSize() {
-
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         screenWidth = dm.widthPixels;
@@ -164,7 +157,6 @@ public class AndroidGame extends Activity implements Game, Runnable
     public int getScreenWidth(){return screenWidth;}
 
     public int getScreenHeight(){return screenHeight;}
-
 
     public Input getInput()
     {
@@ -184,11 +176,6 @@ public class AndroidGame extends Activity implements Game, Runnable
     @Override
     public Audio getAudio() {
         return audio;
-    }
-
-    public FileIO getFileIO()
-    {
-        return fileIO;
     }
 
     public Screen getCurrentScreen()

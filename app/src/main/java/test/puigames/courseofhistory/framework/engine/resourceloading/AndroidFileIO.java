@@ -30,7 +30,7 @@ public class AndroidFileIO implements FileIO
         this.context = context;
         this.assets = context.getAssets();
         this.externalStoragePath = Environment.getExternalStorageDirectory()
-                .getAbsolutePath()+ File.separator;
+                .getAbsolutePath() + File.separator;
     }
 
     public InputStream readAsset(String fileName) throws IOException
@@ -40,12 +40,12 @@ public class AndroidFileIO implements FileIO
 
     public InputStream readFile(String fileName) throws IOException
     {
-        return new FileInputStream(externalStoragePath+fileName);
+        return new FileInputStream(externalStoragePath + fileName);
     }
 
     public OutputStream writeFile(String fileName) throws IOException
     {
-        return new FileOutputStream(externalStoragePath+fileName);
+        return new FileOutputStream(externalStoragePath + fileName);
     }
 
     public SharedPreferences getPreferences()

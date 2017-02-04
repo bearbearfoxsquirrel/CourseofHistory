@@ -3,8 +3,6 @@ package test.puigames.courseofhistory.framework.game.Board;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
-import java.io.IOException;
-
 import test.puigames.courseofhistory.framework.engine.Drawable;
 import test.puigames.courseofhistory.framework.engine.Game;
 import test.puigames.courseofhistory.framework.engine.InputBuddy;
@@ -25,21 +23,7 @@ public class Board implements Drawable{
 
     Bitmap scaledBoard;
 
-    public Board(GraphicsIO graphicsIO, Bitmap boardImage, Game game){
-
-
-        this.graphicsIO = graphicsIO;
-
-        try
-        {
-            //Uses graphics IO class to load a bitmap
-            //Passes in the card file name + format
-            boardImage = graphicsIO.loadBitmap("board.png", Bitmap.Config.ARGB_4444);
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-
+    public Board( Bitmap boardImage, Game game){
         //set board image and size
         this.boardImage = boardImage;
         /*width = 600;

@@ -14,10 +14,15 @@ import java.io.InputStreamReader;
  */
 
 public class JSONBourne {
-
+    //Class used to parse, serialise and deserialise JSON
     public JSONBourne() {
 
     }
+
+    //add reverse of these methods
+
+    //create serialise an object to json
+    //take an array and make it json
 
     public JSONArray toJsonArray(String jsonString) throws JSONException {
         //converts string to json array

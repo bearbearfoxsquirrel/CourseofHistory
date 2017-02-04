@@ -3,13 +3,10 @@ package test.puigames.courseofhistory.framework.game;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
-import java.io.IOException;
-
 import test.puigames.courseofhistory.framework.engine.Game;
 import test.puigames.courseofhistory.framework.engine.Level;
 import test.puigames.courseofhistory.framework.game.Board.Board;
 import test.puigames.courseofhistory.framework.game.cards.Card;
-import test.puigames.courseofhistory.framework.engine.resourceloading.GraphicsIO;
 import test.puigames.courseofhistory.framework.input.AndroidInput;
 
 /**
@@ -20,20 +17,23 @@ public class TestLevel extends Level
 {
     Card[] cards = new Card[2];
     Board board;
-    Bitmap boardImage;
 
 
     public TestLevel(Game game) {
         super(game);
-        this.graphicsIO = game.getGraphicsIO();
+        //this.graphicsIO = game.getGraphicsIO();
         game.calculateScreenSize();
-        board = new Board(graphicsIO, boardImage, game);
         Bitmap cardImage = null;
+        Bitmap boardImage = null;
+
         try {
-            cardImage = graphicsIO.loadBitmap("blank-card.png", Bitmap.Config.ARGB_4444);
-        } catch (IOException e) {
+            cardImage = game.getResourceFetcher().getBitmapFromFile("blank-card.png");// graphicsIO.loadBitmap("blank-card.png", Bitmap.Config.ARGB_4444);
+            boardImage = game.getResourceFetcher().getBitmapFromFile("board.png");
+        } catch (NullPointerException e) {
             e.printStackTrace();
         }
+        board = new Board(boardImage, game);
+
         //cards[0] = new Card(cardImage, 400, 300);
         cards[0] = new Card(cardImage, 400, 300);
         cards[1] = new Card(cardImage, 1000, 300);

@@ -8,17 +8,23 @@ import android.graphics.Bitmap;
 
 public class CharacterCard extends Card {
     //variables
-    protected String CharName;
-    protected String CharDescription;
-    protected int Mana;
-    //protected Bitmap CharImage;
-    protected int Attack;
-    protected int Health;
-    protected String AbilityDescription;
+    protected String name;
+    protected String description;
+    protected int mana;
+    //protected Bitmap image;
+    protected int attack;
+    protected int health;
+    protected String abilityDescription;
 
-    public CharacterCard(Bitmap cardImage, float spawnX, float spawnY)
+    public CharacterCard(Bitmap cardImage, float spawnX, float spawnY, String name, String description, int mana, int attack, int health, String abilityDescription)
     {
         super(cardImage, spawnX, spawnY);
+        this.name = name;
+        this.description = description;
+        this.mana = mana;
+        this.health = health;
+        this.abilityDescription = abilityDescription;
+
     }
 
     //constructor
@@ -80,7 +86,7 @@ public class CharacterCard extends Card {
 //        CharacterCard MadamCurie = new CharacterCard("Plato","The measure of a man is what he does with power",4,4,2,"NONE");
 //        CharacterCard AlbertEinstein = new CharacterCard("Plato","The measure of a man is what he does with power",4,4,2,"NONE");
 //        CharacterCard WillieShakespeare = new CharacterCard("Plato","The measure of a man is what he does with power",4,4,2,"NONE");
-//        CharacterCard Ghandi = new CharacterCard("Plato","The measure of a man is what he does with power",4,4,2,"NONE");
+//        CharacterCard Ghandi = new CharacterCard("Plato","ma",4,4,2,"NONE");
 //
 //    }
 

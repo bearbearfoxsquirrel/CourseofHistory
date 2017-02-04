@@ -18,7 +18,7 @@ public abstract class Sprite implements Drawable {
     protected Matrix matrix;
     protected Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-    public Sprite(Bitmap bitmap, float x, float y, float width, float height) {
+    public Sprite(Bitmap bitmap, float spawnX, float spawnY, ) {
         this.width = width;
         this.height = height;
         this.origin = new Origin(x, y);
@@ -29,13 +29,13 @@ public abstract class Sprite implements Drawable {
 
     @Override
     //drawing to the canvas for all sprites
-    public void draw(Canvas canvas, float lastFrameTime) {
+    public void draw(Canvas canvas, float deltaTime) {
         canvas.drawBitmap(image, matrix, paint);
     }
 
     @Override
     //updating sprites that take user input
-    public void update(InputBuddy inputBuddy, float lastFrameTime) {
+    public void update(InputBuddy inputBuddy, float deltaTime) {
         //This updates the card to draw from where the origin is
         //Matrix translates bitmaps etc. to where the origin has moved to
         matrix.setTranslate(origin.x - width/2, origin.y - width/2);

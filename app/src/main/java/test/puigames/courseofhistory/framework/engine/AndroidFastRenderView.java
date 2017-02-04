@@ -1,6 +1,7 @@
 package test.puigames.courseofhistory.framework.engine;
 
 import android.graphics.Canvas;
+import android.util.Log;
 import android.view.View;
 
 import test.puigames.courseofhistory.framework.input.AndroidInput;
@@ -46,6 +47,7 @@ public class AndroidFastRenderView extends View {
         //Calls the update and draw methods of the current screen that is active
         game.getCurrentScreen().update(deltaTime, input);
         game.getCurrentScreen().draw(canvas, deltaTime);
+        Log.d("Delta tim", ": " + deltaTime );
         //Log.d("Is canvas HA:", canvas.isHardwareAccelerated() + " ");
 
         //Tells the loop that another draw is now needed
