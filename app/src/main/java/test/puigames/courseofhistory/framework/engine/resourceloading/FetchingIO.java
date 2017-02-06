@@ -2,6 +2,7 @@ package test.puigames.courseofhistory.framework.engine.resourceloading;
 
 import android.graphics.Bitmap;
 
+import test.puigames.courseofhistory.framework.game.Board.Board;
 import test.puigames.courseofhistory.framework.game.cards.CharacterCard;
 
 /**
@@ -13,5 +14,7 @@ public interface FetchingIO {
 
     public Bitmap getBitmapFromFile(String url);
 
-    public CharacterCard loadCharacterCard(int cardID, String jsonString) throws NullPointerException;
+    public Board loadBoard(String boardName);
+
+    public CharacterCard[] loadCharacterCards();
 }

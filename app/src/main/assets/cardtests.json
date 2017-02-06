@@ -7,7 +7,28 @@
       "mana" : 4,
       "attack" : 5,
       "health" : 9,
-      "abilityDescription" : "I am a goose"
+      "abilityDescription" : "I am a goose",
+      "portraitSrc" : "blank-card.png"
+    },
+    {
+      "id" : "ghandi_tier_2",
+      "name" : "Ghandi",
+      "description" : "The measure of a man is what he does with power",
+      "mana" : 4,
+      "attack" : 5,
+      "health" : 9,
+      "abilityDescription" : "I am a goose",
+      "portraitSrc" : "blank-card.png"
+    },
+    {
+      "id" : "ghandi_tier_2",
+      "name" : "Ghandi",
+      "description" : "The measure of a man is what he does with power",
+      "mana" : 4,
+      "attack" : 5,
+      "health" : 9,
+      "abilityDescription" : "I am a goose",
+      "portraitSrc" : "board.png"
     }
   ]
 }

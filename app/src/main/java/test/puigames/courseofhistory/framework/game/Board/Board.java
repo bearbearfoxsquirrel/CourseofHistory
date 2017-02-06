@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import test.puigames.courseofhistory.framework.engine.Drawable;
 import test.puigames.courseofhistory.framework.engine.Game;
 import test.puigames.courseofhistory.framework.engine.InputBuddy;
+import test.puigames.courseofhistory.framework.engine.Sprite;
 import test.puigames.courseofhistory.framework.engine.resourceloading.GraphicsIO;
 
 /**
@@ -13,7 +14,7 @@ import test.puigames.courseofhistory.framework.engine.resourceloading.GraphicsIO
  */
 
 
-public class Board implements Drawable{
+public class Board extends Sprite implements Drawable {
 
     //private variables
     GraphicsIO graphicsIO;
@@ -23,25 +24,20 @@ public class Board implements Drawable{
 
     Bitmap scaledBoard;
 
-    public Board( Bitmap boardImage, Game game){
+    public Board(Bitmap bitmap, Game game){
+        super(bitmap, 0, 0, game.getScreenHeight(), game.getScreenWidth());
         //set board image and size
-        this.boardImage = boardImage;
+        //this.boardImage = bitmap;
         /*width = 600;
         height = 1000;*/
-
-
-
-        height = game.getScreenHeight();
-        width = game.getScreenWidth();
-
-        this.scaledBoard = Bitmap.createScaledBitmap(boardImage, width, height, true);
+       // this.scaledBoard = Bitmap.createScaledBitmap(boardImage, width, height, true);
     }
 
 
     @Override
     public void draw(Canvas canvas, float lastFrameTime) {
-
-        canvas.drawBitmap(scaledBoard, 0.f, 0.f, null);
+        super.draw(canvas, lastFrameTime);
+       // canvas.drawBitmap(scaledBoard, 0.f, 0.f, null);
 
     }
 
