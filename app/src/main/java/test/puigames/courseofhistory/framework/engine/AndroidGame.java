@@ -10,13 +10,11 @@ import android.util.DisplayMetrics;
 import android.view.Window;
 import android.view.WindowManager;
 
-import test.puigames.courseofhistory.framework.FileIO;
 import test.puigames.courseofhistory.framework.audio.AndroidAudio;
 import test.puigames.courseofhistory.framework.audio.Audio;
+import test.puigames.courseofhistory.framework.engine.resourceloading.ResourceFetcher;
 import test.puigames.courseofhistory.framework.graphics.AndroidGraphics;
 import test.puigames.courseofhistory.framework.graphics.Graphics;
-import test.puigames.courseofhistory.framework.implementation.AndroidFileIO;
-import test.puigames.courseofhistory.framework.implementation.GraphicsIO;
 import test.puigames.courseofhistory.framework.input.AndroidInput;
 import test.puigames.courseofhistory.framework.input.Input;
 
@@ -27,11 +25,10 @@ import test.puigames.courseofhistory.framework.input.Input;
 public class AndroidGame extends Activity implements Game, Runnable
 {
     AndroidFastRenderView renderView;
+    ResourceFetcher resourceFetcher;
     Graphics graphics;
-    GraphicsIO graphicsIO;
     Audio audio;
     AndroidInput input;
-    FileIO fileIO;
     Screen screen;
     WakeLock wakeLock;
     Thread renderThread = null;
@@ -67,10 +64,9 @@ public class AndroidGame extends Activity implements Game, Runnable
         renderView = new AndroidFastRenderView(this);
 
 
-        fileIO = new AndroidFileIO(this);
         audio = new AndroidAudio(this);
         graphics = new AndroidGraphics(getAssets());
-        graphicsIO = new GraphicsIO(this);
+        resourceFetcher = new ResourceFetcher(this);
         screen = getStartScreen();
         setContentView(renderView);
 
@@ -137,8 +133,6 @@ public class AndroidGame extends Activity implements Game, Runnable
         }
         if(isFinishing())   //if activity is destroyed, clean up
             screen.dispose();
-
-
     }
 
 
@@ -154,7 +148,6 @@ public class AndroidGame extends Activity implements Game, Runnable
     }
 
     public void calculateScreenSize() {
-
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         screenWidth = dm.widthPixels;
@@ -164,7 +157,6 @@ public class AndroidGame extends Activity implements Game, Runnable
     public int getScreenWidth(){return screenWidth;}
 
     public int getScreenHeight(){return screenHeight;}
-
 
     public Input getInput()
     {
@@ -176,16 +168,14 @@ public class AndroidGame extends Activity implements Game, Runnable
         return graphics;
     }
 
-    public GraphicsIO getGraphicsIO() { return graphicsIO; }
+    @Override
+    public ResourceFetcher getResourceFetcher() {
+        return resourceFetcher;
+    }
 
     @Override
     public Audio getAudio() {
         return audio;
-    }
-
-    public FileIO getFileIO()
-    {
-        return fileIO;
     }
 
     public Screen getCurrentScreen()

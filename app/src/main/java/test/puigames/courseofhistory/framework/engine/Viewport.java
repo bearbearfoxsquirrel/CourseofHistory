@@ -28,7 +28,6 @@ public class Viewport {
             scaleFactor = width / bitmap.getHeight();
         else
             scaleFactor = width / bitmap.getWidth();
-
         return scaleFactor;
     }
 

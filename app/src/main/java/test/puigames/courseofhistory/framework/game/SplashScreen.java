@@ -3,12 +3,8 @@ package test.puigames.courseofhistory.framework.game;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
-import java.io.IOException;
-
 import test.puigames.courseofhistory.framework.engine.Game;
 import test.puigames.courseofhistory.framework.engine.Level;
-import test.puigames.courseofhistory.framework.engine.Screen;
-import test.puigames.courseofhistory.framework.implementation.GraphicsIO;
 import test.puigames.courseofhistory.framework.input.AndroidInput;
 
 /**
@@ -18,7 +14,6 @@ import test.puigames.courseofhistory.framework.input.AndroidInput;
 public class SplashScreen extends Level
 {
 
-    private GraphicsIO graphicsIO;
     Bitmap logo;
     Bitmap scaledLogo;
     int height;
@@ -27,12 +22,15 @@ public class SplashScreen extends Level
 
     public SplashScreen(Game game) {
         super(game);
-        this.graphicsIO = game.getGraphicsIO();
+        game.getResourceFetcher().getBitmapFromFile("splash.png");
+       // this.graphicsIO = game.getGraphicsIO();
         logo = null;
         try{
-            logo = graphicsIO.loadBitmap("splash.png", Bitmap.Config.ARGB_4444);
+            logo = game.getResourceFetcher().getBitmapFromFile("splash.png");// graphicsIO.loadBitmap("blank-card.png", Bitmap.Config.ARGB_4444);
+
+            //logo = graphicsIO.loadBitmap("splash.png", Bitmap.Config.ARGB_4444);
         }
-        catch (IOException e) {
+        catch (NullPointerException e) {
             e.printStackTrace();
         }
 

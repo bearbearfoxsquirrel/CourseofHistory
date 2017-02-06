@@ -2,9 +2,10 @@ package test.puigames.courseofhistory.framework.engine;
 
 import android.graphics.Canvas;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import test.puigames.courseofhistory.framework.implementation.GraphicsIO;
+import test.puigames.courseofhistory.framework.engine.resourceloading.FetchingIO;
 import test.puigames.courseofhistory.framework.input.AndroidInput;
 
 /**
@@ -12,28 +13,35 @@ import test.puigames.courseofhistory.framework.input.AndroidInput;
  */
 
 public abstract class Level extends Screen{
- //   ;
-  //  AssetManager assets;
-    private GraphicsIO graphicsIO;
-    List<Sprite> sprites;
+    protected List<Sprite> sprites;
     protected InputBuddy inputBuddy;
+    protected FetchingIO resourceFetcher;
+
 
     public Level(Game game) {
         super(game);
-        this.graphicsIO = game.getGraphicsIO();
+        this.resourceFetcher = game.getResourceFetcher();
+        this.sprites = new ArrayList<Sprite>();
+
     }
+
+   // public void load() {
+
+  //  }
+
+
 
     @Override
     public void update(float deltaTime, AndroidInput input) {
         inputBuddy = new InputBuddy(input);
+        for (Sprite sprite: sprites) {
+            sprite.update(inputBuddy, deltaTime);
+        }
     }
 
-    float lastFrame;
-    float thisFrame;
+
     @Override
-    public void draw(Canvas canvas, float deltaTime)
-    {
-        lastFrame = thisFrame;
+    public void draw(Canvas canvas, float deltaTime) {
         for (Sprite sprite: sprites) {
             sprite.draw(canvas, deltaTime);
         }
