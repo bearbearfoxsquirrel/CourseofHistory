@@ -8,6 +8,7 @@ import java.util.Arrays;
 import test.puigames.courseofhistory.framework.engine.Game;
 import test.puigames.courseofhistory.framework.engine.Level;
 import test.puigames.courseofhistory.framework.game.Board.Board;
+import test.puigames.courseofhistory.framework.game.cards.Card;
 import test.puigames.courseofhistory.framework.game.cards.CharacterCard;
 import test.puigames.courseofhistory.framework.input.AndroidInput;
 
@@ -48,6 +49,8 @@ public class TestLevel extends Level
     @Override
     public void update(float deltaTime, AndroidInput input) {
         super.update(deltaTime, input);
+        for(Card card : testCards)
+                card.update(inputBuddy, deltaTime, testCards, board);
     }
 
     @Override

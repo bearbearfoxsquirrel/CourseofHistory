@@ -15,6 +15,7 @@ public class BoundingBox {
     protected float bottom;
     private float width;
     private float height;
+    private CollisionDetector collisionDetector;
 
     public enum bound {
         LEFT, RIGHT, TOP, BOTTOM, NONE;
@@ -28,6 +29,7 @@ public class BoundingBox {
         this.right = origin.x + (width/2);
         this.top = origin.y - (height/2);
         this.bottom = origin.y + (height/2);
+        collisionDetector = new CollisionDetector();
     }
 
     //checks if this bounding box if overlapping with another bounding box (on one side or more)
@@ -42,7 +44,7 @@ public class BoundingBox {
     }
 
     //checks if this bounding box is fully encapsulated by another bounding box
-    public boolean isEncapulated(BoundingBox boundingBox) {
+    public boolean isEncapsulated(BoundingBox boundingBox) {
         return (this.left > boundingBox.left && this.right < boundingBox.right &&
                 this.top > boundingBox.top && this.bottom < boundingBox.bottom);
     }
@@ -127,5 +129,10 @@ public class BoundingBox {
 
     public void setBottom(float bottom) {
         this.bottom = bottom;
+    }
+
+    public CollisionDetector getCollisionDetector()
+    {
+        return collisionDetector;
     }
 }
