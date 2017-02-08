@@ -12,9 +12,9 @@ public class Viewport {
     BoundingBox boundingBox;
     Origin origin;
 
-    public Viewport(Game game) {
-        this.width = game.getScreenWidth();
-        this.height = game.getScreenWidth();
+    public Viewport(float width, float height) {
+        this.width = width;
+        this.height = height;
         this.origin = new Origin(width/2, height/2);
         this.boundingBox = new BoundingBox(width, height, origin);
     }

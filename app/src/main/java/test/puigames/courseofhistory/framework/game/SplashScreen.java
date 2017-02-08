@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 
 import test.puigames.courseofhistory.framework.engine.Game;
 import test.puigames.courseofhistory.framework.engine.Level;
+import test.puigames.courseofhistory.framework.engine.Screen;
 import test.puigames.courseofhistory.framework.input.AndroidInput;
 
 /**
@@ -19,16 +20,15 @@ public class SplashScreen extends Level
     int height;
     int width;
     float duration = 0;
+    Screen testLevel;
 
     public SplashScreen(Game game) {
         super(game);
         game.getResourceFetcher().getBitmapFromFile("splash.png");
-       // this.graphicsIO = game.getGraphicsIO();
+        testLevel = new TestLevel(game);
         logo = null;
         try{
             logo = game.getResourceFetcher().getBitmapFromFile("splash.png");// graphicsIO.loadBitmap("blank-card.png", Bitmap.Config.ARGB_4444);
-
-            //logo = graphicsIO.loadBitmap("splash.png", Bitmap.Config.ARGB_4444);
         }
         catch (NullPointerException e) {
             e.printStackTrace();
@@ -40,12 +40,16 @@ public class SplashScreen extends Level
         scaledLogo = Bitmap.createScaledBitmap(logo, width, height, true);
     }
 
+    public void load() {
+
+    }
+
     @Override
     public void update(float deltaTime, AndroidInput input) {
         super.update(deltaTime, input);
         duration += deltaTime;
         if(duration > 5)
-            game.setScreen(new TestLevel(game));
+            game.setScreen(testLevel);
 
     }
 

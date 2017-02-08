@@ -3,7 +3,6 @@ package test.puigames.courseofhistory.framework.engine;
 import android.graphics.Canvas;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import test.puigames.courseofhistory.framework.engine.resourceloading.FetchingIO;
 import test.puigames.courseofhistory.framework.input.AndroidInput;
@@ -13,21 +12,26 @@ import test.puigames.courseofhistory.framework.input.AndroidInput;
  */
 
 public abstract class Level extends Screen{
-    protected List<Sprite> sprites;
+    protected ArrayList<Sprite> sprites;
     protected InputBuddy inputBuddy;
     protected FetchingIO resourceFetcher;
+    Viewport viewport;
+    //Sclaer scaler; TODO
+    final static float levelHeight = 480.f;
+    final static float levelWidth = 320.f;
+
+
 
 
     public Level(Game game) {
         super(game);
-        this.resourceFetcher = game.getResourceFetcher();
+        viewport = new Viewport(levelHeight, levelWidth);
+        //scaler= new Scaler(game, viewport); TODO
         this.sprites = new ArrayList<Sprite>();
-
+        this.resourceFetcher = game.getResourceFetcher();
     }
 
-   // public void load() {
-
-  //  }
+    public abstract void load();
 
 
 
@@ -35,6 +39,7 @@ public abstract class Level extends Screen{
     public void update(float deltaTime, AndroidInput input) {
         inputBuddy = new InputBuddy(input);
         for (Sprite sprite: sprites) {
+            //scaler.scaleToScreen(sprite.matrix); TODO
             sprite.update(inputBuddy, deltaTime);
         }
     }
