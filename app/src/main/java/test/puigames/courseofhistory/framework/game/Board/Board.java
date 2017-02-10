@@ -19,7 +19,7 @@ public class Board extends Sprite implements Drawable {
 
 
     public Board(Bitmap bitmap){
-        super(bitmap, 0, 0, 1920, 1080);
+        super(bitmap, 1920/2, 1080/2, 1920, 1080);
     }
 
 

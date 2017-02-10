@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5bd4dfe9-f09e-4df9-a59a-90b671f79a95" name="Default" comment="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;app/app.iml&#10;#&#9;app/src/main/java/test/puigames/courseofhistory/framework/engine/Level.java&#10;#&#9;app/src/main/java/test/puigames/courseofhistory/framework/game/TestLevel.java&#10;#&#9;build/intermediates/dex-cache/cache.xml&#10;">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/resourceloading/ResouceFetcher.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/cache.properties.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileSnapshots.bin" />
@@ -13,7 +12,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/taskArtifacts.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin" afterPath="$PROJECT_DIR$/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/animated_vector_drawable_24_2_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/animated_vector_drawable_24_2_1.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_24_2_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_24_2_1.xml" />
@@ -28,14 +26,13 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_core_utils_24_2_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_core_utils_24_2_1.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_fragment_24_2_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_fragment_24_2_1.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_media_compat_24_2_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_media_compat_24_2_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_v4_24_2_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_v4_24_2_1.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_vector_drawable_24_2_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_vector_drawable_24_2_1.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/assets/characterCard.json" afterPath="$PROJECT_DIR$/app/src/main/assets/characterCard.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/Level.java" afterPath="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/Level.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/Viewport.java" afterPath="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/Viewport.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/resourceloading/JSONBourne.java" afterPath="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/resourceloading/JSONBourne.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/resourceloading/ResourceFetcher.java" afterPath="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/resourceloading/ResourceFetcher.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/Board/Board.java" afterPath="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/Board/Board.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/SplashScreen.java" afterPath="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/SplashScreen.java" />
@@ -70,8 +67,8 @@
       <file leaf-file-name="Level.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/Level.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+            <state relative-caret-position="222">
+              <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -79,21 +76,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Viewport.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/Viewport.java">
+      <file leaf-file-name="JSONBourne.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/resourceloading/JSONBourne.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="464">
-              <caret line="29" column="37" selection-start-line="29" selection-start-column="37" selection-end-line="29" selection-end-column="37" />
-              <folding />
+            <state relative-caret-position="270">
+              <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TestLevel.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TestLevel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/TestLevel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="624">
-              <caret line="39" column="8" selection-start-line="39" selection-start-column="8" selection-end-line="39" selection-end-column="8" />
+            <state relative-caret-position="132">
+              <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -101,21 +100,74 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ResourceFetcher.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/resourceloading/ResourceFetcher.java">
+      <file leaf-file-name="AndroidGame.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/AndroidGame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1088">
-              <caret line="79" column="50" selection-start-line="79" selection-start-column="50" selection-end-line="79" selection-end-column="50" />
+            <state relative-caret-position="148">
+              <caret line="145" column="0" selection-start-line="145" selection-start-column="0" selection-end-line="145" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SplashScreen.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/SplashScreen.java">
+      <file leaf-file-name="cardtests.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/assets/cardtests.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+            <state relative-caret-position="540">
+              <caret line="30" column="27" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ResourceFetcher.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/resourceloading/ResourceFetcher.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="168">
+              <caret line="48" column="85" selection-start-line="48" selection-start-column="85" selection-end-line="48" selection-end-column="85" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Board.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/Board/Board.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="30" column="13" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
+              <folding>
+                <element signature="e#504#505#0" expanded="true" />
+                <element signature="e#561#562#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="characterCard.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/assets/characterCard.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="boards.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/assets/boards.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="72">
+              <caret line="4" column="9" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Sprite.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/Sprite.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="576">
+              <caret line="45" column="45" selection-start-line="45" selection-start-column="45" selection-end-line="45" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -145,7 +197,7 @@
         <entry>
           <key>
             <ExternalProjectPojo>
-              <option name="name" value="csc2043-1617-106-5" />
+              <option name="name" value="csc2043-1617-106" />
               <option name="path" value="$PROJECT_DIR$" />
             </ExternalProjectPojo>
           </key>
@@ -156,7 +208,7 @@
                 <option name="path" value="$PROJECT_DIR$/app" />
               </ExternalProjectPojo>
               <ExternalProjectPojo>
-                <option name="name" value="csc2043-1617-106-5" />
+                <option name="name" value="csc2043-1617-106" />
                 <option name="path" value="$PROJECT_DIR$" />
               </ExternalProjectPojo>
             </list>
@@ -170,7 +222,7 @@
           <value>
             <list>
               <ExternalTaskPojo>
-                <option name="description" value="Displays the sub-projects of root project 'csc2043-1617-106-5'." />
+                <option name="description" value="Displays the sub-projects of root project 'csc2043-1617-106'." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="projects" />
               </ExternalTaskPojo>
@@ -204,7 +256,7 @@
                 <option name="name" value="assembleDebugUnitTest" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Displays the configuration model of root project 'csc2043-1617-106-5'. [incubating]" />
+                <option name="description" value="Displays the configuration model of root project 'csc2043-1617-106'. [incubating]" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="model" />
               </ExternalTaskPojo>
@@ -214,7 +266,7 @@
                 <option name="name" value="mockableAndroidJar" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Displays the tasks runnable from root project 'csc2043-1617-106-5' (some of the displayed tasks may belong to subprojects)." />
+                <option name="description" value="Displays the tasks runnable from root project 'csc2043-1617-106' (some of the displayed tasks may belong to subprojects)." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="tasks" />
               </ExternalTaskPojo>
@@ -237,7 +289,7 @@
                 <option name="name" value="deviceCheck" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Displays all dependencies declared in root project 'csc2043-1617-106-5'." />
+                <option name="description" value="Displays all dependencies declared in root project 'csc2043-1617-106'." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="dependencies" />
               </ExternalTaskPojo>
@@ -306,7 +358,7 @@
                 <option name="name" value="compileDebugAndroidTestJavaWithJavac" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Displays the components produced by root project 'csc2043-1617-106-5'. [incubating]" />
+                <option name="description" value="Displays the components produced by root project 'csc2043-1617-106'. [incubating]" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="components" />
               </ExternalTaskPojo>
@@ -426,7 +478,7 @@
                 <option name="name" value="uninstallDebugAndroidTest" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Displays the insight into a specific dependency in root project 'csc2043-1617-106-5'." />
+                <option name="description" value="Displays the insight into a specific dependency in root project 'csc2043-1617-106'." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="dependencyInsight" />
               </ExternalTaskPojo>
@@ -716,7 +768,7 @@
                 <option name="name" value="generateDebugAssets" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Displays all buildscript dependencies declared in root project 'csc2043-1617-106-5'." />
+                <option name="description" value="Displays all buildscript dependencies declared in root project 'csc2043-1617-106'." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="buildEnvironment" />
               </ExternalTaskPojo>
@@ -848,7 +900,7 @@
                 <option name="name" value="generateReleaseResValues" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Displays the properties of root project 'csc2043-1617-106-5'." />
+                <option name="description" value="Displays the properties of root project 'csc2043-1617-106'." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="properties" />
               </ExternalTaskPojo>
@@ -1725,71 +1777,6 @@
               <option name="name" value="app" />
               <option name="projectBuildClasspath">
                 <list>
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/ant-1.9.6.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/ant-launcher-1.9.6.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/gradle-base-services-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/gradle-base-services-groovy-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/gradle-cli-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/gradle-core-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/gradle-docs-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/gradle-installation-beacon-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/gradle-jvm-services-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/gradle-launcher-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/gradle-logging-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/gradle-messaging-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/gradle-model-core-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/gradle-model-groovy-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/gradle-native-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/gradle-open-api-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/gradle-process-services-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/gradle-resources-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/gradle-tooling-api-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/gradle-ui-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/gradle-wrapper-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/groovy-all-2.4.4.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-announce-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-antlr-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-build-comparison-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-build-init-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-code-quality-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-dependency-management-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-diagnostics-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-ear-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-ide-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-ide-native-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-ide-play-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-ivy-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-jacoco-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-javascript-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-jetty-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-language-groovy-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-language-java-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-language-jvm-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-language-native-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-language-scala-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-maven-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-osgi-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-platform-base-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-platform-jvm-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-platform-native-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-platform-play-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-plugin-development-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-plugin-use-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-plugins-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-publish-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-reporting-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-resources-http-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-resources-s3-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-resources-sftp-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-scala-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-signing-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-sonar-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-test-kit-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-testing-base-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-testing-jvm-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-testing-native-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/gradle-tooling-api-builders-2.14.1.jar" />
-                  <option value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1/lib/plugins/ivy-2.2.0.jar" />
                   <option value="$PROJECT_DIR$/buildSrc/src/main/java" />
                   <option value="$PROJECT_DIR$/buildSrc/src/main/groovy" />
                 </list>
@@ -1815,28 +1802,26 @@
         <option value="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/AndroidFastRenderView.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/cards/CharacterCard.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/resourceloading/AndroidFileIO.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/resourceloading/JSONBourne.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/resourceloading/GraphicsIO.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/cards/Card.java" />
         <option value="$PROJECT_DIR$/app/src/main/assets/cardtests.json" />
         <option value="$PROJECT_DIR$/app/src/main/assets/boards.json" />
         <option value="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/resourceloading/FetchingIO.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/AndroidGame.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/SplashScreen.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/Board/Board.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/resourceloading/ResourceFetcher.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/Sprite.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/Viewport.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/SplashScreen.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/Level.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/TestLevel.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/resourceloading/JSONBourne.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/resourceloading/ResourceFetcher.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/Board/Board.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="754" />
+    <option name="width" value="1280" />
+    <option name="height" value="800" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -1867,13 +1852,13 @@
         <subPane>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="csc2043-1617-106-5" />
+              <option name="myItemId" value="csc2043-1617-106" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="csc2043-1617-106-5" />
+              <option name="myItemId" value="csc2043-1617-106" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -1883,7 +1868,21 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="csc2043-1617-106-5" />
+              <option name="myItemId" value="csc2043-1617-106" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="csc2043-1617-106" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -1901,7 +1900,29 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="csc2043-1617-106-5" />
+              <option name="myItemId" value="csc2043-1617-106" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="framework" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="graphics" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="csc2043-1617-106" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -1923,7 +1944,33 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="csc2043-1617-106-5" />
+              <option name="myItemId" value="csc2043-1617-106" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="framework" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="game" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Board" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="csc2043-1617-106" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -1945,7 +1992,7 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="csc2043-1617-106-5" />
+              <option name="myItemId" value="csc2043-1617-106" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -1971,7 +2018,7 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="csc2043-1617-106-5" />
+              <option name="myItemId" value="csc2043-1617-106" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -1985,10 +2032,10 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="ProjectPane" />
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="PackagesPane" />
+      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2391,11 +2438,18 @@
       <option name="project" value="LOCAL" />
       <updated>1486389982367</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;app/app.iml&#10;#&#9;app/src/main/java/test/puigames/courseofhistory/framework/engine/Level.java&#10;#&#9;app/src/main/java/test/puigames/courseofhistory/framework/game/TestLevel.java&#10;#&#9;build/intermediates/dex-cache/cache.xml&#10;">
+      <created>1486736200175</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1486736200175</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
+    <frame x="0" y="0" width="1280" height="800" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -2415,12 +2469,12 @@
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25340393" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25767368" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39943343" sideWeight="0.49676898" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39943343" sideWeight="0.49676898" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -2455,42 +2509,36 @@
     <MESSAGE value="beginning to refactor, gosh so much brain hurt!&#10;" />
     <MESSAGE value="fixed error" />
     <MESSAGE value="Finished enabling resouce loading" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finished enabling resouce loading" />
+    <MESSAGE value="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;app/app.iml&#10;#&#9;app/src/main/java/test/puigames/courseofhistory/framework/engine/Level.java&#10;#&#9;app/src/main/java/test/puigames/courseofhistory/framework/game/TestLevel.java&#10;#&#9;build/intermediates/dex-cache/cache.xml&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;app/app.iml&#10;#&#9;app/src/main/java/test/puigames/courseofhistory/framework/engine/Level.java&#10;#&#9;app/src/main/java/test/puigames/courseofhistory/framework/game/TestLevel.java&#10;#&#9;build/intermediates/dex-cache/cache.xml&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/resourceloading/ResourceFetcher.java</url>
-          <line>93</line>
-          <properties class="test.puigames.courseofhistory.framework.engine.resourceloading.ResourceFetcher" method="loadCharacterCards" />
+          <line>98</line>
+          <properties class="test.puigames.courseofhistory.framework.engine.resourceloading.ResourceFetcher" />
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/Level.java</url>
-          <line>26</line>
+          <url>file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/resourceloading/ResourceFetcher.java</url>
+          <line>63</line>
           <properties />
-          <option name="timeStamp" value="4" />
+          <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/TestLevel.java</url>
-          <line>24</line>
+          <url>file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/resourceloading/ResourceFetcher.java</url>
+          <line>41</line>
           <properties />
-          <option name="timeStamp" value="5" />
+          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="6" />
+      <option name="time" value="8" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/local.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/proguard-rules.pro">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -2538,16 +2586,6 @@
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/Library/Android/sdk/sources/android-24/org/json/JSONTokener.java" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/resourceloading/JSONBourne.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/Origin.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
@@ -2585,8 +2623,6 @@
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/Library/Android/sdk/sources/android-24/android/view/Choreographer.java" />
-    <entry file="file://$USER_HOME$/Library/Android/sdk/sources/android-24/android/view/View.java" />
-    <entry file="file://$USER_HOME$/Library/Android/sdk/sources/android-24/android/view/ViewRootImpl.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/Drawable.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
@@ -2603,7 +2639,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Library/Android/sdk/sources/android-24/android/app/Activity.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/Screen.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="107">
@@ -2625,7 +2660,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/assets/characterCard.json" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/AndroidFastRenderView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="111">
@@ -2639,16 +2673,6 @@
           <caret line="102" column="0" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
           <folding>
             <element signature="e#3758#3759#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/CourseOfHistory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding>
-            <element signature="e#399#400#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2671,14 +2695,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/resourceloading/ResouceFetcher.java" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/AndroidGame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="111">
-          <caret line="145" column="0" selection-start-line="145" selection-start-column="0" selection-end-line="145" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/cards/CharacterCard.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
@@ -2691,38 +2707,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
           <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/assets/boards.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="64">
-          <caret line="4" column="20" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/assets/cardtests.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="30" column="27" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/Sprite.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="640">
-          <caret line="45" column="45" selection-start-line="45" selection-start-column="45" selection-end-line="45" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/Board/Board.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="25" column="40" selection-start-line="25" selection-start-column="40" selection-end-line="25" selection-end-column="40" />
           <folding />
         </state>
       </provider>
@@ -2747,7 +2731,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2769,47 +2752,284 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/SplashScreen.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/resourceloading/ResourceFetcher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1088">
-          <caret line="79" column="50" selection-start-line="79" selection-start-column="50" selection-end-line="79" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/Viewport.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="464">
+        <state relative-caret-position="522">
           <caret line="29" column="37" selection-start-line="29" selection-start-column="37" selection-end-line="29" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/CollisionDetector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/CourseOfHistory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding>
+            <element signature="e#399#400#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Library/Android/sdk/sources/android-24/android/app/Activity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="6662" column="0" selection-start-line="6662" selection-start-column="0" selection-end-line="6662" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#302364#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#38633#38648#0" expanded="false" />
+            <element signature="e#39985#39986#0" expanded="false" />
+            <element signature="e#40015#40016#0" expanded="false" />
+            <element signature="e#40402#40403#0" expanded="false" />
+            <element signature="e#40437#40438#0" expanded="false" />
+            <element signature="e#40545#40546#0" expanded="false" />
+            <element signature="e#40580#40581#0" expanded="false" />
+            <element signature="e#40683#40684#0" expanded="false" />
+            <element signature="e#40721#40722#0" expanded="false" />
+            <element signature="e#40835#40836#0" expanded="false" />
+            <element signature="e#40865#40866#0" expanded="false" />
+            <element signature="e#40979#40980#0" expanded="false" />
+            <element signature="e#41016#41017#0" expanded="false" />
+            <element signature="e#41364#41365#0" expanded="false" />
+            <element signature="e#41394#41395#0" expanded="false" />
+            <element signature="e#41531#41532#0" expanded="false" />
+            <element signature="e#41583#41584#0" expanded="false" />
+            <element signature="e#41925#41926#0" expanded="false" />
+            <element signature="e#41998#41999#0" expanded="false" />
+            <element signature="e#50833#50834#0" expanded="false" />
+            <element signature="e#50885#50886#0" expanded="false" />
+            <element signature="e#54282#54283#0" expanded="false" />
+            <element signature="e#54312#54313#0" expanded="false" />
+            <element signature="e#57448#57449#0" expanded="false" />
+            <element signature="e#57495#57496#0" expanded="false" />
+            <element signature="e#58353#58354#0" expanded="false" />
+            <element signature="e#58392#58393#0" expanded="false" />
+            <element signature="e#72191#72192#0" expanded="false" />
+            <element signature="e#72219#72220#0" expanded="false" />
+            <element signature="e#72999#73000#0" expanded="false" />
+            <element signature="e#73026#73027#0" expanded="false" />
+            <element signature="e#86852#86853#0" expanded="false" />
+            <element signature="e#86893#86894#0" expanded="false" />
+            <element signature="e#91208#91209#0" expanded="false" />
+            <element signature="e#91235#91236#0" expanded="false" />
+            <element signature="e#92933#92934#0" expanded="false" />
+            <element signature="e#92960#92961#0" expanded="false" />
+            <element signature="e#94798#94799#0" expanded="false" />
+            <element signature="e#94852#94853#0" expanded="false" />
+            <element signature="e#101897#101898#0" expanded="false" />
+            <element signature="e#101948#101949#0" expanded="false" />
+            <element signature="e#108798#108799#0" expanded="false" />
+            <element signature="e#108850#108851#0" expanded="false" />
+            <element signature="e#109020#109021#0" expanded="false" />
+            <element signature="e#109074#109075#0" expanded="false" />
+            <element signature="e#116895#116896#0" expanded="false" />
+            <element signature="e#116923#116924#0" expanded="false" />
+            <element signature="e#118298#118299#0" expanded="false" />
+            <element signature="e#118326#118327#0" expanded="false" />
+            <element signature="e#121022#121023#0" expanded="false" />
+            <element signature="e#121050#121051#0" expanded="false" />
+            <element signature="e#122280#122281#0" expanded="false" />
+            <element signature="e#122308#122309#0" expanded="false" />
+            <element signature="e#133156#133157#0" expanded="false" />
+            <element signature="e#133183#133184#0" expanded="false" />
+            <element signature="e#145127#145128#0" expanded="false" />
+            <element signature="e#145164#145165#0" expanded="false" />
+            <element signature="e#149401#149402#0" expanded="false" />
+            <element signature="e#149458#149459#0" expanded="false" />
+            <element signature="e#149794#149795#0" expanded="false" />
+            <element signature="e#149851#149852#0" expanded="false" />
+            <element signature="e#150153#150154#0" expanded="false" />
+            <element signature="e#150191#150192#0" expanded="false" />
+            <element signature="e#152064#152065#0" expanded="false" />
+            <element signature="e#152091#152092#0" expanded="false" />
+            <element signature="e#153793#153794#0" expanded="false" />
+            <element signature="e#153834#153835#0" expanded="false" />
+            <element signature="e#154028#154029#0" expanded="false" />
+            <element signature="e#154073#154074#0" expanded="false" />
+            <element signature="e#155783#155784#0" expanded="false" />
+            <element signature="e#155819#155820#0" expanded="false" />
+            <element signature="e#162882#162883#0" expanded="false" />
+            <element signature="e#162917#162918#0" expanded="false" />
+            <element signature="e#166240#166241#0" expanded="false" />
+            <element signature="e#166286#166287#0" expanded="false" />
+            <element signature="e#168041#168042#0" expanded="false" />
+            <element signature="e#168095#168096#0" expanded="false" />
+            <element signature="e#190964#190965#0" expanded="false" />
+            <element signature="e#191012#191013#0" expanded="false" />
+            <element signature="e#192820#192821#0" expanded="false" />
+            <element signature="e#192866#192867#0" expanded="false" />
+            <element signature="e#208265#208266#0" expanded="false" />
+            <element signature="e#208292#208293#0" expanded="false" />
+            <element signature="e#215354#215355#0" expanded="false" />
+            <element signature="e#215381#215382#0" expanded="false" />
+            <element signature="e#219072#219073#0" expanded="false" />
+            <element signature="e#219104#219105#0" expanded="false" />
+            <element signature="e#219283#219284#0" expanded="false" />
+            <element signature="e#219316#219317#0" expanded="false" />
+            <element signature="e#219880#219881#0" expanded="false" />
+            <element signature="e#219926#219927#0" expanded="false" />
+            <element signature="e#221875#221876#0" expanded="false" />
+            <element signature="e#221929#221930#0" expanded="false" />
+            <element signature="e#223649#223650#0" expanded="false" />
+            <element signature="e#223673#223674#0" expanded="false" />
+            <element signature="e#225861#225862#0" expanded="false" />
+            <element signature="e#225915#225916#0" expanded="false" />
+            <element signature="e#235849#235850#0" expanded="false" />
+            <element signature="e#235882#235883#0" expanded="false" />
+            <element signature="e#238011#238012#0" expanded="false" />
+            <element signature="e#238053#238054#0" expanded="false" />
+            <element signature="e#238645#238646#0" expanded="false" />
+            <element signature="e#238674#238675#0" expanded="false" />
+            <element signature="e#238714#238715#0" expanded="false" />
+            <element signature="e#238748#238749#0" expanded="false" />
+            <element signature="e#245574#245575#0" expanded="false" />
+            <element signature="e#245633#245634#0" expanded="false" />
+            <element signature="e#247042#247043#0" expanded="false" />
+            <element signature="e#247097#247098#0" expanded="false" />
+            <element signature="e#248240#248241#0" expanded="false" />
+            <element signature="e#248267#248268#0" expanded="false" />
+            <element signature="e#260327#260328#0" expanded="false" />
+            <element signature="e#260357#260358#0" expanded="false" />
+            <element signature="e#277993#277994#0" expanded="false" />
+            <element signature="e#278059#278060#0" expanded="false" />
+            <element signature="e#279309#279310#0" expanded="false" />
+            <element signature="e#279341#279342#0" expanded="false" />
+            <element signature="e#290766#290767#0" expanded="false" />
+            <element signature="e#290797#290798#0" expanded="false" />
+            <element signature="e#299019#299020#0" expanded="false" />
+            <element signature="e#299076#299077#0" expanded="false" />
+            <element signature="e#299350#299351#0" expanded="false" />
+            <element signature="e#299395#299396#0" expanded="false" />
+            <element signature="e#300048#300049#0" expanded="false" />
+            <element signature="e#300092#300093#0" expanded="false" />
+            <element signature="e#300159#300160#0" expanded="false" />
+            <element signature="e#300220#300221#0" expanded="false" />
+            <element signature="e#301662#301663#0" expanded="false" />
+            <element signature="e#301712#301713#0" expanded="false" />
+            <element signature="e#302124#302125#0" expanded="false" />
+            <element signature="e#302185#302186#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/SplashScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Library/Android/sdk/sources/android-24/android/view/View.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="16055" column="0" selection-start-line="16055" selection-start-column="0" selection-end-line="16055" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Library/Android/sdk/sources/android-24/android/view/ViewRootImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="2606" column="0" selection-start-line="2606" selection-start-column="0" selection-end-line="2606" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/AndroidGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="145" column="0" selection-start-line="145" selection-start-column="0" selection-end-line="145" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/characterCard.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/cardtests.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="30" column="27" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/TestLevel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/resourceloading/JSONBourne.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/boards.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="9" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/Level.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+        <state relative-caret-position="222">
+          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/TestLevel.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/Sprite.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="624">
-          <caret line="39" column="8" selection-start-line="39" selection-start-column="8" selection-end-line="39" selection-end-column="8" />
+        <state relative-caret-position="576">
+          <caret line="45" column="45" selection-start-line="45" selection-start-column="45" selection-end-line="45" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/Board/Board.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="30" column="13" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#504#505#0" expanded="true" />
+            <element signature="e#561#562#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/resourceloading/ResourceFetcher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="48" column="85" selection-start-line="48" selection-start-column="85" selection-end-line="48" selection-end-column="85" />
+          <folding />
         </state>
       </provider>
     </entry>
