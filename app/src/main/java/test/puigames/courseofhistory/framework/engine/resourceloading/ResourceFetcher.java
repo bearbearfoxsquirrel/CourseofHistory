@@ -55,7 +55,7 @@ public class ResourceFetcher implements FetchingIO {
 */
 
     @Override
-    public Board loadBoard(String boardName){
+    public Board loadBoard(String boardName) throws NullPointerException{
         String boardUrl = "boards.json";
         String jsonString = null;
 
@@ -64,8 +64,8 @@ public class ResourceFetcher implements FetchingIO {
         } catch (IOException e) {
             Log.d("Loading Resource: ", "Error loading resource from" +  boardUrl);
         }
-        JSONArray jsonArray = null;
 
+        JSONArray jsonArray = null;
         try {
             jsonArray = new JSONObject(jsonString).getJSONArray("boards");
         } catch (JSONException e) {
@@ -76,11 +76,14 @@ public class ResourceFetcher implements FetchingIO {
         int index = 0;
         try {
             while (index < jsonArray.length()) {
-                JSONObject jsonCard = jsonArray.getJSONObject(index);
+                JSONObject jsonBoard = jsonArray.getJSONObject(index);
+                if (jsonBoard.getString("boardName").equals(boardName)) {
+                    board = new Board(getBitmapFromFile(jsonBoard.getString("url")));
+                }
                 index++;
             }
         } catch (JSONException e) {
-            Log.d("Loading Resource: ",  "Cannot find board of name: " + index);
+            Log.d("Loading Resource: ", "Cannot find board of name: " + index);
         }
         return board;
     }
@@ -125,7 +128,6 @@ public class ResourceFetcher implements FetchingIO {
             Log.d("Loading Resource: ",  "Cannot find card of ID: " + index);
         }
         return characterCards;
-
     }
 
     @Override

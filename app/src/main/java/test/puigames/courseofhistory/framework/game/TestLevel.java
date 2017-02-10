@@ -23,12 +23,7 @@ public class TestLevel extends Level
 
     public TestLevel(Game game) {
         super(game);
-        //this.graphicsIO = game.getGraphicsIO();
-        game.calculateScreenSize();
         load();
-
-
-
     }
 
     public void load() {
@@ -43,6 +38,15 @@ public class TestLevel extends Level
            //Failed loading the game - won't cause crash is resources set up wrong!
            game.setScreen(new SplashScreen(this.game));
        }
+        try {
+            this.sprites.add(resourceFetcher.loadBoard("testBoard"));
+            this.sprites.addAll(Arrays.asList(resourceFetcher.loadCharacterCards()));
+        } catch(NullPointerException e) {
+            Log.d("Loading Error:", "Error fetching resources, returning to menu");
+            //Failed loading the game - won't cause crash is resources set up wrong!
+            game.setScreen(new SplashScreen(this.game));
+        }
+
     }
 
     @Override

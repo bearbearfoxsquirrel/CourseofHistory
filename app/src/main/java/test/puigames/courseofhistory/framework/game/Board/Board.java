@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
 import test.puigames.courseofhistory.framework.engine.Drawable;
-import test.puigames.courseofhistory.framework.engine.Game;
 import test.puigames.courseofhistory.framework.engine.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.Sprite;
 import test.puigames.courseofhistory.framework.engine.resourceloading.GraphicsIO;
@@ -22,10 +21,9 @@ public class Board extends Sprite implements Drawable {
     private int width;
     private int height;
 
-    Bitmap scaledBoard;
 
-    public Board(Bitmap bitmap, Game game){
-        super(bitmap, 0, 0, game.getScreenHeight(), game.getScreenWidth());
+    public Board(Bitmap bitmap){
+        super(bitmap, 0, 0, 1920, 1080);
         //set board image and size
         //this.boardImage = bitmap;
         /*width = 600;
