@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 import test.puigames.courseofhistory.framework.engine.Game;
 import test.puigames.courseofhistory.framework.engine.Level;
-import test.puigames.courseofhistory.framework.game.Board.Board;
+import test.puigames.courseofhistory.framework.game.board.Board;
 import test.puigames.courseofhistory.framework.game.cards.Card;
 import test.puigames.courseofhistory.framework.game.cards.CharacterCard;
 import test.puigames.courseofhistory.framework.input.AndroidInput;

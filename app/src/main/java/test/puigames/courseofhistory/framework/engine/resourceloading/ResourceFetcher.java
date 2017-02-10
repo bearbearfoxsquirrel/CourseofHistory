@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import test.puigames.courseofhistory.framework.game.Board.Board;
+import test.puigames.courseofhistory.framework.game.board.Board;
 import test.puigames.courseofhistory.framework.game.cards.CharacterCard;
 
 /**
