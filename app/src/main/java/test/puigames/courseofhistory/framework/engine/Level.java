@@ -35,7 +35,8 @@ public abstract class Level extends Screen{
     public void update(float deltaTime, AndroidInput input) {
         inputBuddy = new InputBuddy(input);
         for (Sprite sprite: sprites) {
-            sprite.update(inputBuddy, deltaTime);
+            if(sprite != null)
+                sprite.update(inputBuddy, deltaTime);
         }
     }
 

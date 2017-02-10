@@ -2,157 +2,139 @@
 <items version="2" >
 
     <item
-        is-multidex="true"
-        jar="/Users/Michael/Documents/Computer Science/Year Two/CSC2044 - Software Development/Group Project/Game Project/csc2043-1617-106/csc2043-1617-106/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
-        <dex dex="/Users/Michael/Documents/Computer Science/Year Two/CSC2044 - Software Development/Group Project/Game Project/csc2043-1617-106/csc2043-1617-106/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-utils-24.2.1_856436049d28d5839c89975ece33834dd6e33c78/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/Michael/Documents/Computer Science/Year Two/CSC2044 - Software Development/Group Project/Game Project/csc2043-1617-106/csc2043-1617-106/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
-        <dex dex="/Users/Michael/Documents/Computer Science/Year Two/CSC2044 - Software Development/Group Project/Game Project/csc2043-1617-106/csc2043-1617-106/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-media-compat-24.2.1_8f8e9c5212226e37b7e4947b7e4bdd30ad68c32c/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/Michael/Documents/Computer Science/Year Two/CSC2044 - Software Development/Group Project/Game Project/csc2043-1617-106/csc2043-1617-106/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/24.2.1/jars/libs/internal_impl-24.2.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="935a969265b2a166b2d20415423f5f6e90fe16e0">
-        <dex dex="/Users/Michael/Documents/Computer Science/Year Two/CSC2044 - Software Development/Group Project/Game Project/csc2043-1617-106/csc2043-1617-106/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_778660fb33d7b96a9ee5d7f1c047c2cea4decee5/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/Michael/Documents/Computer Science/Year Two/CSC2044 - Software Development/Group Project/Game Project/csc2043-1617-106/csc2043-1617-106/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/libs/internal_impl-24.2.1.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Users\Jordan\Desktop\csc2043-1617-106-5\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
         optimize="true"
         revision="24.0.3"
         sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
-        <dex dex="/Users/Michael/Documents/Computer Science/Year Two/CSC2044 - Software Development/Group Project/Game Project/csc2043-1617-106/csc2043-1617-106/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_b74f14d5ad9615e730f03034e6d68b94f3d300b6/classes.dex" />
+        <dex dex="C:\Users\Jordan\Desktop\csc2043-1617-106-5\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_1434f07fd082e2fec1cfbe06a8dc13cadd668f67.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="/Users/Michael/Documents/Computer Science/Year Two/CSC2044 - Software Development/Group Project/Game Project/csc2043-1617-106/csc2043-1617-106/app/build/intermediates/exploded-aar/com.android.support/support-fragment/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="b9a1ac78ad7ef3abedc4a4b30cd92bcacb939d1f">
-        <dex dex="/Users/Michael/Documents/Computer Science/Year Two/CSC2044 - Software Development/Group Project/Game Project/csc2043-1617-106/csc2043-1617-106/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-fragment-24.2.1_cc2f1dbd0804cc449bc90e57995e52d9c6a1245e/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/Michael/Documents/Computer Science/Year Two/CSC2044 - Software Development/Group Project/Game Project/csc2043-1617-106/csc2043-1617-106/app/build/intermediates/exploded-aar/com.android.support/support-compat/24.2.1/jars/libs/internal_impl-24.2.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="7e4389bd133359a2ff88623ff1e4ff93d6e6f780">
-        <dex dex="/Users/Michael/Documents/Computer Science/Year Two/CSC2044 - Software Development/Group Project/Game Project/csc2043-1617-106/csc2043-1617-106/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_baac47ff5eb3d4b480c639d1e3e12cc9b6274d1d/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/Michael/Documents/Computer Science/Year Two/CSC2044 - Software Development/Group Project/Game Project/csc2043-1617-106/csc2043-1617-106/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="94bc1dfb84dcc8b6f6f8f7cc726d7b2dd39c1574">
-        <dex dex="/Users/Michael/Documents/Computer Science/Year Two/CSC2044 - Software Development/Group Project/Game Project/csc2043-1617-106/csc2043-1617-106/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-24.2.1_bfa43c9bf5fb8153d31beadc286d62a8b4e54a6c/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/Michael/Documents/Computer Science/Year Two/CSC2044 - Software Development/Group Project/Game Project/csc2043-1617-106/csc2043-1617-106/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="e7f3132168957eefc46229fc32c3bd464642b71e">
-        <dex dex="/Users/Michael/Documents/Computer Science/Year Two/CSC2044 - Software Development/Group Project/Game Project/csc2043-1617-106/csc2043-1617-106/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-ui-24.2.1_5e4d233cc317a4f8c24a79b3819246e3d707f905/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/Michael/Documents/Computer Science/Year Two/CSC2044 - Software Development/Group Project/Game Project/csc2043-1617-106/csc2043-1617-106/app/build/intermediates/exploded-aar/com.android.support/support-v4/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
-        <dex dex="/Users/Michael/Documents/Computer Science/Year Two/CSC2044 - Software Development/Group Project/Game Project/csc2043-1617-106/csc2043-1617-106/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-24.2.1_88c8df612e0149b6ae8453fa5f495a8b3f31372f/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/Michael/Documents/Computer Science/Year Two/CSC2044 - Software Development/Group Project/Game Project/csc2043-1617-106/csc2043-1617-106/app/build/intermediates/exploded-aar/com.android.support/support-fragment/24.2.1/jars/libs/internal_impl-24.2.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="5f64d657e838e8375135c0f6057a7ff8fab6a50e">
-        <dex dex="/Users/Michael/Documents/Computer Science/Year Two/CSC2044 - Software Development/Group Project/Game Project/csc2043-1617-106/csc2043-1617-106/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_9156b2d955dc6cf983f9b714773771df5be700af/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/Michael/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/24.2.1/support-annotations-24.2.1.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Users\Jordan\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\24.2.1\support-annotations-24.2.1.jar"
+        jumboMode="false"
         optimize="true"
         revision="24.0.3"
         sha1="8de3aafecbdf98a61db6427f008f2d515bcd2544">
-        <dex dex="/Users/Michael/Documents/Computer Science/Year Two/CSC2044 - Software Development/Group Project/Game Project/csc2043-1617-106/csc2043-1617-106/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-24.2.1_489028ebb2f1199204b816969541a51cc0a6fb7f/classes.dex" />
+        <dex dex="C:\Users\Jordan\Desktop\csc2043-1617-106-5\app\build\intermediates\pre-dexed\debug\support-annotations-24.2.1_7df8b3fb93582f13fe0bb7fbe77d7275388a62b4.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="/Users/Michael/Documents/Computer Science/Year Two/CSC2044 - Software Development/Group Project/Game Project/csc2043-1617-106/csc2043-1617-106/app/build/intermediates/exploded-aar/com.android.support/support-compat/24.2.1/jars/classes.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Users\Jordan\Desktop\csc2043-1617-106-5\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.2.1\jars\classes.jar"
+        jumboMode="false"
         optimize="true"
         revision="24.0.3"
-        sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
-        <dex dex="/Users/Michael/Documents/Computer Science/Year Two/CSC2044 - Software Development/Group Project/Game Project/csc2043-1617-106/csc2043-1617-106/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-compat-24.2.1_e13e4301398534c0c5926dbffab67998aad9ce93/classes.dex" />
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\Users\Jordan\Desktop\csc2043-1617-106-5\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-24.2.1_93f6bfbc722c61c4ee35573ef6a3616133b31937.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="/Users/Michael/Documents/Computer Science/Year Two/CSC2044 - Software Development/Group Project/Game Project/csc2043-1617-106/csc2043-1617-106/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Users\Jordan\Desktop\csc2043-1617-106-5\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
         optimize="true"
         revision="24.0.3"
-        sha1="1ad520742f6464dba08ccc6da5f8d036692d710b">
-        <dex dex="/Users/Michael/Documents/Computer Science/Year Two/CSC2044 - Software Development/Group Project/Game Project/csc2043-1617-106/csc2043-1617-106/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_09bd7ecc707c6a20cb0fcf4a354517a86b97c877/classes.dex" />
+        sha1="935a969265b2a166b2d20415423f5f6e90fe16e0">
+        <dex dex="C:\Users\Jordan\Desktop\csc2043-1617-106-5\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_6fac4ef3b8748eb09dc0540f54aa45041d4bad53.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="/Users/Michael/Documents/Computer Science/Year Two/CSC2044 - Software Development/Group Project/Game Project/csc2043-1617-106/csc2043-1617-106/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/24.2.1/jars/libs/internal_impl-24.2.1.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Users\Jordan\Desktop\csc2043-1617-106-5\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
+        <dex dex="C:\Users\Jordan\Desktop\csc2043-1617-106-5\app\build\intermediates\pre-dexed\debug\com.android.support-support-media-compat-24.2.1_6a8a2923f3353726cab02f76438bfe9f8e24c7a0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Jordan\Desktop\csc2043-1617-106-5\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="7e4389bd133359a2ff88623ff1e4ff93d6e6f780">
+        <dex dex="C:\Users\Jordan\Desktop\csc2043-1617-106-5\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_fee172018ed4c5722a0d7b3289bae15ca400e5fc.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Jordan\Desktop\csc2043-1617-106-5\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
         optimize="true"
         revision="24.0.3"
         sha1="867dad63c33388ff8c7644b236579355036d075f">
-        <dex dex="/Users/Michael/Documents/Computer Science/Year Two/CSC2044 - Software Development/Group Project/Game Project/csc2043-1617-106/csc2043-1617-106/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_29558ebc8ac6b2b4ab5bd390ea90f8249f2dcc36/classes.dex" />
+        <dex dex="C:\Users\Jordan\Desktop\csc2043-1617-106-5\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_19628100877305202020aa8a77b9b37304d02804.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="/Users/Michael/Documents/Computer Science/Year Two/CSC2044 - Software Development/Group Project/Game Project/csc2043-1617-106/csc2043-1617-106/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Users\Jordan\Desktop\csc2043-1617-106-5\app\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.1\jars\classes.jar"
+        jumboMode="false"
         optimize="true"
         revision="24.0.3"
-        sha1="2d644f2c7edfa931dfab746878def1bca2078b9f">
-        <dex dex="/Users/Michael/Documents/Computer Science/Year Two/CSC2044 - Software Development/Group Project/Game Project/csc2043-1617-106/csc2043-1617-106/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_aea19dd1100020862e15187e2feda1f6326a567d/classes.dex" />
+        sha1="b9a1ac78ad7ef3abedc4a4b30cd92bcacb939d1f">
+        <dex dex="C:\Users\Jordan\Desktop\csc2043-1617-106-5\app\build\intermediates\pre-dexed\debug\com.android.support-support-fragment-24.2.1_4da1909127a49f2e91514e2b5bd6939d8bbe9842.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="/Users/Michael/Documents/Computer Science/Year Two/CSC2044 - Software Development/Group Project/Game Project/csc2043-1617-106/csc2043-1617-106/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
-        <dex dex="/Users/Michael/Documents/Computer Science/Year Two/CSC2044 - Software Development/Group Project/Game Project/csc2043-1617-106/csc2043-1617-106/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-24.2.1_feb633211340202f50f289f922f4dac0579238dd/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/Michael/Documents/Computer Science/Year Two/CSC2044 - Software Development/Group Project/Game Project/csc2043-1617-106/csc2043-1617-106/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/24.2.1/jars/classes.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Users\Jordan\Desktop\csc2043-1617-106-5\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.2.1\jars\classes.jar"
+        jumboMode="false"
         optimize="true"
         revision="24.0.3"
         sha1="d5c731fc64c03dfe04d51134955b483551c35849">
-        <dex dex="/Users/Michael/Documents/Computer Science/Year Two/CSC2044 - Software Development/Group Project/Game Project/csc2043-1617-106/csc2043-1617-106/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-24.2.1_6c9f2a8719c68108be53896feb84a19eb51bd95f/classes.dex" />
+        <dex dex="C:\Users\Jordan\Desktop\csc2043-1617-106-5\app\build\intermediates\pre-dexed\debug\com.android.support-support-vector-drawable-24.2.1_afdbbdbc066eaf2f9c0ccd5f5a940d34de1afb88.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Jordan\Desktop\csc2043-1617-106-5\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
+        <dex dex="C:\Users\Jordan\Desktop\csc2043-1617-106-5\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-24.2.1_854c491d23e11974e640e182e0741cd30665b43a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Jordan\Desktop\csc2043-1617-106-5\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
+        <dex dex="C:\Users\Jordan\Desktop\csc2043-1617-106-5\app\build\intermediates\pre-dexed\debug\com.android.support-support-compat-24.2.1_f9584004cccbf6292f693167e65eb94617d2c810.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Jordan\Desktop\csc2043-1617-106-5\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
+        <dex dex="C:\Users\Jordan\Desktop\csc2043-1617-106-5\app\build\intermediates\pre-dexed\debug\com.android.support-support-core-utils-24.2.1_907017d400a511c700f12bcbe2fd55282814f09e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Jordan\Desktop\csc2043-1617-106-5\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="94bc1dfb84dcc8b6f6f8f7cc726d7b2dd39c1574">
+        <dex dex="C:\Users\Jordan\Desktop\csc2043-1617-106-5\app\build\intermediates\pre-dexed\debug\com.android.support-animated-vector-drawable-24.2.1_17a3e6322ef9dbf6fadd4dd9e30cd5b4f4f62222.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Jordan\Desktop\csc2043-1617-106-5\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="e7f3132168957eefc46229fc32c3bd464642b71e">
+        <dex dex="C:\Users\Jordan\Desktop\csc2043-1617-106-5\app\build\intermediates\pre-dexed\debug\com.android.support-support-core-ui-24.2.1_0d61a581636c3866ab0a381d940382858f8180e6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Jordan\Desktop\csc2043-1617-106-5\app\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="5f64d657e838e8375135c0f6057a7ff8fab6a50e">
+        <dex dex="C:\Users\Jordan\Desktop\csc2043-1617-106-5\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_8db085a185b37358d7f2b1470cf2d9c52c2a58ad.jar" />
     </item>
 
 </items>

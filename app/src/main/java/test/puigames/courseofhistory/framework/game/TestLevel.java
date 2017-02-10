@@ -32,25 +32,24 @@ public class TestLevel extends Level
     }
 
     public void load() {
-        try {
-            //Bitmap boardImage = game.getResourceFetcher().getBitmapFromFile("board.png");
-            board = resourceFetcher.loadBoard("testBoard");
-            sprites.add(board);
-            this.testCards = resourceFetcher.loadCharacterCards();
-            sprites.addAll(Arrays.asList(testCards));
-        } catch(NullPointerException e) {
-            Log.d("Loading Error:", "Error fetching resources, returning to menu");
-            //Failed loading the game - won't cause crash is resources set up wrong!
-            game.setScreen(new SplashScreen(this.game));
-        }
-
+       try {
+           //Bitmap boardImage = game.getResourceFetcher().getBitmapFromFile("board.png");
+           board = resourceFetcher.loadBoard("testBoard");
+           this.testCards = resourceFetcher.loadCharacterCards();
+           sprites.add(board);
+           sprites.addAll(Arrays.asList(testCards));
+       } catch(NullPointerException e) {
+           Log.d("Loading Error:", "Error fetching resources, returning to menu");
+           //Failed loading the game - won't cause crash is resources set up wrong!
+           game.setScreen(new SplashScreen(this.game));
+       }
     }
 
     @Override
     public void update(float deltaTime, AndroidInput input) {
         super.update(deltaTime, input);
-        for(Card card : testCards)
-                card.update(inputBuddy, deltaTime, testCards, board);
+        for (Card card : testCards)
+            card.update(inputBuddy, deltaTime, testCards, board);
     }
 
     @Override
