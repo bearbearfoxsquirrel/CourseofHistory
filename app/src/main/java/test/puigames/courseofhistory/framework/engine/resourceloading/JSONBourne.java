@@ -1,13 +1,10 @@
 package test.puigames.courseofhistory.framework.engine.resourceloading;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 /**
  * Created by Michael on 23/11/2016.
@@ -34,18 +31,14 @@ public class JSONBourne {
         return new JSONObject(jsonString);
     }
 
-
-
-    public String getJsonString(InputStream jsonStream) throws IOException {
-        //From a input stream a string in json format will be returned
-        BufferedReader reader = new BufferedReader(new InputStreamReader(jsonStream));
-        StringBuilder stringBuilder = new StringBuilder();
-        String line = null;
-        while ((line = reader.readLine()) != null) {
-            stringBuilder.append(line + "\n");
+    public JSONArray fromJSONStringToJsonArray(String jsonString, String arrayName) {
+        JSONArray jsonArray = null;
+        try {
+            jsonArray = new JSONObject(jsonString).getJSONArray("boards");
+        } catch (JSONException e) {
+            Log.d("Loading Resource: ", "Error converting from String to JSONArray in " + arrayName);
         }
-        jsonStream.close();
-        return stringBuilder.toString();
+        return jsonArray;
     }
 }
 
