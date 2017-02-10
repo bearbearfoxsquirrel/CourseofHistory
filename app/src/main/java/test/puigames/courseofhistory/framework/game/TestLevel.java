@@ -7,6 +7,9 @@ import java.util.Arrays;
 
 import test.puigames.courseofhistory.framework.engine.Game;
 import test.puigames.courseofhistory.framework.engine.Level;
+import test.puigames.courseofhistory.framework.game.Board.Board;
+import test.puigames.courseofhistory.framework.game.cards.Card;
+import test.puigames.courseofhistory.framework.game.cards.CharacterCard;
 import test.puigames.courseofhistory.framework.input.AndroidInput;
 
 /**
@@ -15,8 +18,8 @@ import test.puigames.courseofhistory.framework.input.AndroidInput;
 
 public class TestLevel extends Level
 {
-    //private Board board;
-    //private CharacterCard[] testCards;
+    private Board board;
+    private CharacterCard[] testCards;
 
     public TestLevel(Game game) {
         super(game);
@@ -24,6 +27,17 @@ public class TestLevel extends Level
     }
 
     public void load() {
+       try {
+           //Bitmap boardImage = game.getResourceFetcher().getBitmapFromFile("board.png");
+           board = resourceFetcher.loadBoard("testBoard");
+           this.testCards = resourceFetcher.loadCharacterCards();
+           sprites.add(board);
+           sprites.addAll(Arrays.asList(testCards));
+       } catch(NullPointerException e) {
+           Log.d("Loading Error:", "Error fetching resources, returning to menu");
+           //Failed loading the game - won't cause crash is resources set up wrong!
+           game.setScreen(new SplashScreen(this.game));
+       }
         try {
             this.sprites.add(resourceFetcher.loadBoard("testBoard"));
             this.sprites.addAll(Arrays.asList(resourceFetcher.loadCharacterCards()));
@@ -38,6 +52,8 @@ public class TestLevel extends Level
     @Override
     public void update(float deltaTime, AndroidInput input) {
         super.update(deltaTime, input);
+        for (Card card : testCards)
+            card.update(inputBuddy, deltaTime, testCards, board);
     }
 
     @Override
