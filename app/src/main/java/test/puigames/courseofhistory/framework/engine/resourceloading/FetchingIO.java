@@ -2,7 +2,7 @@ package test.puigames.courseofhistory.framework.engine.resourceloading;
 
 import android.graphics.Bitmap;
 
-import test.puigames.courseofhistory.framework.game.Board.Board;
+import test.puigames.courseofhistory.framework.game.board.Board;
 import test.puigames.courseofhistory.framework.game.cards.CharacterCard;
 
 /**

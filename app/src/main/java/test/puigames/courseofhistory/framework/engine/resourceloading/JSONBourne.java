@@ -34,7 +34,7 @@ public class JSONBourne {
     public JSONArray fromJSONStringToJsonArray(String jsonString, String arrayName) {
         JSONArray jsonArray = null;
         try {
-            jsonArray = new JSONObject(jsonString).getJSONArray("boards");
+            jsonArray = new JSONObject(jsonString).getJSONArray(arrayName);
         } catch (JSONException e) {
             Log.d("Loading Resource: ", "Error converting from String to JSONArray in " + arrayName);
         }

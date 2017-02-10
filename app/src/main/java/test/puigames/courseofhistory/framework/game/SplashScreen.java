@@ -25,7 +25,6 @@ public class SplashScreen extends Level
     public SplashScreen(Game game) {
         super(game);
         game.getResourceFetcher().getBitmapFromFile("splash.png");
-        testLevel = new TestLevel(game);
         logo = null;
         try{
             logo = game.getResourceFetcher().getBitmapFromFile("splash.png");// graphicsIO.loadBitmap("blank-card.png", Bitmap.Config.ARGB_4444);
@@ -49,7 +48,7 @@ public class SplashScreen extends Level
         super.update(deltaTime, input);
         duration += deltaTime;
         if(duration > 5)
-            game.setScreen(testLevel);
+            game.setScreen(new TestLevel(game));
 
     }
 
