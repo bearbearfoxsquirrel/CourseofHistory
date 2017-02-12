@@ -13,22 +13,25 @@ import org.json.JSONObject;
 public class JSONBourne {
     //Class used to parse, serialise and deserialise JSON
     public JSONBourne() {
-
     }
 
-    //add reverse of these methods
 
-    //create serialise an object to json
-    //take an array and make it json
-
-    public JSONArray toJsonArray(String jsonString) throws JSONException {
-        //converts string to json array
-        return new JSONArray(jsonString);
-    }
-
-    public JSONObject toJsonObject(String jsonString) throws JSONException {
-        //converts string to json object
-        return new JSONObject(jsonString);
+    public JSONObject searchJSONArray(JSONArray array, String searchField,String searchValue) throws JSONException {
+        //Takes an array and is given a field to search and a value to find the match of
+        int first = 0;
+        int last = array.length();
+        JSONObject jsonObject;
+        do {
+            int middle = (first + last) / 2;
+            jsonObject = array.getJSONObject(middle);
+            if (jsonObject.getString(searchField).equalsIgnoreCase(searchValue))
+                return jsonObject;
+            else if (jsonObject.getString(searchField).compareToIgnoreCase(searchValue) < 0)
+                last = middle--;
+            else
+                first = middle++;
+        } while (first <= last);
+        return jsonObject;
     }
 
     public JSONArray fromJSONStringToJsonArray(String jsonString, String arrayName) {

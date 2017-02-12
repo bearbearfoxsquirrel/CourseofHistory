@@ -1,4 +1,4 @@
-package test.puigames.courseofhistory.framework.game.Board;
+package test.puigames.courseofhistory.framework.game.board;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;

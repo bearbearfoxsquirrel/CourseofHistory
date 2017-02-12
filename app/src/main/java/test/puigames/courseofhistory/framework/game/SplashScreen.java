@@ -24,23 +24,14 @@ public class SplashScreen extends Level
 
     public SplashScreen(Game game) {
         super(game);
-        game.getResourceFetcher().getBitmapFromFile("splash.png");
-        logo = null;
-        try{
-            logo = game.getResourceFetcher().getBitmapFromFile("splash.png");// graphicsIO.loadBitmap("blank-card.png", Bitmap.Config.ARGB_4444);
-        }
-        catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-
-        game.calculateScreenSize();
+        load();
         height = game.getScreenHeight();
         width = game.getScreenWidth();
         scaledLogo = Bitmap.createScaledBitmap(logo, width, height, true);
     }
 
     public void load() {
-
+        logo = resourceFetcher.getBitmapFromFile("splash.png");
     }
 
     @Override

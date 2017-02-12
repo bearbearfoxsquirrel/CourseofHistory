@@ -39,20 +39,18 @@ public class ResourceFetcher implements FetchingIO {
 
     @Override
     public Board loadBoard(String boardName) throws NullPointerException {
+        //Takes a boards name as an input and returns the corresponding board object.
+        //If a board is not found a null pointer is returned
         JSONArray boardJsonArray = jsonBourne.fromJSONStringToJsonArray(getStringFromFile(BOARDS_URL), BOARDS_ARRAY_NAME);
 
+        //Assume that JSON file is sorted!!!!
         Board board = null;
         try {
-            for (int index = 0; index < boardJsonArray.length(); index++) {
-                JSONObject jsonBoard = boardJsonArray.getJSONObject(index);
-                if (jsonBoard.getString("boardName").equals(boardName)) {
-                    board = new Board(getBitmapFromFile(jsonBoard.getString("url")));
-                    //if (board == null) throw new NullPointerException();
-                    // If a null board is created a null pointer exception is thrown
-                }
-            }
+            JSONObject jsonBoard = jsonBourne.searchJSONArray(boardJsonArray, "boardName", boardName);
+            board = new Board(getBitmapFromFile(jsonBoard.getString("url")));
         } catch (JSONException e) {
             Log.d("Loading Resource: ", "Cannot find board of name: " + boardName);
+            throw new NullPointerException();
         }
         return board;
     }
@@ -78,11 +76,10 @@ public class ResourceFetcher implements FetchingIO {
                         jsonCard.getInt("health"),
                         jsonCard.getString("abilityDescription"));
                 index++;
-                //if (characterCards[index] == null) throw new NullPointerException();
-                // If a null card is created a null pointer exception is thrown
             }
         } catch (JSONException e) {
             Log.d("Loading Resource: ", "Cannot find card of ID: " + index);
+            throw new NullPointerException();
         }
         return characterCards;
     }
@@ -90,6 +87,7 @@ public class ResourceFetcher implements FetchingIO {
 
     @Override
     public Bitmap getBitmapFromFile(String url) throws NullPointerException {
+        //allows loading from a bitmap from a given url using Android's AssetManager
         try {
             return graphicsIO.loadBitmap(url, Bitmap.Config.ARGB_4444);
         } catch (IOException e) {
@@ -99,6 +97,7 @@ public class ResourceFetcher implements FetchingIO {
     }
 
     public String getStringFromFile(String url) {
+        //gets a string from a specified file url, handles errors within itself
         String outputString = null;
         try {
             outputString = getStringFromInputStream(getStreamFromFile(url));
@@ -109,6 +108,7 @@ public class ResourceFetcher implements FetchingIO {
     }
 
     public InputStream getStreamFromFile(String url) throws IOException {
+        //Used to load an input stream from a given file url
         return androidFileIO.readAsset(url);
     }
 
