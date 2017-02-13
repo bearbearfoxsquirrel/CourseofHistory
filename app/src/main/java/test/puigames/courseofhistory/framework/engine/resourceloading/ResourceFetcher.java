@@ -47,7 +47,7 @@ public class ResourceFetcher implements Fetcher {
         Board board = null;
         try {
             JSONObject jsonBoard = jsonBourne.searchJSONArray(boardJsonArray, "boardName", boardName);
-            board = new Board(getBitmapFromFile(jsonBoard.getString("url")));
+            board = new Board(getBitmapFromFile(jsonBoard.getString("url"))); //where board is created
         } catch (JSONException e) {
             Log.d("Loading Resource: ", "Cannot find board of name: " + boardName);
             throw new NullPointerException();

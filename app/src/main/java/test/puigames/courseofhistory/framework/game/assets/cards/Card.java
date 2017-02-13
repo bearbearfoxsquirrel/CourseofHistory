@@ -19,7 +19,6 @@ public class Card extends Sprite {
     public Card(Bitmap cardImage, float spawnX, float spawnY) {
         super(cardImage, (spawnX), (spawnY), 225, 341);
         //moves card to position on board initially
-        matrix.setTranslate(origin.x - width/2, origin.y - width/2);
     }
 
     //TODO: make card collision checks on not dragged
