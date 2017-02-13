@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 
 import test.puigames.courseofhistory.framework.engine.Game;
 import test.puigames.courseofhistory.framework.engine.Level;
-import test.puigames.courseofhistory.framework.engine.Screen;
 import test.puigames.courseofhistory.framework.input.AndroidInput;
 
 /**
@@ -20,7 +19,6 @@ public class SplashScreen extends Level
     int height;
     int width;
     float duration = 0;
-    Screen testLevel;
 
     public SplashScreen(Game game) {
         super(game);
