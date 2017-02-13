@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:hardwareAccelerated="true">
-        <activity android:name=".framework.gameProperties.CourseOfHistory"
+        <activity android:name=".framework.game.CourseOfHistory"
                   android:label="CourseOfHistory"
                   android:screenOrientation="landscape"
                   android:configChanges="keyboard|keyboardHidden|orientation"
