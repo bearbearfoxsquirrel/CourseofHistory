@@ -1,15 +1,14 @@
 package test.puigames.courseofhistory.framework.game;
 
-import android.util.DisplayMetrics;
-
-import test.puigames.courseofhistory.framework.engine.AndroidGame;
-import test.puigames.courseofhistory.framework.engine.Screen;
+import test.puigames.courseofhistory.framework.engine.gameloop.MainGame;
+import test.puigames.courseofhistory.framework.engine.screen.Screen;
+import test.puigames.courseofhistory.framework.game.screens.SplashScreen;
 
 /**
  * Created by Jordan on 10/11/2016.
  */
 
-public class CourseOfHistory extends AndroidGame
+public class CourseOfHistory extends MainGame
 {
 
     public Screen getStartScreen() {

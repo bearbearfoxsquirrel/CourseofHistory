@@ -13,14 +13,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import test.puigames.courseofhistory.framework.game.board.Board;
-import test.puigames.courseofhistory.framework.game.cards.CharacterCard;
+import test.puigames.courseofhistory.framework.game.assets.boards.Board;
+import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 
 /**
  * Created by Michael on 01/02/2017.
  */
 
-public class ResourceFetcher implements FetchingIO {
+public class ResourceFetcher implements Fetcher {
     AndroidFileIO androidFileIO;
     GraphicsIO graphicsIO;
     JSONBourne jsonBourne;
