@@ -10,8 +10,7 @@ import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Bou
 public class CollisionDetector implements Collision
 {
     //determine if the two specified bounding boxes are in collision
-    public boolean isCollision(BoundingBox boundingBox1,
-                               BoundingBox boundingBox2)
+    public boolean isCollision(BoundingBox boundingBox1, BoundingBox boundingBox2)
     {
         return (boundingBox1.left < boundingBox2.right)
                 && (boundingBox1.right > boundingBox2.left)

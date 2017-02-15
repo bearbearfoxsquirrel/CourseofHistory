@@ -3,6 +3,7 @@ package test.puigames.courseofhistory.framework.game.assets.cards;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
+import test.puigames.courseofhistory.framework.engine.gameobjects.properties.BoundingBox;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
@@ -26,8 +27,28 @@ public class Card extends Sprite {
     //TODO:: investigate time and frame timing
     public void update(InputBuddy inputBuddy, float deltaTime, Card[] cards, Board board) {
         if(!this.boundingBox.isEncapsulated(board.boundingBox))
-            resolveOffBoard(board);
+            keepInsideBoundingBox(board.boundingBox);
         checkForAndResolveCollision(cards);
+        onTouch(inputBuddy);
+        super.update(inputBuddy, deltaTime);
+    }
+
+    //draw
+    @Override
+    public void draw(Canvas canvas, float lastFrameTime) {
+        super.draw(canvas, lastFrameTime);
+    }
+
+    /**
+     * Used to handle (hopefully) any sort of touch events that a card might need to handle
+     * - currently only does DRAGGED type events.
+     *
+     * @TOUCH_DRAGGED - sets card origin(x, y) to where the touch event occurred, plus some
+     *                  smoothing to avoid it jumping to your finger, as much.
+     * @param inputBuddy - our little friend, passed down from level. Used to get touch events
+     */
+    private void onTouch(InputBuddy inputBuddy)
+    {
         if(inputBuddy.getTouchEvents() != null) //null check for switching screens
         {
             for (TouchEvent touchEvent : inputBuddy.getTouchEvents())
@@ -42,15 +63,8 @@ public class Card extends Sprite {
                             break;
                     }
                 }
-                super.update(inputBuddy, deltaTime);
             }
         }
-    }
-
-    //draw
-    @Override
-    public void draw(Canvas canvas, float lastFrameTime) {
-        super.draw(canvas, lastFrameTime);
     }
 
     private void checkForAndResolveCollision(Card[] cards)
@@ -65,20 +79,25 @@ public class Card extends Sprite {
     }
 
     /**
-     * Only called if detected card is not encapsulated by board
-     * @param board - gameProperties board of level
-     *              bounds are x: 0 -> screen width
-     *                         y: 0 -> screen height
+     * Only needed to be called if the bounding box you are testing against
+     * this one is not encapsulated
+     * @see test.puigames.courseofhistory.framework.engine.gameobjects
+     * .properties.BoundingBox.isEncapsulated();
+     *
+     * @this - the game object's bounding box we are testing against boundingBox
+     *         its origin (x, y) will be altered accordingly to keep it within the
+     *         bounding box of the passed variable.
+     * @param boundingBox - bounding box you want to be the outer bounds
      */
-    private void resolveOffBoard(Board board)
+    private void keepInsideBoundingBox(BoundingBox boundingBox)
     {
-        if(this.boundingBox.getLeft() < board.boundingBox.getLeft())
-            this.origin.x = (board.boundingBox.getLeft() + width/2);
-        else if(this.boundingBox.getRight() > board.boundingBox.getRight())
-            this.origin.x = (board.boundingBox.getRight() - width/2);
-        else if(this.boundingBox.getTop() < board.boundingBox.getTop())
-            this.origin.y = (board.boundingBox.getTop() + height/2);
-        else if(this.boundingBox.getBottom() > board.boundingBox.getBottom())
-            this.origin.y = (board.boundingBox.getBottom() - height/2);
+        if(this.boundingBox.left < boundingBox.left)
+            this.origin.x = (boundingBox.left + width/2);
+        else if(this.boundingBox.right > boundingBox.right)
+            this.origin.x = (boundingBox.right - width/2);
+        else if(this.boundingBox.top < boundingBox.top)
+            this.origin.y = (boundingBox.top + height/2);
+        else if(this.boundingBox.bottom > boundingBox.bottom)
+            this.origin.y = (boundingBox.bottom - height/2);
     }
 }

@@ -14,8 +14,8 @@ public class BoundingBox {
     public float right;
     public float top;
     public float bottom;
-    private float width;
-    private float height;
+    private float width, halfWidth;
+    private float height, halfHeight;
     private CollisionDetector collisionDetector;
 
     public enum bound {
@@ -24,12 +24,12 @@ public class BoundingBox {
 
     //sets up the bounding box based upon the width, height and the origin location of the bounding box
     public BoundingBox(float width, float height, Origin origin) {
-        this.width = width;
-        this.height = height;
-        this.left = origin.x - (width/2) ;
-        this.right = origin.x + (width/2);
-        this.top = origin.y - (height/2);
-        this.bottom = origin.y + (height/2);
+        this.width = width;     this.halfWidth = (width/2);
+        this.height = height;   this.halfHeight = (height/2);
+        this.left = origin.x - this.halfWidth ;
+        this.right = origin.x + this.halfWidth;
+        this.top = origin.y - this.halfHeight;
+        this.bottom = origin.y + this.halfHeight;
         collisionDetector = new CollisionDetector();
     }
 
@@ -66,10 +66,10 @@ public class BoundingBox {
 
     //udates where the bounding box refers to on screen
     public void setBoundingBox(Origin origin) {
-        this.left = origin.x - (this.width/2) ;
-        this.right = origin.x + (this.width/2);
-        this.top = origin.y - (this.height/2);
-        this.bottom = origin.y + (this.height/2);
+        this.left = origin.x - this.halfWidth ;
+        this.right = origin.x + this.halfWidth;
+        this.top = origin.y - this.halfHeight;
+        this.bottom = origin.y + this.halfHeight;
     }
 
     //returns the bound that has been broken,

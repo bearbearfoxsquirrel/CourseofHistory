@@ -22,7 +22,6 @@ public class TestLevel extends Level
 {
     private Board board;
     private CharacterCard[] testCards;
-
     public TestLevel(GameProperties gameProperties) {
         super(gameProperties);
         load();
