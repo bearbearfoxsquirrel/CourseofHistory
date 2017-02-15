@@ -16,11 +16,15 @@ import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Ori
 public abstract class Sprite extends GameObject implements Drawable {
     protected Bitmap image;
     protected Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    protected float velocity;
+    protected float acceleration;
 
     public Sprite(Bitmap bitmap, float spawnX, float spawnY, int width, int height) {
         super(spawnX, spawnY,  width,  height);
         this.boundingBox = new BoundingBox(width, height, origin);
         this.image = bitmap;
+        this.velocity = 0;
+        this.acceleration = 0;
     }
 
     @Override
