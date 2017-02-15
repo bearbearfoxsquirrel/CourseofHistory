@@ -36,8 +36,6 @@ public class MainGame extends Activity implements GameProperties, Runnable
     volatile boolean running = false;
     volatile boolean drawNeeded = false;
 
-
-
     long startTime = System.nanoTime();
 
     int screenWidth;
@@ -48,14 +46,10 @@ public class MainGame extends Activity implements GameProperties, Runnable
     {
         super.onCreate(savedInstanceState);
 
-//        requestWindowFeature(Window.FEATURE_NO_TITLE);
-////        requestWindowFeature(Window.)
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
-//                WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
+                WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
 
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -68,27 +62,16 @@ public class MainGame extends Activity implements GameProperties, Runnable
         boolean isLandscape = getResources().getConfiguration().orientation ==
                 Configuration.ORIENTATION_LANDSCAPE;
 
-
-
         renderView = new FastRenderView(this);
-
 
         audio = new AndroidAudio(this);
         resourceFetcher = new ResourceFetcher(this);
         screen = getStartScreen();
         setContentView(renderView);
 
-
         //Power management - prevent screen from dimming
         PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "CourseOfHistory");
-
-        /*Display display= ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-        screenWidth = display.getWidth();
-        screenHeight = display.getHeight();*/
-
-
-
     }
 
     //GameProperties Loop
@@ -106,7 +89,6 @@ public class MainGame extends Activity implements GameProperties, Runnable
                 }
             }
         }
-
     }
 
     @Override
