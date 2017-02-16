@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.util.DisplayMetrics;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -35,8 +36,6 @@ public class MainGame extends Activity implements GameProperties, Runnable
     volatile boolean running = false;
     volatile boolean drawNeeded = false;
 
-
-
     long startTime = System.nanoTime();
 
     int screenWidth;
@@ -47,34 +46,32 @@ public class MainGame extends Activity implements GameProperties, Runnable
     {
         super.onCreate(savedInstanceState);
 
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager
-                .LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
+                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
+                WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
+
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
         boolean isLandscape = getResources().getConfiguration().orientation ==
                 Configuration.ORIENTATION_LANDSCAPE;
 
-
-
         renderView = new FastRenderView(this);
-
 
         audio = new AndroidAudio(this);
         resourceFetcher = new ResourceFetcher(this);
         screen = getStartScreen();
         setContentView(renderView);
 
-
         //Power management - prevent screen from dimming
         PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, "GLGame");
-
-        /*Display display= ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-        screenWidth = display.getWidth();
-        screenHeight = display.getHeight();*/
-
-
-
+        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "CourseOfHistory");
     }
 
     //GameProperties Loop
@@ -92,7 +89,6 @@ public class MainGame extends Activity implements GameProperties, Runnable
                 }
             }
         }
-
     }
 
     @Override

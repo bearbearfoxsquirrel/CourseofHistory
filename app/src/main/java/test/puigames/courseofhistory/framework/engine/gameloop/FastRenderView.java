@@ -12,7 +12,6 @@ import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.An
 public class FastRenderView extends View {
 
     MainGame game;
-    Thread renderThread = null;
     volatile boolean running = false;
 
     float deltaTime;

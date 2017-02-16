@@ -6,6 +6,7 @@ import android.util.Log;
 import java.util.Arrays;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
+import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.screen.Level;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.Card;
@@ -21,7 +22,6 @@ public class TestLevel extends Level
 {
     private Board board;
     private CharacterCard[] testCards;
-
     public TestLevel(GameProperties gameProperties) {
         super(gameProperties);
         load();
@@ -62,6 +62,10 @@ public class TestLevel extends Level
     @Override
     public void resume()
     {
+
+    }
+
+    public void spawn(Sprite sprite) {
 
     }
 
