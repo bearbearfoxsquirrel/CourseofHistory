@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
+import test.puigames.courseofhistory.framework.engine.screen.scaling.Scaler;
 import test.puigames.courseofhistory.framework.engine.screen.scaling.Viewport;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.resourceloading.Fetcher;
@@ -20,7 +21,7 @@ public abstract class Level extends Screen {
     protected InputBuddy inputBuddy;
     protected Fetcher resourceFetcher;
     Viewport viewport;
-    //Sclaer scaler; TODO
+    Scaler scaler;// TODO
     final static float LEVEL_HEIGHT = 480.f;
     final static float LEVEL_WIDTH = 320.f;
 
@@ -30,7 +31,7 @@ public abstract class Level extends Screen {
     public Level(GameProperties gameProperties) {
         super(gameProperties);
         viewport = new Viewport(LEVEL_WIDTH, LEVEL_HEIGHT);
-        //scaler= new Scaler(gameProperties, viewport); TODO
+        scaler= new Scaler(gameProperties, viewport); //TODO
         this.sprites = new ArrayList<Sprite>();
         this.resourceFetcher = gameProperties.getResourceFetcher();
     }
@@ -44,7 +45,7 @@ public abstract class Level extends Screen {
         inputBuddy = new InputBuddy(input);
         for (Sprite sprite: sprites) {
             sprite.update(inputBuddy, deltaTime);
-            //scaler.scaleToScreen(sprite.matrix); TODO
+           scaler.scaleToScreen(sprite.matrix); //TODO
         }
     }
 

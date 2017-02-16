@@ -15,7 +15,7 @@ public abstract class GameObject {
     public float height;
     public BoundingBox boundingBox;
     public Origin origin;
-    protected Matrix matrix;
+    public Matrix matrix;
 
 
 
