@@ -23,11 +23,8 @@ public class Scaler {
         screenWidth = gameproperties.getScreenWidth();
         screenHeight = gameproperties.getScreenHeight();
     }
-    public Viewport scaleViewport(Viewport viewport, float scaleFactor){
-
-        viewport.width = viewport.width * scaleFactor;
-        viewport.height = viewport.height * scaleFactor;
-        return viewport;
+    public void scaleViewport(Viewport viewport){
+        viewport = new Viewport(viewport.width * this.scaleFactor, viewport.height * this.scaleFactor);
     }
 
     public void scaleToScreen(Matrix matrix){

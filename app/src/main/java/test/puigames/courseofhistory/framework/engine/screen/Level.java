@@ -32,6 +32,7 @@ public abstract class Level extends Screen {
         super(gameProperties);
         viewport = new Viewport(LEVEL_WIDTH, LEVEL_HEIGHT);
         scaler= new Scaler(gameProperties, viewport); //TODO
+        scaler.scaleViewport(viewport);
         this.sprites = new ArrayList<Sprite>();
         this.resourceFetcher = gameProperties.getResourceFetcher();
     }
