@@ -32,14 +32,11 @@ public class Scaler {
     }
 
     public void setScaleFactor(Viewport viewport) {
-        float screenAspect = screenWidth / screenHeight;
-        float viewportAspect =  viewport.height/ viewport.width;
-
         float scaleFactor;
-        if (screenAspect > viewportAspect)
-            scaleFactor = screenWidth / viewport.height;
+        if (screenWidth > viewport.width)
+            scaleFactor = screenWidth/viewport.width;
         else
-            scaleFactor = screenWidth / viewport.width;
+            scaleFactor = viewport.width / screenWidth;
         this.scaleFactor = scaleFactor;
     }
 
