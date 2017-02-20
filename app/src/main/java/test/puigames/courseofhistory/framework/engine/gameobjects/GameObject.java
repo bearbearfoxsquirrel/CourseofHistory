@@ -26,6 +26,7 @@ public abstract class GameObject {
         this.boundingBox = new BoundingBox(width, height, origin);
         this.matrix = new Matrix();
         matrix.setTranslate(origin.x - width/2, origin.y - width/2);
+        matrix.setScale(width, height);
     }
 
     //updating objects that take user input

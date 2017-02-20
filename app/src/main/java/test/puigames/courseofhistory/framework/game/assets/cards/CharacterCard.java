@@ -8,13 +8,13 @@ import android.graphics.Bitmap;
 
 public class CharacterCard extends Card {
     //variables
-    protected String name;
-    protected String description;
-    protected int mana;
+    public String name;
+    public String description;
+    public int mana;
     //protected Bitmap image;
-    protected int attack;
-    protected int health;
-    protected String abilityDescription;
+    public int attack;
+    public int health;
+    public String abilityDescription;
 
     public CharacterCard(Bitmap cardImage, float spawnX, float spawnY, String name, String description, int mana, int attack, int health, String abilityDescription)
     {
@@ -25,6 +25,12 @@ public class CharacterCard extends Card {
         this.health = health;
         this.abilityDescription = abilityDescription;
 
+    }
+
+    //This method just allows a cards to attack another card, does not handle death state
+    public void attackCard(CharacterCard recipientOfThyFatalBlow) {
+        recipientOfThyFatalBlow.health -= this.attack;
+        this.health -= recipientOfThyFatalBlow.attack;
     }
 
 
