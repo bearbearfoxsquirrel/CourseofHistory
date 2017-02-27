@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Matrix;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
+import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 
 /**
  * Created by mjtod on 13/02/2017.
@@ -12,41 +13,42 @@ import test.puigames.courseofhistory.framework.engine.GameProperties;
 public class Scaler {
     private float screenWidth;
     private float screenHeight;
+    private float viewportHeight;
+    private float viewportWidth;
     private float scaleFactorX;
     private float scaleFactorY;
 
-    public Scaler(GameProperties gameproperties, Viewport viewport){
-        initialiseScreen(gameproperties, viewport);
-        setScaleFactor(viewport);
+    public Scaler(GameProperties gameproperties){
+        initialiseScreen(gameproperties);
     }
-    private void initialiseScreen(GameProperties gameproperties, Viewport viewport){
+    private void initialiseScreen(GameProperties gameproperties){
         gameproperties.calculateScreenSize();
         screenWidth = gameproperties.getScreenWidth();
         screenHeight = gameproperties.getScreenHeight();
     }
-    public void scaleViewport(Viewport viewport){
-        viewport = new Viewport(viewport.width * this.scaleFactorX, viewport.height * this.scaleFactorY);
+    public void scaleViewport(float width, float height){
+        width = width * this.scaleFactorX;
+        height = height * this.scaleFactorY;
     }
 
-    public void scaleToScreen(Matrix matrix){
-        matrix.setScale(this.scaleFactorX, this.scaleFactorY);
-    }
 
-    public void setScaleFactor(Viewport viewport) {
+
+
+    public void setScaleFactor(float viewportWidth, float viewportHeight) {
         float scaleFactorX;
         float scaleFactorY;
         //For calculating scalefactor x
-        if (screenWidth > viewport.height)
-            scaleFactorX = screenWidth/viewport.height;
+        if (screenWidth > viewportWidth)
+            scaleFactorX = screenWidth/viewportWidth;
         else
-            scaleFactorX = viewport.height / screenWidth;
+            scaleFactorX = viewportWidth / screenWidth;
         this.scaleFactorX = scaleFactorX;
 
         //For calculating scalefactor y
-        if(screenHeight > viewport.width)
-            scaleFactorY = screenHeight/ viewport.width;
+        if(screenHeight > viewportHeight)
+            scaleFactorY = screenHeight/ viewportHeight;
         else
-            scaleFactorY = viewport.width/ screenHeight;
+            scaleFactorY = viewportHeight/ screenHeight;
         this.scaleFactorY = scaleFactorY;
 
     }

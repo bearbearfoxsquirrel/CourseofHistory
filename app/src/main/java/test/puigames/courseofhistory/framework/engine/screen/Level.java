@@ -30,9 +30,9 @@ public abstract class Level extends Screen {
 
     public Level(GameProperties gameProperties) {
         super(gameProperties);
-        viewport = new Viewport(LEVEL_WIDTH, LEVEL_HEIGHT);
-        scaler= new Scaler(gameProperties, viewport); //TODO
-        scaler.scaleViewport(viewport);
+        scaler = new Scaler(gameProperties);
+        viewport = new Viewport(LEVEL_WIDTH, LEVEL_HEIGHT, scaler);
+
         this.sprites = new ArrayList<Sprite>();
         this.resourceFetcher = gameProperties.getResourceFetcher();
     }
@@ -46,7 +46,6 @@ public abstract class Level extends Screen {
         inputBuddy = new InputBuddy(input);
         for (Sprite sprite: sprites) {
             sprite.update(inputBuddy, deltaTime);
-           scaler.scaleToScreen(sprite.matrix); //TODO
         }
     }
 

@@ -14,7 +14,7 @@ import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 
 public class Board extends Sprite implements Drawable {
     public Board(Bitmap bitmap){
-        super(bitmap, 480/2, 320/2, 480, 320);
+        super(bitmap, 480/2, 320/2, bitmap.getWidth(), bitmap.getHeight());
     }
 
 
