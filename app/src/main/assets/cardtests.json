@@ -28,7 +28,7 @@
       "attack" : 5,
       "health" : 9,
       "abilityDescription" : "I am a goose",
-      "portraitSrc" : "board.png"
+      "portraitSrc" : "blank-card.png"
     }
   ]
 }

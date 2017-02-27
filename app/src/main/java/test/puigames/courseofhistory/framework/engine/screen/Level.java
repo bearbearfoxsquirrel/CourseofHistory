@@ -20,8 +20,8 @@ public abstract class Level extends Screen {
     protected ArrayList<Sprite> sprites;
     protected InputBuddy inputBuddy;
     protected Fetcher resourceFetcher;
-    Viewport viewport;
-    Scaler scaler;// TODO
+    protected Viewport viewport;
+    protected Scaler scaler;// TODO
     final static float LEVEL_HEIGHT = 480.f;
     final static float LEVEL_WIDTH = 320.f;
 
@@ -44,6 +44,9 @@ public abstract class Level extends Screen {
     @Override
     public void update(float deltaTime, AndroidInput input) {
         inputBuddy = new InputBuddy(input);
+        if (inputBuddy.getTouchEvents() != null)
+            scaler.scaleTouchInput(inputBuddy);
+
         for (Sprite sprite: sprites) {
             sprite.update(inputBuddy, deltaTime);
         }

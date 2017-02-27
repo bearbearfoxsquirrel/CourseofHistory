@@ -44,8 +44,12 @@ public class TestLevel extends Level
     public void update(float deltaTime, AndroidInput input) {
         super.update(deltaTime, input);
         board.update(inputBuddy, deltaTime);
-        for (Card card : testCards)
+
+        scaler.scaleToScreen(board);
+        for (Card card : testCards) {
             card.update(inputBuddy, deltaTime, testCards, board);
+            scaler.scaleToScreen(card);
+        }
 
     }
 

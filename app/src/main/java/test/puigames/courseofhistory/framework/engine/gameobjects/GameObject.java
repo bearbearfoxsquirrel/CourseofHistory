@@ -25,15 +25,16 @@ public abstract class GameObject {
         this.origin = new Origin(spawnX, spawnY);
         this.boundingBox = new BoundingBox(width, height, origin);
         this.matrix = new Matrix();
-        matrix.setTranslate(origin.x - width/2, origin.y - width/2);
-        matrix.setScale(width, height);
+        matrix.postTranslate(origin.x - width/2, origin.y - width/2);
     }
 
     //updating objects that take user input
     public void update(InputBuddy inputBuddy, float deltaTime) {
+        matrix.reset();
         //This updates the card to draw from where the origin is
         //Matrix translates bitmaps etc. to where the origin has moved to
-        matrix.setTranslate(origin.x - width/2, origin.y - width/2);
+        //matrix.postScale(width, height);
+        matrix.postTranslate(origin.x - width/2, origin.y - width/2);
         this.boundingBox.setBoundingBox(this.origin);
     }
 

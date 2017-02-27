@@ -8,13 +8,14 @@ import android.graphics.Paint;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.BoundingBox;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Drawable;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Origin;
+import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 
 /**
  * Created by Michael on 21/11/2016.
  */
 
 public abstract class Sprite extends GameObject implements Drawable {
-    protected Bitmap image;
+    public Bitmap image;
     protected Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     protected float velocity;
     protected float acceleration;
@@ -25,6 +26,11 @@ public abstract class Sprite extends GameObject implements Drawable {
         this.image = bitmap;
         this.velocity = 0;
         this.acceleration = 0;
+    }
+
+    @Override
+    public void update(InputBuddy inputBuddy, float deltaTime) {
+        super.update(inputBuddy, deltaTime);
     }
 
     @Override
