@@ -12,7 +12,8 @@ import test.puigames.courseofhistory.framework.engine.GameProperties;
 public class Scaler {
     private float screenWidth;
     private float screenHeight;
-    private float scaleFactor;
+    private float scaleFactorX;
+    private float scaleFactorY;
 
     public Scaler(GameProperties gameproperties, Viewport viewport){
         initialiseScreen(gameproperties, viewport);
@@ -24,28 +25,36 @@ public class Scaler {
         screenHeight = gameproperties.getScreenHeight();
     }
     public void scaleViewport(Viewport viewport){
-        viewport = new Viewport(viewport.width * this.scaleFactor, viewport.height * this.scaleFactor);
+        viewport = new Viewport(viewport.width * this.scaleFactorX, viewport.height * this.scaleFactorY);
     }
 
     public void scaleToScreen(Matrix matrix){
-        matrix.setScale(this.scaleFactor, this.scaleFactor);
+        matrix.setScale(this.scaleFactorX, this.scaleFactorY);
     }
 
     public void setScaleFactor(Viewport viewport) {
-        float screenAspect = screenWidth / screenHeight;
-        float viewportAspect =  viewport.height/ viewport.width;
-
-        float scaleFactor;
-        if (screenAspect > viewportAspect)
-            scaleFactor = screenWidth / viewport.height;
+        float scaleFactorX;
+        float scaleFactorY;
+        //For calculating scalefactor x
+        if (screenWidth > viewport.height)
+            scaleFactorX = screenWidth/viewport.height;
         else
-            scaleFactor = screenWidth / viewport.width;
-        this.scaleFactor = scaleFactor;
+            scaleFactorX = viewport.height / screenWidth;
+        this.scaleFactorX = scaleFactorX;
+
+        //For calculating scalefactor y
+        if(screenHeight > viewport.width)
+            scaleFactorY = screenHeight/ viewport.width;
+        else
+            scaleFactorY = viewport.width/ screenHeight;
+        this.scaleFactorY = scaleFactorY;
+
     }
 
-    public float getScaleFactor(){
-        return scaleFactor;
+    public float getScaleFactorX(){
+        return scaleFactorX;
     }
+    public float getScaleFactorY(){ return scaleFactorY;}
 
 
 }
