@@ -46,6 +46,7 @@ public class TestLevel extends Level
         board.update(inputBuddy, deltaTime);
         for (Card card : testCards)
             card.update(inputBuddy, deltaTime, testCards, board);
+
     }
 
     @Override
