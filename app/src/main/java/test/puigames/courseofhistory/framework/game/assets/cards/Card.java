@@ -18,7 +18,7 @@ public class Card extends Sprite {
 
     //constructor
     public Card(Bitmap cardImage, float spawnX, float spawnY) {
-        super(cardImage, (spawnX), (spawnY), 5, 10);
+        super(cardImage, (spawnX), (spawnY), 100, 150);
         //moves card to position on board initially
     }
 

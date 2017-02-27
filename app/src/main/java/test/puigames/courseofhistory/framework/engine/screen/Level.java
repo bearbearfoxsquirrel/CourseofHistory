@@ -49,6 +49,7 @@ public abstract class Level extends Screen {
 
         for (Sprite sprite: sprites) {
             sprite.update(inputBuddy, deltaTime);
+            //scaler.scaleToScreen(sprite);
         }
     }
 

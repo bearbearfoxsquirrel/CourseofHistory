@@ -1,11 +1,9 @@
 package test.puigames.courseofhistory.framework.engine.screen.scaling;
 
-import android.graphics.Bitmap;
 import android.graphics.Rect;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.BoundingBox;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Origin;
-import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 
 /**
  * Created by Michael on 24/11/2016.
@@ -23,8 +21,8 @@ public class Viewport {
     public Viewport(float width, float height, Scaler scaler) {
         this.initialHeight = height;
         this.initialWidth = width;
-        scaler.setScaleFactor(width, height);
-        scaler.scaleViewport(width, height);
+       scaler.setScaleFactor(width, height);
+       // scaler.scaleViewport(width, height);
         this.scaledWidth = width;
         this.scaledHeight = height;
 
