@@ -22,8 +22,8 @@ public abstract class Level extends Screen {
     protected Fetcher resourceFetcher;
     protected Viewport viewport;
     protected Scaler scaler;// TODO
-    final static float LEVEL_HEIGHT = 480.f;
-    final static float LEVEL_WIDTH = 320.f;
+    final static float LEVEL_HEIGHT = 320.f;
+    final static float LEVEL_WIDTH = 480.f;
 
 
 

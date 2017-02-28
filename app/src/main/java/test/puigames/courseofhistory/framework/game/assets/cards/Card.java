@@ -58,7 +58,6 @@ public class Card extends Sprite {
                     switch (touchEvent.type)
                     {
                         case TouchEvent.TOUCH_DRAGGED:
-                        case TouchEvent.TOUCH_DOWN:
                             this.origin.x -= ((origin.x - touchEvent.x) / 2);
                             this.origin.y -= ((origin.y - touchEvent.y) / 2);
                             break;

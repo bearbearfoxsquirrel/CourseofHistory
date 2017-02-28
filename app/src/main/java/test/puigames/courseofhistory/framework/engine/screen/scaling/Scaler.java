@@ -29,10 +29,11 @@ public class Scaler {
 
     public void scaleToScreen(Sprite sprite){
         sprite.matrix.reset();
-        sprite.matrix.postScale(sprite.image.getWidth() / sprite.width + scaleFactorX, sprite.image.getHeight() / sprite.height + scaleFactorY);
+        sprite.matrix.postScale((sprite.width / sprite.image.getWidth()) * scaleFactorX,  (sprite.height / sprite.image.getHeight()) * scaleFactorY);
         sprite.matrix.postRotate(0, scaleFactorX * sprite.image.getWidth()
                / 2.0f, scaleFactorY * sprite.image.getHeight() / 2.0f);
         sprite.matrix.postTranslate((sprite.origin.x - sprite.width / 2) * scaleFactorX, (sprite.origin.y - sprite.height / 2) * scaleFactorY);
+        //Updating of matrix done only here
     }
 
     public void scaleTouchInput(InputBuddy inputBuddy) {
@@ -46,22 +47,22 @@ public class Scaler {
         float scaleFactorX;
         float scaleFactorY;
         //For calculating scalefactor x
-        this.scaleFactorX = 4;
-        this.scaleFactorY = 3.375f;
+        //this.scaleFactorX = 4.f;
+        //this.scaleFactorY = 3.375f;
 
-     /*   if (screenWidth > viewportWidth)
-            scaleFactorX = screenWidth /viewportWidth;
+        if (screenWidth > viewportWidth)
+            scaleFactorX = 1920 / viewportWidth;
         else
             scaleFactorX = viewportWidth / screenWidth;
         this.scaleFactorX = scaleFactorX;
 
         //For calculating scalefactor y
         if(screenHeight > viewportHeight)
-            scaleFactorY = screenHeight/ viewportHeight;
+            scaleFactorY = 1080 / viewportHeight;
         else
-            scaleFactorY = viewportHeight/ screenHeight;
+            scaleFactorY = viewportHeight / screenHeight;
         this.scaleFactorY = scaleFactorY;
-*/
+
     }
 
     public float getScaleFactorX(){
