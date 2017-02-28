@@ -12,31 +12,28 @@ import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.In
 public class Scaler {
     private float screenWidth;
     private float screenHeight;
-    private float viewportHeight;
-    private float viewportWidth;
     private float scaleFactorX;
     private float scaleFactorY;
+    private Viewport viewport;
 
-    public Scaler(GameProperties gameproperties){
+    public Scaler(GameProperties gameproperties, Viewport viewport){
+        this.viewport = viewport;
         initialiseScreen(gameproperties);
     }
     private void initialiseScreen(GameProperties gameproperties){
         gameproperties.calculateScreenSize();
         screenWidth = gameproperties.getScreenWidth();
         screenHeight = gameproperties.getScreenHeight();
-    }
-    public void scaleViewport(float width, float height){
-        width = width * this.scaleFactorX;
-        height = height * this.scaleFactorY;
+        setScaleFactor(viewport.width, viewport.height);
     }
 
     public void scaleToScreen(Sprite sprite){
         sprite.matrix.reset();
-
-        //sprite.matrix.postScale(sprite.width / sprite.getImage().getWidth()  * scaleFactorX, sprite.getImage().getHeight() / sprite.height * scaleFactorY);
-        sprite.matrix.postScale(1/scaleFactorX, 1/scaleFactorY);
-        sprite.matrix.postTranslate(sprite.origin.x * scaleFactorX, sprite.origin.y * scaleFactorY);
-        }
+        sprite.matrix.postScale(sprite.image.getWidth() / sprite.width + scaleFactorX, sprite.image.getHeight() / sprite.height + scaleFactorY);
+        sprite.matrix.postRotate(0, scaleFactorX * sprite.image.getWidth()
+               / 2.0f, scaleFactorY * sprite.image.getHeight() / 2.0f);
+        sprite.matrix.postTranslate((sprite.origin.x - sprite.width / 2) * scaleFactorX, (sprite.origin.y - sprite.height / 2) * scaleFactorY);
+    }
 
     public void scaleTouchInput(InputBuddy inputBuddy) {
         for(Input.TouchEvent touchEvent : inputBuddy.touchEvents) {
@@ -51,6 +48,7 @@ public class Scaler {
         //For calculating scalefactor x
         this.scaleFactorX = 4;
         this.scaleFactorY = 3.375f;
+
      /*   if (screenWidth > viewportWidth)
             scaleFactorX = screenWidth /viewportWidth;
         else

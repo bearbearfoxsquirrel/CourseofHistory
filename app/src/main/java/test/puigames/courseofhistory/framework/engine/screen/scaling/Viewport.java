@@ -10,22 +10,16 @@ import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Ori
  */
 
 public class Viewport {
-    private float initialWidth;
-    private float initialHeight;
-    private float scaledWidth;
-    private float scaledHeight;
+    public float width;
+    public float height;
+
     BoundingBox boundingBox;
     Origin origin;
     private Rect rect = new Rect();
 
-    public Viewport(float width, float height, Scaler scaler) {
-        this.initialHeight = height;
-        this.initialWidth = width;
-       scaler.setScaleFactor(width, height);
-       // scaler.scaleViewport(width, height);
-        this.scaledWidth = width;
-        this.scaledHeight = height;
-
+    public Viewport(float width, float height) {
+        this.height = height;
+        this.width = width;
         this.origin = new Origin(width/2, height/2);
         this.boundingBox = new BoundingBox(width, height, origin);
 

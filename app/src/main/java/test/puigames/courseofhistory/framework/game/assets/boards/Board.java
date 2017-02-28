@@ -15,8 +15,9 @@ import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 public class Board extends Sprite implements Drawable {
     public Board(Bitmap bitmap){
         super(bitmap, 480/2, 320/2, bitmap.getWidth(), bitmap.getHeight());
+        origin.x = 480/2;
+        origin.y = 320/2;
     }
-
 
     @Override
     public void draw(Canvas canvas, float lastFrameTime) {

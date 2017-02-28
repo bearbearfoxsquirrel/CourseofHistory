@@ -18,7 +18,7 @@ public class Card extends Sprite {
 
     //constructor
     public Card(Bitmap cardImage, float spawnX, float spawnY) {
-        super(cardImage, (spawnX), (spawnY), 100, 150);
+        super(cardImage, (spawnX), (spawnY), 60, 83);
         //moves card to position on board initially
     }
 
@@ -58,6 +58,7 @@ public class Card extends Sprite {
                     switch (touchEvent.type)
                     {
                         case TouchEvent.TOUCH_DRAGGED:
+                        case TouchEvent.TOUCH_DOWN:
                             this.origin.x -= ((origin.x - touchEvent.x) / 2);
                             this.origin.y -= ((origin.y - touchEvent.y) / 2);
                             break;

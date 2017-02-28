@@ -30,11 +30,10 @@ public abstract class GameObject {
 
     //updating objects that take user input
     public void update(InputBuddy inputBuddy, float deltaTime) {
-        matrix.reset();
         //This updates the card to draw from where the origin is
         //Matrix translates bitmaps etc. to where the origin has moved to
         //matrix.postScale(width, height);
-        matrix.postTranslate(origin.x - width/2, origin.y - width/2);
+        //matrix.postTranslate(origin.x - width/2, origin.y - width/2);
         this.boundingBox.setBoundingBox(this.origin);
     }
 
