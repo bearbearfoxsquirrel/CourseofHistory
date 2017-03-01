@@ -1,34 +1,36 @@
 {
   "cards" : [
     {
-      "id" : "ghandi_tier_2",
-      "name" : "Ghandi",
-      "description" : "The measure of a man is what he does with power",
-      "mana" : 4,
-      "attack" : 5,
-      "health" : 9,
-      "abilityDescription" : "I am a goose",
-      "portraitSrc" : "blank-card.png"
+      "ID":"studentJimmy",
+      "name": "Student Jimmy",
+      "charDescription":"Absolutely Dying for a Boojum",
+      "mana": 1,
+      "health": 1,
+      "attack": 1,
+      "abilityName":"charge",
+      "portraitSrc" : "images/cards/tier1/studentJimmy.png"
     },
+
     {
-      "id" : "ghandi_tier_2",
-      "name" : "Ghandi",
-      "description" : "The measure of a man is what he does with power",
-      "mana" : 4,
-      "attack" : 5,
-      "health" : 9,
-      "abilityDescription" : "I am a goose",
-      "portraitSrc" : "blank-card.png"
+      "ID":"studentIvan",
+      "name": "Student Ivan",
+      "charDescription":"My mothers name is also Ivan",
+      "mana": 1,
+      "health": 1,
+      "attack": 1,
+      "abilityName":"taunt",
+      "portraitSrc" : "images/cards/tier1/studentIvan.png"
     },
+
     {
-      "id" : "ghandi_tier_2",
-      "name" : "Ghandi",
-      "description" : "The measure of a man is what he does with power",
-      "mana" : 4,
-      "attack" : 5,
-      "health" : 9,
-      "abilityDescription" : "I am a goose",
-      "portraitSrc" : "blank-card.png"
+      "ID":"studentSarah",
+      "name": "Student Sarah",
+      "charDescription":"Got a bine m8?",
+      "mana": 1,
+      "health": 2,
+      "attack": 1,
+      "abilityName":"taunt",
+      "portraitSrc" : "images/cards/tier1/studentSarah.png"
     }
   ]
 }

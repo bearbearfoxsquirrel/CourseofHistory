@@ -9,7 +9,8 @@
 		"Mana": 1,
 		"Health": 1,
 		"Attack": 1,
-		"AbilityName":"charge"
+		"AbilityName":"charge",
+		"portraitSrc" : "studentJimmy.png"
 	},
 	
 	{
@@ -19,7 +20,8 @@
 		"Mana": 1,
 		"Health": 1,
 		"Attack": 1,
-		"AbilityName":"taunt"
+		"AbilityName":"taunt",
+		"portraitSrc" : "studentIvan.png"
 	},
 
 	{
@@ -29,7 +31,8 @@
 		"Mana": 1,
 		"Health": 2,
 		"Attack": 1,
-		"AbilityName":"taunt"
+		"AbilityName":"taunt",
+		"portraitSrc" : "studentSarah.png"
 	},
 	
 	{

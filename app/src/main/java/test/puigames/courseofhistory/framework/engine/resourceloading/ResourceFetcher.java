@@ -70,11 +70,11 @@ public class ResourceFetcher implements Fetcher {
                 // an arbitrary spawn point is also set until we decide how to spawn cards
                 characterCards[index] = new CharacterCard(getBitmapFromFile(jsonCard.getString("portraitSrc")), (float) Math.random() * 1000, (float) Math.random() * 1000,
                         jsonCard.getString("name"),
-                        jsonCard.getString("description"),
+                        jsonCard.getString("charDescription"),
                         jsonCard.getInt("mana"),
-                        jsonCard.getInt("attack"),
                         jsonCard.getInt("health"),
-                        jsonCard.getString("abilityDescription"));
+                        jsonCard.getInt("attack"),
+                        jsonCard.getString("abilityName"));
                 index++;
             }
         } catch (JSONException e) {
