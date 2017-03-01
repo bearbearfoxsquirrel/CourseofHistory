@@ -22,10 +22,10 @@ public class MainMenu extends Level {
 
     public MainMenu(GameProperties gameProperties){
         super(gameProperties);
-        gameProperties.getResourceFetcher().getBitmapFromFile("background.png");
+        gameProperties.getResourceFetcher().getBitmapFromFile("images/backgrounds/background.png");
         background = null;
         try{
-            background = gameProperties.getResourceFetcher().getBitmapFromFile("background.png");
+            background = gameProperties.getResourceFetcher().getBitmapFromFile("images/backgrounds/background.png");
         }
         catch (NullPointerException e) {
             e.printStackTrace();

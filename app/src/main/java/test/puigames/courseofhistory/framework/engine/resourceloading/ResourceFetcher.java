@@ -25,8 +25,8 @@ public class ResourceFetcher implements Fetcher {
     GraphicsIO graphicsIO;
     JSONBourne jsonBourne;
 
-    final static String BOARDS_URL = "boards.json";
-    final static String CARDS_URL = "cardtests.json";
+    final static String BOARDS_URL = "json_files/boards.json";
+    final static String CARDS_URL = "json_files/cardtests.json";
     final static String CARDS_ARRAY_NAME = "cards";
     final static String BOARDS_ARRAY_NAME = "boards";
 
