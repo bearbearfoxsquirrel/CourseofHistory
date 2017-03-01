@@ -3,11 +3,11 @@ package test.puigames.courseofhistory.framework.game.assets.cards;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
+import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.BoundingBox;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
-import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
-import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input.TouchEvent;
+import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 
 /**
  * Created by Jordan on 10/11/2016.
@@ -20,6 +20,11 @@ public class Card extends Sprite {
     public Card(Bitmap cardImage, float spawnX, float spawnY) {
         super(cardImage, (spawnX), (spawnY), 60, 83);
         //moves card to position on board initially
+    }
+
+    public void moveCard(float updatedX, float updatedY) {
+        this.origin.x -= ((origin.x - updatedX) / 2);
+        this.origin.y -= ((origin.y - updatedY) / 2);
     }
 
     //TODO: make card collision checks on not dragged
