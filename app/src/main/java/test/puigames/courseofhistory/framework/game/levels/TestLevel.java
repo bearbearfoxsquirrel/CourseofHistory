@@ -12,6 +12,7 @@ import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.Card;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
+import test.puigames.courseofhistory.framework.game.controllers.PlayerController;
 import test.puigames.courseofhistory.framework.game.screens.SplashScreen;
 
 /**
@@ -22,9 +23,15 @@ public class TestLevel extends Level
 {
     private Board board;
     private CharacterCard[] testCards;
+    PlayerController players[];
+
     public TestLevel(GameProperties gameProperties) {
         super(gameProperties);
+        players = new PlayerController[2];
         load();
+        players[0] = new PlayerController(testCards[0]);
+        players[1] = new PlayerController(testCards[1]);
+
     }
 
     public void load() {
@@ -42,6 +49,10 @@ public class TestLevel extends Level
 
     @Override
     public void update(float deltaTime, AndroidInput input) {
+        for(PlayerController player : players) {
+            player.takeTurn(inputBuddy);
+        }
+
         super.update(deltaTime, input);
         board.update(inputBuddy, deltaTime);
 
