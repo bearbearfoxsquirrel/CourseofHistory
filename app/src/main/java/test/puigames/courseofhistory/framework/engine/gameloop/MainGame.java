@@ -139,7 +139,7 @@ public class MainGame extends Activity implements GameProperties, Runnable
 
     public void calculateScreenSize() {
         DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        getWindowManager().getDefaultDisplay().getRealMetrics(dm);
         screenWidth = dm.widthPixels;
         screenHeight = dm.heightPixels;
     }

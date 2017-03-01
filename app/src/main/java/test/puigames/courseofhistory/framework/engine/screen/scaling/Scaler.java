@@ -1,5 +1,7 @@
 package test.puigames.courseofhistory.framework.engine.screen.scaling;
 
+import android.util.Log;
+
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
@@ -43,26 +45,23 @@ public class Scaler {
         }
     }
 
-    public void setScaleFactor(float viewportWidth, float viewportHeight) {
+    public void setScaleFactor(float viewportWidth, float viewportHeight)
+    {
         float scaleFactorX;
         float scaleFactorY;
         //For calculating scalefactor x
-        //this.scaleFactorX = 4.f;
-        //this.scaleFactorY = 3.375f;
-
         if (screenWidth > viewportWidth)
-            scaleFactorX = 1920 / viewportWidth;
+            scaleFactorX = screenWidth / viewportWidth;
         else
             scaleFactorX = viewportWidth / screenWidth;
         this.scaleFactorX = scaleFactorX;
 
         //For calculating scalefactor y
-        if(screenHeight > viewportHeight)
-            scaleFactorY = 1080 / viewportHeight;
+        if (screenHeight > viewportHeight)
+            scaleFactorY = screenHeight / viewportHeight;
         else
             scaleFactorY = viewportHeight / screenHeight;
         this.scaleFactorY = scaleFactorY;
-
     }
 
     public float getScaleFactorX(){
