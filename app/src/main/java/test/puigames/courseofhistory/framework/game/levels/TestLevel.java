@@ -54,9 +54,7 @@ public class TestLevel extends Level
         //while game not won
         for(GameController contestent  : contestants) {
             if(contestent.pawn.playerCurrentState.equals(Pawn.PawnState.TAKING_TURN)) {
-
                 contestent.update(inputBuddy, deltaTime);
-
             }
             //contestent.update(inputBuddy, deltaTime);
             //player.takeTurn(deltaTime);

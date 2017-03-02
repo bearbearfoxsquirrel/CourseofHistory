@@ -12,12 +12,6 @@ public class HumanController extends GameController{
         super(pawn);
     }
 
-
-  /*  private void updateCardPosition(Card card, float x, float y) {
-        card.origin.x -= ((card.origin.x - x) / 2);
-        card.origin.y -= ((card.origin.y - y) / 2);
-    }*/
-
     public void checkCardsInHand(InputBuddy inputBuddy, float deltaTime) {
         for(Input.TouchEvent touchEvent : inputBuddy.getTouchEvents()) {
             for (Card card : pawn.testCards) {
