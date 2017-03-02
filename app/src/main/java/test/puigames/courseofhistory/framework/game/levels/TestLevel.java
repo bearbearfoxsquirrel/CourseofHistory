@@ -54,7 +54,8 @@ public class TestLevel extends Level
 //           sprites.add(coin);
 
            //play area
-           playArea = new PlayArea(board.boundingBox.left, board.boundingBox.top, 480, 320);
+           playArea = new PlayArea(board.boundingBox.left + areaPaddingX, board.halfWidth + areaPaddingY,
+                   190, 140);
        } catch(NullPointerException e) {
            Log.d("Loading Error:", "Error fetching resources, returning to menu");
            //Failed loading the gameProperties - won't cause crash if resources set up wrong!

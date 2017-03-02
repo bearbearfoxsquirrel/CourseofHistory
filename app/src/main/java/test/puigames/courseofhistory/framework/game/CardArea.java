@@ -49,15 +49,26 @@ public abstract class CardArea extends GameObject
      */
     protected void manageCardArea(Card card)
     {
-        String logMessage = "nope :^)";
-        if(this.boundingBox.isOverlapping(card.boundingBox))
+        String logMessage;
+        if(!cardsInArea.contains(card))
         {
-            cardsInArea.add(card);
-            logMessage = "card added";
+            if(card.boundingBox.isOverlapping(this.boundingBox))
+            {
+                cardsInArea.add(card);
+                logMessage = "card added";
+                Log.d("cardArea", "" + logMessage);
+                Log.d("cardArea size", "" + cardsInArea.size());
+            }
         }
-
-
-        Log.d("cardArea", "" + logMessage);
-        Log.d("cardArea size", "" + cardsInArea.size());
+        else
+        {
+            if(card.boundingBox.isOutside(this.boundingBox))
+            {
+                cardsInArea.remove(card);
+                logMessage = "card removed";
+                Log.d("cardArea", "" + logMessage);
+                Log.d("cardArea size", "" + cardsInArea.size());
+            }
+        }
     }
 }
