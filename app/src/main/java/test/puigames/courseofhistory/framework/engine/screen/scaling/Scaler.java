@@ -37,12 +37,12 @@ public class Scaler {
         //Updating of matrix done only here
     }
 
-    public void scaleToScreen(GameObject sprite){
-        sprite.matrix.reset();
-        sprite.matrix.postScale(sprite.width  * scaleFactorX,  sprite.height  * scaleFactorY);
-        sprite.matrix.postRotate(0, scaleFactorX
+    public void scaleToScreen(GameObject gameObject){
+        gameObject.matrix.reset();
+        gameObject.matrix.postScale(gameObject.width * scaleFactorX,  gameObject.height  * scaleFactorY);
+        gameObject.matrix.postRotate(0, scaleFactorX
                 / 2.0f, scaleFactorY / 2.0f);
-        sprite.matrix.postTranslate((sprite.origin.x - sprite.width / 2) * scaleFactorX, (sprite.origin.y - sprite.height / 2) * scaleFactorY);
+        gameObject.matrix.postTranslate((gameObject.origin.x - gameObject.width / 2) * scaleFactorX, (gameObject.origin.y - gameObject.height / 2) * scaleFactorY);
         //Updating of matrix done only here
     }
 
