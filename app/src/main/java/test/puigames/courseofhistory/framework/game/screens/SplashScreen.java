@@ -31,7 +31,7 @@ public class SplashScreen extends Level
     public void load() {
         height = 1080;
         width = 1920;
-        logo = resourceFetcher.getBitmapFromFile("splash.png");
+        logo = resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png");
         scaledLogo = Bitmap.createScaledBitmap(logo, width, height, true);
     }
 

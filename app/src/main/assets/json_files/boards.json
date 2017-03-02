@@ -2,7 +2,7 @@
   "boards" : [
     {
       "boardName" : "testBoard",
-      "url" : "board.png"
+      "url" : "images/boards/board.png"
     }
   ]
 }
