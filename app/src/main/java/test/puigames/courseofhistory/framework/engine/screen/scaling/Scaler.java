@@ -1,6 +1,7 @@
 package test.puigames.courseofhistory.framework.engine.screen.scaling;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
+import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
@@ -32,6 +33,15 @@ public class Scaler {
         sprite.matrix.postScale((sprite.width / sprite.image.getWidth()) * scaleFactorX,  (sprite.height / sprite.image.getHeight()) * scaleFactorY);
         sprite.matrix.postRotate(0, scaleFactorX * sprite.image.getWidth()
                / 2.0f, scaleFactorY * sprite.image.getHeight() / 2.0f);
+        sprite.matrix.postTranslate((sprite.origin.x - sprite.width / 2) * scaleFactorX, (sprite.origin.y - sprite.height / 2) * scaleFactorY);
+        //Updating of matrix done only here
+    }
+
+    public void scaleToScreen(GameObject sprite){
+        sprite.matrix.reset();
+        sprite.matrix.postScale(sprite.width  * scaleFactorX,  sprite.height  * scaleFactorY);
+        sprite.matrix.postRotate(0, scaleFactorX
+                / 2.0f, scaleFactorY / 2.0f);
         sprite.matrix.postTranslate((sprite.origin.x - sprite.width / 2) * scaleFactorX, (sprite.origin.y - sprite.height / 2) * scaleFactorY);
         //Updating of matrix done only here
     }
