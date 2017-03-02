@@ -6,15 +6,18 @@ import android.util.Log;
 import java.util.Arrays;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
+import test.puigames.courseofhistory.framework.game.controllers.GameController;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
+import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
 import test.puigames.courseofhistory.framework.engine.screen.Level;
 import test.puigames.courseofhistory.framework.game.CardArea;
 import test.puigames.courseofhistory.framework.game.PlayArea;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
+import test.puigames.courseofhistory.framework.game.assets.Pawn;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.Card;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
-import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
+import test.puigames.courseofhistory.framework.game.controllers.HumanController;
 import test.puigames.courseofhistory.framework.game.screens.SplashScreen;
 
 /**
@@ -25,6 +28,9 @@ public class TestLevel extends Level
 {
     private Board board;
     private CharacterCard[] testCards;
+
+    GameController contestants[];
+
     private Coin coin;
     private PlayArea playArea;
     private float areaPaddingX = 10.0f;
@@ -32,7 +38,9 @@ public class TestLevel extends Level
 
     public TestLevel(GameProperties gameProperties) {
         super(gameProperties);
+        contestants = new GameController[1];
         load();
+        contestants[0] = new HumanController(new Pawn(testCards));
     }
 
     public void load() {
@@ -57,22 +65,31 @@ public class TestLevel extends Level
     @Override
     public void update(float deltaTime, AndroidInput input) {
         super.update(deltaTime, input);
+        //while game not won
+        for(GameController contestent  : contestants) {
+            if(contestent.pawn.playerCurrentState.equals(Pawn.PawnState.TAKING_TURN)) {
+                contestent.update(inputBuddy, deltaTime);
+            }
+            //contestent.update(inputBuddy, deltaTime);
+            //player.takeTurn(deltaTime);
+
+        }
+
+       // board.update(inputBuddy, deltaTime);
+
         scaler.scaleToScreen(board);
-        board.update(inputBuddy, deltaTime);
+        for (Card card : testCards) {
+            card.update(inputBuddy, deltaTime, testCards, board);
+            scaler.scaleToScreen(card);
+        }
+
+        scaler.scaleToScreen(coin);
+        coin.update(inputBuddy, deltaTime);
+
+        decideTurn();
 
         scaler.scaleToScreen(playArea);
         playArea.update(inputBuddy, deltaTime, testCards);
-
-        for (Card card : testCards) {
-            scaler.scaleToScreen(card);
-            card.update(inputBuddy, deltaTime, testCards, board);
-        }
-
-//        scaler.scaleToScreen(coin);
-//        coin.update(inputBuddy, deltaTime);
-//        decideTurn();
-
-
     }
 
 

@@ -78,7 +78,7 @@ public class BoundingBox {
     // or if one bounding box if outside of another
     //Otherwise will return NONE!!!!
     public bound getBoundBroken(BoundingBox boundingBox) {
-        if (this.bottom <boundingBox.bottom)
+        if (this.bottom < boundingBox.bottom)
             return bound.BOTTOM;
         else if (this.top > boundingBox.top)
             return  bound.TOP;
