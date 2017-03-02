@@ -7,12 +7,12 @@ import java.util.Arrays;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
+import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
 import test.puigames.courseofhistory.framework.engine.screen.Level;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.Card;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
-import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
-import test.puigames.courseofhistory.framework.game.controllers.Competitor;
+import test.puigames.courseofhistory.framework.game.controllers.Pawn;
 import test.puigames.courseofhistory.framework.game.screens.SplashScreen;
 
 /**
@@ -23,14 +23,14 @@ public class TestLevel extends Level
 {
     private Board board;
     private CharacterCard[] testCards;
-    Competitor players[];
+    Pawn players[];
 
     public TestLevel(GameProperties gameProperties) {
         super(gameProperties);
-        players = new Competitor[2];
+        players = new Pawn[2];
         load();
-        players[0] = new Competitor(testCards[0]);
-        players[1] = new Competitor(testCards[1]);
+        players[0] = new Pawn(testCards[0]);
+        players[1] = new Pawn(testCards[1]);
 
     }
 
@@ -51,8 +51,10 @@ public class TestLevel extends Level
     public void update(float deltaTime, AndroidInput input) {
         super.update(deltaTime, input);
         //while game not won
-        for(Competitor player : players) {
+        for(Pawn player : players) {
+
             player.takeTurn(deltaTime);
+
         }
 
         board.update(inputBuddy, deltaTime);
