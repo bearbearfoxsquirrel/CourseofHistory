@@ -6,13 +6,15 @@ import android.util.Log;
 import java.util.Arrays;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
+import test.puigames.courseofhistory.framework.game.controllers.GameController;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
 import test.puigames.courseofhistory.framework.engine.screen.Level;
+import test.puigames.courseofhistory.framework.game.assets.Pawn;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.Card;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
-import test.puigames.courseofhistory.framework.game.controllers.Pawn;
+import test.puigames.courseofhistory.framework.game.controllers.HumanController;
 import test.puigames.courseofhistory.framework.game.screens.SplashScreen;
 
 /**
@@ -23,15 +25,14 @@ public class TestLevel extends Level
 {
     private Board board;
     private CharacterCard[] testCards;
-    Pawn players[];
+
+    GameController contestants[];
 
     public TestLevel(GameProperties gameProperties) {
         super(gameProperties);
-        players = new Pawn[2];
+        contestants = new GameController[1];
         load();
-        players[0] = new Pawn(testCards[0]);
-        players[1] = new Pawn(testCards[1]);
-
+        contestants[0] = new HumanController(new Pawn(testCards));
     }
 
     public void load() {
@@ -51,13 +52,18 @@ public class TestLevel extends Level
     public void update(float deltaTime, AndroidInput input) {
         super.update(deltaTime, input);
         //while game not won
-        for(Pawn player : players) {
+        for(GameController contestent  : contestants) {
+            if(contestent.pawn.playerCurrentState.equals(Pawn.PawnState.TAKING_TURN)) {
 
-            player.takeTurn(deltaTime);
+                contestent.update(inputBuddy, deltaTime);
+
+            }
+            //contestent.update(inputBuddy, deltaTime);
+            //player.takeTurn(deltaTime);
 
         }
 
-        board.update(inputBuddy, deltaTime);
+       // board.update(inputBuddy, deltaTime);
 
         scaler.scaleToScreen(board);
         for (Card card : testCards) {

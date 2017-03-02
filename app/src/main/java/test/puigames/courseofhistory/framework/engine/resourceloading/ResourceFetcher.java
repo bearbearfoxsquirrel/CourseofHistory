@@ -68,7 +68,7 @@ public class ResourceFetcher implements Fetcher {
                 JSONObject jsonCard = cardJsonArray.getJSONObject(index);
                 //creating a new character card with attributes from JSONObject
                 // an arbitrary spawn point is also set until we decide how to spawn cards
-                characterCards[index] = new CharacterCard(getBitmapFromFile(jsonCard.getString("portraitSrc")), (float) Math.random() * 1000, (float) Math.random() * 1000,
+                characterCards[index] = new CharacterCard(getBitmapFromFile(jsonCard.getString("portraitSrc")), (float) Math.random() * 100, (float) Math.random() * 100,
                         jsonCard.getString("name"),
                         jsonCard.getString("description"),
                         jsonCard.getInt("mana"),

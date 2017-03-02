@@ -1,20 +1,21 @@
-package test.puigames.courseofhistory.framework.game.controllers;
+package test.puigames.courseofhistory.framework.game.assets;
 
 import java.util.ArrayList;
 
-import test.puigames.courseofhistory.framework.engine.gameobjects.GameController;
+import test.puigames.courseofhistory.framework.game.controllers.GameController;
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.game.assets.cards.Card;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
+import test.puigames.courseofhistory.framework.game.controllers.PlayerInteraction;
 
 /**
  * Created by Michael on 20/02/2017.
  */
 
-public class Pawn implements PlayerInteraction{
-    //TODO: Add deck, hand, hero, and board area
+public class Pawn implements PlayerInteraction {
+    //TODO: Add deck, testCards, hero, and board area
     public ArrayList<Card> playerGraveyard;
-    public Card[] hand;
+    public Card[] testCards;
     public PawnState playerCurrentState;
     public PawnAction currentAction;
 
@@ -27,16 +28,12 @@ public class Pawn implements PlayerInteraction{
     }
 
 
-    public Pawn(Card playersGivenCard) {
-        this.playerCurrentState = PawnState.CREATED;
-        currentAction = PawnAction.NONE;
-
+    public Pawn(Card[] playerCards) {
+        this.playerCurrentState = PawnState.TAKING_TURN; //TODO set to created, set to taking turn for testing only!
+        currentAction = PawnAction.NONE; //Initialised to none as a player is doing nothing when the game starts
         this.playerGraveyard = new ArrayList<>();
-        this.hand = new Card[6];
-        hand[0] = playersGivenCard;
+        this.testCards = playerCards;
     }
-
-
 
     /*public void takeTurn(float deltaTime){
        playerCurrentState = PawnState.TAKING_TURN;

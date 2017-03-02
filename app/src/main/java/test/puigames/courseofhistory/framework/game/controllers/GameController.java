@@ -1,4 +1,7 @@
-package test.puigames.courseofhistory.framework.engine.gameobjects;
+package test.puigames.courseofhistory.framework.game.controllers;
+
+import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
+import test.puigames.courseofhistory.framework.game.assets.Pawn;
 
 /**
  * Created by Michael on 20/02/2017.
@@ -6,16 +9,19 @@ package test.puigames.courseofhistory.framework.engine.gameobjects;
 
 
 public abstract class GameController {
-    ControllerAction controllerAction;
-    public GameController() {
-        this.controllerAction = ControllerAction.NONE;
-    }
+    public Pawn pawn;
 
+    public GameController(Pawn pawn) {
+        this.pawn = pawn;
+    }
 
     //TODO set up way of getting player action
    // public abstract ControllerAction getControllerAction();
 
    // public abstract ControllerAction setControllerAction(ControllerAction action);
+
+    public abstract void update(InputBuddy inputBuddy, float deltaTime);
+
 
 
     public static class ControllerException extends Exception {

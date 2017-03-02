@@ -6,7 +6,6 @@ import android.graphics.Canvas;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.BoundingBox;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
-import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input.TouchEvent;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 
 /**
@@ -22,7 +21,7 @@ public class Card extends Sprite {
         //moves card to position on board initially
     }
 
-    public void moveCard(float updatedX, float updatedY) {
+    public void translateCard(float updatedX, float updatedY) {
         this.origin.x -= ((origin.x - updatedX) / 2);
         this.origin.y -= ((origin.y - updatedY) / 2);
     }
@@ -34,7 +33,6 @@ public class Card extends Sprite {
         if(!this.boundingBox.isEncapsulated(board.boundingBox))
             keepInsideBoundingBox(board.boundingBox);
         checkForAndResolveCollision(cards);
-        onTouch(inputBuddy);
         super.update(inputBuddy, deltaTime);
     }
 
@@ -42,34 +40,6 @@ public class Card extends Sprite {
     @Override
     public void draw(Canvas canvas, float lastFrameTime) {
         super.draw(canvas, lastFrameTime);
-    }
-
-    /**
-     * Used to handle (hopefully) any sort of touch events that a card might need to handle
-     * - currently only does DRAGGED type events.
-     *
-     * @TOUCH_DRAGGED - sets card origin(x, y) to where the touch event occurred, plus some
-     *                  smoothing to avoid it jumping to your finger, as much.
-     * @param inputBuddy - our little friend, passed down from level. Used to get touch events
-     */
-    private void onTouch(InputBuddy inputBuddy)
-    {
-        if(inputBuddy.getTouchEvents() != null) //null check for switching screens
-        {
-            for (TouchEvent touchEvent : inputBuddy.getTouchEvents())
-            {
-                if (this.boundingBox.isTouchOn(touchEvent))
-                {
-                    switch (touchEvent.type)
-                    {
-                        case TouchEvent.TOUCH_DRAGGED:
-                            this.origin.x -= ((origin.x - touchEvent.x) / 2);
-                            this.origin.y -= ((origin.y - touchEvent.y) / 2);
-                            break;
-                    }
-                }
-            }
-        }
     }
 
     private void checkForAndResolveCollision(Card[] cards)
