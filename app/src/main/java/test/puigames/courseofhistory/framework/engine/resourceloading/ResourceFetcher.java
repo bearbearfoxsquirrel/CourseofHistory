@@ -25,8 +25,8 @@ public class ResourceFetcher implements Fetcher {
     GraphicsIO graphicsIO;
     JSONBourne jsonBourne;
 
-    final static String BOARDS_URL = "boards.json";
-    final static String CARDS_URL = "cardtests.json";
+    final static String BOARDS_URL = "json_files/boards.json";
+    final static String CARDS_URL = "json_files/cardtests.json";
     final static String CARDS_ARRAY_NAME = "cards";
     final static String BOARDS_ARRAY_NAME = "boards";
 
@@ -70,11 +70,11 @@ public class ResourceFetcher implements Fetcher {
                 // an arbitrary spawn point is also set until we decide how to spawn cards
                 characterCards[index] = new CharacterCard(getBitmapFromFile(jsonCard.getString("portraitSrc")), (float) Math.random() * 100, (float) Math.random() * 100,
                         jsonCard.getString("name"),
-                        jsonCard.getString("description"),
+                        jsonCard.getString("charDescription"),
                         jsonCard.getInt("mana"),
-                        jsonCard.getInt("attack"),
                         jsonCard.getInt("health"),
-                        jsonCard.getString("abilityDescription"));
+                        jsonCard.getInt("attack"),
+                        jsonCard.getString("abilityName"));
                 index++;
             }
         } catch (JSONException e) {

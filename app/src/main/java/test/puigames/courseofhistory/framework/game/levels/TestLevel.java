@@ -10,6 +10,7 @@ import test.puigames.courseofhistory.framework.game.controllers.GameController;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
 import test.puigames.courseofhistory.framework.engine.screen.Level;
+import test.puigames.courseofhistory.framework.game.assets.Coin;
 import test.puigames.courseofhistory.framework.game.assets.Pawn;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.Card;
@@ -28,6 +29,8 @@ public class TestLevel extends Level
 
     GameController contestants[];
 
+    private Coin coin;
+
     public TestLevel(GameProperties gameProperties) {
         super(gameProperties);
         contestants = new GameController[1];
@@ -39,8 +42,11 @@ public class TestLevel extends Level
        try {
            this.board = resourceFetcher.loadBoard("testBoard");
            this.testCards = resourceFetcher.loadCharacterCards();
+           coin = new Coin(resourceFetcher.getBitmapFromFile("images/coins/coin-heads.png"),
+                   240, 160, 80, 80);
            sprites.add(board);
            sprites.addAll(Arrays.asList(testCards));
+           sprites.add(coin);
        } catch(NullPointerException e) {
            Log.d("Loading Error:", "Error fetching resources, returning to menu");
            //Failed loading the gameProperties - won't cause crash if resources set up wrong!
@@ -69,6 +75,19 @@ public class TestLevel extends Level
             scaler.scaleToScreen(card);
         }
 
+        scaler.scaleToScreen(coin);
+        coin.update(inputBuddy, deltaTime);
+
+        decideTurn();
+    }
+
+
+    private void decideTurn()
+    {
+        if(coin.faceUp == Coin.Result.HEADS)
+            coin.setImage(resourceFetcher.getBitmapFromFile("images/coins/coin-heads.png"));
+        else
+            coin.setImage((resourceFetcher.getBitmapFromFile("images/coins/coin-tails.png")));
     }
 
     @Override
