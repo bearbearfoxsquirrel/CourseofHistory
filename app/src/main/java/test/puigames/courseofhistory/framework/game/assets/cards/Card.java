@@ -16,6 +16,9 @@ import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.In
 public class Card extends Sprite {
     //private variables
 
+    //REMOVE THIS AT SOME POINT BECAUSE INPUT AND STUFF AHHH
+    public boolean isOnTouch;
+
     //constructor
     public Card(Bitmap cardImage, float spawnX, float spawnY) {
         super(cardImage, (spawnX), (spawnY), 60, 83);
@@ -60,6 +63,11 @@ public class Card extends Sprite {
                         case TouchEvent.TOUCH_DRAGGED:
                             this.origin.x -= ((origin.x - touchEvent.x) / 2);
                             this.origin.y -= ((origin.y - touchEvent.y) / 2);
+                            isOnTouch = true;
+                            break;
+                        //REMOVE THIS AT SOME POINT BECAUSE INPUT AND STUFF
+                        case TouchEvent.TOUCH_UP:
+                            isOnTouch = false;
                             break;
                     }
                 }

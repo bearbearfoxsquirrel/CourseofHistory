@@ -8,6 +8,8 @@ import java.util.Arrays;
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.screen.Level;
+import test.puigames.courseofhistory.framework.game.CardArea;
+import test.puigames.courseofhistory.framework.game.PlayArea;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.Card;
@@ -24,6 +26,9 @@ public class TestLevel extends Level
     private Board board;
     private CharacterCard[] testCards;
     private Coin coin;
+    private PlayArea playArea;
+    private float areaPaddingX = 10.0f;
+    private float areaPaddingY = 6.0f;
 
     public TestLevel(GameProperties gameProperties) {
         super(gameProperties);
@@ -38,7 +43,10 @@ public class TestLevel extends Level
                    240, 160, 80, 80);
            sprites.add(board);
            sprites.addAll(Arrays.asList(testCards));
-           sprites.add(coin);
+//           sprites.add(coin);
+
+           //play area
+           playArea = new PlayArea(board.boundingBox.left, board.boundingBox.top, 480, 320);
        } catch(NullPointerException e) {
            Log.d("Loading Error:", "Error fetching resources, returning to menu");
            //Failed loading the gameProperties - won't cause crash if resources set up wrong!
@@ -49,18 +57,22 @@ public class TestLevel extends Level
     @Override
     public void update(float deltaTime, AndroidInput input) {
         super.update(deltaTime, input);
+        scaler.scaleToScreen(board);
         board.update(inputBuddy, deltaTime);
 
-        scaler.scaleToScreen(board);
+        scaler.scaleToScreen(playArea);
+        playArea.update(inputBuddy, deltaTime, testCards);
+
         for (Card card : testCards) {
-            card.update(inputBuddy, deltaTime, testCards, board);
             scaler.scaleToScreen(card);
+            card.update(inputBuddy, deltaTime, testCards, board);
         }
 
-        scaler.scaleToScreen(coin);
-        coin.update(inputBuddy, deltaTime);
+//        scaler.scaleToScreen(coin);
+//        coin.update(inputBuddy, deltaTime);
+//        decideTurn();
 
-        decideTurn();
+
     }
 
 
