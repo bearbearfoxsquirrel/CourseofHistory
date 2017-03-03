@@ -1,7 +1,7 @@
-package test.puigames.courseofhistory.framework.game.controllers;
+package test.puigames.courseofhistory.framework.engine.gameobjects;
 
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
-import test.puigames.courseofhistory.framework.game.assets.Pawn;
+import test.puigames.courseofhistory.framework.game.controllers.Player;
 
 /**
  * Created by Michael on 20/02/2017.
@@ -9,18 +9,26 @@ import test.puigames.courseofhistory.framework.game.assets.Pawn;
 
 
 public abstract class GameController {
-    public Pawn pawn;
+    public Player pawn;
 
-    public GameController(Pawn pawn) {
+
+    //public abstract enum ControllerState{};
+
+    public GameController(Player pawn) {
         this.pawn = pawn;
+    //    this.state = ControllerState.MOVING_CARD_IN_HAND;
+
     }
 
-    //TODO set up way of getting player action
+    public abstract void updateCardsInHand(float deltaTime);
+
+    //TODO set up way of getting pawn action
    // public abstract ControllerAction getControllerAction();
 
    // public abstract ControllerAction setControllerAction(ControllerAction action);
 
     public abstract void update(InputBuddy inputBuddy, float deltaTime);
+    //public abstract void update();
 
 
 

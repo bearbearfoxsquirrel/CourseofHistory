@@ -32,13 +32,4 @@ public abstract class GameObject {
         //This updates the card to draw from where the origin is
         this.boundingBox.setBoundingBox(this.origin);
     }
-
-    //Updating objects that don't take user input
-    public void update(float lastFrameTime) {
-        boundingBox.setBoundingBox(this.origin);
-    }
-
-
-
-
 }

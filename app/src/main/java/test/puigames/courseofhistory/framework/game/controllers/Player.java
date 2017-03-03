@@ -1,18 +1,17 @@
-package test.puigames.courseofhistory.framework.game.assets;
+package test.puigames.courseofhistory.framework.game.controllers;
 
 import java.util.ArrayList;
 
-import test.puigames.courseofhistory.framework.game.controllers.GameController;
+import test.puigames.courseofhistory.framework.engine.gameobjects.GameController;
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.game.assets.cards.Card;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
-import test.puigames.courseofhistory.framework.game.controllers.PlayerInteraction;
 
 /**
  * Created by Michael on 20/02/2017.
  */
 
-public class Pawn implements PlayerInteraction {
+public class Player implements PlayerInteraction {
     //TODO: Add deck, testCards, hero, and board area
     public ArrayList<Card> playerGraveyard;
     public Card[] testCards;
@@ -28,9 +27,9 @@ public class Pawn implements PlayerInteraction {
     }
 
 
-    public Pawn(Card[] playerCards) {
+    public Player(Card[] playerCards) {
         this.playerCurrentState = PawnState.TAKING_TURN; //TODO set to created, set to taking turn for testing only!
-        currentAction = PawnAction.NONE; //Initialised to none as a player is doing nothing when the game starts
+        currentAction = PawnAction.NONE; //Initialised to none as a pawn is doing nothing when the game starts
         this.playerGraveyard = new ArrayList<>();
         this.testCards = playerCards;
     }
@@ -60,7 +59,7 @@ public class Pawn implements PlayerInteraction {
     }
 
     public void attack(CharacterCard theAttacker, GameObject recipientOfMyFatalBlow) throws GameController.ControllerException {
-        //Takes in an object that the player wishes to attack and tries to attack the given object
+        //Takes in an object that the pawn wishes to attack and tries to attack the given object
         //Or else throws a controller exception
         if (recipientOfMyFatalBlow instanceof CharacterCard) {
             theAttacker.attackCard((CharacterCard) recipientOfMyFatalBlow);
