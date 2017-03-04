@@ -9,6 +9,8 @@ import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
 import test.puigames.courseofhistory.framework.engine.screen.Level;
+import test.puigames.courseofhistory.framework.game.CardArea;
+import test.puigames.courseofhistory.framework.game.PlayArea;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
@@ -29,6 +31,9 @@ public class TestLevel extends Level
     CardGameController cardGameControllers[];
 
     private Coin coin;
+    private PlayArea playArea;
+    private float areaPaddingX = 10.0f;
+    private float areaPaddingY = 6.0f;
 
     public TestLevel(GameProperties gameProperties) {
         super(gameProperties);
@@ -53,6 +58,11 @@ public class TestLevel extends Level
            for(int i = 0; i < cardGameControllers.length; i++)
                cardGameControllers[i] = new HumanController(new Player(testCards));
 
+//           sprites.add(coin);
+
+           //play area
+           playArea = new PlayArea(board.boundingBox.left + areaPaddingX, board.halfWidth + areaPaddingY,
+                   190, 140);
        } catch(NullPointerException e) {
            Log.d("Loading Error:", "Error fetching resources, returning to menu");
            //Failed loading the gameProperties - won't cause crash if resources set up wrong!
@@ -82,6 +92,9 @@ public class TestLevel extends Level
             }
         }
         decideTurn();
+
+        scaler.scaleToScreen(playArea);
+        playArea.update(inputBuddy, deltaTime, testCards);
     }
 
 

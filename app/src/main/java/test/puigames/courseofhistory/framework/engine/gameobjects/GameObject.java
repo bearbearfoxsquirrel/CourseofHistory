@@ -11,8 +11,8 @@ import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
  */
 
 public abstract class GameObject {
-    public float width;
-    public float height;
+    public float width, halfWidth;
+    public float height, halfHeight;
     public BoundingBox boundingBox;
     public Origin origin;
     public Matrix matrix;
@@ -20,8 +20,8 @@ public abstract class GameObject {
 
 
     public GameObject(float spawnX, float spawnY, int width, int height) {
-        this.width = width;
-        this.height = height;
+        this.width = width;     this.halfWidth = (width / 2);
+        this.height = height;   this.halfHeight = (height / 2);
         this.origin = new Origin(spawnX, spawnY);
         this.boundingBox = new BoundingBox(width, height, origin);
         this.matrix = new Matrix();
