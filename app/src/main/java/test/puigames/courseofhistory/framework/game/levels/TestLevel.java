@@ -26,27 +26,33 @@ public class TestLevel extends Level
     private Board board;
     private CharacterCard[] testCards;
 
-    CardGameController contestants[];
+    CardGameController cardGameControllers[];
 
     private Coin coin;
 
     public TestLevel(GameProperties gameProperties) {
         super(gameProperties);
-        contestants = new CardGameController[2];
+        cardGameControllers = new CardGameController[2];
         load();
-        for (CardGameController contestant : contestants)
-            contestant = new HumanController(new Player(testCards));
+
     }
 
     public void load() {
        try {
            this.board = resourceFetcher.loadBoard("testBoard");
+           sprites.add(board);
+
            this.testCards = resourceFetcher.loadCharacterCards();
+           sprites.addAll(Arrays.asList(testCards));
+
            coin = new Coin(resourceFetcher.getBitmapFromFile("images/coins/coin-heads.png"),
                    240, 160, 80, 80);
-           sprites.add(board);
-           sprites.addAll(Arrays.asList(testCards));
            sprites.add(coin);
+
+           //for (CardGameController contestant : cardGameControllers)
+           for(int i = 0; i < cardGameControllers.length; i++)
+               cardGameControllers[i] = new HumanController(new Player(testCards));
+
        } catch(NullPointerException e) {
            Log.d("Loading Error:", "Error fetching resources, returning to menu");
            //Failed loading the gameProperties - won't cause crash if resources set up wrong!
@@ -59,18 +65,18 @@ public class TestLevel extends Level
         super.update(deltaTime, input);
 
         //while game not won
-
-       // int turnIndex = 0;
-
-        for(int turnIndex = 0; turnIndex < contestants.length; turnIndex++) {
-            contestants[turnIndex].update(inputBuddy, deltaTime);
-            switch (contestants[turnIndex].pawn.playerCurrentState) {
-                case CREATED:
-
+        for(int turnIndex = 0; turnIndex < cardGameControllers.length; turnIndex++) {
+            cardGameControllers[turnIndex].update(inputBuddy, deltaTime);
+            switch (cardGameControllers[turnIndex].player.playerCurrentState) {
+              //  case CREATED:
                 case TAKING_TURN:
-                    switch (contestants[turnIndex].currentControllerState) {
+                    switch (cardGameControllers[turnIndex].currentControllerState) {
                         case MOVING_CARD_IN_HAND:
-                            contestants[turnIndex].updateCardsInHand(deltaTime);
+                            cardGameControllers[turnIndex].updateCardsInHand(deltaTime);
+                            break;
+                        case ATTACKING:
+                       //     cardGameControllers[turnIndex].
+                          //          pawn.attack(cardGameControllers[turnIndex].);
                     }
                     break;
             }

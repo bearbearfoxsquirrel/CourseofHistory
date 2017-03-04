@@ -32,6 +32,7 @@ public abstract class Level extends Screen {
         super(gameProperties);
         viewport = new Viewport(LEVEL_WIDTH, LEVEL_HEIGHT);
         scaler = new Scaler(gameProperties, viewport);
+     //   inputBuddy = new InputBuddy();
 
         this.sprites = new ArrayList<Sprite>();
         this.resourceFetcher = gameProperties.getResourceFetcher();
@@ -44,8 +45,7 @@ public abstract class Level extends Screen {
     @Override
     public void update(float deltaTime, AndroidInput input) {
         inputBuddy = new InputBuddy(input);
-        if (inputBuddy.getTouchEvents() != null)
-            scaler.scaleTouchInput(inputBuddy);
+        scaler.scaleTouchInput(inputBuddy);
 
         for (Sprite sprite: sprites) {
             sprite.update(inputBuddy, deltaTime);
@@ -57,8 +57,8 @@ public abstract class Level extends Screen {
     @Override
     public void draw(Canvas canvas, float deltaTime) {
         for (Sprite sprite: sprites) {
-            canvas.drawBitmap(sprite.getImage(), sprite.getMatrix(), null);
-           // sprite.draw(canvas, deltaTime);
+           // canvas.drawBitmap(sprite.getImage(), sprite.getMatrix(), null);
+            sprite.draw(canvas, deltaTime);
         }
     }
 

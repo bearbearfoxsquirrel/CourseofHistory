@@ -18,6 +18,7 @@ public interface GameProperties
 
     public ResourceFetcher getResourceFetcher();
 
+
     public Audio getAudio();
 
     public void setScreen(Screen screen) throws IllegalArgumentException;

@@ -1,7 +1,6 @@
 package test.puigames.courseofhistory.framework.engine.gameobjects;
 
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
-import test.puigames.courseofhistory.framework.game.controllers.Player;
 
 /**
  * Created by Michael on 20/02/2017.
@@ -9,12 +8,12 @@ import test.puigames.courseofhistory.framework.game.controllers.Player;
 
 
 public abstract class GameController {
-    public Player pawn;
+    public Pawn pawn;
 
 
     //public abstract enum ControllerState{};
 
-    public GameController(Player pawn) {
+    public GameController(Pawn pawn) {
         this.pawn = pawn;
     //    this.state = ControllerState.MOVING_CARD_IN_HAND;
 

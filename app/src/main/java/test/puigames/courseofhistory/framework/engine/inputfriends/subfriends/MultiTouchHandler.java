@@ -41,7 +41,6 @@ public class MultiTouchHandler implements TouchHandler
         };
         touchEventPool = new Pool<TouchEvent>(factory, 100);
         view.setOnTouchListener(this);
-
         this.scaleX = scaleX;
         this.scaleY = scaleY;
     }

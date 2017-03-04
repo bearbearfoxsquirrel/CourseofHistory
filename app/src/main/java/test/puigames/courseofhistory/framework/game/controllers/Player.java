@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameController;
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
+import test.puigames.courseofhistory.framework.engine.gameobjects.Pawn;
 import test.puigames.courseofhistory.framework.game.assets.cards.Card;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 
@@ -11,7 +12,7 @@ import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
  * Created by Michael on 20/02/2017.
  */
 
-public class Player implements PlayerInteraction {
+public class Player extends Pawn {
     //TODO: Add deck, testCards, hero, and board area
     public ArrayList<Card> playerGraveyard;
     public Card[] testCards;
@@ -80,17 +81,14 @@ public class Player implements PlayerInteraction {
     }
 
 
-    @Override
     public Card drawCardFromDeck() {
         return null;
     }
 
-    @Override
     public void placeCardOnBoard() {
 
     }
 
-    @Override
     public void endPlayerTurn() {
 
     }

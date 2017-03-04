@@ -8,16 +8,15 @@ import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
-import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.engine.audio.AndroidAudio;
 import test.puigames.courseofhistory.framework.engine.audio.Audio;
-import test.puigames.courseofhistory.framework.engine.resourceloading.ResourceFetcher;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
+import test.puigames.courseofhistory.framework.engine.resourceloading.ResourceFetcher;
+import test.puigames.courseofhistory.framework.engine.screen.Screen;
 
 /**
  * Created by Jordan on 08/11/2016.

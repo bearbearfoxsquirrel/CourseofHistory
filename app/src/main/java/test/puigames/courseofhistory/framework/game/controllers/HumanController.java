@@ -8,14 +8,16 @@ import test.puigames.courseofhistory.framework.game.assets.cards.Card;
 //This class is for allowing the user to interact with a pawn pawn
 public class HumanController extends CardGameController {
     public InputBuddy inputBuddy;
+
     public HumanController(Player player) {
         super(player);
+
     }
 
 
     public void updateCardsInHand(float deltaTime) {
         for(Input.TouchEvent touchEvent : inputBuddy.getTouchEvents()) {
-            for (Card card : pawn.testCards) {
+            for (Card card : player.testCards) {
                 if (checkIsTouched(touchEvent, card)) {
                     card.translateCard(touchEvent.x, touchEvent.y);
                 }
@@ -32,11 +34,6 @@ public class HumanController extends CardGameController {
 
     public void update(InputBuddy inputBuddy, float deltaTime) {
         this.inputBuddy = inputBuddy;
-       // if(pawn.playerCurrentState.equals(Player.PawnState.TAKING_TURN)) {
-            if(inputBuddy.getTouchEvents() != null) {
-                updateCardsInHand(deltaTime);
-
-           }
-    //    }
+        updateCardsInHand(deltaTime);
     }
 }
