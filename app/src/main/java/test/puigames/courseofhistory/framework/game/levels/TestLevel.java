@@ -26,7 +26,10 @@ import test.puigames.courseofhistory.framework.game.screens.SplashScreen;
 public class TestLevel extends Level
 {
     private Board board;
-    private CharacterCard[] testCards;
+    private CharacterCard[] evilLeaderCards = new CharacterCard[36];
+    private CharacterCard[] greatMindsCards = new CharacterCard[36];
+    private CharacterCard[][] cardsHolder = {evilLeaderCards, greatMindsCards};
+    private String[] deckNames = {"greatMindsCards", "evilLeaderCards"};
 
     CardGameController cardGameControllers[];
 
@@ -47,16 +50,22 @@ public class TestLevel extends Level
            this.board = resourceFetcher.loadBoard("testBoard");
            sprites.add(board);
 
-           this.testCards = resourceFetcher.loadCharacterCards();
-           sprites.addAll(Arrays.asList(testCards));
+           //this.evilLeaderCards = resourceFetcher.loadCharacterCards("evilLeaderDeck");
+           //sprites.addAll(Arrays.asList(evilLeaderCards));
+
+          // this.greatMindsCards = resourceFetcher.loadCharacterCards("greatMindsDeck");
+          // sprites.addAll(Arrays.asList(greatMindsCards));
 
            coin = new Coin(resourceFetcher.getBitmapFromFile("images/coins/coin-heads.png"),
                    240, 160, 80, 80);
            sprites.add(coin);
 
            //for (CardGameController contestant : cardGameControllers)
-           for(int i = 0; i < cardGameControllers.length; i++)
-               cardGameControllers[i] = new HumanController(new Player(testCards));
+           for(int i = 0; i < cardGameControllers.length; i++) {
+               this.cardsHolder[i] = resourceFetcher.loadCharacterCards(deckNames[i]);
+               sprites.addAll(Arrays.asList(cardsHolder[i]));
+               this.cardGameControllers[i] = new HumanController(new Player(cardsHolder[i]));
+           }
 
 //           sprites.add(coin);
 
@@ -90,11 +99,12 @@ public class TestLevel extends Level
                     }
                     break;
             }
+            playArea.update(inputBuddy, deltaTime, cardsHolder[turnIndex]);
+
         }
         decideTurn();
 
         scaler.scaleToScreen(playArea);
-        playArea.update(inputBuddy, deltaTime, testCards);
     }
 
 

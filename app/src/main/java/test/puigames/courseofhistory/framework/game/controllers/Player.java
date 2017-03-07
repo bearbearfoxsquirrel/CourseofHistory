@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameController;
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Pawn;
+import test.puigames.courseofhistory.framework.game.assets.Deck;
 import test.puigames.courseofhistory.framework.game.assets.cards.Card;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 
@@ -15,9 +16,10 @@ import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 public class Player extends Pawn {
     //TODO: Add deck, testCards, hero, and board area
     public ArrayList<Card> playerGraveyard;
-    public Card[] testCards;
+    public CharacterCard[] testCards;
     public PawnState playerCurrentState;
     public PawnAction currentAction;
+    public Deck playerDeck;
 
     public enum PawnState {
         CREATED, TAKING_TURN, WAITING_FOR_TURN, WIN, LOSE;
@@ -28,13 +30,18 @@ public class Player extends Pawn {
     }
 
 
-    public Player(Card[] playerCards) {
+    public Player(CharacterCard[] playerCards) {
         this.playerCurrentState = PawnState.TAKING_TURN; //TODO set to created, set to taking turn for testing only!
         currentAction = PawnAction.NONE; //Initialised to none as a pawn is doing nothing when the game starts
         this.playerGraveyard = new ArrayList<>();
         this.testCards = playerCards;
+        setUpPlayerDeck();
     }
 
+    public void setUpPlayerDeck(){
+        this.playerDeck = new Deck();
+        playerDeck.setUpDeck(this.testCards);
+    }
     /*public void takeTurn(float deltaTime){
        playerCurrentState = PawnState.TAKING_TURN;
         boolean turnActive = true;

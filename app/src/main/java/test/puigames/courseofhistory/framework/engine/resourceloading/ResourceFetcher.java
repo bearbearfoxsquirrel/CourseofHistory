@@ -26,8 +26,7 @@ public class ResourceFetcher implements Fetcher {
     JSONBourne jsonBourne;
 
     final static String BOARDS_URL = "json_files/boards.json";
-    final static String CARDS_URL = "json_files/cardtests.json";
-    final static String CARDS_ARRAY_NAME = "cards";
+    final static String CARDS_URL = "json_files/characterCard.json";
     final static String BOARDS_ARRAY_NAME = "boards";
 
 
@@ -58,8 +57,8 @@ public class ResourceFetcher implements Fetcher {
     //For now just returns all cards
     //TODO: loadCharacterCards will be used to load a specified set of cards e.g. decks and all cards
     @Override
-    public CharacterCard[] loadCharacterCards() throws NullPointerException{
-        JSONArray cardJsonArray = jsonBourne.fromJSONStringToJsonArray(getStringFromFile(CARDS_URL), CARDS_ARRAY_NAME);
+    public CharacterCard[] loadCharacterCards(String cardsNames) throws NullPointerException{
+        JSONArray cardJsonArray = jsonBourne.fromJSONStringToJsonArray(getStringFromFile(CARDS_URL), cardsNames);
 
         CharacterCard[] characterCards = new CharacterCard[cardJsonArray.length()];
         int index = 0;
