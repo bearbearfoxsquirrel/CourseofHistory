@@ -25,7 +25,7 @@ public class Deck extends Stack {
     public void setUpDeck(CharacterCard[] characterCards){
         shuffle(characterCards);
         for(int i = 0; i < characterCards.length; i++){
-            super.push(characterCards[i]);
+            push(characterCards[i]);
         }
     }
 

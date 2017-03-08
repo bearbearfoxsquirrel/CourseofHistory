@@ -36,6 +36,8 @@ public class Player extends Pawn {
         this.playerGraveyard = new ArrayList<>();
         this.testCards = playerCards;
         setUpPlayerDeck();
+
+
     }
 
     public void setUpPlayerDeck(){
@@ -88,8 +90,8 @@ public class Player extends Pawn {
     }
 
 
-    public Card drawCardFromDeck() {
-        return null;
+    public CharacterCard drawCardFromDeck() {
+        return (CharacterCard)playerDeck.pop();
     }
 
     public void placeCardOnBoard() {

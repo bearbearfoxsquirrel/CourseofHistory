@@ -42,6 +42,15 @@ public class TestLevel extends Level
         super(gameProperties);
         cardGameControllers = new CardGameController[2];
         load();
+        sprites.add(cardGameControllers[0].player.drawCardFromDeck());
+        sprites.add(cardGameControllers[1].player.drawCardFromDeck());
+        sprites.add(cardGameControllers[0].player.drawCardFromDeck());
+        sprites.add(cardGameControllers[1].player.drawCardFromDeck());
+        sprites.add(cardGameControllers[0].player.drawCardFromDeck());
+        sprites.add(cardGameControllers[1].player.drawCardFromDeck());
+        sprites.add(cardGameControllers[0].player.drawCardFromDeck());
+        sprites.add(cardGameControllers[1].player.drawCardFromDeck());
+
 
     }
 
@@ -63,7 +72,7 @@ public class TestLevel extends Level
            //for (CardGameController contestant : cardGameControllers)
            for(int i = 0; i < cardGameControllers.length; i++) {
                this.cardsHolder[i] = resourceFetcher.loadCharacterCards(deckNames[i]);
-               sprites.addAll(Arrays.asList(cardsHolder[i]));
+               //sprites.addAll(Arrays.asList(cardsHolder[i]));
                this.cardGameControllers[i] = new HumanController(new Player(cardsHolder[i]));
            }
 
@@ -105,6 +114,8 @@ public class TestLevel extends Level
         decideTurn();
 
         scaler.scaleToScreen(playArea);
+
+
     }
 
 
