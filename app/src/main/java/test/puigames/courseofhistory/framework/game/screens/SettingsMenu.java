@@ -6,42 +6,38 @@ import android.graphics.Canvas;
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
 import test.puigames.courseofhistory.framework.engine.screen.Menu;
+import test.puigames.courseofhistory.framework.game.levels.TestLevel;
 
 /**
- * Created by Christopher on 24/11/2016.
+ * Created by Christopher on 02/03/2017.
  */
 
-public class SplashScreen extends Menu
-{
+public class SettingsMenu extends Menu {
 
-    Bitmap logo
-    Bitmap scaledLogo;
-    int width = 640;
-    int height = 400;
-    float duration = 0;
+    Bitmap background;
+    Bitmap scaledBackground;
 
-    public SplashScreen(GameProperties gameProperties) {
+    public SettingsMenu(GameProperties gameProperties){
         super(gameProperties);
         load();
     }
 
-    public void load() {
-        logo = resourceFetcher.getBitmapFromFile("splash.png");
-        scaledLogo = Bitmap.createScaledBitmap(logo, width, height, true);
-    }
 
     @Override
     public void update(float deltaTime, AndroidInput input) {
         super.update(deltaTime, input);
-        duration += deltaTime;
-        if(duration > 5)
-            gameProperties.setScreen(new MainMenu(gameProperties));
 
+        gameProperties.setScreen(new TestLevel(gameProperties))
+    }
+
+    public void load(){
+        background = resourceFetcher.getBitmapFromFile("background.png");
+        scaledBackground = Bitmap.createScaledBitmap(background, width, height, true);
     }
 
     @Override
     public void draw(Canvas canvas, float deltaTime) {
-        canvas.drawBitmap(scaledLogo, 0.f, 0.f, null);
+        canvas.drawBitmap(scaledBackground, 0.f, 0.f, null);
     }
 
     @Override
@@ -58,4 +54,5 @@ public class SplashScreen extends Menu
     public void dispose() {
 
     }
+
 }

@@ -16,5 +16,4 @@ public class CourseOfHistory extends MainGame
     }
 
 
-
 }
