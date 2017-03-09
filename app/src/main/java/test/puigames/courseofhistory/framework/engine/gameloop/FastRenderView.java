@@ -11,6 +11,7 @@ import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.An
 
 public class FastRenderView extends View {
 
+
     MainGame game;
     volatile boolean running = false;
 
@@ -41,12 +42,9 @@ public class FastRenderView extends View {
         deltaTime = (System.nanoTime() - startTime) / 1000000000.0f;
         startTime = System.nanoTime();
 
-
         //Calls the update and draw methods of the current screen that is active
         game.getCurrentScreen().update(deltaTime, input);
         game.getCurrentScreen().draw(canvas, deltaTime);
-        //Log.d("Delta time", ": " + deltaTime ); //test delta time for frame rate
-        //Log.d("Is canvas HA:", canvas.isHardwareAccelerated() + " ");
 
         //Tells the loop that another draw is now needed
         game.drawNeeded = true;

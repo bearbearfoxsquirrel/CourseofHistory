@@ -1,5 +1,6 @@
 package test.puigames.courseofhistory.framework.engine.inputfriends;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
@@ -21,14 +22,20 @@ public class InputBuddy {
 
     //Creates storage for the events of input until the next time the update loop for the screen is made
     public InputBuddy(AndroidInput androidInput) {
-      if(androidInput != null)  //null check for switching screens
-      {
-          touchEvents = androidInput.getTouchEvents();
-          keyEvents = androidInput.getKeyEvents();
-          accelerationX = androidInput.getAccelX();
-          accelerationY = androidInput.getAccelY();
-          accelerationZ = androidInput.getAccelZ();
-      }
+        //null check for switching screens
+        if(androidInput == null)  {
+            touchEvents = new ArrayList<>(0);
+            keyEvents = new ArrayList<>(0);
+            accelerationX = 0.f;
+            accelerationY = 0.f;
+            accelerationZ = 0.f;
+        } else {
+            touchEvents = androidInput.getTouchEvents();
+            keyEvents = androidInput.getKeyEvents();
+            accelerationX = androidInput.getAccelX();
+            accelerationY = androidInput.getAccelY();
+            accelerationZ = androidInput.getAccelZ();
+        }
     }
 
     public List<Input.TouchEvent> getTouchEvents() {

@@ -1,0 +1,8 @@
+{
+  "boards" : [
+    {
+      "boardName" : "testBoard",
+      "url" : "images/boards/board.png"
+    }
+  ]
+}

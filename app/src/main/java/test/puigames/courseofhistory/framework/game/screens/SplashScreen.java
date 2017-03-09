@@ -26,6 +26,8 @@ public class SplashScreen extends Menu
     }
 
     public void load() {
+        height = 1080;
+        width = 1920;
         logo = resourceFetcher.getBitmapFromFile("splash.png");
         scaledLogo = Bitmap.createScaledBitmap(logo, width, height, true);
     }

@@ -3,21 +3,22 @@ package test.puigames.courseofhistory.framework.engine.gameloop;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 
+import test.puigames.courseofhistory.R;
 import test.puigames.courseofhistory.framework.engine.GameProperties;
-import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.engine.audio.AndroidAudio;
 import test.puigames.courseofhistory.framework.engine.audio.Audio;
-import test.puigames.courseofhistory.framework.engine.resourceloading.ResourceFetcher;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
+import test.puigames.courseofhistory.framework.engine.resourceloading.ResourceFetcher;
+import test.puigames.courseofhistory.framework.engine.screen.Screen;
 
 /**
  * Created by Jordan on 08/11/2016.
@@ -32,6 +33,7 @@ public class MainGame extends Activity implements GameProperties, Runnable
     Screen screen;
     WakeLock wakeLock;
     Thread renderThread = null;
+    MediaPlayer mySound;
 
     volatile boolean running = false;
     volatile boolean drawNeeded = false;
@@ -65,6 +67,7 @@ public class MainGame extends Activity implements GameProperties, Runnable
         renderView = new FastRenderView(this);
 
         audio = new AndroidAudio(this);
+
         resourceFetcher = new ResourceFetcher(this);
         screen = getStartScreen();
         setContentView(renderView);
@@ -72,6 +75,10 @@ public class MainGame extends Activity implements GameProperties, Runnable
         //Power management - prevent screen from dimming
         PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "CourseOfHistory");
+
+        //MediaPlayer intro
+        mySound = MediaPlayer.create(this, R.raw.intro_theme);
+        mySound.start();
     }
 
     //GameProperties Loop
@@ -88,6 +95,7 @@ public class MainGame extends Activity implements GameProperties, Runnable
                     renderView.postInvalidate();
                 }
             }
+
         }
     }
 
@@ -103,6 +111,7 @@ public class MainGame extends Activity implements GameProperties, Runnable
         running = true;
         renderThread = new Thread(this);
         renderThread.start();
+        mySound.start();
     }
 
     @Override
@@ -123,6 +132,7 @@ public class MainGame extends Activity implements GameProperties, Runnable
         }
         if(isFinishing())   //if activity is destroyed, clean up
             screen.dispose();
+        mySound.pause();
     }
 
 
@@ -139,7 +149,7 @@ public class MainGame extends Activity implements GameProperties, Runnable
 
     public void calculateScreenSize() {
         DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        getWindowManager().getDefaultDisplay().getRealMetrics(dm);
         screenWidth = dm.widthPixels;
         screenHeight = dm.heightPixels;
     }

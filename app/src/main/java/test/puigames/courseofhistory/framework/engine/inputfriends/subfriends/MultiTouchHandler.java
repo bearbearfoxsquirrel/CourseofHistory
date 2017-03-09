@@ -41,7 +41,6 @@ public class MultiTouchHandler implements TouchHandler
         };
         touchEventPool = new Pool<TouchEvent>(factory, 100);
         view.setOnTouchListener(this);
-
         this.scaleX = scaleX;
         this.scaleY = scaleY;
     }
@@ -85,8 +84,8 @@ public class MultiTouchHandler implements TouchHandler
                         touchEvent = touchEventPool.newObject();
                         touchEvent.type = TouchEvent.TOUCH_DOWN;
                         touchEvent.pointer = pointerId;
-                        touchEvent.x = touchX[i] = (event.getX(i) * scaleX);
-                        touchEvent.y = touchY[i] = (event.getY(i) * scaleY);
+                        touchEvent.x = touchX[i] = (event.getX(i) / scaleX);
+                        touchEvent.y = touchY[i] = (event.getY(i) / scaleY);
                         isTouched[i] = true;
                         id[i] = pointerId;
                         touchEventsBuffer.add(touchEvent);
@@ -97,8 +96,8 @@ public class MultiTouchHandler implements TouchHandler
                         touchEvent = touchEventPool.newObject();
                         touchEvent.type = TouchEvent.TOUCH_UP;
                         touchEvent.pointer = pointerId;
-                        touchEvent.x = touchX[i] = (event.getX(i) * scaleX);
-                        touchEvent.y = touchY[i] = (event.getY(i) * scaleY);
+                        touchEvent.x = touchX[i] = (event.getX(i) / scaleX);
+                        touchEvent.y = touchY[i] = (event.getY(i) / scaleY);
                         isTouched[i] = false;
                         id[i] = -1;
                         touchEventsBuffer.add(touchEvent);
@@ -107,8 +106,8 @@ public class MultiTouchHandler implements TouchHandler
                         touchEvent = touchEventPool.newObject();
                         touchEvent.type = TouchEvent.TOUCH_DRAGGED;
                         touchEvent.pointer = pointerId;
-                        touchEvent.x = touchX[i] = (event.getX(i) * scaleX);
-                        touchEvent.y = touchY[i] = (event.getY(i) * scaleY);
+                        touchEvent.x = touchX[i] = (event.getX(i) / scaleX);
+                        touchEvent.y = touchY[i] = (event.getY(i) / scaleY);
                         isTouched[i] = true;
                         id[i] = pointerId;
                         touchEventsBuffer.add(touchEvent);

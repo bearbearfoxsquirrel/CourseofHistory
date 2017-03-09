@@ -25,9 +25,8 @@ public class ResourceFetcher implements Fetcher {
     GraphicsIO graphicsIO;
     JSONBourne jsonBourne;
 
-    final static String BOARDS_URL = "boards.json";
-    final static String CARDS_URL = "cardtests.json";
-    final static String CARDS_ARRAY_NAME = "cards";
+    final static String BOARDS_URL = "json_files/boards.json";
+    final static String CARDS_URL = "json_files/characterCard.json";
     final static String BOARDS_ARRAY_NAME = "boards";
 
 
@@ -47,7 +46,8 @@ public class ResourceFetcher implements Fetcher {
         Board board = null;
         try {
             JSONObject jsonBoard = jsonBourne.searchJSONArray(boardJsonArray, "boardName", boardName);
-            board = new Board(getBitmapFromFile(jsonBoard.getString("url"))); //where board is created
+            board = new Board(getBitmapFromFile(jsonBoard.getString("url"))); //where board
+            // is created
         } catch (JSONException e) {
             Log.d("Loading Resource: ", "Cannot find board of name: " + boardName);
             throw new NullPointerException();
@@ -58,8 +58,8 @@ public class ResourceFetcher implements Fetcher {
     //For now just returns all cards
     //TODO: loadCharacterCards will be used to load a specified set of cards e.g. decks and all cards
     @Override
-    public CharacterCard[] loadCharacterCards() throws NullPointerException{
-        JSONArray cardJsonArray = jsonBourne.fromJSONStringToJsonArray(getStringFromFile(CARDS_URL), CARDS_ARRAY_NAME);
+    public CharacterCard[] loadCharacterCards(String cardsNames) throws NullPointerException{
+        JSONArray cardJsonArray = jsonBourne.fromJSONStringToJsonArray(getStringFromFile(CARDS_URL), cardsNames);
 
         CharacterCard[] characterCards = new CharacterCard[cardJsonArray.length()];
         int index = 0;
@@ -68,13 +68,13 @@ public class ResourceFetcher implements Fetcher {
                 JSONObject jsonCard = cardJsonArray.getJSONObject(index);
                 //creating a new character card with attributes from JSONObject
                 // an arbitrary spawn point is also set until we decide how to spawn cards
-                characterCards[index] = new CharacterCard(getBitmapFromFile(jsonCard.getString("portraitSrc")), (float) Math.random() * 1000, (float) Math.random() * 1000,
+                characterCards[index] = new CharacterCard(getBitmapFromFile(jsonCard.getString("portraitSrc")), (float) Math.random() * 100, (float) Math.random() * 100,
                         jsonCard.getString("name"),
-                        jsonCard.getString("description"),
+                        jsonCard.getString("charDescription"),
                         jsonCard.getInt("mana"),
-                        jsonCard.getInt("attack"),
                         jsonCard.getInt("health"),
-                        jsonCard.getString("abilityDescription"));
+                        jsonCard.getInt("attack"),
+                        jsonCard.getString("abilityName"));
                 index++;
             }
         } catch (JSONException e) {
@@ -89,7 +89,7 @@ public class ResourceFetcher implements Fetcher {
     public Bitmap getBitmapFromFile(String url) throws NullPointerException {
         //allows loading from a bitmap from a given url using Android's AssetManager
         try {
-            return graphicsIO.loadBitmap(url, Bitmap.Config.ARGB_4444);
+            return graphicsIO.loadBitmap(url, Bitmap.Config.ARGB_8888);
         } catch (IOException e) {
             Log.d("Loading Resource: ", "Error Processing Image at " + url);
         }

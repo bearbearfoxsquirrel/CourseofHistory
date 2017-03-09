@@ -35,7 +35,8 @@ public class BoundingBox {
 
     //checks if this bounding box if overlapping with another bounding box (on one side or more)
     public boolean isOverlapping(BoundingBox boundingBox) {
-        return !(this.left > boundingBox.right || this.right < boundingBox.left || this.top < boundingBox.bottom || this.bottom > boundingBox.top);
+        return (this.left > boundingBox.left || this.right < boundingBox.right)
+                && (this.top > boundingBox.bottom || this.bottom > boundingBox.top);
     }
 
     //checks if a touch event is within the bounding box
@@ -52,8 +53,7 @@ public class BoundingBox {
 
     //checks if two bounding boxes are not colliding with each other
     public boolean isOutside(BoundingBox boundingBox) {
-        return (this.left < boundingBox.left && this.right > boundingBox.right &&
-                this.top > boundingBox.top && this.bottom < boundingBox.bottom);
+        return !isOverlapping(boundingBox);
     }
 
     //updates the bounding box for sprites not taking user input
@@ -78,7 +78,7 @@ public class BoundingBox {
     // or if one bounding box if outside of another
     //Otherwise will return NONE!!!!
     public bound getBoundBroken(BoundingBox boundingBox) {
-        if (this.bottom <boundingBox.bottom)
+        if (this.bottom < boundingBox.bottom)
             return bound.BOTTOM;
         else if (this.top > boundingBox.top)
             return  bound.TOP;
