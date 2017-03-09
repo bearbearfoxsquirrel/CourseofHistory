@@ -46,7 +46,8 @@ public class ResourceFetcher implements Fetcher {
         Board board = null;
         try {
             JSONObject jsonBoard = jsonBourne.searchJSONArray(boardJsonArray, "boardName", boardName);
-            board = new Board(getBitmapFromFile(jsonBoard.getString("url"))); //where board is created
+            board = new Board(getBitmapFromFile(jsonBoard.getString("url"))); //where board
+            // is created
         } catch (JSONException e) {
             Log.d("Loading Resource: ", "Cannot find board of name: " + boardName);
             throw new NullPointerException();
@@ -88,7 +89,7 @@ public class ResourceFetcher implements Fetcher {
     public Bitmap getBitmapFromFile(String url) throws NullPointerException {
         //allows loading from a bitmap from a given url using Android's AssetManager
         try {
-            return graphicsIO.loadBitmap(url, Bitmap.Config.ARGB_4444);
+            return graphicsIO.loadBitmap(url, Bitmap.Config.ARGB_8888);
         } catch (IOException e) {
             Log.d("Loading Resource: ", "Error Processing Image at " + url);
         }

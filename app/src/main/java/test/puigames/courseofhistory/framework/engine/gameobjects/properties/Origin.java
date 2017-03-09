@@ -20,4 +20,15 @@ public class Origin {
                 ", y=" + y +
                 '}';
     }
+
+    public Origin(Origin origin)
+    {
+        this.x = origin.x;
+        this.y = origin.y;
+    }
+
+    public boolean equals(Origin other)
+    {
+        return (this.x == other.x && this.y == other.y);
+    }
 }

@@ -1,11 +1,15 @@
 package test.puigames.courseofhistory.framework.game.controllers;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameController;
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Pawn;
+import test.puigames.courseofhistory.framework.game.PlayArea;
 import test.puigames.courseofhistory.framework.game.assets.Deck;
+import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.Card;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 
@@ -20,6 +24,7 @@ public class Player extends Pawn {
     public PawnState playerCurrentState;
     public PawnAction currentAction;
     public Deck playerDeck;
+    public PlayArea playArea;
 
     public enum PawnState {
         CREATED, TAKING_TURN, WAITING_FOR_TURN, WIN, LOSE;
@@ -29,12 +34,12 @@ public class Player extends Pawn {
         ATTACK, PLACE_CARD_ON_BOARD, END_TURN, NONE;
     }
 
-
-    public Player(CharacterCard[] playerCards) {
+    public Player(CharacterCard[] playerCards, Board board) {
         this.playerCurrentState = PawnState.TAKING_TURN; //TODO set to created, set to taking turn for testing only!
         currentAction = PawnAction.NONE; //Initialised to none as a pawn is doing nothing when the game starts
         this.playerGraveyard = new ArrayList<>();
         this.testCards = playerCards;
+        this.playArea = board.playArea;
         setUpPlayerDeck();
 
 
@@ -100,5 +105,15 @@ public class Player extends Pawn {
 
     public void endPlayerTurn() {
 
+    }
+
+    public void addCardToPlayArea(CharacterCard card)
+    {
+            playArea.addCardToArea(card);
+    }
+
+    public void removeCardFromArea(CharacterCard card)
+    {
+            playArea.removeCardFromArea(card);
     }
 }

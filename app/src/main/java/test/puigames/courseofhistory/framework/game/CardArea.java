@@ -5,9 +5,8 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
-import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
-import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
 import test.puigames.courseofhistory.framework.game.assets.cards.Card;
+import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 
 /**
  * Created by Jordan on 02/03/2017.
@@ -20,8 +19,9 @@ import test.puigames.courseofhistory.framework.game.assets.cards.Card;
 public abstract class CardArea extends GameObject
 {
     public float cardPadding;
+    public ArrayList<CharacterCard> cardsInArea;
 
-    ArrayList<Card> cardsInArea;
+    protected int maxCardsInArea = 0; //default value - overwrite in hand
 
     public CardArea(float spawnX, float spawnY, int width, int height)
     {
@@ -31,44 +31,24 @@ public abstract class CardArea extends GameObject
         this.cardsInArea = new ArrayList<>();
     }
 
-    //width: 480 - 20 = 460 units (10 units on each side)
-    //height: (320 / 2) - 10 = 150 units (5 units above/below)
-
-
-    public void update(InputBuddy inputBuddy, float deltaTime, Card[] cards)
-    {
-        super.update(inputBuddy, deltaTime);
-
-        for(Card card : cards)
-            manageCardArea(card);
-    }
-
     /**
      * Try to position card in area
      * @param card - what we (hope) to move to position
      */
-    protected void manageCardArea(Card card)
+    public void addCardToArea(CharacterCard card)
     {
-        String logMessage;
-        if(!cardsInArea.contains(card))
-        {
-            if(card.boundingBox.isOverlapping(this.boundingBox))
-            {
+        if(!cardsInArea.contains(card) && cardsInArea.size() < maxCardsInArea)
+            if (card.boundingBox.isOverlapping(this.boundingBox))
                 cardsInArea.add(card);
-                logMessage = "card added";
-                Log.d("cardArea", "" + logMessage);
-                Log.d("cardArea size", "" + cardsInArea.size());
-            }
-        }
         else
-        {
-            if(card.boundingBox.isOutside(this.boundingBox))
-            {
+            return;
+    }
+
+    public void removeCardFromArea(CharacterCard card)
+    {
+        if(cardsInArea.contains(card) && cardsInArea.size() > 0)
                 cardsInArea.remove(card);
-                logMessage = "card removed";
-                Log.d("cardArea", "" + logMessage);
-                Log.d("cardArea size", "" + cardsInArea.size());
-            }
-        }
+        else
+            return;
     }
 }

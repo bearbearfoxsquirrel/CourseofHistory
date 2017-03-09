@@ -3,8 +3,10 @@ package test.puigames.courseofhistory.framework.engine.screen;
 import android.graphics.Canvas;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
+import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.screen.scaling.Scaler;
 import test.puigames.courseofhistory.framework.engine.screen.scaling.Viewport;
@@ -34,7 +36,7 @@ public abstract class Level extends Screen {
         scaler = new Scaler(gameProperties, viewport);
      //   inputBuddy = new InputBuddy();
 
-        this.sprites = new ArrayList<Sprite>();
+        this.sprites = new ArrayList<>();
         this.resourceFetcher = gameProperties.getResourceFetcher();
     }
 
@@ -47,7 +49,7 @@ public abstract class Level extends Screen {
         inputBuddy = new InputBuddy(input);
         scaler.scaleTouchInput(inputBuddy);
 
-        for (Sprite sprite: sprites) {
+        for (Sprite sprite : sprites) {
             sprite.update(inputBuddy, deltaTime);
             scaler.scaleToScreen(sprite);
         }
@@ -56,9 +58,8 @@ public abstract class Level extends Screen {
 
     @Override
     public void draw(Canvas canvas, float deltaTime) {
-        for (Sprite sprite: sprites) {
-           // canvas.drawBitmap(sprite.getImage(), sprite.getMatrix(), null);
-            sprite.draw(canvas, deltaTime);
+        for (Sprite sprite : sprites) {
+                sprite.draw(canvas, deltaTime);
         }
     }
 
