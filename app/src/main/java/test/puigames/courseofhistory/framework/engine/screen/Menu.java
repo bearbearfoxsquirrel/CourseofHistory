@@ -3,9 +3,11 @@ package test.puigames.courseofhistory.framework.engine.screen;
 import android.graphics.Canvas;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
+import test.puigames.courseofhistory.framework.engine.gameloop.MainGame;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
 import test.puigames.courseofhistory.framework.engine.resourceloading.Fetcher;
+import test.puigames.courseofhistory.framework.engine.resourceloading.ResourceFetcher;
 import test.puigames.courseofhistory.framework.engine.screen.scaling.Viewport;
 
 /**
@@ -19,6 +21,7 @@ public abstract class Menu extends Screen{
 
     public Menu(GameProperties gameProperties){
         super(gameProperties);
+        resourceFetcher = gameProperties.getResourceFetcher();
     }
 
     @Override
