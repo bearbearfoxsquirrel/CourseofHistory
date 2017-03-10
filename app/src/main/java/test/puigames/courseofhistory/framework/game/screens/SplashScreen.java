@@ -2,10 +2,12 @@ package test.puigames.courseofhistory.framework.game.screens;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
 import test.puigames.courseofhistory.framework.engine.screen.Menu;
+import test.puigames.courseofhistory.framework.game.levels.TestLevel;
 
 /**
  * Created by Christopher on 24/11/2016.
@@ -14,22 +16,20 @@ import test.puigames.courseofhistory.framework.engine.screen.Menu;
 public class SplashScreen extends Menu
 {
 
-    Bitmap logo
-    Bitmap scaledLogo;
-    int width = 640;
-    int height = 400;
+    Bitmap logo;
     float duration = 0;
+    Matrix matrix;
+
 
     public SplashScreen(GameProperties gameProperties) {
         super(gameProperties);
+        matrix = new Matrix();
         load();
     }
 
     public void load() {
-        height = 1080;
-        width = 1920;
-        logo = resourceFetcher.getBitmapFromFile("splash.png");
-        scaledLogo = Bitmap.createScaledBitmap(logo, width, height, true);
+        logo = resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png");
+        scaler.scaleToScreen(logo, matrix);
     }
 
     @Override
@@ -37,13 +37,20 @@ public class SplashScreen extends Menu
         super.update(deltaTime, input);
         duration += deltaTime;
         if(duration > 5)
-            gameProperties.setScreen(new MainMenu(gameProperties));
-
+            try{
+                gameProperties.setScreen(new MainMenu(gameProperties));
+            }
+            catch(NullPointerException e){
+                e.printStackTrace();
+            }
+        else{
+            gameProperties.setScreen(new TestLevel(gameProperties));
+        }
     }
 
     @Override
     public void draw(Canvas canvas, float deltaTime) {
-        canvas.drawBitmap(scaledLogo, 0.f, 0.f, null);
+        canvas.drawBitmap(logo, 0.f, 0.f, null);
     }
 
     @Override

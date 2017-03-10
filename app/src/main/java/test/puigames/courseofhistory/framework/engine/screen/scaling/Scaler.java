@@ -1,5 +1,7 @@
 package test.puigames.courseofhistory.framework.engine.screen.scaling;
 
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.util.Log;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
@@ -45,6 +47,14 @@ public class Scaler {
         gameObject.matrix.postRotate(0, scaleFactorX
                 / 2.0f, scaleFactorY / 2.0f);
         gameObject.matrix.postTranslate((gameObject.origin.x - gameObject.width / 2) * scaleFactorX, (gameObject.origin.y - gameObject.height / 2) * scaleFactorY);
+        //Updating of matrix done only here
+    }
+
+    public void scaleToScreen(Bitmap bitmap, Matrix matrix){
+        matrix.reset();
+        matrix.postScale(bitmap.getWidth() * scaleFactorX,  bitmap.getHeight()  * scaleFactorY);
+        matrix.postRotate(0, scaleFactorX
+                / 2.0f, scaleFactorY / 2.0f);
         //Updating of matrix done only here
     }
 

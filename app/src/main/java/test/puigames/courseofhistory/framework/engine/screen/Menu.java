@@ -16,22 +16,15 @@ public abstract class Menu extends Screen{
 
     protected InputBuddy inputBuddy;
     protected Fetcher resourceFetcher;
-    Viewport viewport;
-    //Scaler scaler;  // TODO
-    int width = 640;
-    int height = 400;
 
     public Menu(GameProperties gameProperties){
         super(gameProperties);
-        viewport = new Viewport(width, height);
-//        scaler = new Scaler(gameProperties, viewport);
-//        scaler.scaleViewport(viewport);
-        this.resourceFetcher = gameProperties.getResourceFetcher();
     }
 
     @Override
     public void update(float deltaTime, AndroidInput input) {
-
+        inputBuddy = new InputBuddy(input);
+        scaler.scaleTouchInput(inputBuddy);
     }
 
     @Override

@@ -4,6 +4,8 @@ import android.graphics.Canvas;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
+import test.puigames.courseofhistory.framework.engine.screen.scaling.Scaler;
+import test.puigames.courseofhistory.framework.engine.screen.scaling.Viewport;
 
 /**
  * Created by Jordan on 25/10/2016.
@@ -13,6 +15,10 @@ public abstract class Screen
 {
     //protected AndroidInput input;
     protected final GameProperties gameProperties;
+    protected Scaler scaler;
+    protected Viewport viewport;
+    final static float LEVEL_HEIGHT = 320.f;
+    final static float LEVEL_WIDTH = 480.f;
 
     /**
      * Constructor stores passed in GameProperties object
@@ -29,7 +35,10 @@ public abstract class Screen
      */
 
     public Screen(GameProperties gameProperties) {
+
         this.gameProperties = gameProperties;
+        viewport = new Viewport(LEVEL_WIDTH, LEVEL_HEIGHT);
+        scaler = new Scaler(gameProperties, viewport);
     }
 
     public abstract void update(float deltaTime, AndroidInput input);

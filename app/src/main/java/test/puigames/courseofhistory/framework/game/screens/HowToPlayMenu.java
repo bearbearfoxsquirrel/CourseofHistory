@@ -28,8 +28,13 @@ public class HowToPlayMenu extends Menu {
     }
 
     public void load(){
-        background = resourceFetcher.getBitmapFromFile("background.png");
-        scaledBackground = Bitmap.createScaledBitmap(background, width, height, true);
+        background = null;
+        try{
+            background = gameProperties.getResourceFetcher().getBitmapFromFile("images/backgrounds/background.png");
+        }
+        catch (NullPointerException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

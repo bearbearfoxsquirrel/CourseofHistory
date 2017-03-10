@@ -22,18 +22,10 @@ public abstract class Level extends Screen {
     protected ArrayList<Sprite> sprites;
     protected InputBuddy inputBuddy;
     protected Fetcher resourceFetcher;
-    protected Viewport viewport;
-    protected Scaler scaler;// TODO
-    final static float LEVEL_HEIGHT = 320.f;
-    final static float LEVEL_WIDTH = 480.f;
-
-
-
 
     public Level(GameProperties gameProperties) {
         super(gameProperties);
-        viewport = new Viewport(LEVEL_WIDTH, LEVEL_HEIGHT);
-        scaler = new Scaler(gameProperties, viewport);
+
      //   inputBuddy = new InputBuddy();
 
         this.sprites = new ArrayList<>();
@@ -41,7 +33,6 @@ public abstract class Level extends Screen {
     }
 
     public abstract void load();
-
 
 
     @Override

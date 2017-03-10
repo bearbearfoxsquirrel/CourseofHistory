@@ -26,13 +26,17 @@ public class SettingsMenu extends Menu {
     @Override
     public void update(float deltaTime, AndroidInput input) {
         super.update(deltaTime, input);
-
-        gameProperties.setScreen(new TestLevel(gameProperties))
+        gameProperties.setScreen(new TestLevel(gameProperties));
     }
 
     public void load(){
-        background = resourceFetcher.getBitmapFromFile("background.png");
-        scaledBackground = Bitmap.createScaledBitmap(background, width, height, true);
+        try {
+            background = resourceFetcher.getBitmapFromFile("background.png");
+        /*scaledBackground = Bitmap.createScaledBitmap(background, width, height, true);*/
+        }
+        catch(NullPointerException e){
+            e.printStackTrace();
+        }
     }
 
     @Override

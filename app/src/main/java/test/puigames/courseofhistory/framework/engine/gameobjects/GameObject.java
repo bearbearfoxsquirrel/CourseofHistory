@@ -20,12 +20,15 @@ public abstract class GameObject {
 
 
     public GameObject(float spawnX, float spawnY, int width, int height) {
-        this.width = width;     this.halfWidth = (width / 2);
-        this.height = height;   this.halfHeight = (height / 2);
+        this.width = width;
+        this.halfWidth = (width / 2);
+        this.height = height;
+        this.halfHeight = (height / 2);
         this.origin = new Origin(spawnX, spawnY);
         this.boundingBox = new BoundingBox(width, height, origin);
         this.matrix = new Matrix();
     }
+
 
     //updating objects that take user input
     public void update(InputBuddy inputBuddy, float deltaTime) {
