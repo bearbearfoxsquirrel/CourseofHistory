@@ -3,11 +3,15 @@ package test.puigames.courseofhistory.framework.game.assets;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 
+import java.util.Random;
+
+import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
+
 /**
- * Created by thoma on 10/03/2017.
+ * Created by Tommy on 10/03/2017.
  */
 
-public class Animation {
+public class Animation extends Sprite {
 
     // ////////////////////////////////////////////////////////////////////
     // Animation Properties
@@ -65,9 +69,12 @@ public class Animation {
      * @param frameCount Number of horizontal frames in the animation
      *        (assumed to be of equal width)
      */
-    public Animation(Bitmap animationFrames, int frameCount) {
 
-        this.animationFrames = animationFrames;
+    public Animation(Bitmap bitmap, float spawnX, float spawnY, int width, int height, int frameCount )
+    {
+        super(bitmap, spawnX, spawnY, width, height);
+
+        this.animationFrames = bitmap;
         this.frameCount = frameCount;
 
         frameHeight = animationFrames.getHeight();

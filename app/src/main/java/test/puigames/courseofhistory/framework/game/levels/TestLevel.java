@@ -1,5 +1,6 @@
 package test.puigames.courseofhistory.framework.game.levels;
 
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.util.Log;
 
@@ -10,6 +11,7 @@ import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
 import test.puigames.courseofhistory.framework.engine.screen.Level;
 import test.puigames.courseofhistory.framework.game.PlayArea;
+import test.puigames.courseofhistory.framework.game.assets.Animation;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
@@ -29,6 +31,8 @@ public class TestLevel extends Level
     private CharacterCard[] greatMindsCards = new CharacterCard[36];
     private CharacterCard[][] cardsHolder = {evilLeaderCards, greatMindsCards};
     private String[] deckNames = {"greatMindsCards", "evilLeaderCards"};
+    private Animation animation;
+    private Bitmap explodeAnimation;
 
     CardGameController cardGameControllers[];
 
@@ -61,6 +65,11 @@ public class TestLevel extends Level
           // this.greatMindsCards = resourceFetcher.loadCharacterCards("greatMindsDeck");
           // sprites.addAll(Arrays.asList(greatMindsCards));
 
+          this.animation = new Animation(resourceFetcher.getBitmapFromFile("images/Animations/Animation1.png"), 280,180,80,80,12);
+           sprites.add(animation);
+
+
+
            coin = new Coin(resourceFetcher.getBitmapFromFile("images/coins/coin-heads.png"),
                    240, 160, 80, 80);
            sprites.add(coin);
@@ -70,6 +79,7 @@ public class TestLevel extends Level
                this.cardsHolder[i] = resourceFetcher.loadCharacterCards(deckNames[i]);
                //sprites.addAll(Arrays.asList(cardsHolder[i]));
                this.cardGameControllers[i] = new HumanController(new Player(cardsHolder[i], board));
+
            }
 
        } catch(NullPointerException e) {
