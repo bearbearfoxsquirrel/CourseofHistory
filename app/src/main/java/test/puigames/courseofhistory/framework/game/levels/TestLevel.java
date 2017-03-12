@@ -9,12 +9,10 @@ import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
 import test.puigames.courseofhistory.framework.engine.screen.Level;
-import test.puigames.courseofhistory.framework.game.CardArea;
 import test.puigames.courseofhistory.framework.game.PlayArea;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
-import test.puigames.courseofhistory.framework.game.controllers.CardGameController;
 import test.puigames.courseofhistory.framework.game.controllers.HumanController;
 import test.puigames.courseofhistory.framework.game.controllers.Player;
 import test.puigames.courseofhistory.framework.game.screens.SplashScreen;
@@ -28,7 +26,7 @@ public class TestLevel extends Level
     private Board board;
     private CharacterCard[] testCards;
 
-    CardGameController cardGameControllers[];
+    Player players[];
 
     private Coin coin;
     private PlayArea playArea;
@@ -37,7 +35,7 @@ public class TestLevel extends Level
 
     public TestLevel(GameProperties gameProperties) {
         super(gameProperties);
-        cardGameControllers = new CardGameController[2];
+        players = new Player[2];
         load();
 
     }
@@ -55,8 +53,8 @@ public class TestLevel extends Level
            sprites.add(coin);
 
            //for (CardGameController contestant : cardGameControllers)
-           for(int i = 0; i < cardGameControllers.length; i++)
-               cardGameControllers[i] = new HumanController(new Player(testCards));
+           for(int i = 0; i < players.length; i++)
+               players[i] = new Player(testCards ,new HumanController());
 
 //           sprites.add(coin);
 
@@ -70,27 +68,34 @@ public class TestLevel extends Level
        }
     }
 
+
+
     @Override
     public void update(float deltaTime, AndroidInput input) {
         super.update(deltaTime, input);
 
         //while game not won
-        for(int turnIndex = 0; turnIndex < cardGameControllers.length; turnIndex++) {
-            cardGameControllers[turnIndex].update(inputBuddy, deltaTime);
-            switch (cardGameControllers[turnIndex].player.playerCurrentState) {
-              //  case CREATED:
+        /*for(int i = 0; i < cardGameControllers.length; i++) {
+            cardGameControllers[i].update(inputBuddy, deltaTime);
+
+            switch (cardGameControllers[i].currentControllerState) {
+                case IDLE:
+                    for(CharacterCard card : cardGameControllers[i].boardPlayArea.cards)
+                        for(CharacterCard opponentCard : cardGameControllers[i + 1 % 2].boardPlayArea.cards) {
+                            if (card.boundingBox.isOverlapping(opponentCard.boundingBox)) {
+                                card.attackCard(opponentCard);
+                            }
+                        }
+            }*/
+
+
+
+        /*    switch (cardGameControllers[i].player.playerCurrentState) {
+                case CREATED:
                 case TAKING_TURN:
-                    switch (cardGameControllers[turnIndex].currentControllerState) {
-                        case MOVING_CARD_IN_HAND:
-                            cardGameControllers[turnIndex].updateCardsInHand(deltaTime);
-                            break;
-                        case ATTACKING:
-                       //     cardGameControllers[turnIndex].
-                          //          pawn.attack(cardGameControllers[turnIndex].);
-                    }
-                    break;
+
             }
-        }
+        }*/
         decideTurn();
 
         scaler.scaleToScreen(playArea);

@@ -10,12 +10,10 @@ import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 public abstract class GameController {
     public Pawn pawn;
 
+    public interface ControllerStates{}
 
-    //public abstract enum ControllerState{};
 
-    public GameController(Pawn pawn) {
-        this.pawn = pawn;
-    //    this.state = ControllerState.MOVING_CARD_IN_HAND;
+    public GameController() {
 
     }
 
@@ -28,6 +26,9 @@ public abstract class GameController {
 
     public abstract void update(InputBuddy inputBuddy, float deltaTime);
     //public abstract void update();
+
+    public abstract void update(Pawn pawn, float deltaTime);
+
 
 
 

@@ -12,15 +12,17 @@ import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
  * Created by Michael on 20/02/2017.
  */
 
+
+//Player is
 public class Player extends Pawn {
     //TODO: Add deck, testCards, hero, and board area
     public ArrayList<Card> playerGraveyard;
-    public Card[] testCards;
+    public CharacterCard[] testCards;
     public PawnState playerCurrentState;
     public PawnAction currentAction;
 
     public enum PawnState {
-        CREATED, TAKING_TURN, WAITING_FOR_TURN, WIN, LOSE;
+        TURN_STARTED, CREATED, TAKING_TURN, WAITING_FOR_TURN, WIN, LOSE;
     }
 
     public enum PawnAction {
@@ -28,11 +30,17 @@ public class Player extends Pawn {
     }
 
 
-    public Player(Card[] playerCards) {
+    public Player(CharacterCard[] playerCards, CardGameController controller) {
+        super(controller);
         this.playerCurrentState = PawnState.TAKING_TURN; //TODO set to created, set to taking turn for testing only!
-        currentAction = PawnAction.NONE; //Initialised to none as a pawn is doing nothing when the game starts
+        this.currentAction = PawnAction.NONE; //Initialised to none as a pawn is doing nothing when the game starts
         this.playerGraveyard = new ArrayList<>();
         this.testCards = playerCards;
+    }
+
+    public void update(float deltaTime) {
+
+       // controller.update(this, deltaTime);
     }
 
     /*public void takeTurn(float deltaTime){
@@ -64,9 +72,6 @@ public class Player extends Pawn {
         //Or else throws a controller exception
         if (recipientOfMyFatalBlow instanceof CharacterCard) {
             theAttacker.attackCard((CharacterCard) recipientOfMyFatalBlow);
-            attackCard(theAttacker, (CharacterCard) recipientOfMyFatalBlow);
-            //if()
-
         } //else if (recipientOfMyFatalBlow instanceof Hero) {
         // attackHero();
         throw new GameController.ControllerException("Cannot attack this object!");
@@ -85,7 +90,7 @@ public class Player extends Pawn {
         return null;
     }
 
-    public void placeCardOnBoard() {
+    public void placeCardOnBoard(CharacterCard card) {
 
     }
 
