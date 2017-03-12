@@ -1,0 +1,192 @@
+{
+  "abilities":[
+    {
+      "ID": "boost_Attack",
+      "name": "Boost Attack",
+      "Description": "Raises the attack of one other card by an amount specified by the card"
+    },
+
+    {
+      "ID": "boost_Health",
+      "name": "Boost Health",
+      "Description": "Raises the health of one other card by an amount specified by the card"
+    },
+
+  	{
+		"ID":"charge",
+		"name": "Charge", 
+		"Description":"Can attack the same turn as drawn"
+	  },
+
+  	{
+		"ID":"taunt",
+		"name": "Taunt", 
+		"Description":"Has to be killed before opponent can attack other cards ( without taunt ) or the player directly"
+  	},
+
+    {
+		"ID":"heal",
+		"name": "Heal", 
+		"Description":"Restores health by the amount specified on the card"
+	  },
+
+    {
+      "ID": "notOneStepBack",
+      "name": "Not One Step Back",
+      "Description": "When card with this ability is played, all cards gain double attack but die at the end of the turn"
+    },
+      
+  	{
+		  "ID":"onePartyState",
+		  "name": "One Party State", 
+		  "Description":"If Stalin is the last remaining card on the player's side, spawn 2 worker cards (1 attack, 1 health) with taunt"
+  	},
+
+    {
+      "ID": "tradgedy",
+      "name": "Tradgedy",
+      "Description": "Upon death all opponent's cards loose one health"
+    },
+
+  	{
+  		"ID":"toBeeOrNotToBee",
+	  	"name": "To Bee or Not to Bee", 
+		  "Description":"One of the opponents cards turns into a 1 health, 1 attack bee"
+  	},
+
+    {
+       "ID": "surrender",
+       "name": "Surrender",
+       "Description": "When card health drops to 2 or below, gives the player 4 health and the card is removed from play"
+    },
+   
+  	{
+  		"ID":"bombardment",
+	  	"name": "Bombardment", 
+		  "Description":"All tier 1 cards take 1 damage on the opponents side"
+  	},
+
+    {
+      "ID": "iHaveADream",
+      "name": "I have a Dream",
+      "Description": "For each turn whilst this card is in play, its attack value raises by one point"
+    },
+
+  	{
+  		"ID":"rally",
+	  	"name": "Rally", 
+	  	"Description":"All cards on players side gain one health point while a card with this ability is in play"
+  	},
+
+    {
+      "ID": "radiation",
+      "name": "Radiation",
+      "Description": "Enemy hero takes one damage every time this card attacks another"
+    },
+
+  	{
+  		"ID":"halfLife",
+  		"name": "Half-Life", 
+  		"Description":"One card randomly loses 1 health every turn this card is played"
+  	},
+
+    {
+      "ID": "gloriousLeader",
+      "name": "Glorious Leader",
+      "Description": "When played, initial adjacent cards are given taunt"
+    },
+  
+  	{
+  		"ID":"censorship",
+  		"name": "Censorship", 
+  		"Description":"The opponent will always see this card with default stats (despite what health and attack values actually are)"
+  	},
+
+    {
+      "ID": "pillage",
+      "name": "Pillage",
+      "Description": "Attack players for 3 health and draw card from opponents deck"
+    },
+  
+  	{
+  		"ID":"plunder",
+  		"name": "Plunder", 
+  		"Description":"When the card is played, deal two damage to the opposing player"
+  	},
+
+    {
+	  	"ID":"worldPeace",
+  		"name": "World Peace", 
+  		"Description":"Makes all cards have one attack (while Ghandi is alive)"
+	  },
+
+    {
+      "ID": "pacify",
+      "name": "Pacify",
+      "Description": "Choose one of the opponents cards to lower to one attack point"
+    },
+
+    {
+      "ID": "relativity",
+      "name": "Relativiity",
+      "Description": "Increase of 1 attack point for each card the opponent has in play"
+    },
+
+    {
+      "ID": "duality",
+      "name": "Duality",
+      "Description": "Increase attack of adjacent cards by 1 attack point"
+    },
+
+    {
+      "ID": "devolution",
+      "name": "Devolution",
+      "Description": "A card with this ability can devolve a tier 3 card back to tier two at any point while in play (can only be used once)"
+    },
+
+    {
+      "ID": "freevolution",
+      "name": "Freevolution",
+      "Description": "Can evolve a card (including itself) for free but will have to wait a turn to evolve"
+    },
+
+    {
+      "ID": "twoFronts",
+      "name": "Two Fronts",
+      "Description": "Can attack twice on each turn"
+    },
+
+    {
+      "ID": "theBlitz",
+      "name": "The Blitz",
+      "Description": "When this card is played, for the first turn it has four times the attack as well as the charge ability"
+    },
+
+    {
+      "ID": "nationalism",
+      "name": "Nationalism",
+      "Description": "When this card is played, the player draws two cards from their deck"
+    },
+
+    {
+      "ID": "ironLady",
+      "name": "Iron Lady",
+      "Description": "When this card attacks another card it takes no damage"
+    },
+
+    {
+      "ID": "resultantForce",
+      "name": "Resultant Force",
+      "Description": "When this card dies it increases another cards health by 2"
+    },
+
+    {
+		  "ID":"windFury",
+		  "name": "Wind Fury", 
+		  "Description":"Allows the card to attack twice per turn"
+	  }
+  
+  ]
+
+
+}
