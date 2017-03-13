@@ -3,6 +3,7 @@ package test.puigames.courseofhistory.framework.game.screens;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.graphics.Paint;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
@@ -15,42 +16,37 @@ import test.puigames.courseofhistory.framework.game.levels.TestLevel;
 
 public class SplashScreen extends Menu
 {
-
     Bitmap logo;
-    float duration = 0;
-    Matrix matrix;
-
+    float duration = 0.0f;
 
     public SplashScreen(GameProperties gameProperties) {
         super(gameProperties);
-        matrix = new Matrix();
         load();
     }
 
     public void load() {
         logo = resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png");
-        scaler.scaleToScreen(logo, matrix);
+        bitmaps.add(logo);
     }
 
     @Override
     public void update(float deltaTime, AndroidInput input) {
         super.update(deltaTime, input);
-        duration += deltaTime;
-        if(duration > 5)
+
+        if(duration > 5.0f)
             try{
-                gameProperties.setScreen(new MainMenu(gameProperties));
+                gameProperties.setScreen(new TestLevel(gameProperties));
             }
             catch(NullPointerException e){
-                e.printStackTrace();
+                gameProperties.setScreen(new SplashScreen(gameProperties));
             }
-        else{
-            gameProperties.setScreen(new TestLevel(gameProperties));
-        }
+
+        duration += deltaTime;
     }
 
     @Override
     public void draw(Canvas canvas, float deltaTime) {
-        canvas.drawBitmap(logo, 0.f, 0.f, null);
+        super.draw(canvas, deltaTime);
     }
 
     @Override
