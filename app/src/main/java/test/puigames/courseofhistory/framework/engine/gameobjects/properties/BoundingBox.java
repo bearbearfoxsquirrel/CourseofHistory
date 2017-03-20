@@ -64,7 +64,7 @@ public class BoundingBox {
         this.bottom = origin.y + (height/2);
     }
 
-    //udates where the bounding box refers to on screen
+    //updates where the bounding box refers to on screen
     public void setBoundingBox(Origin origin) {
         this.left = origin.x - this.halfWidth ;
         this.right = origin.x + this.halfWidth;
