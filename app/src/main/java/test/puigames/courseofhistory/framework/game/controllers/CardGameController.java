@@ -7,7 +7,7 @@ import test.puigames.courseofhistory.framework.engine.gameobjects.GameController
  * Created by Michael on 03/03/2017.
  */
 
-public abstract class CardGameController extends GameController implements HumanControllerInteraction {
+public abstract class CardGameController extends GameController {
     public ControllerState currentControllerState;
     public Player player;
 
@@ -16,9 +16,10 @@ public abstract class CardGameController extends GameController implements Human
     }
 
     public CardGameController() {
-        currentControllerState = ControllerState.CREATED;
+        this.currentControllerState = ControllerState.CREATED;
     }
 
-
-
+    public void possessPlayer(Player player) {
+        this.player = player;
+    }
 }

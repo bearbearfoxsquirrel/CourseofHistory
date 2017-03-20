@@ -132,8 +132,8 @@ public class MainGame extends Activity implements GameProperties, Runnable
         this.screen.pause();
         this.screen.dispose();
         screen.resume();
-        screen.update(0, input);
         this.screen = screen;
+        screen.update(0, input);
     }
 
     public void calculateScreenSize() {

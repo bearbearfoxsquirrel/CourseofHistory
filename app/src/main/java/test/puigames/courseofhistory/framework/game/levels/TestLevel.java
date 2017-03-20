@@ -13,7 +13,9 @@ import test.puigames.courseofhistory.framework.game.PlayArea;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
-import test.puigames.courseofhistory.framework.game.controllers.HumanController;
+import test.puigames.courseofhistory.framework.game.controllers.CardGameController;
+import test.puigames.courseofhistory.framework.game.controllers.CourseOfHistoryMachine;
+import test.puigames.courseofhistory.framework.game.controllers.HumanCardGameController;
 import test.puigames.courseofhistory.framework.game.controllers.Player;
 import test.puigames.courseofhistory.framework.game.screens.SplashScreen;
 
@@ -23,21 +25,21 @@ import test.puigames.courseofhistory.framework.game.screens.SplashScreen;
 
 public class TestLevel extends Level
 {
+    public static int MAX_PLAYERS = 2;
     private Board board;
     private CharacterCard[] testCards;
 
-    Player players[];
+    HumanCardGameController controllers[];
 
     private Coin coin;
     private PlayArea playArea;
     private float areaPaddingX = 10.0f;
     private float areaPaddingY = 6.0f;
+    CourseOfHistoryMachine gameMachine;
 
     public TestLevel(GameProperties gameProperties) {
         super(gameProperties);
-        players = new Player[2];
         load();
-
     }
 
     public void load() {
@@ -53,51 +55,53 @@ public class TestLevel extends Level
            sprites.add(coin);
 
            //for (CardGameController contestant : cardGameControllers)
-           for(int i = 0; i < players.length; i++)
-               players[i] = new Player(testCards ,new HumanController());
+           controllers = new HumanCardGameController[MAX_PLAYERS];
+           Player[] players = new Player[MAX_PLAYERS];
 
-//           sprites.add(coin);
+           for(int i = 0; i < controllers.length; i++) {
+               players[i] = new Player(testCards);
+               controllers[i] = new HumanCardGameController();
+               controllers[i].possessPlayer(players[i]);
+           }
+
+
+           gameMachine = new CourseOfHistoryMachine(players);
+
 
            //play area
            playArea = new PlayArea(board.boundingBox.left + areaPaddingX, board.halfWidth + areaPaddingY,
                    190, 140);
+
+           gameMachine.startGame();
        } catch(NullPointerException e) {
            Log.d("Loading Error:", "Error fetching resources, returning to menu");
+           //TODO do properly
            //Failed loading the gameProperties - won't cause crash if resources set up wrong!
            gameProperties.setScreen(new SplashScreen(this.gameProperties));
        }
     }
 
+    public void updateControllers(float deltaTime) {
+        for (CardGameController controller: controllers)
+            try {
+                if (controller instanceof HumanCardGameController)
+                    ((HumanCardGameController)controller).update(inputBuddy, deltaTime);
+               // else if (controller instanceof AICardGameController)
+                    //((AICardGameController)controller).update(deltaTime);
+            } catch (Exception e) {
+                Log.d("Updating Controller: ", "Error processing controller " + controller.toString());
+            }
+    }
 
 
     @Override
     public void update(float deltaTime, AndroidInput input) {
         super.update(deltaTime, input);
 
-        //while game not won
-        /*for(int i = 0; i < cardGameControllers.length; i++) {
-            cardGameControllers[i].update(inputBuddy, deltaTime);
+        updateControllers(deltaTime); //Should be called before the game machine is updated
+        gameMachine.update(deltaTime);
 
-            switch (cardGameControllers[i].currentControllerState) {
-                case IDLE:
-                    for(CharacterCard card : cardGameControllers[i].boardPlayArea.cards)
-                        for(CharacterCard opponentCard : cardGameControllers[i + 1 % 2].boardPlayArea.cards) {
-                            if (card.boundingBox.isOverlapping(opponentCard.boundingBox)) {
-                                card.attackCard(opponentCard);
-                            }
-                        }
-            }*/
-
-
-
-        /*    switch (cardGameControllers[i].player.playerCurrentState) {
-                case CREATED:
-                case TAKING_TURN:
-
-            }
-        }*/
         decideTurn();
-
         scaler.scaleToScreen(playArea);
         playArea.update(inputBuddy, deltaTime, testCards);
     }

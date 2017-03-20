@@ -1,7 +1,6 @@
 package test.puigames.courseofhistory.framework.game.controllers;
 
 import test.puigames.courseofhistory.framework.game.assets.Coin;
-
 /**
  * Created by Michael on 06/03/2017.
  */
@@ -25,30 +24,38 @@ public class CourseOfHistoryMachine {
         currentGameState = GameState.CREATED;
     }
 
-    public void initialiseGame() {
+    public void startGame() {
         //TODO implement
+        turnIndex = 1;
+        currentGameState = GameState.COIN_TOSS;
+        //Coin toss and decide which player should go first
     }
 
-    public void update() {
+    public void takeTurns() {
+        //Turns being made
+        switch (players[turnIndex].playerCurrentState) {
+            case TURN_STARTED:
+                players[turnIndex].drawCardFromDeck();
+                break;
+            case TURN_ENDED:
+                updateTurnIndex();
+                break;
+        }
+    }
+
+
+
+    public void update(float deltaTime) {
         //TODO update turnTimeRemaining
        // checkCurrentGameState();
         switch (currentGameState) {
             case CREATED:
-                turnIndex = 1;
-                currentGameState = GameState.COIN_TOSS;
-                //Coin toss and decide which player should go first
+                startGame();
                 break;
             case COIN_TOSS:
                 //tossCoin();
             case GAME_ACTIVE:
-                //Turns being made
-                switch (players[turnIndex].getCurrentAction()) {
-                    case PLACE_CARD_ON_BOARD:
-                        players[turnIndex].placeCardOnBoard();
-                    case END_TURN:
-                        updateTurnIndex();
-                        break;
-                }
+                takeTurns();
                 break;
             case GAME_PAUSED:
                 //TODO handle when the game is paused

@@ -4,8 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
-import test.puigames.courseofhistory.framework.engine.screen.Level;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
+import test.puigames.courseofhistory.framework.engine.screen.Level;
 import test.puigames.courseofhistory.framework.game.levels.TestLevel;
 
 /**
@@ -46,6 +46,8 @@ public class SplashScreen extends Level
 
     @Override
     public void draw(Canvas canvas, float deltaTime) {
+       // Matrix splashMatrix = new Matrix();
+       // scaler.scaleToScreen(splashMatrix, logo.getWidth(), logo.getHeight());
         canvas.drawBitmap(scaledLogo, 0.f, 0.f, null);
     }
 

@@ -6,11 +6,11 @@ import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.In
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 
 //This class is for allowing the user to interact with a pawn pawn
-public class HumanController extends CardGameController implements  HumanControllerInteraction {
+public class HumanCardGameController extends CardGameController {
     public InputBuddy inputBuddy;
 
-    public HumanController() {
-
+    public HumanCardGameController() {
+        super();
     }
 
     public void update(InputBuddy inputBuddy, float deltaTime) {
@@ -25,18 +25,10 @@ public class HumanController extends CardGameController implements  HumanControl
             for (CharacterCard card : player.testCards) {
                 if (checkIsTouched(touchEvent, card)) {
                     currentControllerState = ControllerState.MOVING_CARD_ON_BOARD;
-                    card.translateCard(touchEvent.x, touchEvent.y);
+                    player.moveCard(card, touchEvent.x, touchEvent.y);
                 }
             }
         }
-    }
-
-    public CharacterCard findActiveCard(CharacterCard[] cards) {
-        for (Input.TouchEvent touchEvent : inputBuddy.getTouchEvents())
-            for (CharacterCard card : cards)
-                if (checkIsTouched(touchEvent, card))
-                    return card;
-        return null;
     }
 
     public void updateCardsInHand(float deltaTime) {

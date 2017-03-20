@@ -22,7 +22,8 @@ public class Player extends Pawn {
     public PawnAction currentAction;
 
     public enum PawnState {
-        TURN_STARTED, CREATED, TAKING_TURN, WAITING_FOR_TURN, WIN, LOSE;
+        TURN_STARTED, TURN_ACTIVE, CREATED, WAITING_FOR_TURN, TURN_ENDED, WIN, LOSE;
+        //PLAY_ACTIVE refers to when the player is allowed to take active decision in their turn
     }
 
     public enum PawnAction {
@@ -30,38 +31,28 @@ public class Player extends Pawn {
     }
 
 
-    public Player(CharacterCard[] playerCards, CardGameController controller) {
-        super(controller);
-        this.playerCurrentState = PawnState.TAKING_TURN; //TODO set to created, set to taking turn for testing only!
+    public Player(CharacterCard[] playerCards) {
+        this.playerCurrentState = PawnState.TURN_STARTED; //TODO set to created, set to taking turn for testing only!
         this.currentAction = PawnAction.NONE; //Initialised to none as a pawn is doing nothing when the game starts
         this.playerGraveyard = new ArrayList<>();
         this.testCards = playerCards;
+    }
+
+    public void drawCardFromDeck() {
+        //TODO animate
+        //TODO hand.addToHand(deck.pop());
+        playerCurrentState = PawnState.TURN_ACTIVE;
+    }
+
+    public void moveCard(Card card, float posX, float posY)
+    {
+        card.translateCard(posX, posY);
     }
 
     public void update(float deltaTime) {
 
        // controller.update(this, deltaTime);
     }
-
-    /*public void takeTurn(float deltaTime){
-       playerCurrentState = PawnState.TAKING_TURN;
-        boolean turnActive = true;
-        drawCardFromDeck();
-
-        while(turnActive) {
-            currentAction = getCurrentAction();
-            switch (currentAction) {
-                case ATTACK:
-                    attack();
-                    break;
-                case PLACE_CARD_ON_BOARD:
-                    placeCardOnBoard();
-                    break;
-
-            }
-        }
-        playerCurrentState = PawnState.WAITING_FOR_TURN;
-    }*/
 
     public PawnAction getCurrentAction() {
         return currentAction;
@@ -72,12 +63,23 @@ public class Player extends Pawn {
         //Or else throws a controller exception
         if (recipientOfMyFatalBlow instanceof CharacterCard) {
             theAttacker.attackCard((CharacterCard) recipientOfMyFatalBlow);
-        } //else if (recipientOfMyFatalBlow instanceof Hero) {
-        // attackHero();
-        throw new GameController.ControllerException("Cannot attack this object!");
+            //else if (recipientOfMyFatalBlow instanceof Hero) {
+            // attackHero();
+        } else {
+            throw new GameController.ControllerException("Cannot attack this object!");
+        }
     }
 
     private void attackCard(CharacterCard theAttacker, CharacterCard theRecpient) {
+        theAttacker.attackCard(theRecpient);
+        theRecpient.attackCard(theAttacker);
+
+        //TODO check cards' health and see if they are deaded then take appropriate action
+        //TODO find nice way to create attacks as an EVENT
+        //TODO GAME SHOULD INITIATE CHECKING CARDS ARE DEADED AND SEND THEM TO THEIR GRAVES IF NECESSARY
+    }
+
+    public void sendCardToTheNeverZone(Card card) {
 
     }
 
@@ -85,10 +87,11 @@ public class Player extends Pawn {
 
     }
 
-
-    public Card drawCardFromDeck() {
-        return null;
+    public void endTurn() {
+        playerCurrentState = PawnState.TURN_ENDED;
     }
+
+
 
     public void placeCardOnBoard(CharacterCard card) {
 
