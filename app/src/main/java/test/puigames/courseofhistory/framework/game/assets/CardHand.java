@@ -18,7 +18,6 @@ import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 public class CardHand extends CardArea{
     private ArrayList<CharacterCard> cardHand = new ArrayList<CharacterCard>();
     private Origin[] handPositions;
-    Scaler scaler;
 
 
     public CardHand(){
@@ -47,8 +46,8 @@ public class CardHand extends CardArea{
         sprites.add(characterCard);
     }
 
-    public void update(InputBuddy inputBuddy, float deltaTime) {
-        super.update(inputBuddy, deltaTime);
+    public void update(float deltaTime) {
+        super.update(deltaTime);
         positionCardsInArea();
     }
 

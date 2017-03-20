@@ -11,49 +11,61 @@ import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Ori
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 
 /**
-* Created by Christopher on 09/03/2017.
-*/
+ * Created by Christopher on 13/03/2017.
+ */
 
-public class MenuButton extends UIElement implements Drawable{
-
-    protected Bitmap buttonImage;
+public abstract class UIElement implements Drawable
+{
+    public Bitmap image;
+    public float width, halfWidth;
+    public float height, halfHeight;
+    public BoundingBox boundingBox;
+    public Origin origin;
+    public Matrix matrix;
     protected Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-    public MenuButton(Bitmap buttonImage, Paint paint){
-        super(buttonImage, 0, 0);
-        this.buttonImage = buttonImage;
-        this.boundingBox = new BoundingBox(width, height, origin);
+
+    public UIElement(Bitmap bitmap, float width, float height){
+        this.image = bitmap;
+        this.width = width;
+        this.halfWidth = (width / 2);
+        this.height = height;
+        this.halfHeight = (height / 2);
     }
 
-    @Override
-    public void draw(Canvas canvas, float deltaTime) {
-        canvas.drawBitmap(buttonImage, matrix, paint);
+
+    public void placeUIElement(float spawnX, float spawnY)
+    {
+        this.origin = new Origin(spawnX, spawnY);
+        this.boundingBox = new BoundingBox(width, height, origin);
+        this.matrix = new Matrix();
     }
+
 
     public void update(InputBuddy inputBuddy, float deltaTime){
-        super.update(inputBuddy, deltaTime);
-
-//        for(Input.TouchEvent touchEvent : inputBuddy.getTouchEvents()) {
-////            if(this.boundingBox.isTouchOn(touchEvent)) {
-//////                changeScreen(screenName);
-////            }
-//        }
+        this.boundingBox.setBoundingBox(this.origin);
     }
 
-    public Bitmap getButtonImage(){
-        return buttonImage;
+
+    public void update(float deltaTime)
+    {
+        this.boundingBox.setBoundingBox(this.origin);
     }
 
-    public void setButtonImage(Bitmap buttonImage) {
-        this.buttonImage = buttonImage;
+
+    @Override
+    public void draw(Canvas canvas, float deltaTime)
+    {
+        canvas.drawBitmap(image, matrix, paint);
     }
 
-    public Origin getOrigin() {
-        return origin;
+
+    Bitmap getImage() {
+        return image;
     }
 
-    public void setOrigin(Origin origin) {
-        this.origin = origin;
+    public void setImage(Bitmap image) {
+        this.image = image;
     }
 
     public Matrix getMatrix() {
@@ -88,4 +100,11 @@ public class MenuButton extends UIElement implements Drawable{
         this.boundingBox = boundingBox;
     }
 
+    public Origin getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(Origin origin) {
+        this.origin = origin;
+    }
 }

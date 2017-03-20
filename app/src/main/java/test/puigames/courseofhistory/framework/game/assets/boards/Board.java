@@ -31,15 +31,13 @@ public class Board extends Sprite implements Drawable {
             //spawnX = boundingBox.left + areaPaddingX
             //spawnY = halfWidth + areaPaddingY
             //width = 460, height = 140
-        playAreas[0] = new PlayArea(boundingBox.left + areaPaddingX, halfWidth + areaPaddingY,
-                460, 140);
+        playAreas[0] = new PlayArea(460, 140);
 
         //player 2 - opponent: AI/other player - top half of screen
             //spawnX = boundingBox.left + areaPaddingX
             //spawnY = boundingBox.top
             //width = 460, height = 140
-        playAreas[1] = new PlayArea(boundingBox.left + areaPaddingX, boundingBox.top,
-                460, 140);
+        playAreas[1] = new PlayArea(460, 140);
     }
 
     @Override
