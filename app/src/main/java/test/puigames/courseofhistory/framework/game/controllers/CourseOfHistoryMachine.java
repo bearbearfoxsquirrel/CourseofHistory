@@ -29,55 +29,21 @@ public class CourseOfHistoryMachine {
         this.turnTimeRemaining = TURN_TIME;
     }
 
-    private void tossCoin() {
-        coin.flipCoin();
-
-        if(coin.faceUp == Coin.Result.HEADS)
-            turnIndex = 0;
-         else
-            turnIndex = 1;
-
-        coin.setImage(coin.coinSides[turnIndex]);
-        currentGameState = GameState.GAME_ACTIVE;
-    }
-
     public void startGame() {
         currentGameState = GameState.COIN_TOSS;
         //Tells the game it needs to make a coin toss
     }
 
-    private void startTurn() {
-        turnTimeRemaining = TURN_TIME;
-    }
+    private void tossCoin() {
+        coin.flipCoin();
 
-    private void updateAndCheckTurnTimeRemaining(float deltaTime) {
-        turnTimeRemaining -= deltaTime; //decrements their turn time by the delta time
-        checkTurnTimeRemaining(); //Checks if the player's turn is over
-    }
+        if(coin.faceUp == Coin.Result.HEADS)
+            turnIndex = 0;
+        else
+            turnIndex = 1;
 
-    private void checkTurnTimeRemaining(){
-        if (turnTimeRemaining <= 0.f) {
-            nextPlayersTurn();
-        }
-    }
-
-    public void takeTurn(float deltaTime) {
-        //Turn being made
-        switch (players[turnIndex].playerCurrentState) {
-            case CREATED:
-                players[turnIndex].playerCurrentState = Player.PawnState.TURN_STARTED;
-            case TURN_STARTED:
-                startTurn();
-                players[turnIndex].playerCurrentState = Player.PawnState.TURN_ACTIVE;
-
-            case TURN_ACTIVE:
-                updateAndCheckTurnTimeRemaining(deltaTime);
-                break;
-
-            case TURN_ENDED:
-                nextPlayersTurn(); //Changes turn index to the next player
-                break;
-        }
+        coin.setImage(coin.coinSides[turnIndex]);
+        currentGameState = GameState.GAME_ACTIVE;
     }
 
     public void update(float deltaTime) {
@@ -103,6 +69,40 @@ public class CourseOfHistoryMachine {
                 //Handle endgame
                 //TODO check who wins
                 break;
+        }
+    }
+
+    public void takeTurn(float deltaTime) {
+        //Turn being made
+        switch (players[turnIndex].playerCurrentState) {
+            case CREATED:
+                players[turnIndex].playerCurrentState = Player.PawnState.TURN_STARTED;
+            case TURN_STARTED:
+                startTurn();
+                players[turnIndex].playerCurrentState = Player.PawnState.TURN_ACTIVE;
+
+            case TURN_ACTIVE:
+                updateAndCheckTurnTimeRemaining(deltaTime);
+                break;
+
+            case TURN_ENDED:
+                nextPlayersTurn(); //Changes turn index to the next player
+                break;
+        }
+    }
+
+    private void startTurn() {
+        turnTimeRemaining = TURN_TIME;
+    }
+
+    private void updateAndCheckTurnTimeRemaining(float deltaTime) {
+        turnTimeRemaining -= deltaTime; //decrements their turn time by the delta time
+        checkTurnTimeRemaining(); //Checks if the player's turn is over
+    }
+
+    private void checkTurnTimeRemaining(){
+        if (turnTimeRemaining <= 0.f) {
+            nextPlayersTurn();
         }
     }
 
