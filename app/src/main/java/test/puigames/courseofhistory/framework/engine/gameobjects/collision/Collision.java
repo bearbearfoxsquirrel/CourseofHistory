@@ -1,5 +1,6 @@
 package test.puigames.courseofhistory.framework.engine.gameobjects.collision;
 
+import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.BoundingBox;
 
@@ -9,8 +10,8 @@ import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Bou
 
 public interface Collision
 {
-    public boolean isCollision(BoundingBox boundingBox1,
-                               BoundingBox boundingBox2);
+    public boolean isCollision(BoundingBox boundingBox1, BoundingBox boundingBox2);
 
-    public BoundingBox.bound determineAndResolveCollision(Sprite sprite1, Sprite sprite2);
+    public BoundingBox.bound determineAndResolveCollision(GameObject object1, GameObject
+            object2, double overlapModifier);
 }

@@ -1,0 +1,130 @@
+{
+  "evolvedCards": [
+    {
+      "ID": "kimKongIlEv",
+      "name": "Kim Jong Il",
+      "charDescription": "It's all a lie. They're just pretending to praise me",
+      "mana": 12,
+      "health": 14,
+      "attack": 2,
+      "abilityName": "gloriousLeader",
+      "portraitSrc": "images/cards/tier3/evil_leaders/kimKongIlEv.png"
+    },
+    {
+      "ID": "napoleanEv",
+      "name": "Napolean",
+      "charDescription": "Religion is what keeps the poor from murdering the rich",
+      "mana": 12,
+      "health": 8,
+      "attack": 8,
+      "abilityName": "surrender",
+      "portraitSrc": "images/cards/tier3/evil_leaders/napoleanEv.png"
+    },
+    {
+      "ID": "ghenghisKhanEv",
+      "name": "Ghenghis Khan",
+      "charDescription": "To get drunken twice a month is better; once still more praiseworthy",
+      "mana": 12,
+      "health": 6,
+      "attack": 10,
+      "abilityName": "pillage",
+      "portraitSrc": "images/cards/tier3/evil_leaders/ghenghisKhanEv.png"
+    },
+    {
+      "ID": "margaretThatcherEv",
+      "name": "Margaret Thatcher",
+      "charDescription": "I seem to smell the stench of appeasement in the air",
+      "mana": 12,
+      "health": 6,
+      "attack": 10,
+      "abilityName": "ironLady",
+      "portraitSrc": "images/cards/tier3/evil_leaders/margaretThatcherEv.png"
+    },
+    {
+      "ID": "adolfHitlerEv",
+      "name": "Adolf Hitler",
+      "charDescription": "Anyone who paints the sky green needs sterilised",
+      "mana": 12,
+      "health": 10,
+      "attack": 4,
+      "abilityName": "theBlitz",
+      "portraitSrc": "images/cards/tier3/evil_leaders/adolfHitlerEv.png"
+    },
+    {
+      "ID": "josefStalinEv",
+      "name": "Josef Stalin",
+      "charDescription": "Death is the solution to all problems - no man, no problem",
+      "mana": 12,
+      "health": 10,
+      "attack": 6,
+      "abilityName": "notOneStepBack",
+      "portraitSrc": "images/cards/tier3/evil_leaders/josefStalinEv.png"
+    },
+
+    {
+      "ID":"charlesDarwinEv",
+      "name": "Charles Darwin",
+      "charDescription":"I love fools' experiments. I am always making them",
+      "mana": 12,
+      "health": 6,
+      "attack": 10,
+      "abilityName":"devolution",
+      "portraitSrc" : "images/cards/tier3/great_minds/charlesDarwinEv.png"
+    },
+
+    {
+      "ID":"martinLutherKingEv",
+      "name": "Martin Luther King",
+      "charDescription":"I look to a day when people will not be judged by the color of their skin.",
+      "mana": 12,
+      "health": 12,
+      "attack": 4,
+      "abilityName":"iHaveADream",
+      "portraitSrc" : "images/cards/tier3/great_minds/martinLutherKingEv.png"
+    },
+
+    {
+      "ID":"marieCurieEv",
+      "name": "Marie Curie",
+      "charDescription":"Be less curious about people and more curious about ideas",
+      "mana": 12,
+      "health": 8,
+      "attack": 8,
+      "abilityName":"radiation",
+      "portraitSrc" : "images/cards/tier3/great_minds/marieCurieEv.png"
+    },
+
+    {
+      "ID":"albertEinsteinEv",
+      "name": "Albert Einstein",
+      "charDescription":"Everything should be made as simple as possible, but not simpler.",
+      "mana": 12,
+      "health": 10,
+      "attack": 6,
+      "abilityName":"relativity",
+      "portraitSrc" : "images/cards/tier3/great_minds/albertEinsteinEv.png"
+    },
+
+    {
+      "ID":"williamShakespeareEv",
+      "name": "William Shakespeare",
+      "charDescription":"When the feeling's gone and you can't go on, its tragedy.",
+      "mana": 12,
+      "health": 6,
+      "attack": 10,
+      "abilityName":"tragedy",
+      "portraitSrc" : "images/cards/tier3/great_minds/williamShakespeareEv.png"
+    },
+
+    {
+      "ID":"ghandiEv",
+      "name": "Ghandi",
+      "charDescription":"An eye for an eye only ends up making the whole world blind",
+      "mana": 12,
+      "health": 14,
+      "attack": 2,
+      "abilityName":"worldPeace",
+      "portraitSrc" : "images/cards/tier3/great_minds/ghandiEv.png"
+    }
+  ]
+}

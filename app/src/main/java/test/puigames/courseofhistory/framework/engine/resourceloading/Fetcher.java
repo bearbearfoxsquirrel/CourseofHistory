@@ -16,5 +16,5 @@ public interface Fetcher {
 
     public Board loadBoard(String boardName);
 
-    public CharacterCard[] loadCharacterCards();
+    public CharacterCard[] loadCharacterCards(String deckName);
 }

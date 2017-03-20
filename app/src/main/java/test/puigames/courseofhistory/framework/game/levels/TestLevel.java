@@ -11,6 +11,7 @@ import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
 import test.puigames.courseofhistory.framework.engine.screen.Level;
 import test.puigames.courseofhistory.framework.game.PlayArea;
+import test.puigames.courseofhistory.framework.game.assets.Animation;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
@@ -30,6 +31,12 @@ public class TestLevel extends Level
     public static int MAX_DECK_SIZE = 36;
    // private Board board;
    // private CharacterCard[] testCards;
+    private CharacterCard[] evilLeaderCards = new CharacterCard[36];
+    private CharacterCard[] greatMindsCards = new CharacterCard[36];
+    private CharacterCard[][] cardsHolder = {evilLeaderCards, greatMindsCards};
+    private String[] deckNames = {"greatMindsCards", "evilLeaderCards"};
+    private Animation animation;
+    private Bitmap explodeAnimation;
 
     HumanCardGameController controllers[];
 
@@ -105,8 +112,18 @@ public class TestLevel extends Level
         super.update(deltaTime, input);
         updateControllers(deltaTime); //Should be called before the game machine is updated
         gameMachine.update(deltaTime);
-    }
 
+    private void collisionCheckAndResolve(int turnIndex)
+    {
+        for(CharacterCard card : cardGameControllers[turnIndex].player.testCards)
+        {
+            for(CharacterCard card2 : cardGameControllers[turnIndex].player.testCards)
+            {
+                if(card.checkForCollision(card2))
+                    card.resolveCollision(card2, card.overlapAllowance);
+            }
+        }
+    }
 
 
 

@@ -3,8 +3,10 @@ package test.puigames.courseofhistory.framework.engine.screen;
 import android.graphics.Canvas;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
+import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.screen.scaling.Scaler;
 import test.puigames.courseofhistory.framework.engine.screen.scaling.Viewport;
@@ -20,26 +22,16 @@ public abstract class Level extends Screen {
     protected ArrayList<Sprite> sprites;
     protected InputBuddy inputBuddy;
     protected Fetcher resourceFetcher;
-    protected Viewport viewport;
-    protected Scaler scaler;// TODO
-    final static float LEVEL_HEIGHT = 320.f;
-    final static float LEVEL_WIDTH = 480.f;
-
-
-
 
     public Level(GameProperties gameProperties) {
         super(gameProperties);
-        viewport = new Viewport(LEVEL_WIDTH, LEVEL_HEIGHT);
-        scaler = new Scaler(gameProperties, viewport);
-     //   inputBuddy = new InputBuddy();
 
-        this.sprites = new ArrayList<Sprite>();
+        this.sprites = new ArrayList<>();
         this.resourceFetcher = gameProperties.getResourceFetcher();
     }
 
-    public abstract void load();
 
+    public abstract void load();
 
 
     @Override
@@ -47,8 +39,8 @@ public abstract class Level extends Screen {
         inputBuddy = new InputBuddy(input);
         scaler.scaleTouchInput(inputBuddy);
 
-        for (Sprite sprite: sprites) {
-            sprite.update(inputBuddy, deltaTime);
+        for (Sprite sprite : sprites) {
+            sprite.update(deltaTime);
             scaler.scaleToScreen(sprite);
         }
     }
@@ -56,11 +48,11 @@ public abstract class Level extends Screen {
 
     @Override
     public void draw(Canvas canvas, float deltaTime) {
-        for (Sprite sprite: sprites) {
-           // canvas.drawBitmap(sprite.getImage(), sprite.getMatrix(), null);
-            sprite.draw(canvas, deltaTime);
+        for (Sprite sprite : sprites) {
+                sprite.draw(canvas, deltaTime);
         }
     }
+
 
     @Override
     public void pause()
@@ -68,11 +60,13 @@ public abstract class Level extends Screen {
 
     }
 
+
     @Override
     public void resume()
     {
 
     }
+
 
     @Override
     public void dispose()

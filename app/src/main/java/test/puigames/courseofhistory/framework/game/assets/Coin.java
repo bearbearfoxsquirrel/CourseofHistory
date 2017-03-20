@@ -23,11 +23,8 @@ public class Coin extends Sprite
         HEADS, TAILS
     }
 
-    public Coin(Bitmap[] coinSides, float spawnX, float spawnY, int width, int height)
-    {
+    public Coin(Bitmap bitmap, float spawnX, float spawnY, int width, int height) {
         super(coinSides[0], spawnX, spawnY, width, height);
-        this.velocity = 0;
-        this.acceleration = 0;
         this.coinSides = coinSides;
         this.rand = new Random();
     }

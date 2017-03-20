@@ -1,714 +1,777 @@
 {
-	"characterCard":[
-	//start
-	
-	{
-		"id":"studentJimmy",
-		"name": "Student Jimmy", 
-		"CharDescription":"Absolutely Dying for a Boojum",
-		"Mana": 1,
-		"Health": 1,
-		"Attack": 1,
-		"AbilityName":"charge",
-		"portraitSrc" : "studentJimmy.png"
-	},
-	
-	{
-		"id":"studentIvan",
-		"name": "Student Ivan", 
-		"CharDescription":"My mothers name is also Ivan",
-		"Mana": 1,
-		"Health": 1,
-		"Attack": 1,
-		"AbilityName":"taunt",
-		"portraitSrc" : "studentIvan.png"
-	},
+  "greatMindsCards":[
+    {
+      "ID":"studentJimmy",
+      "name": "Student Jimmy",
+      "charDescription":"Absolutely Dying for a Boojum",
+      "mana": 1,
+      "health": 1,
+      "attack": 1,
+      "abilityName":"charge",
+      "portraitSrc" : "images/cards/tier1/studentJimmy.png"
+    },
 
-	{
-		"id":"studentSarah",
-		"name": "Student Sarah", 
-		"CharDescription":"Got a bine m8?",
-		"Mana": 1,
-		"Health": 2,
-		"Attack": 1,
-		"AbilityName":"taunt",
-		"portraitSrc" : "studentSarah.png"
-	},
-	
-	{
-		"id":"philipHanna",
-		"name": "Philip Hanna", 
-		"CharDescription":"Make it Rain",
-		"Mana": 2,
-		"Health": 3,
-		"Attack": 1,
-		"AbilityName":""
-	},
-	
-	{
-		"id":"headOfEnglish",
-		"name": "Head of English", 
-		"CharDescription":"Alliteration, assonance and fore-shadowing",
-		"Mana": 2,
-		"Health": 2,
-		"Attack": 2,
-		"AbilityName":""
-	},
-	
-	{
-		"id":"gaelicCaptain",
-		"name": "Gaelic Captain", 
-		"CharDescription":"I play for County",
-		"Mana": 2,
-		"Health": 1,
-		"Attack": 2,
-		"AbilityName":"charge"
-	},
-	
-	{
-		"id":"lawLecturer",
-		"name": "Law Lecturer", 
-		"CharDescription":"I'll see you in court",
-		"Mana": 2,
-		"Health": 2,
-		"Attack": 1,
-		"AbilityName":"taunt"
-	},
-	
-	{
-		"id":"presidentOfDragonslayer",
-		"name": "President of Dragonslayer", 
-		"CharDescription":"M'Lady",
-		"Mana": 2,
-		"Health": 1,
-		"Attack": 3,
-		"AbilityName":""
-	},
-	
-	{
-		"id":"medicineLecturer",
-		"name": "Medicine Lecturer", 
-		"CharDescription":"When I was growing up I wanted to be doctor",
-		"Mana": 2,
-		"Health": 2,
-		"Attack": 1,
-		"AbilityName":"BoostHealth(+2)"
-	},
-	
-	{
-		"id":"counselor",
-		"name": "Counselor", 
-		"CharDescription":"If you want to get better, you would have already",
-		"Mana": 3,
-		"Health": 3,
-		"Attack": 1,
-		"AbilityName":"Heal(+2)"
-	},
-	
-	{
-		"id":"janitor",
-		"name": "Janitor", 
-		"CharDescription":"This is easy, just like drowning someone",
-		"Mana": 3,
-		"Health": 1,
-		"Attack": 3,
-		"AbilityName":"charge"
-	},
-	
-	{
-		"id":"owner",
-		"name": "Owner", 
-		"CharDescription":"Sure I can buy more land in Stranmillis",
-		"Mana": 3,
-		"Health": 3,
-		"Attack": 2,
-		"AbilityName":""
-	},
-	
-	{
-		"id":"personalTutor",
-		"name": "Personal Tutor", 
-		"CharDescription":"Once and never again",
-		"Mana": 3,
-		"Health": 2,
-		"Attack": 3,
-		"AbilityName":""
-	},
-	
-	{
-		"id":"theElmsBadger",
-		"name": "The Elms Badger", 
-		"CharDescription":"I wanna eat your bins",
-		"Mana": 3,
-		"Health": 2,
-		"Attack": 2,
-		"AbilityName":"BoostAttack(+1)"
-	},
-	
-	{
-		"id":"chancellor",
-		"name": "Chancellor", 
-		"CharDescription":"<insert generic boring speech>",
-		"Mana": 3,
-		"Health": 3,
-		"Attack": 1,
-		"AbilityName":"taunt"
-	},
-	
-	//Tier 1 - Card END
-	
-	//Tier 2 - Great Minds START
-	
-	{
-		"id":"adaLovelace",
-		"name": "Ada Lovelace", 
-		"CharDescription":"That brain of mine is something more than merely mortal",
-		"Mana": 4,
-		"Health": 2,
-		"Attack": 4,
-		"AbilityName":""
-	},
-	
-	{
-		"id":"florenceNightingale",
-		"name": "Florence Nightingale", 
-		"CharDescription":"I'd rather die in the surf than stand idly at the shore",
-		"Mana": 4,
-		"Health": 4,
-		"Attack": 1,
-		"AbilityName":"BoostHealth(+2)"
-	},
-	
-	{
-		"id":"plato",
-		"name": "Plato", 
-		"CharDescription":"The measure of a man is what he does with power",
-		"Mana": 4,
-		"Health": 4,
-		"Attack": 2,
-		"AbilityName":""
-	},
+    {
+      "ID":"studentIvan",
+      "name": "Student Ivan",
+      "charDescription":"My mothers name is also Ivan",
+      "mana": 1,
+      "health": 1,
+      "attack": 1,
+      "abilityName":"taunt",
+      "portraitSrc" : "images/cards/tier1/studentIvan.png"
+    },
 
-	{
-		"id":"pythagoras",
-		"name": "Pythagoras", 
-		"CharDescription":"Reason is immortal, all else mortal",
-		"Mana": 4,
-		"Health": 2,
-		"Attack": 3,
-		"AbilityName":""
-	},
-	
-	{
-		"id":"galileo",
-		"name": "Galileo", 
-		"CharDescription":"By denying scientific principles, one may maintain any paradox",
-		"Mana": 4,
-		"Health": 1,
-		"Attack": 4,
-		"AbilityName":"taunt"
-	},
+    {
+      "ID":"studentSarah",
+      "name": "Student Sarah",
+      "charDescription":"Got a bine m8?",
+      "mana": 1,
+      "health": 2,
+      "attack": 1,
+      "abilityName":"taunt",
+      "portraitSrc" : "images/cards/tier1/studentSarah.png"
+    },
 
-	{
-		"id":"davidAttenborough",
-		"name": "David Attenborough", 
-		"CharDescription":"He's Blown It",
-		"Mana": 4,
-		"Health": 3,
-		"Attack": 2,
-		"AbilityName":"taunt"
-	},
-	
-	{
-		"id":"thomasEdison",
-		"name": "Thomas Edison", 
-		"CharDescription":"Everything comes to him who hustles while he waits",
-		"Mana": 4,
-		"Health": 3,
-		"Attack": 2,
-		"AbilityName":"drawACard"
-	},
-	
-	{
-		"id":"leonardoDaVinci",
-		"name": "Leonardo Da Vinci", 
-		"CharDescription":"The smallest feline is a masterpiece",
-		"Mana": 4,
-		"Health": 3,
-		"Attack": 4,
-		"AbilityName":""
-	},
-	
-	//mana 4
-	
-	{
-		"id":"christopherColombus",
-		"name": "Christopher Colombus", 
-		"CharDescription":"Following the light of the sun we left the old world",
-		"Mana": 5,
-		"Health": 5,
-		"Attack": 2,
-		"AbilityName":"taunt"
-	},
-	
-	{
-		"id":"ludwigVanBeethoven",
-		"name": "Ludwig Van Beethoven", 
-		"CharDescription":"I want to seize fate by the throat",
-		"Mana": 5,
-		"Health": 2,
-		"Attack": 5,
-		"AbilityName":"charge"
-	},
-	
-	{
-		"id":"benjaminFranklin",
-		"name": "Benjamin Franklin", 
-		"CharDescription":"You may delay but time will not",
-		"Mana": 5,
-		"Health": 3,
-		"Attack": 4,
-		"AbilityName":"inspireHealth(+1)"
-	},
-	
+    {
+      "ID":"philipHanna",
+      "name": "Philip Hanna",
+      "charDescription":"Make it Rain",
+      "mana": 2,
+      "health": 3,
+      "attack": 1,
+      "abilityName":"",
+      "portraitSrc" : "images/cards/tier1/philipHanna.png"
+    },
+
+    {
+      "ID":"headOfEnglish",
+      "name": "Head of English",
+      "charDescription":"Alliteration, assonance and fore-shadowing",
+      "mana": 2,
+      "health": 2,
+      "attack": 2,
+      "abilityName":"",
+      "portraitSrc" : "images/cards/tier1/headOfEnglish.png"
+    },
+
+    {
+      "ID":"gaelicCaptain",
+      "name": "Gaelic Captain",
+      "charDescription":"I play for County",
+      "mana": 2,
+      "health": 1,
+      "attack": 2,
+      "abilityName":"charge",
+      "portraitSrc" : "images/cards/tier1/gaelicCaptain.png"
+    },
+
+    {
+      "ID":"lawLecturer",
+      "name": "Law Lecturer",
+      "charDescription":"I'll see you in court",
+      "mana": 2,
+      "health": 2,
+      "attack": 1,
+      "abilityName":"taunt",
+      "portraitSrc" : "images/cards/tier1/lawLecturer.png"
+    },
+
+    {
+      "ID":"presidentOfDragonslayers",
+      "name": "President of Dragonslayers",
+      "charDescription":"M'Lady",
+      "mana": 2,
+      "health": 1,
+      "attack": 3,
+      "abilityName":"",
+      "portraitSrc" : "images/cards/tier1/presidentOfDragonslayers.png"
+    },
+
+    {
+      "ID":"medicineLecturer",
+      "name": "Medicine Lecturer",
+      "charDescription":"When I was growing up I wanted to be doctor",
+      "mana": 2,
+      "health": 2,
+      "attack": 1,
+      "abilityName":"boostHealth(+2)",
+      "portraitSrc" : "images/cards/tier1/medicineLecturer.png"
+    },
+
+    {
+      "ID":"counselor",
+      "name": "Counselor",
+      "charDescription":"If you want to get better, you would have already",
+      "mana": 3,
+      "health": 3,
+      "attack": 1,
+      "abilityName":"heal(+2)",
+      "portraitSrc" : "images/cards/tier1/counselor.png"
+    },
+
+    {
+      "ID":"janitor",
+      "name": "Janitor",
+      "charDescription":"This is easy, just like drowning someone",
+      "mana": 3,
+      "health": 1,
+      "attack": 3,
+      "abilityName":"charge",
+      "portraitSrc" : "images/cards/tier1/janitor.png"
+    },
+
+    {
+      "ID":"chairman",
+      "name": "Chairman",
+      "charDescription":"Sure I can buy more land in Stranmillis",
+      "mana": 3,
+      "health": 3,
+      "attack": 2,
+      "abilityName":"",
+      "portraitSrc" : "images/cards/tier1/chairman.png"
+    },
+
+    {
+      "ID":"personalTutor",
+      "name": "Personal Tutor",
+      "charDescription":"Once and never again",
+      "mana": 3,
+      "health": 2,
+      "attack": 3,
+      "abilityName":"",
+      "portraitSrc" : "images/cards/tier1/personalTutor.png"
+    },
+
+    {
+      "ID":"theElmsBadger",
+      "name": "The Elms Badger",
+      "charDescription":"I wanna eat your bins",
+      "mana": 3,
+      "health": 2,
+      "attack": 2,
+      "abilityName":"boostAttack(+1)",
+      "portraitSrc" : "images/cards/tier1/theElmsBadger.png"
+    },
+
+    {
+      "ID":"chancellor",
+      "name": "Chancellor",
+      "charDescription":"<insert generic boring speech>",
+      "mana": 3,
+      "health": 3,
+      "attack": 1,
+      "abilityName":"taunt",
+      "portraitSrc" : "images/cards/tier1/chancellor.png"
+    },
+
+    {
+      "ID":"adaLovelace",
+      "name": "Ada Lovelace",
+      "charDescription":"That brain of mine is something more than merely mortal",
+      "mana": 4,
+      "health": 2,
+      "attack": 4,
+      "abilityName":"",
+      "portraitSrc" : "images/cards/tier2/great_minds/adaLovelace.png"
+    },
+
+    {
+      "ID":"florenceNightingale",
+      "name": "Florence Nightingale",
+      "charDescription":"I'd rather die in the surf than stand idly at the shore",
+      "mana": 4,
+      "health": 4,
+      "attack": 1,
+      "abilityName":"boostHealth(+2)",
+      "portraitSrc" : "images/cards/tier2/great_minds/florenceNightingale.png"
+    },
+
+    {
+      "ID":"plato",
+      "name": "Plato",
+      "charDescription":"The measure of a man is what he does with power",
+      "mana": 4,
+      "health": 4,
+      "attack": 2,
+      "abilityName":"",
+      "portraitSrc" : "images/cards/tier2/great_minds/plato.png"
+    },
+
+    {
+      "ID":"pythagoras",
+      "name": "Pythagoras",
+      "charDescription":"Reason is immortal, all else mortal",
+      "mana": 4,
+      "health": 2,
+      "attack": 3,
+      "abilityName":"",
+      "portraitSrc" : "images/cards/tier2/great_minds/pythagoras.png"
+    },
+
+    {
+      "ID":"galileo",
+      "name": "Galileo",
+      "charDescription":"By denying scientific principles, one may maintain any paradox",
+      "mana": 4,
+      "health": 1,
+      "attack": 4,
+      "abilityName":"taunt",
+      "portraitSrc" : "images/cards/tier2/great_minds/galileo.png"
+    },
+
+    {
+      "ID":"davidAttenborough",
+      "name": "David Attenborough",
+      "charDescription":"He's Blown It",
+      "mana": 4,
+      "health": 3,
+      "attack": 2,
+      "abilityName":"taunt",
+      "portraitSrc" : "images/cards/tier2/great_minds/davidAttenborough.png"
+    },
+
+    {
+      "ID":"thomasEdison",
+      "name": "Thomas Edison",
+      "charDescription":"Everything comes to him who hustles while he waits",
+      "mana": 4,
+      "health": 3,
+      "attack": 2,
+      "abilityName":"drawACard",
+      "portraitSrc" : "images/cards/tier2/great_minds/thomasEdison.png"
+    },
+
+    {
+      "ID":"leonardoDeVinci",
+      "name": "Leonardo De Vinci",
+      "charDescription":"The smallest feline is a masterpiece",
+      "mana": 4,
+      "health": 3,
+      "attack": 4,
+      "abilityName":"",
+      "portraitSrc" : "images/cards/tier2/great_minds/leonardoDeVinci.png"
+    },
+
+    {
+      "ID":"christopherColombus",
+      "name": "Christopher Colombus",
+      "charDescription":"Following the light of the sun we left the old world",
+      "mana": 5,
+      "health": 5,
+      "attack": 2,
+      "abilityName":"taunt",
+      "portraitSrc" : "images/cards/tier2/great_minds/christopherColombus.png"
+    },
+
+    {
+      "ID":"ludwigVanBeethoven",
+      "name": "Ludwig Van Beethoven",
+      "charDescription":"I want to seize fate by the throat",
+      "mana": 5,
+      "health": 2,
+      "attack": 5,
+      "abilityName":"charge",
+      "portraitSrc" : "images/cards/tier2/great_minds/ludwigVanBeethoven.png"
+    },
+
+    {
+      "ID":"benjaminFranklin",
+      "name": "Benjamin Franklin",
+      "charDescription":"You may delay but time will not",
+      "mana": 5,
+      "health": 3,
+      "attack": 4,
+      "abilityName":"inspireHealth(+1)",
+      "portraitSrc" : "images/cards/tier2/great_minds/benjaminFranklin.png"
+    },
+    {
+      "ID":"isaacNewton",
+      "name": "Isaac Newton",
+      "charDescription":"To every action there is an equal and opposite reaction",
+      "mana": 5,
+      "health": 4,
+      "attack": 3,
+      "abilityName":"resultantForce",
+      "portraitSrc" : "images/cards/tier2/great_minds/isaacNewton.png"
+    },
+
+    {
+      "ID":"alanTuring",
+      "name": "Alan Turing",
+      "charDescription":"Machines take me by suprise with great frequency",
+      "mana": 5,
+      "health": 5,
+      "attack": 2,
+      "abilityName":"taunt",
+      "portraitSrc" : "images/cards/tier2/great_minds/alanTuring.png"
+    },
+
+    {
+      "ID":"nikolaTesla",
+      "name": "Nikola Tesla",
+      "charDescription":"The present is theirs; the future for which I really worked is mine",
+      "mana": 5,
+      "health": 2,
+      "attack": 5,
+      "abilityName":"inspireAttack(+1)",
+      "portraitSrc" : "images/cards/tier2/great_minds/nikolaTesla.png"
+    },
+
+    {
+      "ID":"charlesDarwin",
+      "name": "Charles Darwin",
+      "charDescription":"Whoever is the most reponsive to change survives",
+      "mana": 6,
+      "health": 3,
+      "attack": 5,
+      "abilityName":"freevolution",
+      "portraitSrc" : "images/cards/tier2/great_minds/charlesDarwin.png"
+    },
+
+    {
+      "ID":"martinLutherKing",
+      "name": "Martin Luther King",
+      "charDescription":"I have a dream!",
+      "mana": 6,
+      "health": 6,
+      "attack": 2,
+      "abilityName":"rally",
+      "portraitSrc" : "images/cards/tier2/great_minds/martinLutherKing.png"
+    },
+
+    {
+      "ID":"marieCurie",
+      "name": "Marie Curie",
+      "charDescription":"Humanity will draw more good than evil from new discoveries",
+      "mana": 6,
+      "health": 4,
+      "attack": 4,
+      "abilityName":"half-life",
+      "portraitSrc" : "images/cards/tier2/great_minds/marieCurie.png"
+    },
+
+    {
+      "ID":"albertEinstein",
+      "name": "Albert Einstein",
+      "charDescription":"Education remains when school is forgotten",
+      "mana": 6,
+      "health": 5,
+      "attack": 3,
+      "abilityName":"duality",
+      "portraitSrc" : "images/cards/tier2/great_minds/albertEinstein.png"
+    },
+
+    {
+      "ID":"williamShakespeare",
+      "name": "William Shakespeare",
+      "charDescription":"That is the question",
+      "mana": 6,
+      "health": 3,
+      "attack": 5,
+      "abilityName":"toBeeOrNotToBee",
+      "portraitSrc" : "images/cards/tier2/great_minds/williamShakespeare.png"
+    },
+
+    {
+      "ID":"ghandi",
+      "name": "Ghandi",
+      "charDescription":"You must be the change you wish to see in the world",
+      "mana": 6,
+      "health": 7,
+      "attack": 1,
+      "abilityName":"pacify",
+      "portraitSrc" : "images/cards/tier2/great_minds/ghandi.png"
+    }
+  ],
+
+  "evilLeaderCards":[
+
 		{
-		"id":"isaacNewton",
-		"name": "Isaac Newton", 
-		"CharDescription":"To every action there is an equal and opposite reaction",
-		"Mana": 5,
-		"Health": 4,
-		"Attack": 3,
-		"AbilityName":"resultantForce"
-	},
-	
-	{
-		"id":"alanTuring",
-		"name": "Alan Turing", 
-		"CharDescription":"Machines take me by suprise with great frequency",
-		"Mana": 5,
-		"Health": 5,
-		"Attack": 2,
-		"AbilityName":"taunt"
-	},
-	
+			"ID":"studentJimmy",
+			"name": "Student Jimmy",
+			"charDescription":"Absolutely Dying for a Boojum",
+			"mana": 1,
+			"health": 1,
+			"attack": 1,
+			"abilityName":"charge",
+			"portraitSrc" : "images/cards/tier1/studentJimmy.png"
+		},
+
 		{
-		"id":"nikolaTesla",
-		"name": "Nikola Tesla", 
-		"CharDescription":"The present is theirs; the future for which I really worked is mine",
-		"Mana": 5,
-		"Health": 2,
-		"Attack": 5,
-		"AbilityName":"inspireAttack(+1)"
-	},
-	
-	{
-		"id":"charlesDarwin",
-		"name": "Charles Darwin", 
-		"CharDescription":"Whoever is the most reponsive to change survives",
-		"Mana": 6,
-		"Health": 3,
-		"Attack": 5,
-		"AbilityName":"Freevolution"
-	},
-	
-	{
-		"id":"martinLutherKing",
-		"name": "Martin Luther King", 
-		"CharDescription":"I have a dream!",
-		"Mana": 6,
-		"Health": 6,
-		"Attack": 2,
-		"AbilityName":"Rally"
-	},
-	
-	{
-		"id":"madamCurie",
-		"name": "Madam Curie", 
-		"CharDescription":"Humanity will draw more good than evil from new discoveries",
-		"Mana": 6,
-		"Health": 4,
-		"Attack": 4,
-		"AbilityName":"Half-Life"
-	},
-	
-	{
-		"id":"albertEinstein",
-		"name": "Albert Einstein", 
-		"CharDescription":"Education remains when school is forgotten",
-		"Mana": 4,
-		"Health": 5,
-		"Attack": 3,
-		"AbilityName":"Duality"
-	},
-	
-	{
-		"id":"willieShakespeare",
-		"name": "Williw Shakespeare", 
-		"CharDescription":"That is the question",
-		"Mana": 6,
-		"Health": 3,
-		"Attack": 5,
-		"AbilityName":"To Bee or not to Bee"
-	},
+			"ID":"studentIvan",
+			"name": "Student Ivan",
+			"charDescription":"My mothers name is also Ivan",
+			"mana": 1,
+			"health": 1,
+			"attack": 1,
+			"abilityName":"taunt",
+			"portraitSrc" : "images/cards/tier1/studentIvan.png"
+		},
 
-	{
-		"id":"ghandi",
-		"name": "Ghandi", 
-		"CharDescription":"You must be the change you wish to see in the world",
-		"Mana": 6,
-		"Health": 7,
-		"Attack": 1,
-		"AbilityName":"Pacify"
-	},
-	 //Tier 2 - Great Minds END
-	 
-	 // Tier 3 - Great Minds Start
-	 
-	{
-		"id":"charlesDarwinEvolved",
-		"name": "Charles Darwin", 
-		"CharDescription":"I love fools' experiments. I am always making them",
-		"Mana": 12,
-		"Health": 6,
-		"Attack": 10,
-		"AbilityName":"Devolution"
-	},
-	
-	{
-		"id":"martinLutherKingEvolved",
-		"name": "Martin Luther King", 
-		"CharDescription":"I look to a day when people will not be judged by the color of their skin.",
-		"Mana": 12,
-		"Health": 12,
-		"Attack": 4,
-		"AbilityName":"I have a dream"
-	},
-	
-	{
-		"id":"madamCurieEvolved",
-		"name": "Madam Curie", 
-		"CharDescription":"Be less curious about people and more curious about ideas",
-		"Mana": 12,
-		"Health": 8,
-		"Attack": 8,
-		"AbilityName":"Radiation"
-	},
-	
-	{
-		"id":"albertEinsteinEvolved",
-		"name": "Albert Einstein", 
-		"CharDescription":"Everything should be made as simple as possible, but not simpler.",
-		"Mana": 12,
-		"Health": 10,
-		"Attack": 6,
-		"AbilityName":"Relativity"
-	},
-	
-	{
-		"id":"williamShakespeareEvolved",
-		"name": "William Shakespeare", 
-		"CharDescription":"When the feeling's gone and you can't go on, its tragedy.",
-		"Mana": 12,
-		"Health": 6,
-		"Attack": 10,
-		"AbilityName":"Tragedy"
-	},
-	
-	{
-		"id":"ghandiEvolved",
-		"name": "Ghandi", 
-		"CharDescription":"An eye for an eye only ends up making the whole world blind",
-		"Mana": 12,
-		"Health": 14,
-		"Attack": 2,
-		"AbilityName":"World Peace"
-	},
+		{
+			"ID":"studentSarah",
+			"name": "Student Sarah",
+			"charDescription":"Got a bine m8?",
+			"mana": 1,
+			"health": 2,
+			"attack": 1,
+			"abilityName":"taunt",
+			"portraitSrc" : "images/cards/tier1/studentSarah.png"
+		},
 
-	//Tier 3 - Great Minds END
-	
-	{
-		"id":"hussein",
-		"name": "Hussein", 
-		"CharDescription":"Allah is on our side. This is why we'll beat the aggressor",
-		"Mana": 4,
-		"Health": 2,
-		"Attack": 4,
-		"AbilityName":""
-	},
-	
-	{
-		"id":"oliverCromwell",
-		"name": "Oliver Cromwell", 
-		"CharDescription":"Neccessity has no law",
-		"Mana": 4,
-		"Health": 4,
-		"Attack": 1,
-		"AbilityName":""
-	},
-	
-	{
-		"id":"henry8th",
-		"name": "Henry VIII", 
-		"CharDescription":"I'm in love with a rose with no thorn",
-		"Mana": 4,
-		"Health": 4,
-		"Attack": 2,
-		"AbilityName":""
-	},
-	
-	{
-		"id":"nixon",
-		"name": "Nixon", 
-		"CharDescription":"I am not a crook",
-		"Mana": 4,
-		"Health": 3,
-		"Attack": 2,
-		"AbilityName":"Taunt"
-	},
-	
-	{
-		"id":"fidelCastro",
-		"name": "Fidel Castro", 
-		"CharDescription":"The unoversities are available to those who share my beliefs",
-		"Mana": 4,
-		"Health": 1,
-		"Attack": 4,
-		"AbilityName":"Charge"
-	},
-	
-	{
-		"id":"alCapone",
-		"name": "Al Capone", 
-		"CharDescription":"I am like any other man. All I do is supply demand",
-		"Mana": 4,
-		"Health": 2,
-		"Attack": 2,
-		"AbilityName":"Say Hello To My Little Friend"
-	},
-	
-	{
-		"id":"emperorHirohito",
-		"name": "Emperor Hirohito", 
-		"CharDescription":"When and where are you ever going to put up a good fight",
-		"Mana": 4,
-		"Health": 3,
-		"Attack": 2,
-		"AbilityName":"Draw a Card"
-	},
-	
-	{
-		"id":"mussolini",
-		"name": "Mussolini", 
-		"CharDescription":"The truth is that men are tired of liberty",
-		"Mana": 4,
-		"Health": 2,
-		"Attack": 3,
-		"AbilityName":"Draw a Card"
-	},
-	
-	{
-		"id":"shakaZulu",
-		"name": "Shaka Zulu", 
-		"CharDescription":"Strike an enemy once and for all",
-		"Mana": 5,
-		"Health": 2,
-		"Attack": 2,
-		"AbilityName":"Windfury"
-	},
-	
-	{
-		"id":"alexanderTheGreat",
-		"name": "Alexander The Great", 
-		"CharDescription":"There is nothing impossible to him who will try",
-		"Mana": 5,
-		"Health": 3,
-		"Attack": 3,
-		"AbilityName":"Taunt"
-	},
-	
-	{
-		"id":"lenin",
-		"name": "Lenin", 
-		"CharDescription":"A lie told often enough becomes the truth",
-		"Mana": 5,
-		"Health": 5,
-		"Attack": 1,
-		"AbilityName":"Taunt"
-	},
-	
-	{
-		"id":"queenVictoria",
-		"name": "Queen Victoria", 
-		"CharDescription":"We will not have failure - only success and new learning",
-		"Mana": 5,
-		"Health": 4,
-		"Attack": 2,
-		"AbilityName":"Inspire Health(+1)"
-	},
-	
-	{
-		"id":"mao",
-		"name": "Mao", 
-		"CharDescription":"Communism is a hammer we use to crush the enemy",
-		"Mana": 5,
-		"Health": 2,
-		"Attack": 4,
-		"AbilityName":"Inspire Damage(+1)"
-	},
-	
-	{
-		"id":"atillaTheHun",
-		"name": "Atilla The Hun", 
-		"CharDescription":"Trample the weak, Hurdle the dead",
-		"Mana": 5,
-		"Health": 1,
-		"Attack": 5,
-		"AbilityName":"Charge"
-	},
-	
-	{
-		"id":"kimJongIl",
-		"name": "Kim Jong Il", 
-		"CharDescription":"National Security is our sacred duty",
-		"Mana": 6,
-		"Health": 7,
-		"Attack": 1,
-		"AbilityName":"Censorship"
-	},
-	
-	{
-		"id":"napolean",
-		"name": "Napolean", 
-		"CharDescription":"Never interrupt your enemy when he is making a mistake",
-		"Mana": 6,
-		"Health": 4,
-		"Attack": 4,
-		"AbilityName":"Bombardment"
-	},
-	
-	{
-		"id":"ghengisKhan",
-		"name": "Genghis Khan", 
-		"CharDescription":"If you're afraid - dont do it. If you're doing it - dont be afraid",
-		"Mana": 6,
-		"Health": 3,
-		"Attack": 5,
-		"AbilityName":"Plunder"
-	},
-	
-	{
-		"id":"margaretThatcher",
-		"name": "Margaret Thatcher", 
-		"CharDescription":"A battle may be fought more than once to win it",
-		"Mana": 6,
-		"Health": 3,
-		"Attack": 5,
-		"AbilityName":"Nationalisation"
-	},
-	
-	{
-		"id":"hitler",
-		"name": "Hitler", 
-		"CharDescription":"Who owns the youth gains the future",
-		"Mana": 6,
-		"Health": 5,
-		"Attack": 2,
-		"AbilityName":"TheBlitz"
-	},
-	
-	{
-		"id":"stalin",
-		"name": "Stalin", 
-		"CharDescription":"A million deaths is a statistic",
-		"Mana": 6,
-		"Health": 5,
-		"Attack": 3,
-		"AbilityName":"OnePartyState"
-	},
-	
-//Tier 2 -EVil Leaders END	
-	
+		{
+			"ID":"philipHanna",
+			"name": "Philip Hanna",
+			"charDescription":"Make it Rain",
+			"mana": 2,
+			"health": 3,
+			"attack": 1,
+			"abilityName":"",
+			"portraitSrc" : "images/cards/tier1/philipHanna.png"
+		},
 
-//Tier 3 - EVIL LEADERS START	
+		{
+			"ID":"headOfEnglish",
+			"name": "Head of English",
+			"charDescription":"Alliteration, assonance and fore-shadowing",
+			"mana": 2,
+			"health": 2,
+			"attack": 2,
+			"abilityName":"",
+			"portraitSrc" : "images/cards/tier1/headOfEnglish.png"
+		},
 
-	{
-		"id":"kimKongIlEvolved",
-		"name": "Kim Jong Il", 
-		"CharDescription":"It's all a lie. They're just pretending to praise me",
-		"Mana": 12,
-		"Health": 14,
-		"Attack": 2,
-		"AbilityName":"GloriousLeader"
-	},
-	
-	{
-		"id":"napoleanEvolved",
-		"name": "Napolean", 
-		"CharDescription":"Religion is what keeps the poor from murdering the rich",
-		"Mana": 12,
-		"Health": 8,
-		"Attack": 8,
-		"AbilityName":"Surrender"
-	},
-	
-	{
-		"id":"ghenghisKhanEvolved",
-		"name": "Ghenghis Khan", 
-		"CharDescription":"To get drunken twice a month is better; once still more praiseworthy",
-		"Mana": 12,
-		"Health": 6,
-		"Attack": 10,
-		"AbilityName":"Pillage"
-	},
-	
-	{
-		"id":"margaretThatcherEvolved",
-		"name": "Margaret Thatcher", 
-		"CharDescription":"I seem to smell the stench of appeasement in the air",
-		"Mana": 12,
-		"Health": 6,
-		"Attack":10,
-		"AbilityName":"IronLady"
-	},
-	
-	{
-		"id":"adolfHitlerEvolved",
-		"name": "Adolf Hitler", 
-		"CharDescription":"Anyone who paints the sky green needs sterilised",
-		"Mana": 12,
-		"Health": 10,
-		"Attack": 4,
-		"AbilityName":"TheBlitz"
-	},
-	
-	{
-		"id":"josefStalinEvolved",
-		"name": "Josef Stalin", 
-		"CharDescription":"Death is the solution to all problems - no man, no problem",
-		"Mana": 12,
-		"Health": 10,
-		"Attack": 6,
-		"AbilityName":"NotOneStepBack"
-	}
-	//TIER 3 - EVIL LEADERS END
-	
-	//end
+		{
+			"ID":"gaelicCaptain",
+			"name": "Gaelic Captain",
+			"charDescription":"I play for County",
+			"mana": 2,
+			"health": 1,
+			"attack": 2,
+			"abilityName":"charge",
+			"portraitSrc" : "images/cards/tier1/gaelicCaptain.png"
+		},
+
+		{
+			"ID":"lawLecturer",
+			"name": "Law Lecturer",
+			"charDescription":"I'll see you in court",
+			"mana": 2,
+			"health": 2,
+			"attack": 1,
+			"abilityName":"taunt",
+			"portraitSrc" : "images/cards/tier1/lawLecturer.png"
+		},
+
+		{
+			"ID":"presidentOfDragonslayers",
+			"name": "President of Dragonslayers",
+			"charDescription":"M'Lady",
+			"mana": 2,
+			"health": 1,
+			"attack": 3,
+			"abilityName":"",
+			"portraitSrc" : "images/cards/tier1/presidentOfDragonslayers.png"
+		},
+
+		{
+			"ID":"medicineLecturer",
+			"name": "Medicine Lecturer",
+			"charDescription":"When I was growing up I wanted to be doctor",
+			"mana": 2,
+			"health": 2,
+			"attack": 1,
+			"abilityName":"boostHealth(+2)",
+			"portraitSrc" : "images/cards/tier1/medicineLecturer.png"
+		},
+
+		{
+			"ID":"counselor",
+			"name": "Counselor",
+			"charDescription":"If you want to get better, you would have already",
+			"mana": 3,
+			"health": 3,
+			"attack": 1,
+			"abilityName":"heal(+2)",
+			"portraitSrc" : "images/cards/tier1/counselor.png"
+		},
+
+		{
+			"ID":"janitor",
+			"name": "Janitor",
+			"charDescription":"This is easy, just like drowning someone",
+			"mana": 3,
+			"health": 1,
+			"attack": 3,
+			"abilityName":"charge",
+			"portraitSrc" : "images/cards/tier1/janitor.png"
+		},
+
+		{
+			"ID":"chairman",
+			"name": "Chairman",
+			"charDescription":"Sure I can buy more land in Stranmillis",
+			"mana": 3,
+			"health": 3,
+			"attack": 2,
+			"abilityName":"",
+			"portraitSrc" : "images/cards/tier1/chairman.png"
+		},
+
+		{
+			"ID":"personalTutor",
+			"name": "Personal Tutor",
+			"charDescription":"Once and never again",
+			"mana": 3,
+			"health": 2,
+			"attack": 3,
+			"abilityName":"",
+			"portraitSrc" : "images/cards/tier1/personalTutor.png"
+		},
+
+		{
+			"ID":"theElmsBadger",
+			"name": "The Elms Badger",
+			"charDescription":"I wanna eat your bins",
+			"mana": 3,
+			"health": 2,
+			"attack": 2,
+			"abilityName":"boostAttack(+1)",
+			"portraitSrc" : "images/cards/tier1/theElmsBadger.png"
+		},
+
+		{
+			"ID":"chancellor",
+			"name": "Chancellor",
+			"charDescription":"<insert generic boring speech>",
+			"mana": 3,
+			"health": 3,
+			"attack": 1,
+			"abilityName":"taunt",
+			"portraitSrc" : "images/cards/tier1/chancellor.png"
+		},
+
+		{
+			"ID":"saddamHussein",
+			"name": "Saddam Hussein",
+			"charDescription":"Allah is on our side. This is why we'll beat the aggressor",
+			"mana": 4,
+			"health": 2,
+			"attack": 4,
+			"abilityName":"",
+			"portraitSrc" : "images/cards/tier2/evil_leaders/saddamHussein.png"
+		},
+
+		{
+			"ID":"oliverCromwell",
+			"name": "Oliver Cromwell",
+			"charDescription":"Neccessity has no law",
+			"mana": 4,
+			"health": 4,
+			"attack": 1,
+			"abilityName":"",
+			"portraitSrc" : "images/cards/tier2/evil_leaders/oliverCromwell.png"
+		},
+
+		{
+			"ID":"henryVIII",
+			"name": "Henry VIII",
+			"charDescription":"I'm in love with a rose with no thorn",
+			"mana": 4,
+			"health": 4,
+			"attack": 2,
+			"abilityName":"",
+			"portraitSrc" : "images/cards/tier2/evil_leaders/henryVIII.png"
+		},
+
+		{
+			"ID":"nixon",
+			"name": "Nixon",
+			"charDescription":"I am not a crook",
+			"mana": 4,
+			"health": 3,
+			"attack": 2,
+			"abilityName":"taunt",
+			"portraitSrc" : "images/cards/tier2/evil_leaders/nixon.png"
+		},
+
+		{
+			"ID":"fidelCastro",
+			"name": "Fidel Castro",
+			"charDescription":"The universities are available to those who share my beliefs",
+			"mana": 4,
+			"health": 1,
+			"attack": 4,
+			"abilityName":"charge",
+			"portraitSrc" : "images/cards/tier2/evil_leaders/fidelCastro.png"
+		},
+
+		{
+			"ID":"alCapone",
+			"name": "Al Capone",
+			"charDescription":"I am like any other man. All I do is supply demand",
+			"mana": 4,
+			"health": 2,
+			"attack": 2,
+			"abilityName":"sayHelloToMyLittleFriend",
+			"portraitSrc" : "images/cards/tier2/evil_leaders/alCapone.png"
+		},
+
+		{
+			"ID":"emperorHirohito",
+			"name": "Emperor Hirohito",
+			"charDescription":"When and where are you ever going to put up a good fight",
+			"mana": 4,
+			"health": 3,
+			"attack": 2,
+			"abilityName":"drawACard",
+			"portraitSrc" : "images/cards/tier2/evil_leaders/emperorHirohito.png"
+		},
+
+		{
+			"ID":"mussolini",
+			"name": "Mussolini",
+			"charDescription":"The truth is that men are tired of liberty",
+			"mana": 4,
+			"health": 2,
+			"attack": 3,
+			"abilityName":"drawACard",
+			"portraitSrc" : "images/cards/tier2/evil_leaders/mussolini.png"
+		},
+
+		{
+			"ID":"shakaZulu",
+			"name": "Shaka Zulu",
+			"charDescription":"Strike an enemy once and for all",
+			"mana": 5,
+			"health": 2,
+			"attack": 3,
+			"abilityName":"windfury",
+			"portraitSrc" : "images/cards/tier2/evil_leaders/shakaZulu.png"
+		},
+
+		{
+			"ID":"alexanderTheGreat",
+			"name": "Alexander The Great",
+			"charDescription":"There is nothing impossible to him who will try",
+			"mana": 5,
+			"health": 3,
+			"attack": 3,
+			"abilityName":"taunt",
+			"portraitSrc" : "images/cards/tier2/evil_leaders/alexanderTheGreat.png"
+		},
+
+		{
+			"ID":"lenin",
+			"name": "Lenin",
+			"charDescription":"A lie told often enough becomes the truth",
+			"mana": 5,
+			"health": 5,
+			"attack": 1,
+			"abilityName":"taunt",
+			"portraitSrc" : "images/cards/tier2/evil_leaders/lenin.png"
+		},
+
+		{
+			"ID":"queenVictoria",
+			"name": "Queen Victoria",
+			"charDescription":"We will not have failure - only success and new learning",
+			"mana": 5,
+			"health": 4,
+			"attack": 2,
+			"abilityName":"inspireHealth(+1)",
+			"portraitSrc" : "images/cards/tier2/evil_leaders/queenVictoria.png"
+		},
+
+		{
+			"ID":"mao",
+			"name": "Mao",
+			"charDescription":"Communism is a hammer we use to crush the enemy",
+			"mana": 5,
+			"health": 2,
+			"attack": 4,
+			"abilityName":"inspireDamage(+1)",
+			"portraitSrc" : "images/cards/tier2/evil_leaders/mao.png"
+		},
+
+		{
+			"ID":"atillaTheHun",
+			"name": "Atilla The Hun",
+			"charDescription":"Trample the weak, Hurdle the dead",
+			"mana": 5,
+			"health": 1,
+			"attack": 5,
+			"abilityName":"charge",
+			"portraitSrc" : "images/cards/tier2/evil_leaders/fidelCastro.png"
+		},
+
+		{
+			"ID":"kimJongIl",
+			"name": "Kim Jong Il",
+			"charDescription":"National Security is our sacred duty",
+			"mana": 6,
+			"health": 7,
+			"attack": 1,
+			"abilityName":"censorship",
+			"portraitSrc" : "images/cards/tier2/evil_leaders/kimJongIl.png"
+		},
+
+		{
+			"ID":"napolean",
+			"name": "Napolean",
+			"charDescription":"Never interrupt your enemy when he is making a mistake",
+			"mana": 6,
+			"health": 4,
+			"attack": 4,
+			"abilityName":"bombardment",
+			"portraitSrc" : "images/cards/tier2/evil_leaders/napolean.png"
+		},
+
+		{
+			"ID":"genghisKhan",
+			"name": "Genghis Khan",
+			"charDescription":"If you're afraid - dont do it. If you're doing it - dont be afraid",
+			"mana": 6,
+			"health": 3,
+			"attack": 5,
+			"abilityName":"plunder",
+			"portraitSrc" : "images/cards/tier2/evil_leaders/genghisKhan.png"
+		},
+
+		{
+			"ID":"margaretThatcher",
+			"name": "Margaret Thatcher",
+			"charDescription":"A battle may be fought more than once to win it",
+			"mana": 6,
+			"health": 3,
+			"attack": 5,
+			"abilityName":"nationalisation",
+			"portraitSrc" : "images/cards/tier2/evil_leaders/margaretThatcher.png"
+		},
+
+		{
+			"ID":"hitler",
+			"name": "Hitler",
+			"charDescription":"Who owns the youth gains the future",
+			"mana": 6,
+			"health": 5,
+			"attack": 2,
+			"abilityName":"theBlitz",
+			"portraitSrc" : "images/cards/tier2/evil_leaders/hitler.png"
+		},
+
+		{
+			"ID":"stalin",
+			"name": "Stalin",
+			"charDescription":"A million deaths is a statistic",
+			"mana": 6,
+			"health": 5,
+			"attack": 3,
+			"abilityName":"onePartyState",
+			"portraitSrc" : "images/cards/tier2/evil_leaders/stalin.png"
+		}
+
 	]
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
