@@ -4,8 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.util.Log;
 
-import java.util.Arrays;
-
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
@@ -56,15 +54,8 @@ public class TestLevel extends Level
            Board board = resourceFetcher.loadBoard("testBoard");
            sprites.add(board);
 
-           CharacterCard[] testCards1 = resourceFetcher.loadCharacterCards();
-           CharacterCard[] testCards2 = resourceFetcher.loadCharacterCards();
-           sprites.addAll(Arrays.asList(testCards1));
-           sprites.addAll(Arrays.asList(testCards2));
-
-
            Bitmap coinSides[] = {resourceFetcher.getBitmapFromFile("images/coins/coin-heads.png"), resourceFetcher.getBitmapFromFile("images/coins/coin-tails.png")};
-           Coin coin = new Coin(coinSides,
-                   240, 160, 80, 80);
+           Coin coin = new Coin(coinSides, 80, 80);
 
            sprites.add(coin);
 
@@ -74,10 +65,10 @@ public class TestLevel extends Level
            for(int i = 0; i < controllers.length; i++) {
                switch (i) {
                    case 0:
-                       players[i] = new Player(testCards1);
+                       players[i] = new Player(greatMindsCards, board);
                        break;
                    case 1:
-                       players[i] = new Player(testCards2);
+                       players[i] = new Player(evilLeaderCards, board);
 
                }
                controllers[i] = new HumanCardGameController();
@@ -112,12 +103,13 @@ public class TestLevel extends Level
         super.update(deltaTime, input);
         updateControllers(deltaTime); //Should be called before the game machine is updated
         gameMachine.update(deltaTime);
+    }
 
     private void collisionCheckAndResolve(int turnIndex)
     {
-        for(CharacterCard card : cardGameControllers[turnIndex].player.testCards)
+        for(CharacterCard card : controllers[turnIndex].player.testCards)
         {
-            for(CharacterCard card2 : cardGameControllers[turnIndex].player.testCards)
+            for(CharacterCard card2 : controllers[turnIndex].player.testCards)
             {
                 if(card.checkForCollision(card2))
                     card.resolveCollision(card2, card.overlapAllowance);

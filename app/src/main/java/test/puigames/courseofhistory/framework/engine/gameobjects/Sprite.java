@@ -9,7 +9,6 @@ import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Bou
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Drawable;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Origin;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Vector;
-import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 
 /**
  * Created by Michael on 21/11/2016.
@@ -18,8 +17,6 @@ import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 public abstract class Sprite extends GameObject implements Drawable {
     public Bitmap image;
     protected Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    protected float velocity;
-    protected float acceleration;
 
     //set reference default max acceleration adn velocity
     protected final float DEFAULT_MAX_ACCELERATION = Float.MAX_VALUE;
@@ -37,8 +34,6 @@ public abstract class Sprite extends GameObject implements Drawable {
         super(width,  height);
         this.boundingBox = new BoundingBox(width, height, origin);
         this.image = bitmap;
-        this.velocity = 0;
-        this.acceleration = 0;
     }
 
     //deals with acceleration and velocity of sprite

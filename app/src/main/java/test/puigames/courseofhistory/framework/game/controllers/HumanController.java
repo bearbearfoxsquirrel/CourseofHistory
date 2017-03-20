@@ -1,21 +1,17 @@
 package test.puigames.courseofhistory.framework.game.controllers;
 
-import android.util.Log;
-
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Origin;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
-import test.puigames.courseofhistory.framework.game.assets.boards.Board;
-import test.puigames.courseofhistory.framework.game.assets.cards.Card;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 
 //This class is for allowing the user to interact with a pawn pawn
 public class HumanController extends CardGameController {
     public InputBuddy inputBuddy;
 
-    public HumanController(Player player) {
-        super(player);
+    public HumanController() {
+        super();
 
     }
     public void updateCardsInHand(float deltaTime) {
@@ -29,8 +25,7 @@ public class HumanController extends CardGameController {
                         player.removeCardFromArea(card);
                     }
                 }
-                else
-                    if(card.boundingBox.isOverlapping(player.playArea.boundingBox))
+                else if(card.boundingBox.isOverlapping(player.playArea.boundingBox))
                         player.addCardToArea(card);
             }
             if(card.boundingBox.isOverlapping(player.playArea.boundingBox) && inputBuddy
