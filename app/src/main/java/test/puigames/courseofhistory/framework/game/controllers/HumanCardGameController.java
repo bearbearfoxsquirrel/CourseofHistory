@@ -15,9 +15,10 @@ public class HumanCardGameController extends CardGameController {
 
     public void update(InputBuddy inputBuddy, float deltaTime) {
         this.inputBuddy = inputBuddy;
-        updateCardsInHand(deltaTime);
-        updateCardsOnBoardPlayArea(deltaTime);
-
+        if (player.playerCurrentState == Player.PawnState.TURN_ACTIVE) {
+            updateCardsInHand(deltaTime);
+            updateCardsOnBoardPlayArea(deltaTime);
+        }
     }
 
     public void updateCardsOnBoardPlayArea(float deltaTime) {
@@ -46,7 +47,7 @@ public class HumanCardGameController extends CardGameController {
 
     public void addCardToBoardPlayArea(CharacterCard card) {
         currentControllerState = ControllerState.PLACING_CARD_ON_BOARD;
-        player.currentAction = Player.PawnAction.PLACE_CARD_ON_BOARD;
+        //player.currentAction = Player.PawnAction.PLACE_CARD_ON_BOARD;
         player.placeCardOnBoard(card);
     }
 

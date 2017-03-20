@@ -19,21 +19,21 @@ public class Player extends Pawn {
     public ArrayList<Card> playerGraveyard;
     public CharacterCard[] testCards;
     public PawnState playerCurrentState;
-    public PawnAction currentAction;
+   // public PawnAction currentAction;
 
     public enum PawnState {
         TURN_STARTED, TURN_ACTIVE, CREATED, WAITING_FOR_TURN, TURN_ENDED, WIN, LOSE;
         //PLAY_ACTIVE refers to when the player is allowed to take active decision in their turn
     }
 
-    public enum PawnAction {
+   /* public enum PawnAction {
         ATTACK, PLACE_CARD_ON_BOARD, END_TURN, NONE;
-    }
+    }*/
 
 
     public Player(CharacterCard[] playerCards) {
-        this.playerCurrentState = PawnState.TURN_STARTED; //TODO set to created, set to taking turn for testing only!
-        this.currentAction = PawnAction.NONE; //Initialised to none as a pawn is doing nothing when the game starts
+        this.playerCurrentState = PawnState.CREATED; //TODO set to created, set to taking turn for testing only!
+      //  this.currentAction = PawnAction.NONE; //Initialised to none as a pawn is doing nothing when the game starts
         this.playerGraveyard = new ArrayList<>();
         this.testCards = playerCards;
     }
@@ -53,11 +53,6 @@ public class Player extends Pawn {
 
        // controller.update(this, deltaTime);
     }
-
-    public PawnAction getCurrentAction() {
-        return currentAction;
-    }
-
     public void attack(CharacterCard theAttacker, GameObject recipientOfMyFatalBlow) throws GameController.ControllerException {
         //Takes in an object that the pawn wishes to attack and tries to attack the given object
         //Or else throws a controller exception

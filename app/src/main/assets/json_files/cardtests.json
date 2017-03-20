@@ -8,7 +8,42 @@
       "health": 1,
       "attack": 1,
       "abilityName":"charge",
-      "portraitSrc" : "images/cards/tier1/studentJimmy.png"
+      "portraitSrc" : "images/cards/tier1/chairman.png"
+    },
+
+    {
+      "ID":"studentIvan",
+      "name": "Student Ivan",
+      "charDescription":"My mothers name is also Ivan",
+      "mana": 1,
+      "health": 1,
+      "attack": 1,
+      "abilityName":"taunt",
+      "portraitSrc" : "images/cards/tier1/studentIvan.png"
+    },
+
+    {
+      "ID":"studentSarah",
+      "name": "Student Sarah",
+      "charDescription":"Got a bine m8?",
+      "mana": 1,
+      "health": 2,
+      "attack": 1,
+      "abilityName":"taunt",
+      "portraitSrc" : "images/cards/tier1/studentSarah.png"
+    }
+  ],
+
+  "cards2" : [
+    {
+      "ID":"studentJimmy",
+      "name": "Student Jimmy",
+      "charDescription":"Absolutely Dying for a Boojum",
+      "mana": 1,
+      "health": 1,
+      "attack": 1,
+      "abilityName":"charge",
+      "portraitSrc" : "images/cards/tier1/chairman.png"
     },
 
     {

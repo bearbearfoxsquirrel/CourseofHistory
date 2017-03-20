@@ -1,13 +1,11 @@
 package test.puigames.courseofhistory.framework.game.assets;
 
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import java.util.Random;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
-import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
 
 /**
  * Created by Jordan on 01/03/2017.
@@ -18,16 +16,20 @@ public class Coin extends Sprite
 
     private Random rand; //for generating random number for flipping
     public Result faceUp = null;
+    public Bitmap coinSides[]; //Note 0 is heads and 1 is tails
 
     public enum Result
     {
         HEADS, TAILS
     }
 
-    public Coin(Bitmap bitmap, float spawnX, float spawnY, int width, int height)
+    public Coin(Bitmap[] coinSides, float spawnX, float spawnY, int width, int height)
     {
-        super(bitmap, spawnX, spawnY, width, height);
-        rand = new Random();
+        super(coinSides[0], spawnX, spawnY, width, height);
+        this.velocity = 0;
+        this.acceleration = 0;
+        this.coinSides = coinSides;
+        this.rand = new Random();
     }
 
     public void flipCoin()
@@ -49,25 +51,7 @@ public class Coin extends Sprite
     }
 
     @Override
-    public void update(InputBuddy inputBuddy, float deltaTime)
-    {
+    public void update(InputBuddy inputBuddy, float deltaTime) {
         super.update(inputBuddy, deltaTime);
-
-        if(inputBuddy.getTouchEvents() != null)
-        {
-            for (Input.TouchEvent touchEvent: inputBuddy.getTouchEvents())
-            {
-                if(this.boundingBox.isTouchOn(touchEvent))
-                {
-                    switch (touchEvent.type)
-                    {
-                        case Input.TouchEvent.TOUCH_DOWN:
-                            flipCoin();
-                            Log.d("FLIPPED", "" + faceUp);
-                            break;
-                    }
-                }
-            }
-        }
     }
 }

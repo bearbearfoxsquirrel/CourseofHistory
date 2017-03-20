@@ -1,5 +1,6 @@
 package test.puigames.courseofhistory.framework.game.levels;
 
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.util.Log;
 
@@ -26,12 +27,13 @@ import test.puigames.courseofhistory.framework.game.screens.SplashScreen;
 public class TestLevel extends Level
 {
     public static int MAX_PLAYERS = 2;
-    private Board board;
-    private CharacterCard[] testCards;
+    public static int MAX_DECK_SIZE = 36;
+   // private Board board;
+   // private CharacterCard[] testCards;
 
     HumanCardGameController controllers[];
 
-    private Coin coin;
+    //private Coin coin;
     private PlayArea playArea;
     private float areaPaddingX = 10.0f;
     private float areaPaddingY = 6.0f;
@@ -44,35 +46,39 @@ public class TestLevel extends Level
 
     public void load() {
        try {
-           this.board = resourceFetcher.loadBoard("testBoard");
+           Board board = resourceFetcher.loadBoard("testBoard");
            sprites.add(board);
 
-           this.testCards = resourceFetcher.loadCharacterCards();
-           sprites.addAll(Arrays.asList(testCards));
+           CharacterCard[] testCards1 = resourceFetcher.loadCharacterCards();
+           CharacterCard[] testCards2 = resourceFetcher.loadCharacterCards();
+           sprites.addAll(Arrays.asList(testCards1));
+           sprites.addAll(Arrays.asList(testCards2));
 
-           coin = new Coin(resourceFetcher.getBitmapFromFile("images/coins/coin-heads.png"),
+
+           Bitmap coinSides[] = {resourceFetcher.getBitmapFromFile("images/coins/coin-heads.png"), resourceFetcher.getBitmapFromFile("images/coins/coin-tails.png")};
+           Coin coin = new Coin(coinSides,
                    240, 160, 80, 80);
+
            sprites.add(coin);
 
-           //for (CardGameController contestant : cardGameControllers)
            controllers = new HumanCardGameController[MAX_PLAYERS];
            Player[] players = new Player[MAX_PLAYERS];
 
            for(int i = 0; i < controllers.length; i++) {
-               players[i] = new Player(testCards);
+               switch (i) {
+                   case 0:
+                       players[i] = new Player(testCards1);
+                       break;
+                   case 1:
+                       players[i] = new Player(testCards2);
+
+               }
                controllers[i] = new HumanCardGameController();
                controllers[i].possessPlayer(players[i]);
            }
 
 
-           gameMachine = new CourseOfHistoryMachine(players);
-
-
-           //play area
-           playArea = new PlayArea(board.boundingBox.left + areaPaddingX, board.halfWidth + areaPaddingY,
-                   190, 140);
-
-           gameMachine.startGame();
+           gameMachine = new CourseOfHistoryMachine(players, coin);
        } catch(NullPointerException e) {
            Log.d("Loading Error:", "Error fetching resources, returning to menu");
            //TODO do properly
@@ -89,7 +95,7 @@ public class TestLevel extends Level
                // else if (controller instanceof AICardGameController)
                     //((AICardGameController)controller).update(deltaTime);
             } catch (Exception e) {
-                Log.d("Updating Controller: ", "Error processing controller " + controller.toString());
+                Log.d("Updating Controller: ", "Error processing controller " + controller);
             }
     }
 
@@ -97,23 +103,12 @@ public class TestLevel extends Level
     @Override
     public void update(float deltaTime, AndroidInput input) {
         super.update(deltaTime, input);
-
         updateControllers(deltaTime); //Should be called before the game machine is updated
         gameMachine.update(deltaTime);
-
-        decideTurn();
-        scaler.scaleToScreen(playArea);
-        playArea.update(inputBuddy, deltaTime, testCards);
     }
 
 
-    private void decideTurn()
-    {
-        if(coin.faceUp == Coin.Result.HEADS)
-            coin.setImage(resourceFetcher.getBitmapFromFile("images/coins/coin-heads.png"));
-        else
-            coin.setImage((resourceFetcher.getBitmapFromFile("images/coins/coin-tails.png")));
-    }
+
 
     @Override
     public void draw(Canvas canvas, float deltaTime) {
@@ -121,14 +116,12 @@ public class TestLevel extends Level
     }
 
     @Override
-    public void pause()
-    {
+    public void pause() {
 
     }
 
     @Override
-    public void resume()
-    {
+    public void resume() {
 
     }
 
@@ -137,8 +130,7 @@ public class TestLevel extends Level
     }
 
     @Override
-    public void dispose()
-    {
+    public void dispose() {
 
     }
 }
