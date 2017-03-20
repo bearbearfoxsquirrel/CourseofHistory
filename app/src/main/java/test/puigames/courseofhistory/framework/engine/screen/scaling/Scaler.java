@@ -52,9 +52,12 @@ public class Scaler {
 
     public void scaleToScreen(Bitmap bitmap, Matrix matrix){
         matrix.reset();
-        matrix.postScale(bitmap.getWidth() * scaleFactorX,  bitmap.getHeight()  * scaleFactorY);
+        matrix.postScale(bitmap.getWidth() * scaleFactorX,  bitmap.getHeight() *
+                scaleFactorY);
         matrix.postRotate(0, scaleFactorX
                 / 2.0f, scaleFactorY / 2.0f);
+        matrix.postTranslate(0.0f, 0.0f);
+        matrix.setTranslate(0.0f, 0.0f);
         //Updating of matrix done only here
     }
 

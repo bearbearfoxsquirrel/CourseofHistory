@@ -26,11 +26,10 @@ public abstract class Level extends Screen {
     public Level(GameProperties gameProperties) {
         super(gameProperties);
 
-     //   inputBuddy = new InputBuddy();
-
         this.sprites = new ArrayList<>();
         this.resourceFetcher = gameProperties.getResourceFetcher();
     }
+
 
     public abstract void load();
 
@@ -41,7 +40,7 @@ public abstract class Level extends Screen {
         scaler.scaleTouchInput(inputBuddy);
 
         for (Sprite sprite : sprites) {
-            sprite.update(inputBuddy, deltaTime);
+            sprite.update(deltaTime);
             scaler.scaleToScreen(sprite);
         }
     }
@@ -54,17 +53,20 @@ public abstract class Level extends Screen {
         }
     }
 
+
     @Override
     public void pause()
     {
 
     }
 
+
     @Override
     public void resume()
     {
 
     }
+
 
     @Override
     public void dispose()

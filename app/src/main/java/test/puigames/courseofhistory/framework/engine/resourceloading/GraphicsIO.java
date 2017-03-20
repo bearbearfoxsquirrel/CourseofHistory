@@ -65,7 +65,7 @@ public class GraphicsIO
                 }
                 catch (IOException e)
                 {
-
+                    e.printStackTrace();
                 }
             }
         }

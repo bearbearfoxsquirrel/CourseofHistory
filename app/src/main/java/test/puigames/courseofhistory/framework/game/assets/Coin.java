@@ -24,15 +24,15 @@ public class Coin extends Sprite
         HEADS, TAILS
     }
 
-    public Coin(Bitmap bitmap, float spawnX, float spawnY, int width, int height)
+    public Coin(Bitmap bitmap, int width, int height)
     {
-        super(bitmap, spawnX, spawnY, width, height);
+        super(bitmap, width, height);
         rand = new Random();
     }
 
     public void flipCoin()
     {
-        int randomNumber = rand.nextInt(2); //rando number between 0 and 1
+        int randomNumber = rand.nextInt(2); //random number between 0 and 1
 
         switch(randomNumber)
         {
@@ -49,25 +49,25 @@ public class Coin extends Sprite
     }
 
     @Override
-    public void update(InputBuddy inputBuddy, float deltaTime)
+    public void update(float deltaTime)
     {
-        super.update(inputBuddy, deltaTime);
+        super.update(deltaTime);
 
-        if(inputBuddy.getTouchEvents() != null)
-        {
-            for (Input.TouchEvent touchEvent: inputBuddy.getTouchEvents())
-            {
-                if(this.boundingBox.isTouchOn(touchEvent))
-                {
-                    switch (touchEvent.type)
-                    {
-                        case Input.TouchEvent.TOUCH_DOWN:
-                            flipCoin();
-                            Log.d("FLIPPED", "" + faceUp);
-                            break;
-                    }
-                }
-            }
-        }
+//        if(inputBuddy.getTouchEvents() != null)
+//        {
+//            for (Input.TouchEvent touchEvent: inputBuddy.getTouchEvents())
+//            {
+//                if(this.boundingBox.isTouchOn(touchEvent))
+//                {
+//                    switch (touchEvent.type)
+//                    {
+//                        case Input.TouchEvent.TOUCH_DOWN:
+//                            flipCoin();
+//                            Log.d("FLIPPED", "" + faceUp);
+//                            break;
+//                    }
+//                }
+//            }
+//        }
     }
 }

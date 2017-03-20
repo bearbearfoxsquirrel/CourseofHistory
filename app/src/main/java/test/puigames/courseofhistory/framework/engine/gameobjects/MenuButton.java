@@ -18,7 +18,7 @@ public class MenuButton extends GameObject implements Drawable {
     protected Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
     public MenuButton(Bitmap buttonImage, Paint paint){
-        super(0, 0, 0, 0);
+        super(0, 0);
         this.buttonImage = buttonImage;
         this.boundingBox = new BoundingBox(width, height, origin);
     }

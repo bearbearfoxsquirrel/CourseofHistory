@@ -42,14 +42,14 @@ public class TestLevel extends Level
         super(gameProperties);
         cardGameControllers = new CardGameController[2];
         load();
-        sprites.add(cardGameControllers[0].player.drawCardFromDeck());
+//        sprites.add(cardGameControllers[0].player.drawCardFromDeck());
+//        sprites.add(cardGameControllers[0].player.drawCardFromDeck());
+//        sprites.add(cardGameControllers[0].player.drawCardFromDeck());
         sprites.add(cardGameControllers[1].player.drawCardFromDeck());
-        sprites.add(cardGameControllers[0].player.drawCardFromDeck());
+//        sprites.add(cardGameControllers[0].player.drawCardFromDeck());
         sprites.add(cardGameControllers[1].player.drawCardFromDeck());
-        sprites.add(cardGameControllers[0].player.drawCardFromDeck());
-        sprites.add(cardGameControllers[1].player.drawCardFromDeck());
-        sprites.add(cardGameControllers[0].player.drawCardFromDeck());
-        sprites.add(cardGameControllers[1].player.drawCardFromDeck());
+//        sprites.add(cardGameControllers[0].player.drawCardFromDeck());
+//        sprites.add(cardGameControllers[1].player.drawCardFromDeck());
 
 
     }
@@ -65,14 +65,14 @@ public class TestLevel extends Level
           // this.greatMindsCards = resourceFetcher.loadCharacterCards("greatMindsDeck");
           // sprites.addAll(Arrays.asList(greatMindsCards));
 
-          this.animation = new Animation(resourceFetcher.getBitmapFromFile("images/Animations/Animation1.png"), 280,180,80,80,12);
-           sprites.add(animation);
+//          this.animation = new Animation(resourceFetcher.getBitmapFromFile("images/Animations/Animation1.png"), 280,180,80,80,12);
+//           sprites.add(animation);
 
 
 
-           coin = new Coin(resourceFetcher.getBitmapFromFile("images/coins/coin-heads.png"),
-                   240, 160, 80, 80);
-           sprites.add(coin);
+//           coin = new Coin(resourceFetcher.getBitmapFromFile("images/coins/coin-heads.png"),
+//                   240, 160, 80, 80);
+//           sprites.add(coin);
 
            //for (CardGameController contestant : cardGameControllers)
            for(int i = 0; i < cardGameControllers.length; i++) {
@@ -92,30 +92,40 @@ public class TestLevel extends Level
     @Override
     public void update(float deltaTime, AndroidInput input) {
         super.update(deltaTime, input);
-
         //while game not won
-        for(int turnIndex = 0; turnIndex < cardGameControllers.length; turnIndex++) {
+        for(int turnIndex = 0; turnIndex < cardGameControllers.length; turnIndex++)
+        {
             cardGameControllers[turnIndex].update(inputBuddy, deltaTime);
-            switch (cardGameControllers[turnIndex].player.playerCurrentState) {
-              //  case CREATED:
+            collisionCheckAndResolve(turnIndex);
+            switch (cardGameControllers[turnIndex].player.playerCurrentState)
+            {
+                //  case CREATED:
                 case TAKING_TURN:
-                    switch (cardGameControllers[turnIndex].currentControllerState) {
+                    switch (cardGameControllers[turnIndex].currentControllerState)
+                    {
                         case MOVING_CARD_IN_HAND:
                             cardGameControllers[turnIndex].updateCardsInHand(deltaTime);
                             break;
                         case ATTACKING:
-                       //     cardGameControllers[turnIndex].
-                          //          pawn.attack(cardGameControllers[turnIndex].);
+                            //     cardGameControllers[turnIndex].
+                            //          pawn.attack(cardGameControllers[turnIndex].);
                     }
                     break;
             }
-            board.update(inputBuddy, deltaTime);
+            board.update(deltaTime, cardGameControllers[turnIndex].player.testCards);
         }
-//        decideTurn();
+    }
 
-//        scaler.scaleToScreen(playArea);
-
-
+    private void collisionCheckAndResolve(int turnIndex)
+    {
+        for(CharacterCard card : cardGameControllers[turnIndex].player.testCards)
+        {
+            for(CharacterCard card2 : cardGameControllers[turnIndex].player.testCards)
+            {
+                if(card.checkForCollision(card2))
+                    card.resolveCollision(card2, card.overlapAllowance);
+            }
+        }
     }
 
 

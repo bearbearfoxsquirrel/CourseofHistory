@@ -35,7 +35,6 @@ public abstract class Screen
      */
 
     public Screen(GameProperties gameProperties) {
-
         this.gameProperties = gameProperties;
         viewport = new Viewport(LEVEL_WIDTH, LEVEL_HEIGHT);
         scaler = new Scaler(gameProperties, viewport);

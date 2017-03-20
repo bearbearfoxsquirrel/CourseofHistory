@@ -25,7 +25,6 @@ public class HumanController extends CardGameController {
             for (Input.TouchEvent touchEvent : inputBuddy.getTouchEvents()) {
                 if (checkIsTouched(touchEvent, card)) {
                     card.translateCard(touchEvent.x, touchEvent.y);
-                    card.update(deltaTime, card);
 
                     if(player.playArea.cardsInArea.contains(card)) {
                         card.setOrigin(new Origin(touchEvent.x, touchEvent.y));
@@ -34,7 +33,7 @@ public class HumanController extends CardGameController {
                 }
                 else
                     if(card.boundingBox.isOverlapping(player.playArea.boundingBox))
-                        player.addCardToPlayArea(card);
+                        player.addCardToArea(card);
             }
             if(card.boundingBox.isOverlapping(player.playArea.boundingBox) && inputBuddy
                     .touchEvents.isEmpty())
@@ -53,6 +52,5 @@ public class HumanController extends CardGameController {
     public void update(InputBuddy inputBuddy, float deltaTime) {
         this.inputBuddy = inputBuddy;
         updateCardsInHand(deltaTime);
-//        player.playArea.positionCardsInArea();
     }
 }

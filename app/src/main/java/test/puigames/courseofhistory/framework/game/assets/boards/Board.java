@@ -19,14 +19,26 @@ import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 public class Board extends Sprite implements Drawable {
 
     //public PlayArea[] playAreas;
-    public PlayArea playArea;
+    public PlayArea[] playAreas = new PlayArea[2];
     private float areaPaddingX = 10.0f;
     private float areaPaddingY = 6.0f;
 
+    //spawnX = 480/2, spawnY = 320/2
     public Board(Bitmap bitmap){
-        super(bitmap, 480/2.f, 320/2.f, 480, 320);
+        super(bitmap, 480, 320);
 
-        playArea = new PlayArea(boundingBox.left + areaPaddingX, halfWidth + areaPaddingY,
+        //player 1 - human: player one - bottom half of screen
+            //spawnX = boundingBox.left + areaPaddingX
+            //spawnY = halfWidth + areaPaddingY
+            //width = 460, height = 140
+        playAreas[0] = new PlayArea(boundingBox.left + areaPaddingX, halfWidth + areaPaddingY,
+                460, 140);
+
+        //player 2 - opponent: AI/other player - top half of screen
+            //spawnX = boundingBox.left + areaPaddingX
+            //spawnY = boundingBox.top
+            //width = 460, height = 140
+        playAreas[1] = new PlayArea(boundingBox.left + areaPaddingX, boundingBox.top,
                 460, 140);
     }
 
@@ -35,41 +47,17 @@ public class Board extends Sprite implements Drawable {
         super.draw(canvas, lastFrameTime);
     }
 
-    @Override
-    public void update(InputBuddy inputBuddy, float deltaTime) {
-        super.update(inputBuddy, deltaTime);
-        playArea.update(inputBuddy, deltaTime);
-    }
+    public void update(float deltaTime, CharacterCard[] characterCards) {
+        super.update(deltaTime);
 
+        for(PlayArea playArea : playAreas)
+            playArea.update(deltaTime); //update play areas
 
-    /**
-     * Only needed to be called if the bounding box you are testing against
-     * this one is not encapsulated
-     * @see test.puigames.courseofhistory.framework.engine.gameobjects
-     * .properties.BoundingBox.isEncapsulated();
-     *
-     * @this - the game object's bounding box we are testing against sprite
-     *          we are containing the sprite within @this' bounding box
-     * @param sprite - sprite you want to keep in bounds
-     */
-    private void keepInsideBoundingBox(Sprite sprite)
-    {
-        if(sprite.boundingBox.left < this.boundingBox.left)
-            sprite.origin.x = (this.boundingBox.left + sprite.halfWidth);
-        else if(sprite.boundingBox.right > this.boundingBox.right)
-            sprite.origin.x = (this.boundingBox.right - sprite.halfWidth);
-        else if(sprite.boundingBox.top < this.boundingBox.top)
-            sprite.origin.y = (this.boundingBox.top + sprite.halfHeight);
-        else if(sprite.boundingBox.bottom > this.boundingBox.bottom)
-            sprite.origin.y = (this.boundingBox.bottom - sprite.halfHeight);
+        //update hands
 
-//        if(this.boundingBox.left < boundingBox.left)
-//            this.origin.x = (boundingBox.left + width/2);
-//        else if(this.boundingBox.right > boundingBox.right)
-//            this.origin.x = (boundingBox.right - width/2);
-//        else if(this.boundingBox.top < boundingBox.top)
-//            this.origin.y = (boundingBox.top + height/2);
-//        else if(this.boundingBox.bottom > boundingBox.bottom)
-//            this.origin.y = (boundingBox.bottom - height/2);
+        //keep cards inside board bounds
+        for(CharacterCard characterCard : characterCards)
+            if(!characterCard.boundingBox.isEncapsulated(this.boundingBox))
+                this.boundingBox.getCollisionDetector().keepInsideBoundingBox(this, characterCard);
     }
 }

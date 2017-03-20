@@ -39,7 +39,7 @@ public class Player extends Pawn {
         currentAction = PawnAction.NONE; //Initialised to none as a pawn is doing nothing when the game starts
         this.playerGraveyard = new ArrayList<>();
         this.testCards = playerCards;
-        this.playArea = board.playArea;
+        this.playArea = board.playAreas[1]; //needs some sort of flag so know which player is which
         setUpPlayerDeck();
 
 
@@ -107,7 +107,7 @@ public class Player extends Pawn {
 
     }
 
-    public void addCardToPlayArea(CharacterCard card)
+    public void addCardToArea(CharacterCard card)
     {
             playArea.addCardToArea(card);
     }

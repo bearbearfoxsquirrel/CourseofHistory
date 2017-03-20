@@ -2,7 +2,9 @@ package test.puigames.courseofhistory.framework.game.assets.cards;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.util.Log;
 
+import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.BoundingBox;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
@@ -16,8 +18,8 @@ public class Card extends Sprite {
     //private variables
 
     //constructor
-    public Card(Bitmap cardImage, float spawnX, float spawnY) {
-        super(cardImage, (spawnX), (spawnY), 60, 83);
+    public Card(Bitmap cardImage) {
+        super(cardImage, 60, 83);
     }
 
     public void translateCard(float updatedX, float updatedY) {
@@ -26,29 +28,16 @@ public class Card extends Sprite {
 
         maxAcceleration = 60.0f;
         maxVelocity = 20.0f;
+        overlapAllowance = MAX_OVERLAP_ALLOWANCE / 5;
     }
 
     //TODO: make card collision checks on not dragged
     //FIXME: smooth out bounds resolution to be less jaggy
     //TODO:: investigate time and frame timing
-    public void update(float deltaTime, Card card) {
-        checkForAndResolveCollision(card);
-    }
 
     //draw
     @Override
-    public void draw(Canvas canvas, float lastFrameTime) {
-        super.draw(canvas, lastFrameTime);
+    public void draw(Canvas canvas, float deltaTime) {
+        super.draw(canvas, deltaTime);
     }
-
-    private void checkForAndResolveCollision(Card card)
-    {
-            if(this == card)
-                return;
-            else
-                boundingBox.getCollisionDetector().determineAndResolveCollision(this, card);
-    }
-
-
-
 }

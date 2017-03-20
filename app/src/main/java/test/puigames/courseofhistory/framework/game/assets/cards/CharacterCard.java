@@ -16,8 +16,8 @@ public class CharacterCard extends Card {
     public int health;
     public String abilityDescription;
 
-    public CharacterCard(Bitmap cardImage, float spawnX, float spawnY, String name, String description, int mana, int attack, int health, String abilityDescription) {
-        super(cardImage, spawnX, spawnY);
+    public CharacterCard(Bitmap cardImage, String name, String description, int mana, int attack, int health, String abilityDescription) {
+        super(cardImage);
         this.name = name;
         this.description = description;
         this.mana = mana;

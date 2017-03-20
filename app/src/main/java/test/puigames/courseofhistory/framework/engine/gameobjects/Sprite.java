@@ -31,8 +31,8 @@ public abstract class Sprite extends GameObject implements Drawable {
     public float maxVelocity = DEFAULT_MAX_VELOCITY;
 
 
-    public Sprite(Bitmap bitmap, float spawnX, float spawnY, int width, int height) {
-        super(spawnX, spawnY,  width,  height);
+    public Sprite(Bitmap bitmap, int width, int height) {
+        super(width,  height);
         this.boundingBox = new BoundingBox(width, height, origin);
         this.image = bitmap;
 //        this.velocity = 0;
@@ -64,9 +64,8 @@ public abstract class Sprite extends GameObject implements Drawable {
         origin.y += (velocity.y * deltaTime);
     }
 
-    @Override
-    public void update(InputBuddy inputBuddy, float deltaTime) {
-        super.update(inputBuddy, deltaTime);
+    public void update(float deltaTime) {
+        super.update(deltaTime);
         handleMovement(deltaTime);
     }
 

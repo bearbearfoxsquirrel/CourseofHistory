@@ -70,9 +70,9 @@ public class Animation extends Sprite {
      *        (assumed to be of equal width)
      */
 
-    public Animation(Bitmap bitmap, float spawnX, float spawnY, int width, int height, int frameCount )
+    public Animation(Bitmap bitmap, int width, int height, int frameCount )
     {
-        super(bitmap, spawnX, spawnY, width, height);
+        super(bitmap, width, height);
 
         this.animationFrames = bitmap;
         this.frameCount = frameCount;
