@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.gameloop.MainGame;
+import test.puigames.courseofhistory.framework.engine.gameobjects.UIElement;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
 import test.puigames.courseofhistory.framework.engine.resourceloading.Fetcher;
@@ -23,16 +24,13 @@ public abstract class Menu extends Screen{
 
     protected InputBuddy inputBuddy;
     protected Fetcher resourceFetcher;
-    protected ArrayList<Bitmap> bitmaps;
-    protected Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    public Matrix matrix;
+    protected ArrayList<UIElement> uiElements;
 
     public Menu(GameProperties gameProperties){
         super(gameProperties);
 
-        resourceFetcher = gameProperties.getResourceFetcher();
-        matrix = new Matrix();
-        this.bitmaps = new ArrayList<>();
+        this.resourceFetcher = gameProperties.getResourceFetcher();
+        this.uiElements = new ArrayList<>();
     }
 
     @Override
@@ -40,14 +38,17 @@ public abstract class Menu extends Screen{
         inputBuddy = new InputBuddy(input);
         scaler.scaleTouchInput(inputBuddy);
 
-        for(Bitmap bitmap : bitmaps)
-            scaler.scaleToScreen(bitmap, matrix);
+        for(UIElement uiElement : uiElements)
+        {
+            uiElement.update(deltaTime);
+            scaler.scaleToScreen(uiElement);
+        }
     }
 
     @Override
     public void draw(Canvas canvas, float deltaTime) {
-        for(Bitmap bitmap : bitmaps)
-            canvas.drawBitmap(bitmap, matrix, paint);
+        for(UIElement uiElement : uiElements)
+            uiElement.draw(canvas, deltaTime);
     }
 
     public abstract void load();
