@@ -43,7 +43,7 @@ public class CourseOfHistoryMachine {
             turnIndex = 1;
 
         coin.setImage(coin.coinSides[turnIndex]);
-        currentGameState = GameState.GAME_ACTIVE;
+        currentGameState = GameState.GAME_ACTIVE;//To transition FSM to the game being active so turns are now being made
     }
 
     public void update(float deltaTime) {
@@ -109,7 +109,7 @@ public class CourseOfHistoryMachine {
     private void nextPlayersTurn() {
         players[turnIndex].playerCurrentState = Player.PawnState.WAITING_FOR_TURN;
         incrementTurnIndex();
-        coin.setImage(coin.coinSides[turnIndex]);
+        coin.setImage(coin.coinSides[turnIndex]); //Just to test turns are working :)
         players[turnIndex].playerCurrentState = Player.PawnState.TURN_STARTED;
     }
 
