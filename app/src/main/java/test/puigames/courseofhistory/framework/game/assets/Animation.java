@@ -3,6 +3,8 @@ package test.puigames.courseofhistory.framework.game.assets;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 
+import java.util.Random;
+
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 
 /**
@@ -63,7 +65,7 @@ public class Animation extends Sprite {
     /**
      * Create a new animation
      *
-     * @param //animationFrames Bitmap holding the frames of the animation
+     * @param// animationFrames Bitmap holding the frames of the animation
      * @param frameCount Number of horizontal frames in the animation
      *        (assumed to be of equal width)
      */

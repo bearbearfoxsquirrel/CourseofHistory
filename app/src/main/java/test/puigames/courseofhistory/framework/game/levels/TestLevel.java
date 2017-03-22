@@ -4,12 +4,12 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.util.Log;
 
-import java.util.Arrays;
-
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
 import test.puigames.courseofhistory.framework.engine.screen.Level;
+import test.puigames.courseofhistory.framework.game.PlayArea;
+import test.puigames.courseofhistory.framework.game.assets.Animation;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
@@ -29,6 +29,12 @@ public class TestLevel extends Level
     public static int MAX_DECK_SIZE = 36;
    // private Board board;
    // private CharacterCard[] testCards;
+    private CharacterCard[] evilLeaderCards = new CharacterCard[36];
+    private CharacterCard[] greatMindsCards = new CharacterCard[36];
+    private CharacterCard[][] cardsHolder = {evilLeaderCards, greatMindsCards};
+    private String[] deckNames = {"greatMindsCards", "evilLeaderCards"};
+    private Animation animation;
+    private Bitmap explodeAnimation;
 
     HumanCardGameController controllers[];
     CourseOfHistoryMachine gameMachine;
@@ -43,15 +49,8 @@ public class TestLevel extends Level
            Board board = resourceFetcher.loadBoard("testBoard");
            sprites.add(board);
 
-           CharacterCard[] testCards1 = resourceFetcher.loadCharacterCards();
-           CharacterCard[] testCards2 = resourceFetcher.loadCharacterCards();
-           sprites.addAll(Arrays.asList(testCards1));
-           sprites.addAll(Arrays.asList(testCards2));
-
-
            Bitmap coinSides[] = {resourceFetcher.getBitmapFromFile("images/coins/coin-heads.png"), resourceFetcher.getBitmapFromFile("images/coins/coin-tails.png")};
-           Coin coin = new Coin(coinSides,
-                   240, 160, 80, 80);
+           Coin coin = new Coin(coinSides, 80, 80);
 
            sprites.add(coin);
 
@@ -61,10 +60,11 @@ public class TestLevel extends Level
            for(int i = 0; i < controllers.length; i++) {
                switch (i) {
                    case 0:
-                       players[i] = new Player(testCards1);
+                       players[i] = new Player(greatMindsCards, board);
                        break;
                    case 1:
-                       players[i] = new Player(testCards2);
+                       players[i] = new Player(evilLeaderCards, board);
+
                }
                controllers[i] = new HumanCardGameController();
                controllers[i].possessPlayer(players[i]);
@@ -100,6 +100,17 @@ public class TestLevel extends Level
         gameMachine.update(deltaTime);
     }
 
+    private void collisionCheckAndResolve(int turnIndex)
+    {
+        for(CharacterCard card : controllers[turnIndex].player.testCards)
+        {
+            for(CharacterCard card2 : controllers[turnIndex].player.testCards)
+            {
+                if(card.checkForCollision(card2))
+                    card.resolveCollision(card2, card.overlapAllowance);
+            }
+        }
+    }
 
 
 

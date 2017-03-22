@@ -8,7 +8,7 @@ import android.graphics.Paint;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.BoundingBox;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Drawable;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Origin;
-import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
+import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Vector;
 
 /**
  * Created by Michael on 21/11/2016.
@@ -17,19 +17,53 @@ import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 public abstract class Sprite extends GameObject implements Drawable {
     public Bitmap image;
     protected Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    protected float velocity;
-    protected float acceleration;
 
-    public Sprite(Bitmap bitmap, float spawnX, float spawnY, int width, int height) {
-        super(spawnX, spawnY,  width,  height);
+    //set reference default max acceleration adn velocity
+    protected final float DEFAULT_MAX_ACCELERATION = Float.MAX_VALUE;
+    protected final float DEFAULT_MAX_VELOCITY = Float.MAX_VALUE;
+
+    //acceleration and velocity of sprite, with max values that can be set
+    public Vector velocity = new Vector();
+    public Vector acceleration = new Vector();
+
+    public float maxAcceleration = DEFAULT_MAX_ACCELERATION;
+    public float maxVelocity = DEFAULT_MAX_VELOCITY;
+
+
+    public Sprite(Bitmap bitmap, int width, int height) {
+        super(width,  height);
+        this.boundingBox = new BoundingBox(width, height, origin);
         this.image = bitmap;
-        this.velocity = 0;
-        this.acceleration = 0;
     }
 
-    @Override
-    public void update(InputBuddy inputBuddy, float deltaTime) {
-        super.update(inputBuddy, deltaTime);
+    //deals with acceleration and velocity of sprite
+    private void handleMovement(float deltaTime)
+    {
+        //ensure max acceleration isn't exceeded
+        if(acceleration.lengthSquared() > maxAcceleration * maxAcceleration)
+        {
+            acceleration.normalise();
+            acceleration.multiply(maxAcceleration);
+        }
+
+        //update velocity using acceleration
+        //ensure max velocity isn't exceeded
+        velocity.add(acceleration.x * deltaTime, acceleration.y * deltaTime);
+
+        if(velocity.lengthSquared() > maxVelocity * maxVelocity)
+        {
+            velocity.normalise();
+            velocity.multiply(maxVelocity);
+        }
+
+        //update position using velocity
+        origin.x += (velocity.x * deltaTime);
+        origin.y += (velocity.y * deltaTime);
+    }
+
+    public void update(float deltaTime) {
+        super.update(deltaTime);
+        handleMovement(deltaTime);
     }
 
     @Override

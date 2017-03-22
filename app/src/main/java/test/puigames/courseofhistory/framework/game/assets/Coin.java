@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import java.util.Random;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
-import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 
 /**
  * Created by Jordan on 01/03/2017.
@@ -23,11 +22,8 @@ public class Coin extends Sprite
         HEADS, TAILS
     }
 
-    public Coin(Bitmap[] coinSides, float spawnX, float spawnY, int width, int height)
-    {
-        super(coinSides[0], spawnX, spawnY, width, height);
-        this.velocity = 0;
-        this.acceleration = 0;
+    public Coin(Bitmap[] coinSides, int width, int height) {
+        super(coinSides[0], width, height);
         this.coinSides = coinSides;
         this.rand = new Random();
     }
@@ -51,7 +47,7 @@ public class Coin extends Sprite
     }
 
     @Override
-    public void update(InputBuddy inputBuddy, float deltaTime) {
-        super.update(inputBuddy, deltaTime);
+    public void update(float deltaTime) {
+        super.update(deltaTime);
     }
 }

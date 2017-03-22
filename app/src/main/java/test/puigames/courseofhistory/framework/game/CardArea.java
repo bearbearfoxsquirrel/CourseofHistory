@@ -1,13 +1,10 @@
 package test.puigames.courseofhistory.framework.game;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
-import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
-import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
-import test.puigames.courseofhistory.framework.game.assets.cards.Card;
+import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Origin;
+import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 
 /**
  * Created by Jordan on 02/03/2017.
@@ -20,55 +17,66 @@ import test.puigames.courseofhistory.framework.game.assets.cards.Card;
 public abstract class CardArea extends GameObject
 {
     public float cardPadding;
+    public ArrayList<CharacterCard> cardsInArea;
+    public Origin[] positions;
 
-    ArrayList<Card> cardsInArea;
+    protected int maxCardsInArea = 0; //default value - overwrite in hand
 
-    public CardArea(float spawnX, float spawnY, int width, int height)
+    public CardArea(int width, int height)
     {
-        super(spawnX, spawnY, width, height);
+        super(width, height);
 
         this.cardPadding = 2.0f;
         this.cardsInArea = new ArrayList<>();
     }
 
-    //width: 480 - 20 = 460 units (10 units on each side)
-    //height: (320 / 2) - 10 = 150 units (5 units above/below)
-
-
-    public void update(InputBuddy inputBuddy, float deltaTime, Card[] cards)
+    /**
+     * Try to add card to Area
+     * @param card - what we (hope) to add to Area
+     */
+    public void addCardToArea(CharacterCard card)
     {
-        super.update(inputBuddy, deltaTime);
+        if(!cardsInArea.contains(card) && cardsInArea.size() < maxCardsInArea)
+            if (card.boundingBox.isOverlapping(this.boundingBox))
+                cardsInArea.add(card);
 
-        for(Card card : cards)
-            manageCardArea(card);
+        positionCardsInArea();
     }
 
     /**
-     * Try to position card in area
-     * @param card - what we (hope) to move to position
+     * Try to remove card from Area
+     * @param card - what we (hope) to remove from Area
      */
-    protected void manageCardArea(Card card)
+    public void removeCardFromArea(CharacterCard card)
     {
-        String logMessage;
-        if(!cardsInArea.contains(card))
-        {
-            if(card.boundingBox.isOverlapping(this.boundingBox))
-            {
-                cardsInArea.add(card);
-                logMessage = "card added";
-                Log.d("cardArea", "" + logMessage);
-                Log.d("cardArea size", "" + cardsInArea.size());
-            }
-        }
-        else
-        {
-            if(card.boundingBox.isOutside(this.boundingBox))
-            {
+        if(cardsInArea.contains(card) && cardsInArea.size() > 0)
                 cardsInArea.remove(card);
-                logMessage = "card removed";
-                Log.d("cardArea", "" + logMessage);
-                Log.d("cardArea size", "" + cardsInArea.size());
-            }
-        }
+
+        positionCardsInArea();
+    }
+
+    /**
+     * Try to position all the cards in the area based on
+     * the positions Origin array
+     */
+    public void positionCardsInArea()
+    {
+        for (int i = 0; i < cardsInArea.size(); i++)
+            if(!cardsInArea.get(i).origin.equals(positions[i]))
+                cardsInArea.get(i).setOrigin(new Origin(positions[i]));
+    }
+
+    /**
+     * ONLY CALL IN SHIT THAT EXTENDS FROM CardArea
+     *
+     * Initialises the positions array
+     * Must be called in classes higher than CardArea!
+     */
+    public void setUpPositions()
+    {
+        positions = new Origin[maxCardsInArea];
+        for(int i = 1; i <= maxCardsInArea; i++)
+            positions[i - 1] = new Origin((width/maxCardsInArea) * i,
+                    this.origin.y + (cardPadding * 2));
     }
 }

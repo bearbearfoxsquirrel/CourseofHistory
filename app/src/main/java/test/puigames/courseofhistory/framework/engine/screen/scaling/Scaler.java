@@ -1,10 +1,13 @@
 package test.puigames.courseofhistory.framework.engine.screen.scaling;
 
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.util.Log;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
+import test.puigames.courseofhistory.framework.engine.gameobjects.UIElement;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
 
@@ -32,10 +35,12 @@ public class Scaler {
 
     public void scaleToScreen(Sprite sprite){
         sprite.matrix.reset();
-        sprite.matrix.postScale((sprite.width / sprite.image.getWidth()) * scaleFactorX,  (sprite.height / sprite.image.getHeight()) * scaleFactorY);
-        sprite.matrix.postRotate(0, scaleFactorX * sprite.image.getWidth()
-               / 2.0f, scaleFactorY * sprite.image.getHeight() / 2.0f);
-        sprite.matrix.postTranslate((sprite.origin.x - sprite.width / 2) * scaleFactorX, (sprite.origin.y - sprite.height / 2) * scaleFactorY);
+        sprite.matrix.postScale((sprite.width / sprite.image.getWidth()) * scaleFactorX,
+                (sprite.height / sprite.image.getHeight()) * scaleFactorY);
+        sprite.matrix.postRotate(0, scaleFactorX * sprite.image.getWidth()/ 2.0f,
+                scaleFactorY * sprite.image.getHeight() / 2.0f);
+        sprite.matrix.postTranslate((sprite.origin.x - sprite.width / 2) * scaleFactorX,
+                (sprite.origin.y - sprite.height / 2) * scaleFactorY);
         //Updating of matrix done only here
     }
 
@@ -44,7 +49,18 @@ public class Scaler {
         gameObject.matrix.postScale(gameObject.width * scaleFactorX,  gameObject.height  * scaleFactorY);
         gameObject.matrix.postRotate(0, scaleFactorX
                 / 2.0f, scaleFactorY / 2.0f);
-        gameObject.matrix.postTranslate((gameObject.origin.x - gameObject.width / 2) * scaleFactorX, (gameObject.origin.y - gameObject.height / 2) * scaleFactorY);
+        gameObject.matrix.postTranslate((gameObject.origin.x - gameObject.width / 2) * scaleFactorX,
+                (gameObject.origin.y - gameObject.height / 2) * scaleFactorY);
+        //Updating of matrix done only here
+    }
+
+    public void scaleToScreen(UIElement uiElement){
+        uiElement.matrix.reset();
+        uiElement.matrix.postScale((uiElement.width / uiElement.image.getWidth()) * scaleFactorX,
+                (uiElement.height / uiElement.image.getHeight() * scaleFactorY));
+        uiElement.matrix.postRotate(0, scaleFactorX * uiElement.image.getWidth() /2.0f,
+                scaleFactorY * uiElement.image.getHeight() / 2.0f);
+        uiElement.matrix.postTranslate(0.0f, 0.0f);
         //Updating of matrix done only here
     }
 

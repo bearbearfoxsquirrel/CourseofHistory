@@ -1,39 +1,26 @@
 package test.puigames.courseofhistory.framework.game;
 
-import test.puigames.courseofhistory.framework.game.assets.cards.Card;
+import android.util.Log;
+
+import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Origin;
+import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
+import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 
 /**
  * Created by Jordan on 02/03/2017.
  */
 
+/**
+ * Play area a player can use to play their cards in (their area)
+ * Can have a max of 5 cards on board at once
+ */
 public class PlayArea extends CardArea
 {
-
-    public PlayArea(float spawnX, float spawnY, int width, int height)
+    public PlayArea(int width, int height)
     {
-        super(spawnX, spawnY, width, height);
-    }
+        super(width, height);
+        maxCardsInArea = 5; //number of cards you can have in play area
 
-    @Override
-    public void manageCardArea(Card card)
-    {
-        super.manageCardArea(card);
-
-//        if(cardsInArea.contains(card))
-//            return;
-
-//        if(!card.isOnTouch)
-//        {
-//            if(cardsInArea.size() <= 0)
-//            {
-//                card.origin.x = this.origin.x;
-//                card.origin.y = this.origin.y;
-//            }
-//            else
-//            {
-//                card.origin.x = (cardsInArea.get(cardsInArea.size() - 1).origin.x + cardPadding);
-//                card.origin.y = (cardsInArea.get(cardsInArea.size() - 1).origin.x + cardPadding);
-//            }
-//        }
+        setUpPositions();
     }
 }
