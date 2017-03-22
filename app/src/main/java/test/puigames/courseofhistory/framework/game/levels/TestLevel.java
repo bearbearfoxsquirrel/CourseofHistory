@@ -25,7 +25,6 @@ import test.puigames.courseofhistory.framework.game.screens.SplashScreen;
 public class TestLevel extends Level
 {
     public static int MAX_PLAYERS = 2;
-    public static int MAX_DECK_SIZE = 36;
     private String[] deckNames = {"greatMindsCards", "evilLeaderCards"};
     private Animation animation;
     private Bitmap explodeAnimation;
@@ -41,28 +40,29 @@ public class TestLevel extends Level
 
     public void load() {
        try {
+           //Setting up the board and spawning it
            board = resourceFetcher.loadBoard("testBoard");
            spawnSprite(board, 480/2, 320/2);
-          // sprites.add(board);
 
+           //Setting up the coin and spawning it
            Bitmap coinSides[] = {resourceFetcher.getBitmapFromFile("images/coins/coin-heads.png"), resourceFetcher.getBitmapFromFile("images/coins/coin-tails.png")};
            Coin coin = new Coin(coinSides, 80, 80);
            spawnSprite(coin, 300, 200);
-          // sprites.add(coin);
 
+           //Setting up the players and controllers
            controllers = new HumanCardGameController[MAX_PLAYERS];
            Player[] players = new Player[MAX_PLAYERS];
-
            for(int i = 0; i < controllers.length; i++) {
                controllers[i] = new HumanCardGameController();
-               players[i] = new Player(resourceFetcher.loadCharacterCards(deckNames[i]), board);
-             //  new Player(resourceFetcher.loadCharacterCards(deckNames[i]), board) //TODO use this in future when decks are properly made
-               controllers[i].possessPlayer(players[i]);
+               players[i] = new Player(resourceFetcher.loadCharacterCards(deckNames[i]), board); //Creating a new player pawn for each controller
+               controllers[i].possessPlayer(players[i]); //Giving the player controller a pawn to manipulate for the game
 
-               //spawning the cards in from each players deck
                for(int playersDeckCardIndex = 0; playersDeckCardIndex < players[i].playerDeck.size(); playersDeckCardIndex++)
-                   spawnSprite((CharacterCard)players[i].playerDeck.get(playersDeckCardIndex),(float) Math.random()/ 10000.f, (float) Math.random() / 100000.f);
+                   //spawning the cards in from each players deck
+                   spawnSprite((CharacterCard)players[i].playerDeck.get(playersDeckCardIndex),(float) Math.random() * 1000, (float) Math.random() * 1000);
            }
+
+           //creating the game machine for turns :)
            gameMachine = new CourseOfHistoryMachine(players, coin);
        } catch(NullPointerException e) {
            Log.d("Loading Error:", "Error fetching resources, returning to menu");
