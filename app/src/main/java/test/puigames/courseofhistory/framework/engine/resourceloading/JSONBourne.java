@@ -35,6 +35,8 @@ public class JSONBourne {
     }
 
     public JSONArray fromJSONStringToJsonArray(String jsonString, String arrayName) {
+        //Takes in an array in the form of a string along with the name of the array's name
+        //And returns a JSON array object containing that array
         JSONArray jsonArray = null;
         try {
             jsonArray = new JSONObject(jsonString).getJSONArray(arrayName);

@@ -10,7 +10,6 @@ import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
 import test.puigames.courseofhistory.framework.engine.screen.Level;
-import test.puigames.courseofhistory.framework.game.PlayArea;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
@@ -32,11 +31,6 @@ public class TestLevel extends Level
    // private CharacterCard[] testCards;
 
     HumanCardGameController controllers[];
-
-    //private Coin coin;
-    private PlayArea playArea;
-    private float areaPaddingX = 10.0f;
-    private float areaPaddingY = 6.0f;
     CourseOfHistoryMachine gameMachine;
 
     public TestLevel(GameProperties gameProperties) {
@@ -71,7 +65,6 @@ public class TestLevel extends Level
                        break;
                    case 1:
                        players[i] = new Player(testCards2);
-
                }
                controllers[i] = new HumanCardGameController();
                controllers[i].possessPlayer(players[i]);
