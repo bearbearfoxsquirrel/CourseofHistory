@@ -3,12 +3,9 @@ package test.puigames.courseofhistory.framework.game.assets.boards;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
-import test.puigames.courseofhistory.framework.engine.gameobjects.properties.BoundingBox;
-import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Drawable;
-import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
+import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Drawable;
 import test.puigames.courseofhistory.framework.game.PlayArea;
-import test.puigames.courseofhistory.framework.game.assets.Deck;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 
 /**
@@ -26,18 +23,6 @@ public class Board extends Sprite implements Drawable {
     //spawnX = 480/2, spawnY = 320/2
     public Board(Bitmap bitmap){
         super(bitmap, 480, 320);
-
-        //player 1 - human: player one - bottom half of screen
-            //spawnX = boundingBox.left + areaPaddingX
-            //spawnY = halfWidth + areaPaddingY
-            //width = 460, height = 140
-        playAreas[0] = new PlayArea(460, 140);
-
-        //player 2 - opponent: AI/other player - top half of screen
-            //spawnX = boundingBox.left + areaPaddingX
-            //spawnY = boundingBox.top
-            //width = 460, height = 140
-        playAreas[1] = new PlayArea(460, 140);
     }
 
     @Override
@@ -58,4 +43,22 @@ public class Board extends Sprite implements Drawable {
             if(!characterCard.boundingBox.isEncapsulated(this.boundingBox))
                 this.boundingBox.getCollisionDetector().keepInsideBoundingBox(this, characterCard);
     }
+
+    @Override
+    public void spawnObject(float spawnX, float spawnY){
+        super.spawnObject(spawnX, spawnY);
+        //player 1 - human: player one - bottom half of screen
+        //spawnX = boundingBox.left + areaPaddingX
+        //spawnY = halfWidth + areaPaddingY
+        //width = 460, height = 140
+        for (int i = 0; i < playAreas.length; i++)
+            playAreas[i] = new PlayArea(460, 140, 480/2, 320/4);
+
+        //player 2 - opponent: AI/other player - top half of screen
+        //spawnX = boundingBox.left + areaPaddingX
+        //spawnY = boundingBox.top
+        //width = 460, height = 140
+        //playAreas[1] = new PlayArea(460, 140);
+    }
 }
+

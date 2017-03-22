@@ -4,7 +4,6 @@ import android.graphics.Canvas;
 import android.util.Log;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
-import test.puigames.courseofhistory.framework.engine.gameobjects.UIElement;
 import test.puigames.courseofhistory.framework.engine.gameobjects.imageUIElement;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
 import test.puigames.courseofhistory.framework.engine.screen.Menu;
@@ -46,12 +45,12 @@ public class SplashScreen extends Menu
         super.update(deltaTime, input);
 
         if(duration > splashscreenDelay)
-            try{
+           // try{
                 gameProperties.setScreen(new TestLevel(gameProperties));
-            }
-            catch(NullPointerException e){
-                gameProperties.setScreen(new SplashScreen(gameProperties));
-            }
+           // }
+            //catch(NullPointerException e){
+            //    gameProperties.setScreen(new SplashScreen(gameProperties));
+          //  }
 
         duration += deltaTime;
     }

@@ -26,7 +26,8 @@ public class ResourceFetcher implements Fetcher {
     JSONBourne jsonBourne;
 
     final static String BOARDS_URL = "json_files/boards.json";
-   final static String CARDS_URL = "json_files/characterCard.json";
+    final static String CARDS_URL = "json_files/characterCard.json";
+    final static String TEST_CARDS_URL = "json_files/cardtests.json";
     final static String BOARDS_ARRAY_NAME = "boards";
 
 

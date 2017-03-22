@@ -32,7 +32,6 @@ public abstract class Sprite extends GameObject implements Drawable {
 
     public Sprite(Bitmap bitmap, int width, int height) {
         super(width,  height);
-        this.boundingBox = new BoundingBox(width, height, origin);
         this.image = bitmap;
     }
 

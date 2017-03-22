@@ -1,11 +1,9 @@
 package test.puigames.courseofhistory.framework.engine.gameobjects;
 
 import android.graphics.Matrix;
-import android.util.Log;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.BoundingBox;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Origin;
-import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 
 /**
  * Created by Michael on 13/02/2017.
@@ -21,8 +19,6 @@ public abstract class GameObject {
     public final float MAX_OVERLAP_ALLOWANCE = 1.0f;
     public final float MIN_OVERLAP_ALLOWANCE = 0.0f;
 
-
-
     public GameObject(int width, int height) {
         this.width = width;
         this.halfWidth = (width / 2);
@@ -31,8 +27,7 @@ public abstract class GameObject {
         this.overlapAllowance = MIN_OVERLAP_ALLOWANCE;
     }
 
-    public void spawnObject(float spawnX, float spawnY)
-    {
+    public void spawnObject(float spawnX, float spawnY) {
         this.origin = new Origin(spawnX, spawnY);
         this.boundingBox = new BoundingBox(width, height, origin);
         this.matrix = new Matrix();

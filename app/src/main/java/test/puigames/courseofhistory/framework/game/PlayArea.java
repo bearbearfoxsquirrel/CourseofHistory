@@ -1,11 +1,5 @@
 package test.puigames.courseofhistory.framework.game;
 
-import android.util.Log;
-
-import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Origin;
-import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
-import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
-
 /**
  * Created by Jordan on 02/03/2017.
  */
@@ -16,11 +10,15 @@ import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
  */
 public class PlayArea extends CardArea
 {
-    public PlayArea(int width, int height)
-    {
+    public PlayArea(int width, int height, int spawnX, int spawnY) {
         super(width, height);
         maxCardsInArea = 5; //number of cards you can have in play area
+        spawnObject(spawnX, spawnY);
+    }
 
+    @Override
+    public void spawnObject(float spawnX, float spawnY){
+        super.spawnObject(spawnX, spawnY);
         setUpPositions();
     }
 }

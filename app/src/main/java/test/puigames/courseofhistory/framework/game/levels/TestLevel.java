@@ -8,7 +8,6 @@ import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
 import test.puigames.courseofhistory.framework.engine.screen.Level;
-import test.puigames.courseofhistory.framework.game.PlayArea;
 import test.puigames.courseofhistory.framework.game.assets.Animation;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
@@ -27,14 +26,10 @@ public class TestLevel extends Level
 {
     public static int MAX_PLAYERS = 2;
     public static int MAX_DECK_SIZE = 36;
-   // private Board board;
-   // private CharacterCard[] testCards;
-    private CharacterCard[] evilLeaderCards = new CharacterCard[36];
-    private CharacterCard[] greatMindsCards = new CharacterCard[36];
-    private CharacterCard[][] cardsHolder = {evilLeaderCards, greatMindsCards};
     private String[] deckNames = {"greatMindsCards", "evilLeaderCards"};
     private Animation animation;
     private Bitmap explodeAnimation;
+    private Board board;
 
     HumanCardGameController controllers[];
     CourseOfHistoryMachine gameMachine;
@@ -46,31 +41,28 @@ public class TestLevel extends Level
 
     public void load() {
        try {
-           Board board = resourceFetcher.loadBoard("testBoard");
-           sprites.add(board);
+           board = resourceFetcher.loadBoard("testBoard");
+           spawnSprite(board, 480/2, 320/2);
+          // sprites.add(board);
 
            Bitmap coinSides[] = {resourceFetcher.getBitmapFromFile("images/coins/coin-heads.png"), resourceFetcher.getBitmapFromFile("images/coins/coin-tails.png")};
            Coin coin = new Coin(coinSides, 80, 80);
-
-           sprites.add(coin);
+           spawnSprite(coin, 300, 200);
+          // sprites.add(coin);
 
            controllers = new HumanCardGameController[MAX_PLAYERS];
            Player[] players = new Player[MAX_PLAYERS];
 
            for(int i = 0; i < controllers.length; i++) {
-               switch (i) {
-                   case 0:
-                       players[i] = new Player(greatMindsCards, board);
-                       break;
-                   case 1:
-                       players[i] = new Player(evilLeaderCards, board);
-
-               }
                controllers[i] = new HumanCardGameController();
+               players[i] = new Player(resourceFetcher.loadCharacterCards(deckNames[i]), board);
+             //  new Player(resourceFetcher.loadCharacterCards(deckNames[i]), board) //TODO use this in future when decks are properly made
                controllers[i].possessPlayer(players[i]);
+
+               //spawning the cards in from each players deck
+               for(int playersDeckCardIndex = 0; playersDeckCardIndex < players[i].playerDeck.size(); playersDeckCardIndex++)
+                   spawnSprite((CharacterCard)players[i].playerDeck.get(playersDeckCardIndex),(float) Math.random()/ 10000.f, (float) Math.random() / 100000.f);
            }
-
-
            gameMachine = new CourseOfHistoryMachine(players, coin);
        } catch(NullPointerException e) {
            Log.d("Loading Error:", "Error fetching resources, returning to menu");
