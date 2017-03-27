@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
+import test.puigames.courseofhistory.framework.engine.gameobjects.imageUIElement;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
 import test.puigames.courseofhistory.framework.engine.screen.Menu;
 import test.puigames.courseofhistory.framework.game.levels.TestLevel;
@@ -14,34 +15,35 @@ import test.puigames.courseofhistory.framework.game.levels.TestLevel;
 
 public class SettingsMenu extends Menu {
 
-    Bitmap background;
-    Bitmap scaledBackground;
+    imageUIElement backgroundSettings;
 
     public SettingsMenu(GameProperties gameProperties){
         super(gameProperties);
         load();
     }
 
-
     @Override
     public void update(float deltaTime, AndroidInput input) {
         super.update(deltaTime, input);
-        gameProperties.setScreen(new TestLevel(gameProperties));
     }
 
     public void load(){
         try {
-            background = resourceFetcher.getBitmapFromFile("background.png");
-        /*scaledBackground = Bitmap.createScaledBitmap(background, width, height, true);*/
+            backgroundSettings = new imageUIElement(resourceFetcher.getBitmapFromFile("images/backgrounds/settings_background.png"),
+                    480.0f, 320.0f);
         }
         catch(NullPointerException e){
             e.printStackTrace();
         }
+
+        backgroundSettings.placeUIElement(0.f, 0.f);
+
+        uiElements.add(backgroundSettings);
     }
 
     @Override
     public void draw(Canvas canvas, float deltaTime) {
-        canvas.drawBitmap(scaledBackground, 0.f, 0.f, null);
+        super.draw(canvas, deltaTime);
     }
 
     @Override

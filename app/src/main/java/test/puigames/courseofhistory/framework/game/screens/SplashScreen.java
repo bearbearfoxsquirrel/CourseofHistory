@@ -26,13 +26,11 @@ public class SplashScreen extends Menu
 
     public void load() {
         //load image
-        try
-        {
+        try {
             logo = new imageUIElement(resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png"),
                     480.0f, 320.0f);
         }
-        catch(NullPointerException e)
-        {
+        catch(NullPointerException e) {
             Log.d("Error", "Can't load UI elements");
             gameProperties.setScreen(new SplashScreen(this.gameProperties));
         }
@@ -45,12 +43,12 @@ public class SplashScreen extends Menu
         super.update(deltaTime, input);
 
         if(duration > splashscreenDelay)
-           // try{
-                gameProperties.setScreen(new TestLevel(gameProperties));
-           // }
-            //catch(NullPointerException e){
-            //    gameProperties.setScreen(new SplashScreen(gameProperties));
-          //  }
+//            try{
+                gameProperties.setScreen(new MainMenu(gameProperties));
+//            }
+//            catch(NullPointerException e){
+//                gameProperties.setScreen(new SplashScreen(gameProperties));
+//            }
 
         duration += deltaTime;
     }
