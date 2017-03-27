@@ -12,10 +12,10 @@ import test.puigames.courseofhistory.framework.game.assets.Animation;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
-import test.puigames.courseofhistory.framework.game.controllers.CardGameController;
-import test.puigames.courseofhistory.framework.game.controllers.CourseOfHistoryMachine;
-import test.puigames.courseofhistory.framework.game.controllers.HumanCardGameController;
-import test.puigames.courseofhistory.framework.game.controllers.Player;
+import test.puigames.courseofhistory.framework.game.assets.players.controllers.CardGameController;
+import test.puigames.courseofhistory.framework.game.assets.players.controllers.CourseOfHistoryMachine;
+import test.puigames.courseofhistory.framework.game.assets.players.controllers.HumanCardGameController;
+import test.puigames.courseofhistory.framework.game.assets.players.Player;
 import test.puigames.courseofhistory.framework.game.screens.SplashScreen;
 
 /**

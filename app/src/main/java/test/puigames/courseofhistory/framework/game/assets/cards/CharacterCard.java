@@ -2,11 +2,13 @@ package test.puigames.courseofhistory.framework.game.assets.cards;
 
 import android.graphics.Bitmap;
 
+import test.puigames.courseofhistory.framework.game.assets.players.events.Interactable;
+
 /**
  * Created by Tommy on 23/11/2016.
  */
 
-public class CharacterCard extends Card {
+public class CharacterCard extends Card implements Interactable.Fightable.Damageable.Attackable {
     //variables
     public String name;
     public String description;
@@ -21,14 +23,54 @@ public class CharacterCard extends Card {
         this.name = name;
         this.description = description;
         this.mana = mana;
+        this.attack = attack;
         this.health = health;
         this.abilityDescription = abilityDescription;
 
     }
 
-    //This method just allows a cards to attack another card, does not handle death state
-    public void attackCard(CharacterCard recipientOfThyFatalBlow) {
-        recipientOfThyFatalBlow.health -= this.attack;
-        this.health -= recipientOfThyFatalBlow.attack;
+    @Override
+    public void fight(Fightable target) {
+
     }
+
+    @Override
+    public void attack(Damageable target) {
+        target.applyDamage(this.attack);
+    }
+
+    @Override
+    public int getAttack() {
+        return this.attack;
+    }
+
+    @Override
+    public void applyDamage(int damageToApply) {
+        this.health -= damageToApply;
+    }
+
+    @Override
+    public int getHealth() {
+        return this.health;
+    }
+
+
+    //Handles only decrementing of targets health
+   /* public void applyAttack(Interactable.Damageable recipientOfThyFatalBlow) {
+        recipientOfThyFatalBlow.applyDamage(this.attack);
+    }
+
+    //Handles only decrementing of this objects health
+    public void applyDamage(int thyOpponentsAttackPoints) {
+        this.health -= thyOpponentsAttackPoints;
+    }
+
+    @Override
+    public void fight(Fightable target) {
+    }
+
+
+    //public void interact(Interactable target) {
+
+   // }*/
 }

@@ -1,4 +1,4 @@
-package test.puigames.courseofhistory.framework.game.controllers;
+package test.puigames.courseofhistory.framework.game.assets.players;
 
 import java.util.ArrayList;
 
@@ -29,18 +29,12 @@ public class Player extends Pawn {
         //PLAY_ACTIVE refers to when the player is allowed to take active decision in their turn
     }
 
-
-      //  this.currentAction = PawnAction.NONE; //Initialised to none as a pawn is doing nothing when the game starts
-
-
     public Player(CharacterCard[] playerCards, Board board) {
         this.playerCurrentState = PawnState.CREATED; //TODO set to created, set to taking turn for testing only!
         this.playerGraveyard = new ArrayList<>();
         this.testCards = playerCards;
         this.playArea = board.playAreas[1]; //needs some sort of flag so know which player is which
         setUpPlayerDeck();
-
-
     }
 
     public void setUpPlayerDeck(){

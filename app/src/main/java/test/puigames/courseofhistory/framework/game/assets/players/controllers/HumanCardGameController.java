@@ -1,9 +1,10 @@
-package test.puigames.courseofhistory.framework.game.controllers;
+package test.puigames.courseofhistory.framework.game.assets.players.controllers;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
+import test.puigames.courseofhistory.framework.game.assets.players.Player;
 
 //This class is for allowing the user to interact with a pawn pawn
 public class HumanCardGameController extends CardGameController {

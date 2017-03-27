@@ -1,6 +1,8 @@
-package test.puigames.courseofhistory.framework.game.controllers;
+package test.puigames.courseofhistory.framework.game.assets.players.controllers;
 
 import test.puigames.courseofhistory.framework.game.assets.Coin;
+import test.puigames.courseofhistory.framework.game.assets.players.Player;
+
 /**
  * Created by Michael on 06/03/2017.
  */
@@ -77,6 +79,7 @@ public class CourseOfHistoryMachine {
         switch (players[turnIndex].playerCurrentState) {
             case CREATED:
                 players[turnIndex].playerCurrentState = Player.PawnState.TURN_STARTED;
+
             case TURN_STARTED:
                 startTurn();
                 players[turnIndex].playerCurrentState = Player.PawnState.TURN_ACTIVE;

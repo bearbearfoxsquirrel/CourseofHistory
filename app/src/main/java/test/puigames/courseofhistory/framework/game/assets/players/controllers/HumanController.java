@@ -1,4 +1,4 @@
-package test.puigames.courseofhistory.framework.game.controllers;
+package test.puigames.courseofhistory.framework.game.assets.players.controllers;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Origin;
@@ -14,6 +14,7 @@ public class HumanController extends CardGameController {
         super();
 
     }
+
     public void updateCardsInHand(float deltaTime) {
         for(CharacterCard card : player.testCards) {
             for (Input.TouchEvent touchEvent : inputBuddy.getTouchEvents()) {
@@ -24,9 +25,8 @@ public class HumanController extends CardGameController {
                         card.setOrigin(new Origin(touchEvent.x, touchEvent.y));
                         player.removeCardFromArea(card);
                     }
-                }
-                else if(card.boundingBox.isOverlapping(player.playArea.boundingBox))
-                        player.addCardToArea(card);
+                } else if(card.boundingBox.isOverlapping(player.playArea.boundingBox))
+                    player.addCardToArea(card);
             }
             if(card.boundingBox.isOverlapping(player.playArea.boundingBox) && inputBuddy
                     .touchEvents.isEmpty())

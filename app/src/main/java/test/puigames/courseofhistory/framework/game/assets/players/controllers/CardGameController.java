@@ -1,6 +1,7 @@
-package test.puigames.courseofhistory.framework.game.controllers;
+package test.puigames.courseofhistory.framework.game.assets.players.controllers;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameController;
+import test.puigames.courseofhistory.framework.game.assets.players.Player;
 
 
 /**
