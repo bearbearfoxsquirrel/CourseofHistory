@@ -56,7 +56,7 @@ public class CharacterCard extends Card implements Damageable.Attackable {
 
     @Override
     public boolean isDeaders() {
-       return this.health > 0;
+       return this.health <= 0;
     }
 
 }
