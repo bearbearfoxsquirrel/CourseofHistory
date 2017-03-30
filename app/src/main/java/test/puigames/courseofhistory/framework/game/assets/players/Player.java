@@ -67,6 +67,7 @@ public class Player extends Pawn {
 
     public CharacterCard drawCardFromDeck() {
         playerCurrentState = PawnState.TURN_ACTIVE;
+        playerDeck.pop();
         return (CharacterCard)playerDeck.pop();
     }
 

@@ -90,6 +90,11 @@ public class TestLevel extends Level
         super.update(deltaTime, input);
         updateControllers(deltaTime); //Should be called before the game machine is updated
         gameMachine.update(deltaTime);
+
+        for (Player player : gameMachine.players) {
+            player.board.update(deltaTime);
+            player.board.playAreas[player.playerNumber].update(deltaTime);
+        }
     }
 
     private void collisionCheckAndResolve(int turnIndex)

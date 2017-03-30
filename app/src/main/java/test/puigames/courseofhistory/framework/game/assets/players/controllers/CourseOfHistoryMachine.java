@@ -1,6 +1,7 @@
 package test.puigames.courseofhistory.framework.game.assets.players.controllers;
 
 import test.puigames.courseofhistory.framework.game.assets.Coin;
+import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
 
 /**
@@ -13,7 +14,7 @@ public class CourseOfHistoryMachine {
 
     private float startDelayTimeRemaining;
     private float turnTimeRemaining;
-    Player[] players;
+    public Player[] players;
     GameState currentGameState;
     int turnIndex;
     Coin coin;
@@ -72,6 +73,14 @@ public class CourseOfHistoryMachine {
                 //TODO check who wins
                 break;
         }
+        updateCardsInPlay();
+    }
+
+    public void updateCardsInPlay() {
+        for (Player player: players)
+            for (CharacterCard card : player.board.playAreas[player.playerNumber].cardsInArea)
+                if (card.health < 0)
+                    player.board.playAreas[player.playerNumber].removeCardFromArea(card);
     }
 
     public void takeTurn(float deltaTime) {
