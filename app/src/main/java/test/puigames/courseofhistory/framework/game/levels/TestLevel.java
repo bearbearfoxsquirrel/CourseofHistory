@@ -25,7 +25,8 @@ import test.puigames.courseofhistory.framework.game.screens.SplashScreen;
 public class TestLevel extends Level
 {
     public static int MAX_PLAYERS = 2;
-    private String[] deckNames = {"greatMindsCards", "evilLeaderCards"};
+    private final String[] DECK_NAMES = {"greatMindsCards", "evilLeaderCards"};
+    private final String[] TEST_CARD_NAMES = {"cards1", "cards2"};
     private Animation animation;
     private Bitmap explodeAnimation;
     private Board board;
@@ -54,12 +55,13 @@ public class TestLevel extends Level
            Player[] players = new Player[MAX_PLAYERS];
            for(int i = 0; i < controllers.length; i++) {
                controllers[i] = new HumanCardGameController();
-               players[i] = new Player(resourceFetcher.loadCharacterCards(deckNames[i]), board, i); //Creating a new player pawn for each controller
+               players[i] = new Player(resourceFetcher.loadCharacterCards(TEST_CARD_NAMES[i]), board, i);
+              // players[i] = new Player(resourceFetcher.loadCharacterCards(deckNames[i]), board, i); //Creating a new player pawn for each controller
                controllers[i].possessPlayer(players[i]); //Giving the player controller a pawn to manipulate for the game
 
                for(int playersDeckCardIndex = 0; playersDeckCardIndex < players[i].playerDeck.size(); playersDeckCardIndex++)
                    //spawning the cards in from each players deck
-                   spawnSprite((CharacterCard)players[i].playerDeck.get(playersDeckCardIndex),(float) Math.random() * 1000, (float) Math.random() * 1000);
+                   spawnSprite((CharacterCard)players[i].playerDeck.get(playersDeckCardIndex),(float) Math.random() * 100 * 2, (float) Math.random() * 100 * 2);
            }
 
            //creating the game machine for turns :)
@@ -91,10 +93,10 @@ public class TestLevel extends Level
         updateControllers(deltaTime); //Should be called before the game machine is updated
         gameMachine.update(deltaTime);
 
-        for (Player player : gameMachine.players) {
-            player.board.update(deltaTime);
-            player.board.playAreas[player.playerNumber].update(deltaTime);
-        }
+      //  for (Player player : gameMachine.players) {
+         //   player.board.update(deltaTime);
+      //      player.board.playAreas[player.playerNumber].update(deltaTime);
+      //  }
     }
 
     private void collisionCheckAndResolve(int turnIndex)

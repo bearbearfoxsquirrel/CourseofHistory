@@ -22,13 +22,15 @@ public class Player extends Pawn {
     public PlayArea playArea;
     public Board board;
 
+    public int attackCounter = 1;
+
     public enum PawnState {
         TURN_STARTED, TURN_ACTIVE, CREATED, WAITING_FOR_TURN, TURN_ENDED, WIN, LOSE;
         //PLAY_ACTIVE refers to when the player is allowed to take active decision in their turn
     }
 
     public Player(CharacterCard[] playerCards, Board board, int playerNumber) {
-        this.playerCurrentState = PawnState.CREATED; //TODO set to created, set to taking turn for testing only!
+        this.playerCurrentState = PawnState.CREATED;
         this.playerNumber = playerNumber;
         this.board = board;
         this.testCards = playerCards;
@@ -50,6 +52,7 @@ public class Player extends Pawn {
     public CardAttack createAttack(CharacterCard theAttacker, Damageable.Attackable recipientOfMyFatalBlow) {
         //Takes in an object that the pawn wishes to attack and tries to attack the given object
         //Or else throws a controller exception
+        //TODO add thing to make sure card can only attack once
         return new CardAttack(theAttacker, recipientOfMyFatalBlow, 5, null);
     }
 

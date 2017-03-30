@@ -60,7 +60,7 @@ public class ResourceFetcher implements Fetcher {
     //TODO: loadCharacterCards will be used to load a specified set of cards e.g. decks and all cards
     @Override
     public CharacterCard[] loadCharacterCards(String cardsNames) throws NullPointerException{
-        JSONArray cardJsonArray = jsonBourne.fromJSONStringToJsonArray(getStringFromFile(CARDS_URL), cardsNames);
+        JSONArray cardJsonArray = jsonBourne.fromJSONStringToJsonArray(getStringFromFile(TEST_CARDS_URL), cardsNames);
 
         CharacterCard[] characterCards = new CharacterCard[cardJsonArray.length()];
         int index = 0;

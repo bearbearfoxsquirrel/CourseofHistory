@@ -9,8 +9,8 @@ import test.puigames.courseofhistory.framework.game.assets.players.Player;
  */
 
 public class CourseOfHistoryMachine {
-    private static float TURN_TIME = 6.f;
-    private static float COIN_TOSS_DELAY = 5.f;
+    private final static float TURN_TIME = 6.f;
+    private final static float COIN_TOSS_DELAY = 2.f;
 
     private float startDelayTimeRemaining;
     private float turnTimeRemaining;
@@ -59,9 +59,11 @@ public class CourseOfHistoryMachine {
 
             case COIN_TOSS:
                 tossCoin();
+                break;
 
             case GAME_ACTIVE:
                 takeTurn(deltaTime);
+                testUpdateCardsInPlay();
                 break;
 
             case GAME_PAUSED:
@@ -73,7 +75,16 @@ public class CourseOfHistoryMachine {
                 //TODO check who wins
                 break;
         }
-        updateCardsInPlay();
+        //updateCardsInPlay();
+    }
+
+    public void testUpdateCardsInPlay() {
+        for (int i = 0; i < players.length; i++)
+            for (int j = 0; j < players[i].testCards.length; j++)
+        //for (Player player: players)
+           // for (CharacterCard card : player.testCards)
+                if (players[i].testCards[j].isDeaders())
+                    players[i].testCards[j].setHeight(players[i].testCards[i].getHeight() - 0.1f);
     }
 
     public void updateCardsInPlay() {

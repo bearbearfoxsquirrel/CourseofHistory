@@ -54,15 +54,6 @@ public class FastRenderView extends View {
 
     public void pause() {
         running = false;
-        this.pause();
-//        while (true) //replace with !userNotQuit()
-//        {
-//          /*  try {
-//                renderThread.join();
-//                return;
-//            } catch (InterruptedException e) {
-//
-//            }*/
-//        }
+//        this.pause();
     }
 }

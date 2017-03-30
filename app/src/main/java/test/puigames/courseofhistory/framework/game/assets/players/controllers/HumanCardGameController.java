@@ -30,16 +30,27 @@ public class HumanCardGameController extends CardGameController {
          //   updateCardsInHand(deltaTime);
             updateCardsOnBoardPlayArea(deltaTime);
 
-
-            for (CharacterCard playerCard : player.board.playAreas[player.playerNumber].cardsInArea) {
-                for (CharacterCard opponentCard : player.board.playAreas[oppositePlayerNumber].cardsInArea) {
-                    if (playerCard.boundingBox.isOverlapping(opponentCard.boundingBox))
-                        playerEvents.add(player.createAttack(playerCard, opponentCard));
-                }
+            if (playerEvents.size() == 0) {
+                for (CharacterCard playerCard : player.testCards)
+                    for (CharacterCard opponentCard : player.testCards)
+                        if (playerCard.boundingBox.isOverlapping(opponentCard.boundingBox)) {
+                            playerEvents.add(player.createAttack(playerCard, opponentCard));
+                        }
+            } else {
+                for (Eventable event : playerEvents)
+                    event.update(deltaTime);
             }
 
-            for (Eventable event : playerEvents)
-                event.update(deltaTime);
+            /*
+            if (playerEvents.size() == 0) {
+                for (CharacterCard playerCard : player.board.playAreas[player.playerNumber].cardsInArea)
+                    for (CharacterCard opponentCard : player.board.playAreas[oppositePlayerNumber].cardsInArea)
+                        if (playerCard.boundingBox.isOverlapping(opponentCard.boundingBox))
+                            playerEvents.add(player.createAttack(playerCard, opponentCard));
+            } else {
+                for (Eventable event : playerEvents)
+                    event.update(deltaTime);
+            }*/
         }
     }
 
@@ -74,7 +85,7 @@ public class HumanCardGameController extends CardGameController {
     }
 
     public void addCardToBoardPlayArea(CharacterCard card) {
-        currentControllerState = ControllerState.PLACING_CARD_ON_BOARD;
+       // currentControllerState = ControllerState.PLACING_CARD_ON_BOARD;
         //player.currentAction = Player.PawnAction.PLACE_CARD_ON_BOARD;
         player.placeCardOnBoard(card);
     }
