@@ -79,7 +79,7 @@ public class CourseOfHistoryMachine {
     public void updateCardsInPlay() {
         for (Player player: players)
             for (CharacterCard card : player.board.playAreas[player.playerNumber].cardsInArea)
-                if (card.health < 0)
+                if (card.isDeaders())
                     player.board.playAreas[player.playerNumber].removeCardFromArea(card);
     }
 

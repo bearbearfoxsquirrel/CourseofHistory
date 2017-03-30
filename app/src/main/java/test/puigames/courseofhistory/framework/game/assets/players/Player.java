@@ -53,10 +53,6 @@ public class Player extends Pawn {
         return new CardAttack(theAttacker, recipientOfMyFatalBlow, 5, null);
     }
 
-    public void sendCardToTheNeverZone(Card card) {
-
-    }
-
     private void attackHero() {
 
     }
@@ -67,10 +63,8 @@ public class Player extends Pawn {
 
     public CharacterCard drawCardFromDeck() {
         playerCurrentState = PawnState.TURN_ACTIVE;
-        playerDeck.pop();
         return (CharacterCard)playerDeck.pop();
     }
-
 
 
     public void placeCardOnBoard(CharacterCard card) {

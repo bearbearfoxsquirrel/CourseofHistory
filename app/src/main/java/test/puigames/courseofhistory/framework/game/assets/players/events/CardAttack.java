@@ -22,6 +22,6 @@ public class CardAttack extends Attack implements Eventable {
 
     @Override
     public void update(float deltaTime) {
-
+        //TODO when certain point in aniomation apply effect
     }
 }

@@ -12,6 +12,8 @@ public abstract class Attack extends PlayerEvent implements Eventable{
 
     public Attack(Damageable.Attackable sourceObject, Damageable targetObject, float eventDuration, Animation animation) {
         super(animation, eventDuration);
+        this.sourceObject = sourceObject;
+        this.targetObject = targetObject;
     }
 
     @Override

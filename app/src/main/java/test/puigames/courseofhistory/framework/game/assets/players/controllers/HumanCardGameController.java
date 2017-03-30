@@ -6,6 +6,7 @@ import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
+import test.puigames.courseofhistory.framework.game.assets.players.events.Eventable;
 
 //This class is for allowing the user to interact with a pawn pawn
 public class HumanCardGameController extends CardGameController {
@@ -33,9 +34,12 @@ public class HumanCardGameController extends CardGameController {
             for (CharacterCard playerCard : player.board.playAreas[player.playerNumber].cardsInArea) {
                 for (CharacterCard opponentCard : player.board.playAreas[oppositePlayerNumber].cardsInArea) {
                     if (playerCard.boundingBox.isOverlapping(opponentCard.boundingBox))
-                        player.createAttack(playerCard, opponentCard);
+                        playerEvents.add(player.createAttack(playerCard, opponentCard));
                 }
             }
+
+            for (Eventable event : playerEvents)
+                event.update(deltaTime);
         }
     }
 
