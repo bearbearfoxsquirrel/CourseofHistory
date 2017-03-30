@@ -2,13 +2,13 @@ package test.puigames.courseofhistory.framework.game.assets.cards;
 
 import android.graphics.Bitmap;
 
-import test.puigames.courseofhistory.framework.game.assets.players.events.Interactable;
+import test.puigames.courseofhistory.framework.game.assets.players.events.Damageable;
 
 /**
  * Created by Tommy on 23/11/2016.
  */
 
-public class CharacterCard extends Card implements Interactable.Fightable.Damageable.Attackable {
+public class CharacterCard extends Card implements Damageable.Attackable {
     //variables
     public String name;
     public String description;
@@ -29,14 +29,8 @@ public class CharacterCard extends Card implements Interactable.Fightable.Damage
 
     }
 
-    @Override
-    public void fight(Fightable target) {
-
-    }
-
-    @Override
-    public void attack(Damageable target) {
-        target.applyDamage(this.attack);
+    public void attack(Damageable recipientOfThyFatalBlow) {
+        recipientOfThyFatalBlow.applyDamage(this.attack);
     }
 
     @Override
@@ -45,8 +39,9 @@ public class CharacterCard extends Card implements Interactable.Fightable.Damage
     }
 
     @Override
-    public void applyDamage(int damageToApply) {
-        this.health -= damageToApply;
+    public boolean hasEnergyToAttack() {
+        return true;
+        //TODO implement some way of knowing that an attack can be made or not
     }
 
     @Override
@@ -54,23 +49,14 @@ public class CharacterCard extends Card implements Interactable.Fightable.Damage
         return this.health;
     }
 
-
-    //Handles only decrementing of targets health
-   /* public void applyAttack(Interactable.Damageable recipientOfThyFatalBlow) {
-        recipientOfThyFatalBlow.applyDamage(this.attack);
-    }
-
-    //Handles only decrementing of this objects health
-    public void applyDamage(int thyOpponentsAttackPoints) {
-        this.health -= thyOpponentsAttackPoints;
+    @Override
+    public void applyDamage(int damage) {
+        this.health -= damage;
     }
 
     @Override
-    public void fight(Fightable target) {
+    public boolean isDeaders() {
+       return this.health > 0;
     }
 
-
-    //public void interact(Interactable target) {
-
-   // }*/
 }

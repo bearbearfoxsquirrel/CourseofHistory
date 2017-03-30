@@ -3,29 +3,15 @@ package test.puigames.courseofhistory.framework.game.assets.players.events;
 import test.puigames.courseofhistory.framework.game.assets.Animation;
 
 /**
- * Created by Michael on 27/03/2017.
+ * Created by Michael on 30/03/2017.
  */
 
-public abstract class PlayerEvent implements Interactable {
-    private Interactable sourceObject;
-    private Interactable targetObject;
-
+public abstract class PlayerEvent implements Eventable{
+    protected Animation animation;
     protected float eventDuration;
 
-    //sound eventSound;
-    Animation eventAnimation;
-
-    public PlayerEvent(Interactable sourceObject, Interactable targetObject, float eventDuration, Animation animation) {
-        this.sourceObject = sourceObject;
-        this.targetObject = targetObject;
+    public PlayerEvent(Animation animation, float eventDuration){
+        this.animation = animation;
         this.eventDuration = eventDuration;
-        this.eventAnimation = animation;
     }
-
-    public abstract void startEvent();
-
-    public abstract void applyEffect();
-
-    public abstract void update();
-
 }

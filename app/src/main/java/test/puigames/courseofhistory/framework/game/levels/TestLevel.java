@@ -54,7 +54,7 @@ public class TestLevel extends Level
            Player[] players = new Player[MAX_PLAYERS];
            for(int i = 0; i < controllers.length; i++) {
                controllers[i] = new HumanCardGameController();
-               players[i] = new Player(resourceFetcher.loadCharacterCards(deckNames[i]), board); //Creating a new player pawn for each controller
+               players[i] = new Player(resourceFetcher.loadCharacterCards(deckNames[i]), board, i); //Creating a new player pawn for each controller
                controllers[i].possessPlayer(players[i]); //Giving the player controller a pawn to manipulate for the game
 
                for(int playersDeckCardIndex = 0; playersDeckCardIndex < players[i].playerDeck.size(); playersDeckCardIndex++)
