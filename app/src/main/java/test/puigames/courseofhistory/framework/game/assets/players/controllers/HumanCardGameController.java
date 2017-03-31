@@ -30,10 +30,11 @@ public class HumanCardGameController extends CardGameController {
          //   updateCardsInHand(deltaTime);
             updateCardsOnBoardPlayArea(deltaTime);
 
+            //For test cards
             if (playerEvents.size() == 0) {
                 for (CharacterCard playerCard : player.testCards)
                     for (CharacterCard opponentCard : player.testCards)
-                        if (playerCard.boundingBox.isOverlapping(opponentCard.boundingBox)) {
+                        if (playerCard.boundingBox.getCollisionDetector().isCollision(playerCard.boundingBox, opponentCard.boundingBox)) {// isOverlapping(opponentCard.boundingBox)) {
                             playerEvents.add(player.createAttack(playerCard, opponentCard));
                         }
             } else {
@@ -41,6 +42,7 @@ public class HumanCardGameController extends CardGameController {
                     event.update(deltaTime);
             }
 
+            //For actual thing
             /*
             if (playerEvents.size() == 0) {
                 for (CharacterCard playerCard : player.board.playAreas[player.playerNumber].cardsInArea)

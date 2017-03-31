@@ -35,8 +35,11 @@ public class BoundingBox {
 
     //checks if this bounding box if overlapping with another bounding box (on one side or more)
     public boolean isOverlapping(BoundingBox boundingBox) {
-        return (this.left > boundingBox.left || this.right < boundingBox.right)
-                && (this.top > boundingBox.bottom || this.bottom > boundingBox.top);
+        boolean xOverlap = left > boundingBox.right || right < boundingBox.right;
+
+        boolean yOverlap = top < boundingBox.top || bottom < boundingBox.bottom;
+
+        return xOverlap && yOverlap;
     }
 
     //checks if a touch event is within the bounding box

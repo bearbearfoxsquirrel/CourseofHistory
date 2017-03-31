@@ -63,7 +63,7 @@ public class CourseOfHistoryMachine {
 
             case GAME_ACTIVE:
                 takeTurn(deltaTime);
-                testUpdateCardsInPlay();
+                updateCardsInPlay();
                 break;
 
             case GAME_PAUSED:
@@ -75,17 +75,9 @@ public class CourseOfHistoryMachine {
                 //TODO check who wins
                 break;
         }
-        //updateCardsInPlay();
     }
 
-    public void testUpdateCardsInPlay() {
-        for (int i = 0; i < players.length; i++)
-            for (int j = 0; j < players[i].testCards.length; j++)
-        //for (Player player: players)
-           // for (CharacterCard card : player.testCards)
-                if (players[i].testCards[j].isDeaders())
-                    players[i].testCards[j].setHeight(players[i].testCards[i].getHeight() - 0.1f);
-    }
+
 
     public void updateCardsInPlay() {
         for (Player player: players)
