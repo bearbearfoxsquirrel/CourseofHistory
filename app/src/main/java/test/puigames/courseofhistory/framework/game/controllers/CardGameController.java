@@ -1,25 +1,24 @@
 package test.puigames.courseofhistory.framework.game.controllers;
 
-import test.puigames.courseofhistory.framework.engine.gameobjects.GameController;
-
+import test.puigames.courseofhistory.framework.engine.Controlling.Possessor;
 
 /**
  * Created by Michael on 03/03/2017.
  */
 
-public abstract class CardGameController extends GameController {
-    public ControllerState currentControllerState;
+public abstract class CardGameController implements Possessor {
     public Player player;
 
-    public enum ControllerState implements ControllerStates {
-        CREATED, MOVING_CARD_IN_HAND, PLACING_CARD_ON_BOARD, MOVING_CARD_ON_BOARD, ATTACKING, THROWING_OUT_HAND, DRAWING_CAR, IDLE;
-    }
+    public abstract void update(float deltaTime);
 
-    public CardGameController() {
-        this.currentControllerState = ControllerState.CREATED;
-    }
-
+    @Override
     public void possessPlayer(Player player) {
+
         this.player = player;
+    }
+
+    @Override
+    public Player getPlayer() {
+        return player;
     }
 }

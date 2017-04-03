@@ -2,9 +2,7 @@ package test.puigames.courseofhistory.framework.game.controllers;
 
 import java.util.ArrayList;
 
-import test.puigames.courseofhistory.framework.engine.gameobjects.GameController;
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
-import test.puigames.courseofhistory.framework.engine.gameobjects.Pawn;
 import test.puigames.courseofhistory.framework.game.PlayArea;
 import test.puigames.courseofhistory.framework.game.assets.Deck;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
@@ -15,7 +13,7 @@ import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
  * Created by Michael on 20/02/2017.
  */
 
-public class Player extends Pawn {
+public class Player {
     //TODO: Add deck, testCards, hero, and board area
     public ArrayList<Card> playerGraveyard;
     public CharacterCard[] testCards;
@@ -54,15 +52,13 @@ public class Player extends Pawn {
         card.translateCard(posX, posY);
     }
 
-    public void attack(CharacterCard theAttacker, GameObject recipientOfMyFatalBlow) throws GameController.ControllerException {
+    public void attack(CharacterCard theAttacker, GameObject recipientOfMyFatalBlow)  {
         //Takes in an object that the pawn wishes to attack and tries to attack the given object
         //Or else throws a controller exception
         if (recipientOfMyFatalBlow instanceof CharacterCard) {
             theAttacker.attackCard((CharacterCard) recipientOfMyFatalBlow);
             //else if (recipientOfMyFatalBlow instanceof Hero) {
             // attackHero();
-        } else {
-            throw new GameController.ControllerException("Cannot attack this object!");
         }
     }
 

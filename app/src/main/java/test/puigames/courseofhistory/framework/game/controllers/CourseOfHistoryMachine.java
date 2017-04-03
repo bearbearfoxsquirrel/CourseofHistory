@@ -11,7 +11,7 @@ public class CourseOfHistoryMachine {
 
     private float startDelayTimeRemaining;
     private float turnTimeRemaining;
-    Player[] players;
+    public Player[] players;
     GameState currentGameState;
     int turnIndex;
     Coin coin;

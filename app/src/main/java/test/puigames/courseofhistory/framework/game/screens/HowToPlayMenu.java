@@ -4,9 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
-import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
 import test.puigames.courseofhistory.framework.engine.screen.Menu;
-import test.puigames.courseofhistory.framework.game.levels.TestLevel;
 
 /**
  * Created by Christopher on 02/03/2017.
@@ -23,8 +21,8 @@ public class HowToPlayMenu extends Menu {
     }
 
     @Override
-    public void update(float deltaTime, AndroidInput input) {
-        super.update(deltaTime, input);
+    public void update(float deltaTime) {
+        super.update(deltaTime);
     }
 
     public void load(){

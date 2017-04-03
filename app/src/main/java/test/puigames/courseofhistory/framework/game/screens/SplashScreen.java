@@ -5,7 +5,6 @@ import android.util.Log;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.gameobjects.imageUIElement;
-import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
 import test.puigames.courseofhistory.framework.engine.screen.Menu;
 import test.puigames.courseofhistory.framework.game.levels.TestLevel;
 
@@ -41,8 +40,8 @@ public class SplashScreen extends Menu
     }
 
     @Override
-    public void update(float deltaTime, AndroidInput input) {
-        super.update(deltaTime, input);
+    public void update(float deltaTime) {
+        super.update(deltaTime);
 
         if(duration > splashscreenDelay)
            // try{

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
-import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
 import test.puigames.courseofhistory.framework.engine.resourceloading.Fetcher;
 
 /**
@@ -35,9 +34,9 @@ public abstract class Level extends Screen {
 
 
     @Override
-    public void update(float deltaTime, AndroidInput input) {
-        inputBuddy = new InputBuddy(input);
-        scaler.scaleTouchInput(inputBuddy);
+    public void update(float deltaTime) {
+        super.update(deltaTime);
+       // scaler.scaleTouchInput(inputBuddy);
 
         for (Sprite sprite : sprites) {
             sprite.update(deltaTime);

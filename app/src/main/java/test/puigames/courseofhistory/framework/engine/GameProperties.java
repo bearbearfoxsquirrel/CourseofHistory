@@ -3,8 +3,8 @@ package test.puigames.courseofhistory.framework.engine;
 
 
 import test.puigames.courseofhistory.framework.engine.audio.Audio;
+import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.resourceloading.ResourceFetcher;
-import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
 
 /**
@@ -14,7 +14,7 @@ import test.puigames.courseofhistory.framework.engine.screen.Screen;
 public interface GameProperties
 {
 
-    public Input getInput();
+    public InputBuddy getInput();
 
     public ResourceFetcher getResourceFetcher();
 

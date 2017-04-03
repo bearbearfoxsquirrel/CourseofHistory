@@ -1,20 +1,22 @@
 package test.puigames.courseofhistory.framework.game.controllers;
 
+import test.puigames.courseofhistory.framework.engine.Controlling.Inputable;
+import test.puigames.courseofhistory.framework.engine.Controlling.Possessor;
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 
 //This class is for allowing the user to interact with a pawn pawn
-public class HumanCardGameController extends CardGameController {
+public class HumanCardGameController extends CardGameController implements Inputable, Possessor{
     public InputBuddy inputBuddy;
 
-    public HumanCardGameController() {
-        super();
+    public HumanCardGameController(InputBuddy inputBuddy) {
+        this.inputBuddy = inputBuddy;
     }
 
-    public void update(InputBuddy inputBuddy, float deltaTime) {
-        this.inputBuddy = inputBuddy;
+    @Override
+    public void update(float deltaTime) {
         if (player.playerCurrentState == Player.PawnState.TURN_ACTIVE) {
             updateCardsInHand(deltaTime);
             updateCardsOnBoardPlayArea(deltaTime);
@@ -25,7 +27,6 @@ public class HumanCardGameController extends CardGameController {
         for (Input.TouchEvent touchEvent : inputBuddy.getTouchEvents()) {
             for (CharacterCard card : player.testCards) {
                 if (checkIsTouched(touchEvent, card)) {
-                    currentControllerState = ControllerState.MOVING_CARD_ON_BOARD;
                     player.moveCard(card, touchEvent.x, touchEvent.y);
                 }
             }
@@ -36,7 +37,6 @@ public class HumanCardGameController extends CardGameController {
         for (Input.TouchEvent touchEvent : inputBuddy.getTouchEvents()) {
             for (CharacterCard card : player.testCards) {
                 if (checkIsTouched(touchEvent, card)) {
-                    currentControllerState = ControllerState.MOVING_CARD_IN_HAND;
                     //card.translateCard(touchEvent.x, touchEvent.y);
                 }
                 //if (card.boundingBox.isOverlapping(player.boardPlayerArea)) //TODO: Implement add to board
@@ -46,22 +46,26 @@ public class HumanCardGameController extends CardGameController {
     }
 
     public void addCardToBoardPlayArea(CharacterCard card) {
-        currentControllerState = ControllerState.PLACING_CARD_ON_BOARD;
         //player.currentAction = Player.PawnAction.PLACE_CARD_ON_BOARD;
         player.placeCardOnBoard(card);
     }
-
-
-
-    public ControllerState getState(){
-        return  this.currentControllerState;
-    }
-
 
     private boolean checkIsTouched(Input.TouchEvent touchEvent, GameObject object) {
         return (object.boundingBox.isTouchOn(touchEvent));
     }
 
+    @Override
+    public InputBuddy getInput() {
+        return inputBuddy;
+    }
 
+    @Override
+    public void possessPlayer(Player player) {
+        super.possessPlayer(player);
+    }
 
+    @Override
+    public Player getPlayer() {
+        return super.getPlayer();
+    }
 }

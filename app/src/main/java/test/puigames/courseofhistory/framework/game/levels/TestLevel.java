@@ -4,15 +4,13 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.util.Log;
 
+import test.puigames.courseofhistory.framework.engine.Controlling.Possessor;
 import test.puigames.courseofhistory.framework.engine.GameProperties;
-import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
-import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
 import test.puigames.courseofhistory.framework.engine.screen.Level;
 import test.puigames.courseofhistory.framework.game.assets.Animation;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
-import test.puigames.courseofhistory.framework.game.controllers.CardGameController;
 import test.puigames.courseofhistory.framework.game.controllers.CourseOfHistoryMachine;
 import test.puigames.courseofhistory.framework.game.controllers.HumanCardGameController;
 import test.puigames.courseofhistory.framework.game.controllers.Player;
@@ -30,7 +28,7 @@ public class TestLevel extends Level
     private Bitmap explodeAnimation;
     private Board board;
 
-    HumanCardGameController controllers[];
+    Possessor controllers[];
     CourseOfHistoryMachine gameMachine;
 
     public TestLevel(GameProperties gameProperties) {
@@ -53,7 +51,7 @@ public class TestLevel extends Level
            controllers = new HumanCardGameController[MAX_PLAYERS];
            Player[] players = new Player[MAX_PLAYERS];
            for(int i = 0; i < controllers.length; i++) {
-               controllers[i] = new HumanCardGameController();
+               controllers[i] = new HumanCardGameController(gameProperties.getInput());
                players[i] = new Player(resourceFetcher.loadCharacterCards(deckNames[i]), board); //Creating a new player pawn for each controller
                controllers[i].possessPlayer(players[i]); //Giving the player controller a pawn to manipulate for the game
 
@@ -73,30 +71,27 @@ public class TestLevel extends Level
     }
 
     public void updateControllers(float deltaTime) {
-        for (CardGameController controller: controllers)
-            try {
-                if (controller instanceof HumanCardGameController)
-                    ((HumanCardGameController)controller).update(inputBuddy, deltaTime);
-               // else if (controller instanceof AICardGameController)
-                    //((AICardGameController)controller).update(deltaTime);
-            } catch (Exception e) {
-                Log.d("Updating Controller: ", "Error processing controller " + controller);
-            }
+        for (Possessor controller: controllers)
+            controller.update(deltaTime);
     }
 
-
-    @Override
-    public void update(float deltaTime, AndroidInput input) {
-        super.update(deltaTime, input);
+    public void update(float deltaTime) {
+        super.update(deltaTime);
         updateControllers(deltaTime); //Should be called before the game machine is updated
         gameMachine.update(deltaTime);
+
+        for (Player player : gameMachine.players) {
+            for (CharacterCard card : player.playArea.cardsInArea)
+                card.update(deltaTime);
+        }
+
     }
 
     private void collisionCheckAndResolve(int turnIndex)
     {
-        for(CharacterCard card : controllers[turnIndex].player.testCards)
+        for(CharacterCard card : controllers[turnIndex].getPlayer().testCards)
         {
-            for(CharacterCard card2 : controllers[turnIndex].player.testCards)
+            for(CharacterCard card2 : controllers[turnIndex].getPlayer().testCards)
             {
                 if(card.checkForCollision(card2))
                     card.resolveCollision(card2, card.overlapAllowance);
@@ -118,10 +113,6 @@ public class TestLevel extends Level
 
     @Override
     public void resume() {
-
-    }
-
-    public void spawn(Sprite sprite) {
 
     }
 
