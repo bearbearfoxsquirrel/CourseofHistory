@@ -1,14 +1,9 @@
 package test.puigames.courseofhistory.framework.game.assets;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Origin;
-import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
-import test.puigames.courseofhistory.framework.engine.screen.scaling.Scaler;
-import test.puigames.courseofhistory.framework.game.CardArea;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 
 /**
@@ -28,9 +23,6 @@ public class CardHand extends CardArea{
         handPositions = new Origin[maxCardsInArea];
         for(int i = 1; i <= maxCardsInArea; i++)
             handPositions[i - 1] = new Origin((width/maxCardsInArea) * i, this.origin.y + this.halfHeight/maxCardsInArea);
-
-
-
     }
 
     public void halfCardSize(CharacterCard characterCard){
@@ -54,11 +46,7 @@ public class CardHand extends CardArea{
     public void positionCardsInArea()
     {
         for (int i = 0; i < cardsInArea.size(); i++)
-        {
-//            if(!cardsInArea.get(i).origin.equals(positions[i]))
             cardsInArea.get(i).setOrigin(new Origin(handPositions[i]));
-        }
-        //Log.d("Called", "positioned cards");
     }
 
 }

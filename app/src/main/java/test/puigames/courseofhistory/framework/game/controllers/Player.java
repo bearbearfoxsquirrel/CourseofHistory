@@ -1,11 +1,13 @@
 package test.puigames.courseofhistory.framework.game.controllers;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameController;
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Pawn;
-import test.puigames.courseofhistory.framework.game.PlayArea;
+import test.puigames.courseofhistory.framework.game.assets.PlayArea;
 import test.puigames.courseofhistory.framework.game.assets.Deck;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.Card;
@@ -23,6 +25,7 @@ public class Player extends Pawn {
    // public PawnAction currentAction;
     public Deck playerDeck;
     public PlayArea playArea;
+    public Board board;
 
     public enum PawnState {
         TURN_STARTED, TURN_ACTIVE, CREATED, WAITING_FOR_TURN, TURN_ENDED, WIN, LOSE;
@@ -37,7 +40,8 @@ public class Player extends Pawn {
         this.playerCurrentState = PawnState.CREATED; //TODO set to created, set to taking turn for testing only!
         this.playerGraveyard = new ArrayList<>();
         this.testCards = playerCards;
-        this.playArea = board.playAreas[1]; //needs some sort of flag so know which player is which
+        this.board = board;
+        this.playArea = board.playAreas[0];
         setUpPlayerDeck();
 
 

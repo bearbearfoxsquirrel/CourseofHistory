@@ -92,20 +92,6 @@ public class TestLevel extends Level
         gameMachine.update(deltaTime);
     }
 
-    private void collisionCheckAndResolve(int turnIndex)
-    {
-        for(CharacterCard card : controllers[turnIndex].player.testCards)
-        {
-            for(CharacterCard card2 : controllers[turnIndex].player.testCards)
-            {
-                if(card.checkForCollision(card2))
-                    card.resolveCollision(card2, card.overlapAllowance);
-            }
-        }
-    }
-
-
-
     @Override
     public void draw(Canvas canvas, float deltaTime) {
         super.draw(canvas, deltaTime);

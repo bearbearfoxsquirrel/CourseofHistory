@@ -1,5 +1,7 @@
 package test.puigames.courseofhistory.framework.game.controllers;
 
+import android.util.Log;
+
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Origin;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
@@ -15,6 +17,7 @@ public class HumanController extends CardGameController {
 
     }
     public void updateCardsInHand(float deltaTime) {
+        Log.d("updatecardsinhand", "called");
         for(CharacterCard card : player.testCards) {
             for (Input.TouchEvent touchEvent : inputBuddy.getTouchEvents()) {
                 if (checkIsTouched(touchEvent, card)) {

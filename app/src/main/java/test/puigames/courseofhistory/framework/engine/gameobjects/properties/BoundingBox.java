@@ -1,6 +1,6 @@
 package test.puigames.courseofhistory.framework.engine.gameobjects.properties;
 
-import test.puigames.courseofhistory.framework.engine.gameobjects.collision.CollisionDetector;
+import test.puigames.courseofhistory.framework.engine.collision.CollisionDetector;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
 
 /**

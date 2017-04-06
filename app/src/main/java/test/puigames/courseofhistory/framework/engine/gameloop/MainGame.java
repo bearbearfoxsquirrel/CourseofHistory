@@ -107,11 +107,11 @@ public class MainGame extends Activity implements GameProperties, Runnable
         wakeLock.acquire();
         screen.resume();
         renderView.resume();
+        mySound.start();
 
         running = true;
         renderThread = new Thread(this);
         renderThread.start();
-        mySound.start();
     }
 
     @Override
@@ -121,6 +121,7 @@ public class MainGame extends Activity implements GameProperties, Runnable
         wakeLock.release();
         renderView.pause();
         screen.pause();
+        mySound.pause();
         boolean joined = false;
         while (!joined) {
             try {
@@ -132,7 +133,6 @@ public class MainGame extends Activity implements GameProperties, Runnable
         }
         if(isFinishing())   //if activity is destroyed, clean up
             screen.dispose();
-        mySound.pause();
     }
 
 
