@@ -84,6 +84,11 @@ public class CourseOfHistoryMachine {
             for (CharacterCard card : player.board.playAreas[player.playerNumber].cardsInArea)
                 if (card.isDeaders())
                     player.board.playAreas[player.playerNumber].removeCardFromArea(card);
+        //Testing purposes only!
+         /*  for (Player player: players)
+            for (CharacterCard card : player.testCards)
+                if (card.isDeaders())
+                    card.height = 0;*/
     }
 
     public void takeTurn(float deltaTime) {

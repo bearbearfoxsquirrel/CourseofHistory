@@ -1,9 +1,5 @@
 package test.puigames.courseofhistory.framework.game.assets.players;
 
-import test.puigames.courseofhistory.framework.engine.gameobjects.Pawn;
-import java.util.ArrayList;
-
-import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.game.PlayArea;
 import test.puigames.courseofhistory.framework.game.assets.Deck;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;

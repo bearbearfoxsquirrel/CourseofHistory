@@ -11,13 +11,9 @@ import test.puigames.courseofhistory.framework.game.assets.Animation;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
-import test.puigames.courseofhistory.framework.game.assets.players.controllers.CardGameController;
+import test.puigames.courseofhistory.framework.game.assets.players.Player;
 import test.puigames.courseofhistory.framework.game.assets.players.controllers.CourseOfHistoryMachine;
 import test.puigames.courseofhistory.framework.game.assets.players.controllers.HumanCardGameController;
-import test.puigames.courseofhistory.framework.game.assets.players.Player;
-import test.puigames.courseofhistory.framework.game.controllers.CourseOfHistoryMachine;
-import test.puigames.courseofhistory.framework.game.controllers.HumanCardGameController;
-import test.puigames.courseofhistory.framework.game.controllers.Player;
 import test.puigames.courseofhistory.framework.game.screens.SplashScreen;
 
 /**
@@ -57,12 +53,12 @@ public class TestLevel extends Level
            Player[] players = new Player[MAX_PLAYERS];
            for(int i = 0; i < controllers.length; i++) {
                controllers[i] = new HumanCardGameController(gameProperties.getInput());
-               players[i] = new Player(resourceFetcher.loadCharacterCards(TEST_CARD_NAMES[i]), board); //Creating a new player pawn for each controller
+               players[i] = new Player(resourceFetcher.loadCharacterCards(TEST_CARD_NAMES[i]), board, i); //Creating a new player pawn for each controller
                controllers[i].possessPlayer(players[i]); //Giving the player controller a pawn to manipulate for the game
 
                for(int playersDeckCardIndex = 0; playersDeckCardIndex < players[i].playerDeck.size(); playersDeckCardIndex++)
                    //spawning the cards in from each players deck
-                   spawnSprite((CharacterCard)players[i].playerDeck.get(playersDeckCardIndex),(float) Math.random() * 1000, (float) Math.random() * 1000);
+                   spawnSprite((CharacterCard)players[i].playerDeck.get(playersDeckCardIndex),(float) Math.random() * 100, (float) Math.random() * 100);
            }
 
            //creating the game machine for turns :)

@@ -1,6 +1,7 @@
 package test.puigames.courseofhistory.framework.engine.Controlling;
 
-import test.puigames.courseofhistory.framework.game.controllers.Player;
+
+import test.puigames.courseofhistory.framework.game.assets.players.Player;
 
 /**
  * Created by Michael on 31/03/2017.
@@ -12,6 +13,4 @@ public interface Possessor {
     void update(float deltaTime);
 
     Player getPlayer();
-
-
 }
