@@ -5,10 +5,9 @@ import android.graphics.Canvas;
 import java.util.ArrayList;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
-import test.puigames.courseofhistory.framework.engine.gameobjects.UIElement;
-import test.puigames.courseofhistory.framework.engine.ui.UIElement;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.resourceloading.Fetcher;
+import test.puigames.courseofhistory.framework.engine.ui.UIElement;
 
 /**
  * Created by Christopher on 20/02/2017.

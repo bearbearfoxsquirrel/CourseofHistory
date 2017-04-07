@@ -50,15 +50,40 @@ public class HumanCardGameController extends CardGameController implements Input
     }
 
     public void updateCardsOnBoardPlayArea(float deltaTime) {
-        for (Input.TouchEvent touchEvent : inputBuddy.getTouchEvents()) {
-            for (CharacterCard card : player.testCards) {
+        for(CharacterCard card : player.testCards) {
+            for (Input.TouchEvent touchEvent : inputBuddy.getTouchEvents()) {
                 if (checkIsTouched(touchEvent, card)) {
                     player.moveCard(card, touchEvent.x, touchEvent.y);
+
+                    if(player.playArea.cardsInArea.contains(card)) {
+                        card.setOrigin(new Origin(touchEvent.x, touchEvent.y));
+                        player.removeCardFromArea(card);
+                    }
                 }
+                else if(card.boundingBox.isOverlapping(player.playArea.boundingBox))
+                    player.addCardToArea(card);
+            }
+            if(card.boundingBox.isOverlapping(player.playArea.boundingBox) && inputBuddy
+                    .touchEvents.isEmpty())
+                player.playArea.addCardToArea(card);
+        }
+        collisionCheckAndResolve();
+
+    }
+
+    private void collisionCheckAndResolve()
+    {
+        for(CharacterCard card : player.testCards)
+        {
+            for(CharacterCard card2 : player.testCards)
+            {
+                if(card.checkForCollision(card2)) //collision with cards
+                    card.resolveCollision(card2, card.overlapAllowance);
+
+                if(!card.boundingBox.isEncapsulated(player.board.boundingBox)) //collision with board
+                    player.board.boundingBox.getCollisionDetector().keepInsideBoundingBox(player.board, card2);
             }
         }
-
-
     }
 
     public void updateCardsInHand(float deltaTime) {
