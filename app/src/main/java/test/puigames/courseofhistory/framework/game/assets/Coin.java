@@ -10,8 +10,7 @@ import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
  * Created by Jordan on 01/03/2017.
  */
 
-public class Coin extends Sprite
-{
+public class Coin extends Sprite {
 
     private Random rand; //for generating random number for flipping
     public Result faceUp = null;

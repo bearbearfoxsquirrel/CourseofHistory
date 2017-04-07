@@ -1,13 +1,16 @@
-package test.puigames.courseofhistory.framework.game.controllers;
+package test.puigames.courseofhistory.framework.game.assets.players.controllers;
 
 import test.puigames.courseofhistory.framework.game.assets.Coin;
+import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
+import test.puigames.courseofhistory.framework.game.assets.players.Player;
+
 /**
  * Created by Michael on 06/03/2017.
  */
 
 public class CourseOfHistoryMachine {
-    private static float TURN_TIME = 6.f;
-    private static float COIN_TOSS_DELAY = 5.f;
+    private final static float TURN_TIME = 6.f;
+    private final static float COIN_TOSS_DELAY = 2.f;
 
     private float startDelayTimeRemaining;
     private float turnTimeRemaining;
@@ -56,9 +59,11 @@ public class CourseOfHistoryMachine {
 
             case COIN_TOSS:
                 tossCoin();
+                break;
 
             case GAME_ACTIVE:
                 takeTurn(deltaTime);
+                updateCardsInPlay();
                 break;
 
             case GAME_PAUSED:
@@ -72,11 +77,21 @@ public class CourseOfHistoryMachine {
         }
     }
 
+
+
+    public void updateCardsInPlay() {
+        for (Player player: players)
+            for (CharacterCard card : player.board.playAreas[player.playerNumber].cardsInArea)
+                if (card.isDeaders())
+                    player.board.playAreas[player.playerNumber].removeCardFromArea(card);
+    }
+
     public void takeTurn(float deltaTime) {
         //Turn being made
         switch (players[turnIndex].playerCurrentState) {
             case CREATED:
                 players[turnIndex].playerCurrentState = Player.PawnState.TURN_STARTED;
+
             case TURN_STARTED:
                 startTurn();
                 players[turnIndex].playerCurrentState = Player.PawnState.TURN_ACTIVE;
