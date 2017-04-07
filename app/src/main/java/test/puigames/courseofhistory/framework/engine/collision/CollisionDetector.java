@@ -1,4 +1,6 @@
-package test.puigames.courseofhistory.framework.engine.gameobjects.collision;
+package test.puigames.courseofhistory.framework.engine.collision;
+
+import android.util.Log;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
@@ -102,12 +104,12 @@ public class CollisionDetector implements Collision
     public void keepInsideBoundingBox(Sprite sprite1, Sprite sprite2)
     {
         if(sprite2.boundingBox.left < sprite1.boundingBox.left)
-            sprite2.origin.x = (sprite1.boundingBox.left + (sprite2.halfWidth + 2));
+            sprite2.origin.x = (sprite1.boundingBox.left + sprite2.halfWidth);
         else if(sprite2.boundingBox.right > sprite1.boundingBox.right)
-            sprite2.origin.x = (sprite1.boundingBox.right - (sprite2.halfWidth + 2));
+            sprite2.origin.x = (sprite1.boundingBox.right - sprite2.halfWidth);
         else if(sprite2.boundingBox.top < sprite1.boundingBox.top)
-            sprite2.origin.y = (sprite1.boundingBox.top + (sprite2.halfHeight + 2));
+            sprite2.origin.y = (sprite1.boundingBox.top + sprite2.halfHeight);
         else if(sprite2.boundingBox.bottom > sprite1.boundingBox.bottom)
-            sprite2.origin.y = (sprite1.boundingBox.bottom - (sprite2.halfHeight + 2));
+            sprite2.origin.y = (sprite1.boundingBox.bottom - sprite2.halfHeight);
     }
 }

@@ -1,4 +1,6 @@
-package test.puigames.courseofhistory.framework.game;
+package test.puigames.courseofhistory.framework.game.assets;
+
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -19,8 +21,7 @@ public abstract class CardArea extends GameObject
     public float cardPadding;
     public ArrayList<CharacterCard> cardsInArea;
     public Origin[] positions;
-
-    protected int maxCardsInArea = 0; //default value - overwrite in hand
+    protected int maxCardsInArea;
 
     public CardArea(int width, int height)
     {
@@ -28,6 +29,8 @@ public abstract class CardArea extends GameObject
 
         this.cardPadding = 2.0f;
         this.cardsInArea = new ArrayList<>();
+
+        maxCardsInArea = 0; //default value - overwrite when inheriting
     }
 
     /**
@@ -39,7 +42,6 @@ public abstract class CardArea extends GameObject
         if(!cardsInArea.contains(card) && cardsInArea.size() < maxCardsInArea)
             if (card.boundingBox.isOverlapping(this.boundingBox))
                 cardsInArea.add(card);
-
         positionCardsInArea();
     }
 
@@ -51,7 +53,6 @@ public abstract class CardArea extends GameObject
     {
         if(cardsInArea.contains(card) && cardsInArea.size() > 0)
                 cardsInArea.remove(card);
-
         positionCardsInArea();
     }
 
@@ -67,7 +68,7 @@ public abstract class CardArea extends GameObject
     }
 
     /**
-     * ONLY CALL IN SHIT THAT EXTENDS FROM CardArea
+     * Only call in stuff that extends from CardArea
      *
      * Initialises the positions array
      * Must be called in classes higher than CardArea!
@@ -76,7 +77,7 @@ public abstract class CardArea extends GameObject
     {
         positions = new Origin[maxCardsInArea];
         for(int i = 1; i <= maxCardsInArea; i++)
-            positions[i - 1] = new Origin((width/maxCardsInArea) * i,
+            positions[i - 1] = new Origin(cardPadding + ((width / maxCardsInArea) * i) / 1.2f,
                     this.origin.y + (cardPadding * 2));
     }
 }

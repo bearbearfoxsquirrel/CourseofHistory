@@ -1,6 +1,11 @@
 package test.puigames.courseofhistory.framework.game.assets.players;
 
-import test.puigames.courseofhistory.framework.game.PlayArea;
+import android.util.Log;
+
+import java.util.ArrayList;
+
+import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
+import test.puigames.courseofhistory.framework.game.assets.PlayArea;
 import test.puigames.courseofhistory.framework.game.assets.Deck;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.Card;
@@ -33,7 +38,8 @@ public class Player {
         this.playerNumber = playerNumber;
         this.board = board;
         this.testCards = playerCards;
-        this.playArea = board.playAreas[1]; //needs some sort of flag so know which player is which
+        this.board = board;
+        this.playArea = board.playAreas[0];
         setUpPlayerDeck();
     }
 

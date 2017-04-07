@@ -9,8 +9,8 @@ import test.puigames.courseofhistory.framework.game.assets.players.Player;
  */
 
 public class CourseOfHistoryMachine {
-    private final static float TURN_TIME = 6.f;
-    private final static float COIN_TOSS_DELAY = 2.f;
+    private static float TURN_TIME = 6; //6.f
+    private static float COIN_TOSS_DELAY = 2.f;
 
     private float startDelayTimeRemaining;
     private float turnTimeRemaining;

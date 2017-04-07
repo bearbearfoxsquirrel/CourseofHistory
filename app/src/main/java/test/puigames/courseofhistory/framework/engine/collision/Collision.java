@@ -1,7 +1,6 @@
-package test.puigames.courseofhistory.framework.engine.gameobjects.collision;
+package test.puigames.courseofhistory.framework.engine.collision;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
-import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.BoundingBox;
 
 /**

@@ -2,10 +2,11 @@ package test.puigames.courseofhistory.framework.game.assets.boards;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.util.Log;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Drawable;
-import test.puigames.courseofhistory.framework.game.PlayArea;
+import test.puigames.courseofhistory.framework.game.assets.PlayArea;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 
 /**
@@ -13,16 +14,20 @@ import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
  */
 
 
-public class Board extends Sprite implements Drawable {
+public class Board extends Sprite implements Drawable
+{
 
     //public PlayArea[] playAreas;
     public PlayArea[] playAreas = new PlayArea[2];
     private float areaPaddingX = 10.0f;
     private float areaPaddingY = 6.0f;
+    private int playAreaWidth = 460;
+    private int playAreaHeight = 95;
 
     //spawnX = 480/2, spawnY = 320/2
     public Board(Bitmap bitmap){
         super(bitmap, 480, 320);
+        overlapAllowance = 1.0f;
     }
 
     @Override
@@ -32,33 +37,38 @@ public class Board extends Sprite implements Drawable {
 
     public void update(float deltaTime, CharacterCard[] characterCards) {
         super.update(deltaTime);
-
+        Log.d("board update", "called");
         for(PlayArea playArea : playAreas)
             playArea.update(deltaTime); //update play areas
 
         //update hands
 
         //keep cards inside board bounds
-        for(CharacterCard characterCard : characterCards)
-            if(!characterCard.boundingBox.isEncapsulated(this.boundingBox))
-                this.boundingBox.getCollisionDetector().keepInsideBoundingBox(this, characterCard);
+//        for(CharacterCard characterCard : characterCards)
+//            if(!characterCard.boundingBox.isEncapsulated(this.boundingBox))
+//                this.boundingBox.getCollisionDetector().keepInsideBoundingBox(this, characterCard);
     }
 
     @Override
     public void spawnObject(float spawnX, float spawnY){
         super.spawnObject(spawnX, spawnY);
+
         //player 1 - human: player one - bottom half of screen
         //spawnX = boundingBox.left + areaPaddingX
         //spawnY = halfWidth + areaPaddingY
         //width = 460, height = 140
-        for (int i = 0; i < playAreas.length; i++)
-            playAreas[i] = new PlayArea(460, 140, 480/2, 320/4);
 
         //player 2 - opponent: AI/other player - top half of screen
         //spawnX = boundingBox.left + areaPaddingX
         //spawnY = boundingBox.top
         //width = 460, height = 140
         //playAreas[1] = new PlayArea(460, 140);
+
+        playAreas[0] = new PlayArea(playAreaWidth, playAreaHeight, (int)halfWidth, (int)
+                (halfHeight * 0.50));
+
+        playAreas[1] = new PlayArea(playAreaWidth, playAreaHeight, (int)halfWidth, (int)
+                (halfHeight * 0.75));
     }
 }
 

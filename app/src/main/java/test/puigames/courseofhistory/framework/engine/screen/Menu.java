@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.gameobjects.UIElement;
+import test.puigames.courseofhistory.framework.engine.ui.UIElement;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.resourceloading.Fetcher;
 
@@ -28,8 +29,7 @@ public abstract class Menu extends Screen{
 
     @Override
     public void update(float deltaTime) {
-//        inputBuddy = new InputBuddy(input);
-//        scaler.scaleTouchInput(inputBuddy);
+        scaler.scaleTouchInput(inputBuddy);
 
         for(UIElement uiElement : uiElements)
         {

@@ -38,17 +38,16 @@ public abstract class Level extends Screen {
         super.update(deltaTime);
        // scaler.scaleTouchInput(inputBuddy);
 
-        for (Sprite sprite : sprites) {
+        for (Sprite sprite : sprites)
             sprite.update(deltaTime);
-            scaler.scaleToScreen(sprite);
-        }
     }
 
 
     @Override
     public void draw(Canvas canvas, float deltaTime) {
         for (Sprite sprite : sprites) {
-                sprite.draw(canvas, deltaTime);
+            sprite.draw(canvas, deltaTime);
+            scaler.scaleToScreen(sprite);
         }
     }
 
