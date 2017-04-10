@@ -60,9 +60,7 @@ public abstract class UIElement implements Drawable
     }
 
 
-    Bitmap getImage() {
-        return image;
-    }
+    Bitmap getImage() { return image; }
 
     public void setImage(Bitmap image) {
         this.image = image;

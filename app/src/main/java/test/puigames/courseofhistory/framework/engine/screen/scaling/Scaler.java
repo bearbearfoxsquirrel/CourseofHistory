@@ -60,7 +60,9 @@ public class Scaler {
                 (uiElement.height / uiElement.image.getHeight() * scaleFactorY));
         uiElement.matrix.postRotate(0, scaleFactorX * uiElement.image.getWidth() /2.0f,
                 scaleFactorY * uiElement.image.getHeight() / 2.0f);
-        uiElement.matrix.postTranslate(0.0f, 0.0f);
+        uiElement.matrix.postTranslate((uiElement.origin.x - uiElement.width / 2) * scaleFactorX,
+                (uiElement.origin.y - uiElement.height / 2) * scaleFactorY);
+
         //Updating of matrix done only here
     }
 

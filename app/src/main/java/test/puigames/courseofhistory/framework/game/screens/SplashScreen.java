@@ -34,7 +34,7 @@ public class SplashScreen extends Menu
             Log.d("Error", "Can't load UI elements");
             gameProperties.setScreen(new SplashScreen(this.gameProperties));
         }
-        logo.placeUIElement(0.0f, 0.0f);
+        logo.placeUIElement(240f, 160.0f);
         uiElements.add(logo);
     }
 
@@ -43,12 +43,7 @@ public class SplashScreen extends Menu
         super.update(deltaTime, input);
 
         if(duration > splashscreenDelay)
-//            try{
                 gameProperties.setScreen(new MainMenu(gameProperties));
-//            }
-//            catch(NullPointerException e){
-//                gameProperties.setScreen(new SplashScreen(gameProperties));
-//            }
 
         duration += deltaTime;
     }

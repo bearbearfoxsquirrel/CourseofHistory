@@ -45,7 +45,7 @@ public class MainMenu extends Menu {
             backgroundMainMenu = new imageUIElement(resourceFetcher.getBitmapFromFile("images/backgrounds/main_menu_background.png"),
                     480.0f, 320.0f);
             title = new imageUIElement(resourceFetcher.getBitmapFromFile("images/title/coh_title.png"),
-                    350.0f, 120.0f);
+                    340.0f, 100.0f);
             playGame = new MenuButton(gameProperties.getResourceFetcher().getBitmapFromFile("images/buttons/button_play.png"),
                     buttonWidth, buttonHeight);
             howToPlay = new MenuButton(gameProperties.getResourceFetcher().getBitmapFromFile("images/buttons/button_how-to-play.png"),
@@ -57,11 +57,11 @@ public class MainMenu extends Menu {
             e.printStackTrace();
         }
 
-        backgroundMainMenu.placeUIElement(0.f, 0.f);
-        title.placeUIElement(65.0f, 5.0f);
-        playGame.placeUIElement((240.f - buttonWidth/2), (125.f));
-        howToPlay.placeUIElement((240.f - buttonWidth/2), (200.f));
-        settings.placeUIElement((240.f - buttonWidth/2), (275.f));
+        backgroundMainMenu.placeUIElement(240.f, 160.f);
+        title.placeUIElement(240.0f, 30.0f);
+        playGame.placeUIElement((240.f), (100.f));
+        howToPlay.placeUIElement((240.f), (175.f));
+        settings.placeUIElement((240.f), (250.f));
 
         uiElements.add(backgroundMainMenu);
         uiElements.add(title);
