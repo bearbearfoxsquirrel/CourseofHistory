@@ -44,6 +44,7 @@ public class TestLevel extends Level
            board = resourceFetcher.loadBoard("testBoard");
            spawnSprite(board, 480/2, 320/2);
 
+
            //Setting up the coin and spawning it
            Bitmap coinSides[] = {resourceFetcher.getBitmapFromFile("images/coins/coin-heads.png"), resourceFetcher.getBitmapFromFile("images/coins/coin-tails.png")};
            Coin coin = new Coin(coinSides, 80, 80);
@@ -57,13 +58,13 @@ public class TestLevel extends Level
                players[i] = new Player(resourceFetcher.loadCharacterCards(deckNames[i]), board); //Creating a new player pawn for each controller
                controllers[i].possessPlayer(players[i]); //Giving the player controller a pawn to manipulate for the game
 
-               for(int playersDeckCardIndex = 0; playersDeckCardIndex < players[i].playerDeck.size(); playersDeckCardIndex++)
+               /*for(int playersDeckCardIndex = 0; playersDeckCardIndex < players[i].playerDeck.size(); playersDeckCardIndex++)
                    //spawning the cards in from each players deck
-                   spawnSprite((CharacterCard)players[i].playerDeck.get(playersDeckCardIndex),(float) Math.random() * 1000, (float) Math.random() * 1000);
+                   spawnSprite((CharacterCard)players[i].playerDeck.get(playersDeckCardIndex),(float) Math.random() * 1000, (float) Math.random() * 1000);*/
            }
 
            //creating the game machine for turns :)
-           gameMachine = new CourseOfHistoryMachine(players, coin);
+           gameMachine = new CourseOfHistoryMachine(players, coin, board);
        } catch(NullPointerException e) {
            Log.d("Loading Error:", "Error fetching resources, returning to menu");
            //TODO do properly
@@ -90,6 +91,16 @@ public class TestLevel extends Level
         super.update(deltaTime, input);
         updateControllers(deltaTime); //Should be called before the game machine is updated
         gameMachine.update(deltaTime);
+        for(int i = 0; i < gameMachine.players.length; i++){
+            gameMachine.players[i].board.cardHands[i].update(deltaTime);
+            for(int j = 0; j < gameMachine.players[i].board.cardHands[i].cardsInArea.size(); j++){
+                gameMachine.players[i].board.cardHands[i].cardsInArea.get(j).update(deltaTime);
+            }
+            /*
+            for(int j = 0; j < gameMachine.players[i].cardHand.cardsInArea.size(); j++){
+                gameMachine.players[i].cardHand.cardsInArea.get(j).update(deltaTime);
+            }*/
+        }
     }
 
     private void collisionCheckAndResolve(int turnIndex)
@@ -109,6 +120,13 @@ public class TestLevel extends Level
     @Override
     public void draw(Canvas canvas, float deltaTime) {
         super.draw(canvas, deltaTime);
+        for(int i = 0; i < gameMachine.players.length; i++) {
+            for (int j = 0; j < gameMachine.players[i].board.cardHands[i].cardsInArea.size(); j++) {
+                scaler.scaleToScreen(gameMachine.players[i].board.cardHands[i].cardsInArea.get(j));
+                gameMachine.players[i].board.cardHands[i].cardsInArea.get(j).draw(canvas, deltaTime);
+
+            }
+        }
     }
 
     @Override

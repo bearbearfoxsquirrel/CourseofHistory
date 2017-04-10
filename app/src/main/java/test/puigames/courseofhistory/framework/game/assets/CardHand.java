@@ -16,38 +16,42 @@ import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
  */
 
 public class CardHand extends CardArea{
-    private ArrayList<CharacterCard> cardHand = new ArrayList<CharacterCard>();
-    private Origin[] handPositions;
 
+    public CardHand(float spawnX, float spawnY){
+        super(340, 65);
+        spawnObject(spawnX, spawnY);
 
-    public CardHand(){
-        super(160, 40);
-
-
-        maxCardsInArea = 8;
-        handPositions = new Origin[maxCardsInArea];
-        for(int i = 1; i <= maxCardsInArea; i++)
-            handPositions[i - 1] = new Origin((width/maxCardsInArea) * i, this.origin.y + this.halfHeight/maxCardsInArea);
-
+        maxCardsInArea = 7;
+//        for(int i = 1; i <= maxCardsInArea; i++)
+//            handPositions[i - 1] = new Origin((width/maxCardsInArea) * i, this.origin.y + this.halfHeight/maxCardsInArea);
+        setUpPositions();
 
 
     }
 
-    public void halfCardSize(CharacterCard characterCard){
+    public void adjustCardSize(CharacterCard characterCard){
         characterCard.setHeight(characterCard.height*0.75f);
         characterCard.setWidth(characterCard.width*0.75f);
 
     }
 
-    public void addToHand(CharacterCard characterCard, ArrayList<Sprite> sprites) {
-        halfCardSize(characterCard);
-        super.addCardToArea(characterCard);
-        positionCardsInArea();
-        sprites.add(characterCard);
+    public void addToHand(CharacterCard characterCard) {
+
+        if(cardsInArea.size()< maxCardsInArea) {
+            adjustCardSize(characterCard);
+
+                characterCard.spawnObject(positions[cardsInArea.size()].x, positions[cardsInArea.size()].y);
+                //characterCard.spawnObject(40, 40);
+                Log.d("firsthand position", "" +positions[0]);
+            super.addCardToArea(characterCard);
+            positionCardsInArea();
+        }
+
     }
 
     public void update(float deltaTime) {
         super.update(deltaTime);
+        Log.d("update called", "" + cardsInArea.size());
         positionCardsInArea();
     }
 
@@ -56,9 +60,12 @@ public class CardHand extends CardArea{
         for (int i = 0; i < cardsInArea.size(); i++)
         {
 //            if(!cardsInArea.get(i).origin.equals(positions[i]))
-            cardsInArea.get(i).setOrigin(new Origin(handPositions[i]));
+            cardsInArea.get(i).setOrigin(new Origin(positions[i]));
         }
         //Log.d("Called", "positioned cards");
+    }
+    public ArrayList<CharacterCard> getCardsInHand(){
+        return cardsInArea;
     }
 
 }

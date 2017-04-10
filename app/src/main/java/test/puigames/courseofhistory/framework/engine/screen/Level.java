@@ -41,7 +41,6 @@ public abstract class Level extends Screen {
 
         for (Sprite sprite : sprites) {
             sprite.update(deltaTime);
-            scaler.scaleToScreen(sprite);
         }
     }
 
@@ -49,7 +48,8 @@ public abstract class Level extends Screen {
     @Override
     public void draw(Canvas canvas, float deltaTime) {
         for (Sprite sprite : sprites) {
-                sprite.draw(canvas, deltaTime);
+            sprite.draw(canvas, deltaTime);
+            scaler.scaleToScreen(sprite);
         }
     }
 

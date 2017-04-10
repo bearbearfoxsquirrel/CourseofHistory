@@ -60,6 +60,8 @@ public abstract class Sprite extends GameObject implements Drawable {
         origin.y += (velocity.y * deltaTime);
     }
 
+
+
     public void update(float deltaTime) {
         super.update(deltaTime);
         handleMovement(deltaTime);

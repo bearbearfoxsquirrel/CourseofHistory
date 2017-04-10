@@ -6,6 +6,7 @@ import test.puigames.courseofhistory.framework.engine.gameobjects.GameController
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Pawn;
 import test.puigames.courseofhistory.framework.game.PlayArea;
+import test.puigames.courseofhistory.framework.game.assets.CardHand;
 import test.puigames.courseofhistory.framework.game.assets.Deck;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.Card;
@@ -24,6 +25,8 @@ public class Player extends Pawn {
     public Deck playerDeck;
     public PlayArea playArea;
 
+    public Board board;
+
     public enum PawnState {
         TURN_STARTED, TURN_ACTIVE, CREATED, WAITING_FOR_TURN, TURN_ENDED, WIN, LOSE;
         //PLAY_ACTIVE refers to when the player is allowed to take active decision in their turn
@@ -32,12 +35,14 @@ public class Player extends Pawn {
 
       //  this.currentAction = PawnAction.NONE; //Initialised to none as a pawn is doing nothing when the game starts
 
-
+    //// FIXME: 30/03/2017 ADD PLAYER NUMBER TO ME PLS
     public Player(CharacterCard[] playerCards, Board board) {
         this.playerCurrentState = PawnState.CREATED; //TODO set to created, set to taking turn for testing only!
         this.playerGraveyard = new ArrayList<>();
         this.testCards = playerCards;
         this.playArea = board.playAreas[1]; //needs some sort of flag so know which player is which
+
+        this.board = board;
         setUpPlayerDeck();
 
 
@@ -89,7 +94,9 @@ public class Player extends Pawn {
 
     public CharacterCard drawCardFromDeck() {
         playerCurrentState = PawnState.TURN_ACTIVE;
+        ((CharacterCard)playerDeck.peek()).spawnObject(0, 0);
         return (CharacterCard)playerDeck.pop();
+//        return
     }
 
 
@@ -111,4 +118,6 @@ public class Player extends Pawn {
     {
             playArea.removeCardFromArea(card);
     }
+
+
 }

@@ -1,6 +1,10 @@
 package test.puigames.courseofhistory.framework.game.controllers;
 
+import android.util.Log;
+
 import test.puigames.courseofhistory.framework.game.assets.Coin;
+import test.puigames.courseofhistory.framework.game.assets.boards.Board;
+
 /**
  * Created by Michael on 06/03/2017.
  */
@@ -11,22 +15,24 @@ public class CourseOfHistoryMachine {
 
     private float startDelayTimeRemaining;
     private float turnTimeRemaining;
-    Player[] players;
+    public Player[] players;
     GameState currentGameState;
     int turnIndex;
     Coin coin;
+    Board board;
 
 
     public enum GameState {
         CREATED, COIN_TOSS, GAME_ACTIVE, GAME_PAUSED, GG
     }
 
-    public CourseOfHistoryMachine(Player[] players, Coin coin) {
+    public CourseOfHistoryMachine(Player[] players, Coin coin, Board board) {
         this.players = players;
         this.coin = coin;
         this.currentGameState = GameState.CREATED;
         this.startDelayTimeRemaining = COIN_TOSS_DELAY;
         this.turnTimeRemaining = TURN_TIME;
+        this.board = board;
     }
 
     public void startGame() {
@@ -93,6 +99,13 @@ public class CourseOfHistoryMachine {
 
     private void startTurn() {
         turnTimeRemaining = TURN_TIME;
+
+            if (players[turnIndex].playerDeck.size() != 0) {
+//                Log.d("startturn", "called");
+//                board.cardHands[i].addToHand(players[i].drawCardFromDeck());
+                players[turnIndex].board.cardHands[turnIndex].addToHand(players[turnIndex].drawCardFromDeck());
+            }
+
     }
 
     private void updateAndCheckTurnTimeRemaining(float deltaTime) {

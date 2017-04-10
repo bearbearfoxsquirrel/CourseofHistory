@@ -1,6 +1,7 @@
 package test.puigames.courseofhistory.framework.game.controllers;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
+import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Origin;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
@@ -16,7 +17,6 @@ public class HumanCardGameController extends CardGameController {
     public void update(InputBuddy inputBuddy, float deltaTime) {
         this.inputBuddy = inputBuddy;
         if (player.playerCurrentState == Player.PawnState.TURN_ACTIVE) {
-            updateCardsInHand(deltaTime);
             updateCardsOnBoardPlayArea(deltaTime);
         }
     }
