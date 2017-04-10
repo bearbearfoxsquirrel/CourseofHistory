@@ -34,28 +34,20 @@ public abstract class UIElement implements Drawable
     }
 
 
-    public void placeUIElement(float spawnX, float spawnY)
-    {
+    public void placeUIElement(float spawnX, float spawnY) {
         this.origin = new Origin(spawnX, spawnY);
         this.boundingBox = new BoundingBox(width, height, origin);
         this.matrix = new Matrix();
     }
 
 
-    public void update(InputBuddy inputBuddy, float deltaTime){
-        this.boundingBox.setBoundingBox(this.origin);
-    }
-
-
-    public void update(float deltaTime)
-    {
+    public void update(float deltaTime) {
         this.boundingBox.setBoundingBox(this.origin);
     }
 
 
     @Override
-    public void draw(Canvas canvas, float deltaTime)
-    {
+    public void draw(Canvas canvas, float deltaTime) {
         canvas.drawBitmap(image, matrix, paint);
     }
 

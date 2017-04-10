@@ -1,17 +1,12 @@
 package test.puigames.courseofhistory.framework.game.screens;
 
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
-import test.puigames.courseofhistory.framework.engine.gameobjects.MenuButton;
-import test.puigames.courseofhistory.framework.engine.gameobjects.imageUIElement;
-import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
-import test.puigames.courseofhistory.framework.engine.screen.Level;
+import test.puigames.courseofhistory.framework.engine.ui.MenuButton;
+import test.puigames.courseofhistory.framework.engine.ui.imageUIElement;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
-import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
 import test.puigames.courseofhistory.framework.engine.screen.Menu;
-import test.puigames.courseofhistory.framework.game.levels.TestLevel;
 
 /**
  * Created by Christopher on 08/02/2017.
@@ -30,8 +25,8 @@ public class MainMenu extends Menu {
     }
 
     @Override
-    public void update(float deltaTime, AndroidInput input) {
-        super.update(deltaTime, input);
+    public void update(float deltaTime) {
+        super.update(deltaTime);
     }
 
     public void load(){
@@ -69,6 +64,8 @@ public class MainMenu extends Menu {
         uiElements.add(howToPlay);
         uiElements.add(settings);
     }
+
+
 
     @Override
     public void draw(Canvas canvas, float deltaTime) {
