@@ -1,9 +1,13 @@
 package test.puigames.courseofhistory.framework.engine.screen.scaling;
 
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
+import android.util.Log;
+
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
-import test.puigames.courseofhistory.framework.engine.ui.UIElement;
+import test.puigames.courseofhistory.framework.engine.gameobjects.UIElement;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
 
@@ -58,6 +62,7 @@ public class Scaler {
                 scaleFactorY * uiElement.image.getHeight() / 2.0f);
         uiElement.matrix.postTranslate((uiElement.origin.x - uiElement.width / 2) * scaleFactorX,
                 (uiElement.origin.y - uiElement.height / 2) * scaleFactorY);
+
         //Updating of matrix done only here
     }
 
