@@ -39,23 +39,4 @@ public abstract class GameObject {
         //This updates the card to draw from where the origin is
         this.boundingBox.setBoundingBox(this.origin);
     }
-
-    public boolean checkForCollision(GameObject object)
-    {
-       if(this.equals(object))
-           return false;
-        else
-            if(this.boundingBox.isOverlapping(object.boundingBox))
-                return true;
-        return false;
-    }
-
-    public void resolveCollision(GameObject object, float overlapModifier)
-    {
-        if(overlapModifier == MIN_OVERLAP_ALLOWANCE)
-            return;
-        else
-            this.boundingBox.getCollisionDetector()
-                    .determineAndResolveCollision(this, object, overlapModifier);
-    }
 }

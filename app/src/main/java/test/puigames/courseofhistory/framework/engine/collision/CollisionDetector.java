@@ -1,5 +1,7 @@
 package test.puigames.courseofhistory.framework.engine.collision;
 
+import android.util.Log;
+
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.BoundingBox;
@@ -19,6 +21,29 @@ public class CollisionDetector implements Collision
                 && (boundingBox1.bottom > boundingBox2.top);
     }
 
+    //object = object2
+    //this = object1
+    public boolean checkForCollision(GameObject object1, GameObject object2)
+    {
+        if(object1.equals(object2))
+            return false;
+        else if(object1.boundingBox.isOverlapping(object2.boundingBox))
+        {
+            Log.d("objects overlapping", "true:" + object1.toString());
+            return true;
+        }
+        return false;
+    }
+
+    public void resolveCollision(GameObject object1, GameObject object2, float overlapModifier)
+    {
+        if(overlapModifier == object1.MAX_OVERLAP_ALLOWANCE)
+            return;
+        else
+            object1.boundingBox.getCollisionDetector()
+                    .determineAndResolveCollision(object1, object2, overlapModifier);
+    }
+
     //determines which bound was broken and (hopefully) resolves the collision peacefully
     public BoundingBox.bound determineAndResolveCollision(GameObject object1, GameObject
             object2, double overlapModifier)
@@ -28,7 +53,7 @@ public class CollisionDetector implements Collision
         BoundingBox boundingBox1 = object1.boundingBox;
         BoundingBox boundingBox2 = object2.boundingBox;
 
-        if(isCollision(boundingBox1, boundingBox2))
+        if(isCollision(boundingBox1, boundingBox2) || object1.origin.equals(object2))
         {
             //determine side of *least collision*
             float collisionDepth = Float.MAX_VALUE;
@@ -102,12 +127,12 @@ public class CollisionDetector implements Collision
     public void keepInsideBoundingBox(Sprite sprite1, Sprite sprite2)
     {
         if(sprite2.boundingBox.left < sprite1.boundingBox.left)
-            sprite2.origin.x = (sprite1.boundingBox.left + sprite2.halfWidth);
+            sprite2.origin.x = ((sprite1.boundingBox.left + sprite2.halfWidth) + 2);
         else if(sprite2.boundingBox.right > sprite1.boundingBox.right)
-            sprite2.origin.x = (sprite1.boundingBox.right - sprite2.halfWidth);
+            sprite2.origin.x = ((sprite1.boundingBox.right - sprite2.halfWidth) - 2);
         else if(sprite2.boundingBox.top < sprite1.boundingBox.top)
-            sprite2.origin.y = (sprite1.boundingBox.top + sprite2.halfHeight);
+            sprite2.origin.y = ((sprite1.boundingBox.top + sprite2.halfHeight) + 2);
         else if(sprite2.boundingBox.bottom > sprite1.boundingBox.bottom)
-            sprite2.origin.y = (sprite1.boundingBox.bottom - sprite2.halfHeight);
+            sprite2.origin.y = ((sprite1.boundingBox.bottom - sprite2.halfHeight) - 2);
     }
 }

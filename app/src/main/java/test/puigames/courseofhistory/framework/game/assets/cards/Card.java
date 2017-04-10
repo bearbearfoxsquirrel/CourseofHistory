@@ -31,10 +31,6 @@ public class Card extends Sprite {
         overlapAllowance = MAX_OVERLAP_ALLOWANCE / 5;
     }
 
-    //TODO: make card collision checks on not dragged
-    //FIXME: smooth out bounds resolution to be less jaggy
-    //TODO:: investigate time and frame timing
-
     //draw
     @Override
     public void draw(Canvas canvas, float deltaTime) {

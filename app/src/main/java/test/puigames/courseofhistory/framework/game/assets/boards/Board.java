@@ -7,8 +7,7 @@ import android.util.Log;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Drawable;
 import test.puigames.courseofhistory.framework.game.assets.PlayArea;
-import test.puigames.courseofhistory.framework.game.CardArea;
-import test.puigames.courseofhistory.framework.game.PlayArea;
+import test.puigames.courseofhistory.framework.game.assets.CardArea;
 import test.puigames.courseofhistory.framework.game.assets.CardHand;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 

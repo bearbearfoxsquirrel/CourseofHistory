@@ -52,7 +52,7 @@ public abstract class CardArea extends GameObject
     public void removeCardFromArea(CharacterCard card)
     {
         if(cardsInArea.contains(card) && cardsInArea.size() > 0)
-                cardsInArea.remove(card);
+            cardsInArea.remove(card);
         positionCardsInArea();
     }
 

@@ -6,8 +6,7 @@ import java.util.ArrayList;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.game.assets.PlayArea;
-import test.puigames.courseofhistory.framework.engine.gameobjects.Pawn;
-import test.puigames.courseofhistory.framework.game.PlayArea;
+import test.puigames.courseofhistory.framework.game.assets.PlayArea;
 import test.puigames.courseofhistory.framework.game.assets.CardHand;
 import test.puigames.courseofhistory.framework.game.assets.Deck;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
@@ -26,7 +25,6 @@ public class Player {
     public CharacterCard[] testCards;
     public PawnState playerCurrentState;
     public Deck playerDeck;
-    public PlayArea playArea;
     public Board board;
 
     public int attackCounter = 1;
@@ -42,7 +40,6 @@ public class Player {
         this.playerNumber = playerNumber;
         this.board = board;
         this.testCards = playerCards;
-        this.playArea = board.playAreas[playerNumber]; //needs some sort of flag so know which player is which
 
         this.board = board;
         setUpPlayerDeck();
@@ -94,11 +91,11 @@ public class Player {
 
     public void addCardToArea(CharacterCard card)
     {
-            playArea.addCardToArea(card);
+            board.playAreas[playerNumber].addCardToArea(card);
     }
 
     public void removeCardFromArea(CharacterCard card)
     {
-            playArea.removeCardFromArea(card);
+            board.playAreas[playerNumber].removeCardFromArea(card);
     }
 }

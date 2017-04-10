@@ -1,5 +1,7 @@
 package test.puigames.courseofhistory.framework.game.assets;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;

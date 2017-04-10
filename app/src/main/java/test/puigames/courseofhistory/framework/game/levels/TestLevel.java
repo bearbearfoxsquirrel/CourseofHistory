@@ -100,8 +100,9 @@ public class TestLevel extends Level
         {
             for(CharacterCard card2 : controllers[turnIndex].getPlayer().testCards)
             {
-                if(card.checkForCollision(card2))
-                    card.resolveCollision(card2, card.overlapAllowance);
+                if(card.boundingBox.getCollisionDetector().checkForCollision(card, card2))
+                    card.boundingBox.getCollisionDetector().resolveCollision(card, card2, card
+                            .overlapAllowance);
             }
         }
     }

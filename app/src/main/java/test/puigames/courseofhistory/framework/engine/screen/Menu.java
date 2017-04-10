@@ -28,8 +28,6 @@ public abstract class Menu extends Screen{
 
     @Override
     public void update(float deltaTime) {
-        scaler.scaleTouchInput(inputBuddy);
-
         for(UIElement uiElement : uiElements)
         {
             uiElement.update(deltaTime);
