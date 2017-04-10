@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
-import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
 import test.puigames.courseofhistory.framework.engine.screen.Menu;
 import test.puigames.courseofhistory.framework.game.levels.TestLevel;
 
@@ -24,8 +23,8 @@ public class SettingsMenu extends Menu {
 
 
     @Override
-    public void update(float deltaTime, AndroidInput input) {
-        super.update(deltaTime, input);
+    public void update(float deltaTime) {
+        super.update(deltaTime);
         gameProperties.setScreen(new TestLevel(gameProperties));
     }
 

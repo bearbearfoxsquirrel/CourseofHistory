@@ -15,8 +15,7 @@ import test.puigames.courseofhistory.R;
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.audio.AndroidAudio;
 import test.puigames.courseofhistory.framework.engine.audio.Audio;
-import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
-import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
+import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.resourceloading.ResourceFetcher;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
 
@@ -29,7 +28,6 @@ public class MainGame extends Activity implements GameProperties, Runnable
     FastRenderView renderView;
     ResourceFetcher resourceFetcher;
     Audio audio;
-    AndroidInput input;
     Screen screen;
     WakeLock wakeLock;
     Thread renderThread = null;
@@ -107,11 +105,11 @@ public class MainGame extends Activity implements GameProperties, Runnable
         wakeLock.acquire();
         screen.resume();
         renderView.resume();
+        mySound.start();
 
         running = true;
         renderThread = new Thread(this);
         renderThread.start();
-        mySound.start();
     }
 
     @Override
@@ -121,6 +119,7 @@ public class MainGame extends Activity implements GameProperties, Runnable
         wakeLock.release();
         renderView.pause();
         screen.pause();
+        mySound.pause();
         boolean joined = false;
         while (!joined) {
             try {
@@ -132,7 +131,6 @@ public class MainGame extends Activity implements GameProperties, Runnable
         }
         if(isFinishing())   //if activity is destroyed, clean up
             screen.dispose();
-        mySound.pause();
     }
 
 
@@ -144,7 +142,7 @@ public class MainGame extends Activity implements GameProperties, Runnable
         this.screen.dispose();
         screen.resume();
         this.screen = screen;
-        screen.update(0, input);
+        screen.update(0);
     }
 
     public void calculateScreenSize() {
@@ -158,9 +156,9 @@ public class MainGame extends Activity implements GameProperties, Runnable
 
     public int getScreenHeight(){return screenHeight;}
 
-    public Input getInput()
+    public InputBuddy getInput()
     {
-        return input;
+        return renderView.inputBuddy;
     }
 
     @Override

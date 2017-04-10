@@ -1,14 +1,9 @@
 package test.puigames.courseofhistory.framework.game.assets;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Origin;
-import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
-import test.puigames.courseofhistory.framework.engine.screen.scaling.Scaler;
-import test.puigames.courseofhistory.framework.game.CardArea;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 
 /**

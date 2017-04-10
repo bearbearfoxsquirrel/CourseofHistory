@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.util.Log;
 
+import test.puigames.courseofhistory.framework.engine.Controlling.Possessor;
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
@@ -12,10 +13,9 @@ import test.puigames.courseofhistory.framework.game.assets.Animation;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
-import test.puigames.courseofhistory.framework.game.controllers.CardGameController;
-import test.puigames.courseofhistory.framework.game.controllers.CourseOfHistoryMachine;
-import test.puigames.courseofhistory.framework.game.controllers.HumanCardGameController;
-import test.puigames.courseofhistory.framework.game.controllers.Player;
+import test.puigames.courseofhistory.framework.game.assets.players.Player;
+import test.puigames.courseofhistory.framework.game.assets.players.controllers.CourseOfHistoryMachine;
+import test.puigames.courseofhistory.framework.game.assets.players.controllers.HumanCardGameController;
 import test.puigames.courseofhistory.framework.game.screens.SplashScreen;
 
 /**
@@ -25,12 +25,13 @@ import test.puigames.courseofhistory.framework.game.screens.SplashScreen;
 public class TestLevel extends Level
 {
     public static int MAX_PLAYERS = 2;
-    private String[] deckNames = {"greatMindsCards", "evilLeaderCards"};
+    private final String[] DECK_NAMES = {"greatMindsCards", "evilLeaderCards"};
+    private final String[] TEST_CARD_NAMES = {"cards1", "cards2"};
     private Animation animation;
     private Bitmap explodeAnimation;
     private Board board;
 
-    HumanCardGameController controllers[];
+    Possessor controllers[];
     CourseOfHistoryMachine gameMachine;
 
     public TestLevel(GameProperties gameProperties) {
@@ -44,7 +45,6 @@ public class TestLevel extends Level
            board = resourceFetcher.loadBoard("testBoard");
            spawnSprite(board, 480/2, 320/2);
 
-
            //Setting up the coin and spawning it
            Bitmap coinSides[] = {resourceFetcher.getBitmapFromFile("images/coins/coin-heads.png"), resourceFetcher.getBitmapFromFile("images/coins/coin-tails.png")};
            Coin coin = new Coin(coinSides, 80, 80);
@@ -54,8 +54,8 @@ public class TestLevel extends Level
            controllers = new HumanCardGameController[MAX_PLAYERS];
            Player[] players = new Player[MAX_PLAYERS];
            for(int i = 0; i < controllers.length; i++) {
-               controllers[i] = new HumanCardGameController();
-               players[i] = new Player(resourceFetcher.loadCharacterCards(deckNames[i]), board); //Creating a new player pawn for each controller
+               controllers[i] = new HumanCardGameController(gameProperties.getInput());
+               players[i] = new Player(resourceFetcher.loadCharacterCards(TEST_CARD_NAMES[i]), board, i); //Creating a new player pawn for each controller
                controllers[i].possessPlayer(players[i]); //Giving the player controller a pawn to manipulate for the game
 
                /*for(int playersDeckCardIndex = 0; playersDeckCardIndex < players[i].playerDeck.size(); playersDeckCardIndex++)
@@ -74,21 +74,12 @@ public class TestLevel extends Level
     }
 
     public void updateControllers(float deltaTime) {
-        for (CardGameController controller: controllers)
-            try {
-                if (controller instanceof HumanCardGameController)
-                    ((HumanCardGameController)controller).update(inputBuddy, deltaTime);
-               // else if (controller instanceof AICardGameController)
-                    //((AICardGameController)controller).update(deltaTime);
-            } catch (Exception e) {
-                Log.d("Updating Controller: ", "Error processing controller " + controller);
-            }
+        for (Possessor controller: controllers)
+            controller.update(deltaTime);
     }
 
-
-    @Override
-    public void update(float deltaTime, AndroidInput input) {
-        super.update(deltaTime, input);
+    public void update(float deltaTime) {
+        super.update(deltaTime);
         updateControllers(deltaTime); //Should be called before the game machine is updated
         gameMachine.update(deltaTime);
         for(int i = 0; i < gameMachine.players.length; i++){
@@ -105,9 +96,9 @@ public class TestLevel extends Level
 
     private void collisionCheckAndResolve(int turnIndex)
     {
-        for(CharacterCard card : controllers[turnIndex].player.testCards)
+        for(CharacterCard card : controllers[turnIndex].getPlayer().testCards)
         {
-            for(CharacterCard card2 : controllers[turnIndex].player.testCards)
+            for(CharacterCard card2 : controllers[turnIndex].getPlayer().testCards)
             {
                 if(card.checkForCollision(card2))
                     card.resolveCollision(card2, card.overlapAllowance);
@@ -136,10 +127,6 @@ public class TestLevel extends Level
 
     @Override
     public void resume() {
-
-    }
-
-    public void spawn(Sprite sprite) {
 
     }
 

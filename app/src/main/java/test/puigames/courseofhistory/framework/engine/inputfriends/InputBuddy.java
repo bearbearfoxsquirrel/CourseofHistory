@@ -11,6 +11,7 @@ import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.In
  */
 
 public class InputBuddy {
+    AndroidInput androidInput;
     //Our little buddy for giving us the nice input that he got off his other input friends
     //He holds this while we have to use it
     //And afterwards goes and talk to his friends again to bring us more input
@@ -22,7 +23,12 @@ public class InputBuddy {
 
     //Creates storage for the events of input until the next time the update loop for the screen is made
     public InputBuddy(AndroidInput androidInput) {
+        this.androidInput = androidInput;
         //null check for switching screens
+        update();
+    }
+
+    public void update() {
         if(androidInput == null)  {
             touchEvents = new ArrayList<>(0);
             keyEvents = new ArrayList<>(0);

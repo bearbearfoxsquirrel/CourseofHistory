@@ -3,7 +3,6 @@ package test.puigames.courseofhistory.framework.engine.screen;
 import android.graphics.Canvas;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
-import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
 import test.puigames.courseofhistory.framework.engine.screen.scaling.Scaler;
 import test.puigames.courseofhistory.framework.engine.screen.scaling.Viewport;
 
@@ -40,7 +39,10 @@ public abstract class Screen
         scaler = new Scaler(gameProperties, viewport);
     }
 
-    public abstract void update(float deltaTime, AndroidInput input);
+    public void update(float deltaTime) {
+        scaler.scaleTouchInput(gameProperties.getInput());
+
+    }
 
     public abstract void draw(Canvas canvas, float deltaTime);
 

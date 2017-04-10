@@ -6,6 +6,7 @@ import android.util.Log;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Drawable;
+import test.puigames.courseofhistory.framework.game.assets.PlayArea;
 import test.puigames.courseofhistory.framework.game.CardArea;
 import test.puigames.courseofhistory.framework.game.PlayArea;
 import test.puigames.courseofhistory.framework.game.assets.CardHand;
@@ -23,24 +24,28 @@ public class Board extends Sprite implements Drawable {
     public CardHand[] cardHands = new CardHand[2];
     private float areaPaddingX = 10.0f;
     private float areaPaddingY = 6.0f;
+    private int playAreaWidth = 460;
+    private int playAreaHeight = 95;
 
     //spawnX = 480/2, spawnY = 320/2
     public Board(Bitmap bitmap){
         super(bitmap, 480, 320);
+        overlapAllowance = 1.0f;
     }
 
     @Override
     public void draw(Canvas canvas, float lastFrameTime) {
         super.draw(canvas, lastFrameTime);
-
     }
 
     public void update(float deltaTime) {
         super.update(deltaTime);
         Log.d("board update called", "");
+        Log.d("board update", "called");
+        for(PlayArea playArea : playAreas)
+            playArea.update(deltaTime); //update play areas
 
         //update hands
-
 
         //keep cards inside board bounds
 
@@ -54,7 +59,6 @@ public class Board extends Sprite implements Drawable {
         //spawnY = halfWidth + areaPaddingY
         //width = 460, height = 140
         for (int i = 0; i < cardHands.length; i++) {
-            playAreas[i] = new PlayArea(460, 140, 480 / 2, 320 / 4);
             if(i == 0) {
                 cardHands[i] = new CardHand(240f, 288f);
             }else{
@@ -67,6 +71,12 @@ public class Board extends Sprite implements Drawable {
         //spawnY = boundingBox.top
         //width = 460, height = 140
         //playAreas[1] = new PlayArea(460, 140);
+
+        playAreas[0] = new PlayArea(playAreaWidth, playAreaHeight, (int)halfWidth, (int)
+                (halfHeight * 0.50));
+
+        playAreas[1] = new PlayArea(playAreaWidth, playAreaHeight, (int)halfWidth, (int)
+                (halfHeight * 0.75));
     }
 }
 

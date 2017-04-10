@@ -4,9 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
-import test.puigames.courseofhistory.framework.engine.gameobjects.MenuButton;
-import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
-import test.puigames.courseofhistory.framework.engine.screen.Level;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
 import test.puigames.courseofhistory.framework.engine.screen.Menu;
@@ -27,8 +24,8 @@ public class MainMenu extends Menu {
     }
 
     @Override
-    public void update(float deltaTime, AndroidInput input) {
-        super.update(deltaTime, input);
+    public void update(float deltaTime) {
+        super.update(deltaTime);
         if(inputBuddy.getTouchEvents() != null) {
             for(Input.TouchEvent touchEvent : inputBuddy.getTouchEvents()) {
                 switch (touchEvent.type) {
