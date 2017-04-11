@@ -1,12 +1,9 @@
 package test.puigames.courseofhistory.framework.game.assets.players.controllers;
 
-import android.util.Log;
-
 import test.puigames.courseofhistory.framework.game.assets.Coin;
+import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
-
-import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 
 /**
  * Created by Michael on 06/03/2017.
@@ -70,6 +67,7 @@ public class CourseOfHistoryMachine {
             case GAME_ACTIVE:
                 takeTurn(deltaTime);
                 updateCardsInPlay();
+                checkPlayersStatus();
                 break;
 
             case GAME_PAUSED:
@@ -80,6 +78,16 @@ public class CourseOfHistoryMachine {
                 //Handle endgame
                 //TODO check who wins
                 break;
+        }
+    }
+
+
+    public void checkPlayersStatus(){
+        for (Player player: players) {
+            if(player.playerDeck.size() == 0 && player.playerCurrentState == Player.PawnState.TURN_STARTED) { //TODO add if hero health is <= 0
+                player.playerCurrentState = Player.PawnState.LOSE;
+                currentGameState = GameState.GG;
+            }
         }
     }
 
@@ -102,10 +110,12 @@ public class CourseOfHistoryMachine {
         switch (players[turnIndex].playerCurrentState) {
             case CREATED:
                 players[turnIndex].playerCurrentState = Player.PawnState.TURN_STARTED;
+                break;
 
             case TURN_STARTED:
                 startTurn();
                 players[turnIndex].playerCurrentState = Player.PawnState.TURN_ACTIVE;
+                break;
 
             case TURN_ACTIVE:
                 updateAndCheckTurnTimeRemaining(deltaTime);
@@ -119,13 +129,8 @@ public class CourseOfHistoryMachine {
 
     private void startTurn() {
         turnTimeRemaining = TURN_TIME;
-
-            if (players[turnIndex].playerDeck.size() != 0) {
-//                Log.d("startturn", "called");
-//                board.cardHands[i].addToHand(players[i].drawCardFromDeck());
-                players[turnIndex].board.cardHands[turnIndex].addToHand(players[turnIndex].drawCardFromDeck());
-            }
-
+        if (players[turnIndex].playerDeck.size() != 0)
+            players[turnIndex].board.cardHands[turnIndex].addToHand(players[turnIndex].drawCardFromDeck());
     }
 
     private void updateAndCheckTurnTimeRemaining(float deltaTime) {
@@ -149,5 +154,9 @@ public class CourseOfHistoryMachine {
     private void incrementTurnIndex() {
         this.turnIndex++;
         this.turnIndex %= 2;
+    }
+
+    private int findNextPlayer() {
+        return (turnIndex + 1) & 2;
     }
 }
