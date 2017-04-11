@@ -35,7 +35,7 @@ public class CourseOfHistoryMachine {
         this.startDelayTimeRemaining = COIN_TOSS_DELAY;
         this.turnTimeRemaining = TURN_TIME;
         this.board = board;
-        this.manaCount = 0;
+        this.manaCount = -1; //init to -1 because of += 2 each turn start
     }
 
     public void startGame() {
@@ -134,10 +134,14 @@ public class CourseOfHistoryMachine {
         turnTimeRemaining = TURN_TIME;
         if (players[turnIndex].playerDeck.size() != 0)
             players[turnIndex].board.cardHands[turnIndex].addToHand(players[turnIndex].drawCardFromDeck());
+        manaCount += 2; //its decremented at the end of a turn, += 2 at the start of turn
         if(manaCount < players[turnIndex].MAX_MANA) //don't want it going over 10 - max
             giveManaToPlayer();
     }
 
+    /**
+     * At the start of every turn, the
+     */
     private void giveManaToPlayer()
     {
         players[turnIndex].currentMana = manaCount;
@@ -159,6 +163,7 @@ public class CourseOfHistoryMachine {
     private void nextPlayersTurn() {
         players[turnIndex].playerCurrentState = Player.PawnState.WAITING_FOR_TURN;
         incrementTurnIndex();
+        manaCount--;
         coin.setImage(coin.coinSides[turnIndex]); //Just to test turns are working :)
         players[turnIndex].playerCurrentState = Player.PawnState.TURN_STARTED;
     }

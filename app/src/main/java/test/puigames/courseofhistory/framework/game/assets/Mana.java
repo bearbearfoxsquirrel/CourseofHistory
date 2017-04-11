@@ -10,6 +10,7 @@ import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 
 public class Mana extends Sprite
 {
+    //Current state of mana
     public ManaState manaState;
 
     public enum ManaState

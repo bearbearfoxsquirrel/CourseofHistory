@@ -90,6 +90,15 @@ public class HumanCardGameController extends CardGameController implements Input
         }
     }
 
+    /**
+     * TODO: inform user of not having enough mana for action??
+     * When a player moves a card from their hand to board, this is called
+     * Checks if player has enough mana for the action,
+     *      if they do, card is played
+     *          and the corresponding mana cost of card is removed from player's
+     *          currentMana
+     * @param card - card that is being played
+     */
     public void addCardToBoardPlayArea(CharacterCard card) {
         //player.currentAction = Player.PawnAction.PLACE_CARD_ON_BOARD;
         if(player.currentMana >= card.mana)
@@ -103,11 +112,12 @@ public class HumanCardGameController extends CardGameController implements Input
         }
     }
 
+    /**
+     * If a player has enough mana, this method is called
+     * @param manaCost - amount of mana used by playing card/switched to used state
+     */
     private void removeManaFromPlayer(int manaCost)
     {
-        //if player has 5 mana, and spend 3, they have two left
-        //[0] [1] [2] [3] [4]
-        //[0] [1]
         player.currentMana -= manaCost;
         for(int i = player.MAX_MANA; i >= (player.currentMana); i++)
             player.mana[i].manaState = Mana.ManaState.used;
