@@ -1,0 +1,27 @@
+package test.puigames.courseofhistory.framework.game.assets;
+
+import android.graphics.Bitmap;
+
+import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
+
+/**
+ * Created by Jordan on 11/04/2017.
+ */
+
+public class Mana extends Sprite
+{
+    public ManaState manaState;
+
+    public enum ManaState
+    {
+        available, used
+    }
+
+    //mana state refers to if mana is available to use by the player, or is used (unavailable)
+    public Mana(Bitmap[] manaType)
+    {
+        //width=10, height=15
+        super(manaType[0], 10, 15);
+        manaState = ManaState.used;
+    }
+}

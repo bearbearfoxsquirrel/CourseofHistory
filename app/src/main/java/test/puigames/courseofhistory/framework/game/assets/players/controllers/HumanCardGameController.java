@@ -8,7 +8,7 @@ import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Origin;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
-import test.puigames.courseofhistory.framework.game.assets.PlayArea;
+import test.puigames.courseofhistory.framework.game.assets.Mana;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
 import test.puigames.courseofhistory.framework.game.assets.players.events.Eventable;
@@ -39,16 +39,16 @@ public class HumanCardGameController extends CardGameController implements Input
 //            }
 
             //For actual thing
-            /*
-            if (playerEvents.size() == 0) {
-                for (CharacterCard playerCard : player.board.playAreas[player.playerNumber].cardsInArea)
-                    for (CharacterCard opponentCard : player.board.playAreas[oppositePlayerNumber].cardsInArea)
-                        if (playerCard.boundingBox.isOverlapping(opponentCard.boundingBox))
-                            playerEvents.add(player.createAttack(playerCard, opponentCard));
-            } else {
-                for (Eventable event : playerEvents)
-                    event.update(deltaTime);
-            }*/
+
+//            if (playerEvents.size() == 0) {
+//                for (CharacterCard playerCard : player.board.playAreas[player.playerNumber].cardsInArea)
+//                    for (CharacterCard opponentCard : player.board.playAreas[oppositePlayerNumber].cardsInArea)
+//                        if (playerCard.boundingBox.isOverlapping(opponentCard.boundingBox))
+//                            playerEvents.add(player.createAttack(playerCard, opponentCard));
+//            } else {
+//                for (Eventable event : playerEvents)
+//                    event.update(deltaTime);
+//            }
         }
     }
 
@@ -83,10 +83,8 @@ public class HumanCardGameController extends CardGameController implements Input
 
                 if(card.boundingBox.getCollisionDetector().checkForCollision(card, card2))
                     //collision with cards
-                    card.boundingBox.getCollisionDetector().resolveCollision(card, card2, card
-                            .overlapAllowance);
-                if(!card2.boundingBox.isEncapsulated(player.board.boundingBox)) //collision with
-                    // board
+                    card.boundingBox.getCollisionDetector().resolveCollision(card, card2, card.overlapAllowance);
+                if(!card2.boundingBox.isEncapsulated(player.board.boundingBox)) //collision with board
                     player.board.boundingBox.getCollisionDetector().keepInsideBoundingBox(player.board, card2);
             }
         }
@@ -94,7 +92,25 @@ public class HumanCardGameController extends CardGameController implements Input
 
     public void addCardToBoardPlayArea(CharacterCard card) {
         //player.currentAction = Player.PawnAction.PLACE_CARD_ON_BOARD;
-        player.placeCardOnBoard(card);
+        if(player.currentMana >= card.mana)
+        {
+            player.placeCardOnBoard(card);
+            removeManaFromPlayer(card.mana);
+        }
+        else
+        {
+            //should probably tell the user that they can't do that
+        }
+    }
+
+    private void removeManaFromPlayer(int manaCost)
+    {
+        //if player has 5 mana, and spend 3, they have two left
+        //[0] [1] [2] [3] [4]
+        //[0] [1]
+        player.currentMana -= manaCost;
+        for(int i = player.MAX_MANA; i >= (player.currentMana); i++)
+            player.mana[i].manaState = Mana.ManaState.used;
     }
 
     private boolean checkIsTouched(Input.TouchEvent touchEvent, GameObject object) {

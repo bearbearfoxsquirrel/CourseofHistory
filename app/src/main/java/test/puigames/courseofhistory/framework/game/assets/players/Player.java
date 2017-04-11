@@ -5,6 +5,7 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
+import test.puigames.courseofhistory.framework.game.assets.Mana;
 import test.puigames.courseofhistory.framework.game.assets.PlayArea;
 import test.puigames.courseofhistory.framework.game.assets.PlayArea;
 import test.puigames.courseofhistory.framework.game.assets.CardHand;
@@ -23,6 +24,9 @@ public class Player {
     //TODO: Add deck, testCards, hero, and board area
     public int playerNumber;
     public CharacterCard[] testCards;
+    public Mana[] mana;
+    public final int MAX_MANA = 10;
+    public int currentMana;
     public PawnState playerCurrentState;
     public Deck playerDeck;
     public Board board;
@@ -40,11 +44,11 @@ public class Player {
         this.playerNumber = playerNumber;
         this.board = board;
         this.testCards = playerCards;
+        mana = new Mana[MAX_MANA];
+        currentMana = 0;
 
         this.board = board;
         setUpPlayerDeck();
-
-
     }
 
     public void setUpPlayerDeck(){

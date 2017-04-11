@@ -1,6 +1,7 @@
 package test.puigames.courseofhistory.framework.game.assets.players.controllers;
 
 import test.puigames.courseofhistory.framework.game.assets.Coin;
+import test.puigames.courseofhistory.framework.game.assets.Mana;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
@@ -16,6 +17,7 @@ public class CourseOfHistoryMachine {
     private float startDelayTimeRemaining;
     private float turnTimeRemaining;
     public Player[] players;
+    public int manaCount;
     GameState currentGameState;
     int turnIndex;
     Coin coin;
@@ -33,6 +35,7 @@ public class CourseOfHistoryMachine {
         this.startDelayTimeRemaining = COIN_TOSS_DELAY;
         this.turnTimeRemaining = TURN_TIME;
         this.board = board;
+        this.manaCount = 0;
     }
 
     public void startGame() {
@@ -131,6 +134,15 @@ public class CourseOfHistoryMachine {
         turnTimeRemaining = TURN_TIME;
         if (players[turnIndex].playerDeck.size() != 0)
             players[turnIndex].board.cardHands[turnIndex].addToHand(players[turnIndex].drawCardFromDeck());
+        if(manaCount < players[turnIndex].MAX_MANA) //don't want it going over 10 - max
+            giveManaToPlayer();
+    }
+
+    private void giveManaToPlayer()
+    {
+        players[turnIndex].currentMana = manaCount;
+        for(int i = 0; i < players[turnIndex].MAX_MANA; i++)
+            players[turnIndex].mana[i].manaState = Mana.ManaState.available;
     }
 
     private void updateAndCheckTurnTimeRemaining(float deltaTime) {
