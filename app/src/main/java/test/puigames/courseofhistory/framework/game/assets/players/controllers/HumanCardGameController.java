@@ -119,8 +119,11 @@ public class HumanCardGameController extends CardGameController implements Input
     private void removeManaFromPlayer(int manaCost)
     {
         player.currentMana -= manaCost;
-        for(int i = player.MAX_MANA; i >= (player.currentMana); i++)
+        for(int i = (player.MAX_MANA - 1); i >= (player.currentMana - 1); i++)
+        {
             player.mana[i].manaState = Mana.ManaState.used;
+            player.mana[i].setImage(player.mana[i].manaType[1]);
+        }
     }
 
     private boolean checkIsTouched(Input.TouchEvent touchEvent, GameObject object) {

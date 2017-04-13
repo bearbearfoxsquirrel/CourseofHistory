@@ -134,19 +134,25 @@ public class CourseOfHistoryMachine {
         turnTimeRemaining = TURN_TIME;
         if (players[turnIndex].playerDeck.size() != 0)
             players[turnIndex].board.cardHands[turnIndex].addToHand(players[turnIndex].drawCardFromDeck());
-        manaCount[turnIndex]++;
         if(manaCount[turnIndex] < players[turnIndex].MAX_MANA) //don't want it going over 10 - max
+        {
+            manaCount[turnIndex]++;
             giveManaToPlayer();
+        }
     }
 
     /**
-     * At the start of every turn, the
+     * At the start of every turn, give player +1 available mana than last turn
+     * Change mana bitmaps to reflect that
      */
     private void giveManaToPlayer()
     {
         players[turnIndex].currentMana = manaCount[turnIndex];
         for(int i = 0; i < players[turnIndex].MAX_MANA; i++)
+        {
             players[turnIndex].mana[i].manaState = Mana.ManaState.available;
+            players[turnIndex].mana[i].setImage(players[turnIndex].mana[i].manaType[0]);
+        }
     }
 
     private void updateAndCheckTurnTimeRemaining(float deltaTime) {

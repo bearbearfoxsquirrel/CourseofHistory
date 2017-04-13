@@ -12,6 +12,7 @@ public class Mana extends Sprite
 {
     //Current state of mana
     public ManaState manaState;
+    public Bitmap[] manaType; //0 is available, 1 is used
 
     public enum ManaState
     {
@@ -23,6 +24,7 @@ public class Mana extends Sprite
     {
         //width=10, height=15
         super(manaType[0], 10, 15);
-        manaState = ManaState.used;
+        manaState = ManaState.available;
+        this.manaType = manaType;
     }
 }

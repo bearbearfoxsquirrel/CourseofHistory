@@ -11,6 +11,7 @@ import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.An
 import test.puigames.courseofhistory.framework.engine.screen.Level;
 import test.puigames.courseofhistory.framework.game.assets.Animation;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
+import test.puigames.courseofhistory.framework.game.assets.Mana;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
@@ -61,6 +62,19 @@ public class TestLevel extends Level
                /*for(int playersDeckCardIndex = 0; playersDeckCardIndex < players[i].playerDeck.size(); playersDeckCardIndex++)
                    //spawning the cards in from each players deck
                    spawnSprite((CharacterCard)players[i].playerDeck.get(playersDeckCardIndex),(float) Math.random() * 1000, (float) Math.random() * 1000);*/
+
+               //Set up mana
+               Bitmap manaStates[] = {resourceFetcher.getBitmapFromFile("images/mana/mana.png"),
+                       resourceFetcher.getBitmapFromFile("images/mana/mana-used.png")};
+           }
+
+           //Set up mana
+           Bitmap manaType[] = {resourceFetcher.getBitmapFromFile("images/mana/mana.png"),
+                   resourceFetcher.getBitmapFromFile("images/mana/mana-used.png")};
+           for(int i = 0; i < players[0].MAX_MANA; i++)
+           {
+               players[0].mana[i] = new Mana(manaType);
+               players[1].mana[i] = new Mana(manaType);
            }
 
            //creating the game machine for turns :)
