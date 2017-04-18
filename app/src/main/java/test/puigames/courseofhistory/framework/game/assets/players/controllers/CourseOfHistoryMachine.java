@@ -18,7 +18,7 @@ public class CourseOfHistoryMachine {
     private float turnTimeRemaining;
     public Player[] players;
     public int[] manaCount;
-    GameState currentGameState;
+    public GameState currentGameState;
     int turnIndex;
     Coin coin;
     Board board;
@@ -35,6 +35,7 @@ public class CourseOfHistoryMachine {
         this.startDelayTimeRemaining = COIN_TOSS_DELAY;
         this.turnTimeRemaining = TURN_TIME;
         this.board = board;
+        this.manaCount = new int[players.length];
         this.manaCount[0] = 0;  this.manaCount[1] = 0;
     }
 

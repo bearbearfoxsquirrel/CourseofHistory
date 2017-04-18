@@ -7,7 +7,7 @@ import android.util.Log;
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
-import test.puigames.courseofhistory.framework.engine.gameobjects.UIElement;
+import test.puigames.courseofhistory.framework.engine.ui.UIElement;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
 
@@ -44,7 +44,7 @@ public class Scaler {
         //Updating of matrix done only here
     }
 
-    public void scaleToScreen(GameObject gameObject){
+    public void scaleObjectToScreen(GameObject gameObject){
         gameObject.matrix.reset();
         gameObject.matrix.postScale(gameObject.width * scaleFactorX,  gameObject.height  * scaleFactorY);
         gameObject.matrix.postRotate(0, scaleFactorX

@@ -8,6 +8,8 @@ import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.resourceloading.Fetcher;
+import test.puigames.courseofhistory.framework.engine.ui.UIElement;
+import test.puigames.courseofhistory.framework.engine.ui.imageUIElement;
 
 /**
  * Created by Michael on 24/11/2016.
@@ -15,12 +17,14 @@ import test.puigames.courseofhistory.framework.engine.resourceloading.Fetcher;
 
 public abstract class Level extends Screen {
     protected ArrayList<Sprite> sprites;
+    protected ArrayList<UIElement> uiElements;
     protected InputBuddy inputBuddy;
     protected Fetcher resourceFetcher;
 
     public Level(GameProperties gameProperties) {
         super(gameProperties);
         this.sprites = new ArrayList<>();
+        this.uiElements = new ArrayList<>();
         this.resourceFetcher = gameProperties.getResourceFetcher();
     }
 
@@ -29,6 +33,11 @@ public abstract class Level extends Screen {
         sprites.add(sprite);
     }
 
+    public void placeUI(imageUIElement ui, float posX, float posY)
+    {
+        ui.placeUIElement(posX, posY);
+        uiElements.add(ui);
+    }
 
     public abstract void load();
 

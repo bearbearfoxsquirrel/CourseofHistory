@@ -24,8 +24,8 @@ public class Player {
     //TODO: Add deck, testCards, hero, and board area
     public int playerNumber;
     public CharacterCard[] testCards;
-    public Mana[] mana;
     public final int MAX_MANA = 10;
+    public Mana[] mana = new Mana[MAX_MANA];
     public int currentMana;
     public PawnState playerCurrentState;
     public Deck playerDeck;
@@ -44,7 +44,7 @@ public class Player {
         this.playerNumber = playerNumber;
         this.board = board;
         this.testCards = playerCards;
-        mana = new Mana[MAX_MANA];
+
         currentMana = 0;
 
         this.board = board;
