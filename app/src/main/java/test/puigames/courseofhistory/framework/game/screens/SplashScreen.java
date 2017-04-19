@@ -43,7 +43,7 @@ public class SplashScreen extends Menu
         super.update(deltaTime);
 
         if(duration > splashscreenDelay)
-                gameProperties.setScreen(new MainMenu(gameProperties));
+                gameProperties.setScreen(new TestLevel(gameProperties)); //TODO: change back to MainMenu
 
         duration += deltaTime;
     }

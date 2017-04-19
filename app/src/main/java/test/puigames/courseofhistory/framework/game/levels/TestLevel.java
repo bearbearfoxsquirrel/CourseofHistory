@@ -9,8 +9,11 @@ import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
 import test.puigames.courseofhistory.framework.engine.screen.Level;
+import test.puigames.courseofhistory.framework.engine.ui.UIElement;
+import test.puigames.courseofhistory.framework.engine.ui.imageUIElement;
 import test.puigames.courseofhistory.framework.game.assets.Animation;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
+import test.puigames.courseofhistory.framework.game.assets.Mana;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
@@ -30,6 +33,7 @@ public class TestLevel extends Level
     private Animation animation;
     private Bitmap explodeAnimation;
     private Board board;
+    private imageUIElement pauseButton;
 
     Possessor controllers[];
     CourseOfHistoryMachine gameMachine;
@@ -50,6 +54,10 @@ public class TestLevel extends Level
            Coin coin = new Coin(coinSides, 80, 80);
            spawnSprite(coin, 300, 200);
 
+           //Load mana images
+           Bitmap manaTypes[] = {resourceFetcher.getBitmapFromFile("images/mana/mana.png"),
+                   resourceFetcher.getBitmapFromFile("images/mana/mana-used.png")};
+
            //Setting up the players and controllers
            controllers = new HumanCardGameController[MAX_PLAYERS];
            Player[] players = new Player[MAX_PLAYERS];
@@ -61,12 +69,22 @@ public class TestLevel extends Level
                /*for(int playersDeckCardIndex = 0; playersDeckCardIndex < players[i].playerDeck.size(); playersDeckCardIndex++)
                    //spawning the cards in from each players deck
                    spawnSprite((CharacterCard)players[i].playerDeck.get(playersDeckCardIndex),(float) Math.random() * 1000, (float) Math.random() * 1000);*/
+
+
+               for(int j = 0; j < players[i].MAX_MANA; j++)
+                   players[i].mana[j] = new Mana(manaTypes);
            }
+
+//           //place pause button
+//           pauseButton = new imageUIElement(resourceFetcher.getBitmapFromFile
+//                   ("images/ui/pause-button.png"), 10, 10);
+//            placeUI(pauseButton, 470, 310);
 
            //creating the game machine for turns :)
            gameMachine = new CourseOfHistoryMachine(players, coin, board);
        } catch(NullPointerException e) {
-           Log.d("Loading Error:", "Error fetching resources, returning to menu");
+//           Log.d("Loading Error:", "Error fetching resources, returning to menu");
+           Log.e("ERROR", e.getMessage() + "\n" + e.getCause());
            //TODO do properly
            //Failed loading the gameProperties - won't cause crash if resources set up wrong!
            gameProperties.setScreen(new SplashScreen(this.gameProperties));
@@ -81,6 +99,7 @@ public class TestLevel extends Level
     public void update(float deltaTime) {
         super.update(deltaTime);
         updateControllers(deltaTime); //Should be called before the game machine is updated
+//        updateUI(deltaTime);
         gameMachine.update(deltaTime);
         for(int i = 0; i < gameMachine.players.length; i++){
             gameMachine.players[i].board.cardHands[i].update(deltaTime);
@@ -94,20 +113,19 @@ public class TestLevel extends Level
         }
     }
 
-    private void collisionCheckAndResolve(int turnIndex)
+    private void updateUI(float deltaTime)
     {
-        for(CharacterCard card : controllers[turnIndex].getPlayer().testCards)
+        if(pauseButton.boundingBox.isTouchOn(inputBuddy.getTouchEvents().get(0)))
         {
-            for(CharacterCard card2 : controllers[turnIndex].getPlayer().testCards)
-            {
-                if(card.boundingBox.getCollisionDetector().checkForCollision(card, card2))
-                    card.boundingBox.getCollisionDetector().resolveCollision(card, card2, card
-                            .overlapAllowance);
-            }
+            gameMachine.currentGameState = CourseOfHistoryMachine.GameState.GAME_PAUSED;
+            initPauseMenu();
         }
     }
 
-
+    private void initPauseMenu()
+    {
+        //TODO: show pause menu - somehow
+    }
 
     @Override
     public void draw(Canvas canvas, float deltaTime) {

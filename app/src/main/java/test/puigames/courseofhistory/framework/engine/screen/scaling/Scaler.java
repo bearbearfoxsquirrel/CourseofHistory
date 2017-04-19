@@ -40,7 +40,7 @@ public class Scaler {
         //Updating of matrix done only here
     }
 
-    public void scaleToScreen(GameObject gameObject){
+    public void scaleObjectToScreen(GameObject gameObject){
         gameObject.matrix.reset();
         gameObject.matrix.postScale(gameObject.width * scaleFactorX,  gameObject.height  * scaleFactorY);
         gameObject.matrix.postRotate(0, scaleFactorX

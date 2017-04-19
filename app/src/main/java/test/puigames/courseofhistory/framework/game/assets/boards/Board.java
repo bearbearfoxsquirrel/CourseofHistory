@@ -39,8 +39,8 @@ public class Board extends Sprite implements Drawable {
 
     public void update(float deltaTime) {
         super.update(deltaTime);
-        Log.d("board update called", "");
-        Log.d("board update", "called");
+//        Log.d("board update called", "");
+//        Log.d("board update", "called");
         for(PlayArea playArea : playAreas)
             playArea.update(deltaTime); //update play areas
 
