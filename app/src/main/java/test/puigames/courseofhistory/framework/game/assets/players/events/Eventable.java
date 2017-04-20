@@ -5,7 +5,7 @@ package test.puigames.courseofhistory.framework.game.assets.players.events;
  */
 
 public interface Eventable {
-    void applyEffect();
+    void startEvent();
 
     void update(float deltaTime);
 }

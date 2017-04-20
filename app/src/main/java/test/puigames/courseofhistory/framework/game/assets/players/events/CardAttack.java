@@ -15,7 +15,7 @@ public class CardAttack extends Attack implements Eventable {
     }
 
     @Override
-    public void applyEffect() {
+    public void startEvent() {
         sourceObject.attack(targetObject);
         targetObject.attack(sourceObject);
     }
@@ -25,7 +25,7 @@ public class CardAttack extends Attack implements Eventable {
         eventDuration -= deltaTime;
 
         if (eventDuration <= 0 )
-            applyEffect();
+            startEvent();
         //TODO when certain point in aniomation apply effect
     }
 }

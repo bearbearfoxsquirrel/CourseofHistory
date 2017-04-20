@@ -1,6 +1,7 @@
 package test.puigames.courseofhistory.framework.game.assets.players.controllers;
 
 import test.puigames.courseofhistory.framework.game.assets.Coin;
+import test.puigames.courseofhistory.framework.game.assets.StartingHandSelector;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
@@ -10,20 +11,21 @@ import test.puigames.courseofhistory.framework.game.assets.players.Player;
  */
 
 public class CourseOfHistoryMachine {
-    private static float TURN_TIME = 6.f;
-    private static float COIN_TOSS_DELAY = 5.f;
+    private static float TURN_TIME = 20.f;
+    private static float COIN_TOSS_DELAY = 3.f;
+    private static int STARTING_HAND_SIZE = 3;
 
     private float startDelayTimeRemaining;
     private float turnTimeRemaining;
     public Player[] players;
-    GameState currentGameState;
-    int turnIndex;
+    public GameState currentGameState;
+    public int turnIndex;
     Coin coin;
     Board board;
 
 
     public enum GameState {
-        CREATED, COIN_TOSS, GAME_ACTIVE, GAME_PAUSED, GG
+        CREATED, COIN_TOSS, CREATE_STARTING_HAND, GAME_ACTIVE, GAME_PAUSED, GG
     }
 
     public CourseOfHistoryMachine(Player[] players, Coin coin, Board board) {
@@ -64,10 +66,17 @@ public class CourseOfHistoryMachine {
                 tossCoin();
                 break;
 
+            case CREATE_STARTING_HAND:
+                if (players[turnIndex].playerCurrentState != Player.PawnState.CREATING_START_HAND)
+                    createStartingHand(turnIndex);
+                else
+                    updateStartingHandCreation(turnIndex);
+                break;
+
             case GAME_ACTIVE:
                 takeTurn(deltaTime);
                 updateCardsInPlay();
-                checkPlayersStatus();
+                checkWinStatus();
                 break;
 
             case GAME_PAUSED:
@@ -81,17 +90,33 @@ public class CourseOfHistoryMachine {
         }
     }
 
+    private void updateStartingHandCreation(int turnIndex) {
 
-    public void checkPlayersStatus(){
-        for (Player player: players) {
-            if(player.playerDeck.size() == 0 && player.playerCurrentState == Player.PawnState.TURN_STARTED) { //TODO add if hero health is <= 0
-                player.playerCurrentState = Player.PawnState.LOSE;
+    }
+
+    public void createStartingHand(int playerIndex) {
+        players[playerIndex].playerCurrentState = Player.PawnState.CREATING_START_HAND;
+
+        CharacterCard[] startingHand = new CharacterCard[STARTING_HAND_SIZE];
+        for (int handIndex = 0; handIndex < STARTING_HAND_SIZE; handIndex++)
+            startingHand[playerIndex] = players[playerIndex].drawCardFromDeck(); //Draws the amount of starting cards from the player's deck for each player
+
+        players[playerIndex].startingHandSelector = new StartingHandSelector(startingHand); //Creates a new instance of starting hand selector for the player to use
+    }
+
+    private boolean isPlayerFinishedCreatingStartingHand(int playerIndex) {
+        return (players[playerIndex].playerCurrentState == Player.PawnState.FINISHED_CREATING_START_HAND);
+    }
+
+    public void checkWinStatus(){
+        for (int i = 0; i < players.length; i++) {
+            if(players[i].playerDeck.size() == 0 && players[i].playerCurrentState == Player.PawnState.TURN_STARTED) { //TODO add if hero health is <= 0
+                players[i].playerCurrentState = Player.PawnState.LOSE;
+                players[findNextPlayer(i)].playerCurrentState = Player.PawnState.WIN;
                 currentGameState = GameState.GG;
             }
         }
     }
-
-
 
     public void updateCardsInPlay() {
         for (Player player: players)
@@ -129,19 +154,24 @@ public class CourseOfHistoryMachine {
 
     private void startTurn() {
         turnTimeRemaining = TURN_TIME;
-        if (players[turnIndex].playerDeck.size() != 0)
+        if (players[turnIndex].playerDeck.size() != 0) {
+            players[turnIndex].startTurn();
             players[turnIndex].board.cardHands[turnIndex].addToHand(players[turnIndex].drawCardFromDeck());
+        }
+
+        for (CharacterCard card : players[turnIndex].board.playAreas[turnIndex].cardsInArea) {
+            card.currentAttackEnergy = card.maxAttackEnergy;
+        }
     }
 
     private void updateAndCheckTurnTimeRemaining(float deltaTime) {
         turnTimeRemaining -= deltaTime; //decrements their turn time by the delta time
-        checkTurnTimeRemaining(); //Checks if the player's turn is over
+        if (isTurnTimeLeft())
+            nextPlayersTurn();; //Checks if the player's turn is over
     }
 
-    private void checkTurnTimeRemaining(){
-        if (turnTimeRemaining <= 0.f) {
-            nextPlayersTurn();
-        }
+    private boolean isTurnTimeLeft(){
+        return turnTimeRemaining <= 0.f;
     }
 
     private void nextPlayersTurn() {
@@ -156,7 +186,7 @@ public class CourseOfHistoryMachine {
         this.turnIndex %= 2;
     }
 
-    private int findNextPlayer() {
-        return (turnIndex + 1) & 2;
+    public int findNextPlayer(int playerIndex) {
+        return (playerIndex + 1) & 2;
     }
 }

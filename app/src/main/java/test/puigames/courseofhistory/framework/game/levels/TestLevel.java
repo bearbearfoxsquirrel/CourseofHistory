@@ -4,13 +4,15 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.util.Log;
 
-import test.puigames.courseofhistory.framework.engine.Controlling.Possessor;
+import java.util.ArrayList;
+
+import test.puigames.courseofhistory.framework.engine.controlling.Possessor;
 import test.puigames.courseofhistory.framework.engine.GameProperties;
-import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
-import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
+import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Drawable;
 import test.puigames.courseofhistory.framework.engine.screen.Level;
 import test.puigames.courseofhistory.framework.game.assets.Animation;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
+import test.puigames.courseofhistory.framework.game.assets.StartingHandSelectionUI;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
@@ -30,6 +32,7 @@ public class TestLevel extends Level
     private Animation animation;
     private Bitmap explodeAnimation;
     private Board board;
+    private ArrayList<Drawable> drawables;
 
     Possessor controllers[];
     CourseOfHistoryMachine gameMachine;
@@ -54,14 +57,12 @@ public class TestLevel extends Level
            controllers = new HumanCardGameController[MAX_PLAYERS];
            Player[] players = new Player[MAX_PLAYERS];
            for(int i = 0; i < controllers.length; i++) {
-               controllers[i] = new HumanCardGameController(gameProperties.getInput());
-               players[i] = new Player(resourceFetcher.loadCharacterCards(TEST_CARD_NAMES[i]), board, i); //Creating a new player pawn for each controller
-               controllers[i].possessPlayer(players[i]); //Giving the player controller a pawn to manipulate for the game
-
-               /*for(int playersDeckCardIndex = 0; playersDeckCardIndex < players[i].playerDeck.size(); playersDeckCardIndex++)
-                   //spawning the cards in from each players deck
-                   spawnSprite((CharacterCard)players[i].playerDeck.get(playersDeckCardIndex),(float) Math.random() * 1000, (float) Math.random() * 1000);*/
+                controllers[i] = new HumanCardGameController(gameProperties.getInput(), new StartingHandSelectionUI());
+                players[i] = new Player(resourceFetcher.loadCharacterCards(TEST_CARD_NAMES[i]), board, i); //Creating a new player pawn for each controller
+                controllers[i].possessPlayer(players[i]); //Giving the player controller a pawn to manipulate for the game
            }
+
+
 
            //creating the game machine for turns :)
            gameMachine = new CourseOfHistoryMachine(players, coin, board);
@@ -82,27 +83,33 @@ public class TestLevel extends Level
         super.update(deltaTime);
         updateControllers(deltaTime); //Should be called before the game machine is updated
         gameMachine.update(deltaTime);
+
         for(int i = 0; i < gameMachine.players.length; i++){
             gameMachine.players[i].board.cardHands[i].update(deltaTime);
             for(int j = 0; j < gameMachine.players[i].board.cardHands[i].cardsInArea.size(); j++){
                 gameMachine.players[i].board.cardHands[i].cardsInArea.get(j).update(deltaTime);
+                if (
+                gameMachine.players[i].playerCurrentState == Player.PawnState.CREATING_START_HAND)
+                    drawables.add()
             }
+
+
             /*
             for(int j = 0; j < gameMachine.players[i].cardHand.cardsInArea.size(); j++){
                 gameMachine.players[i].cardHand.cardsInArea.get(j).update(deltaTime);
             }*/
         }
+
     }
 
-    private void collisionCheckAndResolve(int turnIndex)
+    private void collisionCheckAndResolve()
     {
-        for(CharacterCard card : controllers[turnIndex].getPlayer().testCards)
+        for(CharacterCard card : controllers[gameMachine.turnIndex].getPlayer().board.playAreas[controllers[gameMachine.turnIndex].getPlayer().playerNumber].cardsInArea)
         {
-            for(CharacterCard card2 : controllers[turnIndex].getPlayer().testCards)
+            for(CharacterCard card2 : controllers[gameMachine.turnIndex].getPlayer().board.playAreas[controllers[gameMachine.findNextPlayer(gameMachine.turnIndex)].getPlayer().playerNumber].cardsInArea)
             {
                 if(card.boundingBox.getCollisionDetector().checkForCollision(card, card2))
-                    card.boundingBox.getCollisionDetector().resolveCollision(card, card2, card
-                            .overlapAllowance);
+                    card.boundingBox.getCollisionDetector().resolveCollision(card, card2, card.overlapAllowance);
             }
         }
     }

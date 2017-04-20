@@ -1,45 +1,41 @@
 package test.puigames.courseofhistory.framework.game.assets.players.controllers;
 
-import android.util.Log;
-
-import test.puigames.courseofhistory.framework.engine.Controlling.Inputable;
-import test.puigames.courseofhistory.framework.engine.Controlling.Possessor;
+import test.puigames.courseofhistory.framework.engine.controlling.Inputable;
+import test.puigames.courseofhistory.framework.engine.controlling.Possessor;
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Origin;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
-import test.puigames.courseofhistory.framework.game.assets.PlayArea;
+import test.puigames.courseofhistory.framework.game.assets.StartingHandSelectionUI;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
-import test.puigames.courseofhistory.framework.game.assets.players.events.Eventable;
 
 //This class is for allowing the user to interact with a pawn pawn
-public class HumanCardGameController extends CardGameController implements Inputable, Possessor{
+public class HumanCardGameController extends CardGameController implements Inputable, Possessor {
     public InputBuddy inputBuddy;
+    public StartingHandSelectionUI startingHandSelectionUI;
 
-    public HumanCardGameController(InputBuddy inputBuddy) {
+    public HumanCardGameController(InputBuddy inputBuddy, StartingHandSelectionUI startingHandSelectionUI) {
         this.inputBuddy = inputBuddy;
+        this.startingHandSelectionUI = startingHandSelectionUI;
     }
 
     public void update(float deltaTime) {
-        if (player.playerCurrentState == Player.PawnState.TURN_ACTIVE) {
-            //   updateCardsInHand(deltaTime);
-            updateCardsOnBoardPlayArea(deltaTime);
+        switch (player.playerCurrentState) {
+            case TURN_ACTIVE:
+                updateCardsInHand();
+                updateCardsOnBoardPlayArea(deltaTime);
+                break;
+            case CREATING_START_HAND:
+                updatePlayersStartingHand();
+                break;
+        }
 
-            //For test cards
-//            if (playerEvents.size() == 0) {
-//                for (CharacterCard playerCard : player.board.playAreas[player.playerNumber].cardsInArea)
-//                    for (CharacterCard opponentCard : player.board.playAreas[player.playerNumber].cardsInArea)
-//                        if (playerCard.boundingBox.isOverlapping(opponentCard.boundingBox)) {
-//                            playerEvents.add(player.createAttack(playerCard, opponentCard));
-//                        }
-//            } else {
-//                for (Eventable event : playerEvents)
-//                    event.update(deltaTime);
-//            }
+       /* if (player.playerCurrentState == Player.PawnState.TURN_ACTIVE) {
+
 
             //For actual thing
-            /*
+
             if (playerEvents.size() == 0) {
                 for (CharacterCard playerCard : player.board.playAreas[player.playerNumber].cardsInArea)
                     for (CharacterCard opponentCard : player.board.playAreas[oppositePlayerNumber].cardsInArea)
@@ -48,28 +44,62 @@ public class HumanCardGameController extends CardGameController implements Input
             } else {
                 for (Eventable event : playerEvents)
                     event.update(deltaTime);
-            }*/
+
+        } else if (player.playerCurrentState == Player.PawnState.CREATING_START_HAND) {
+            updatePlayersStartingHand();
+        }*/
+    }
+
+    public void updatePlayersStartingHand() {
+        for (CharacterCard card : player.board.cardHands[player.playerNumber].cardsInArea) {
+
+            for (Input.TouchEvent touchEvent : inputBuddy.getTouchEvents()) {
+                if (card.boundingBox.isTouchOn(touchEvent) && touchEvent.type == Input.TouchEvent.TOUCH_UP){
+                    player.selectCardToRemove(card);
+                }
+            }
         }
     }
 
-    public void updateCardsOnBoardPlayArea(float deltaTime) {
-        for(CharacterCard card : player.board.playAreas[player.playerNumber].cardsInArea) {
+    public void updateCardsInHand() {
+        for (CharacterCard card : player.board.cardHands[player.playerNumber].cardsInArea) {
             for (Input.TouchEvent touchEvent : inputBuddy.getTouchEvents()) {
-                if (checkIsTouched(touchEvent, card)) {
+                if(checkIsTouched(touchEvent, card) && touchEvent.type == Input.TouchEvent.TOUCH_DOWN) {
                     player.moveCard(card, touchEvent.x, touchEvent.y);
-                    if(player.board.playAreas[player.playerNumber].cardsInArea.contains(card)) {
-                        card.setOrigin(new Origin(touchEvent.x, touchEvent.y));
-                        player.removeCardFromArea(card);
-                    }
-                } else if(card.boundingBox.isOverlapping(player.board.playAreas[player.playerNumber]
-                        .boundingBox))
+                } else if (checkIsTouched(touchEvent, card) && touchEvent.type == Input.TouchEvent.TOUCH_UP && card.boundingBox.getCollisionDetector().isCollision(card.boundingBox, player.board.playAreas[player.playerNumber].boundingBox))  {
+                    //If player drops card on their board area add card to it
                     player.addCardToArea(card);
+                }
             }
-            if(card.boundingBox.isOverlapping(player.board.playAreas[player.playerNumber].boundingBox)
-                    && inputBuddy.touchEvents.isEmpty())
-                player.board.playAreas[player.playerNumber].addCardToArea(card);
+        }
+
+    }
+
+    public void updateCardsOnBoardPlayArea(float deltaTime) {
+        for(CharacterCard playerCard : player.board.playAreas[player.playerNumber].cardsInArea) {
+            for (Input.TouchEvent touchEvent : inputBuddy.getTouchEvents()) {
+                if (checkIsTouched(touchEvent, playerCard)) {
+                    player.moveCard(playerCard, touchEvent.x, touchEvent.y);
+                    if(player.board.playAreas[player.playerNumber].cardsInArea.contains(playerCard)) {
+                        playerCard.setOrigin(new Origin(touchEvent.x, touchEvent.y));
+                        player.removeCardFromArea(playerCard);
+                    }
+
+                    for (CharacterCard opponentCard : player.board.playAreas[player.playerNumber + 1 & 2].cardsInArea) //TODO make not look bad
+                        if (checkIfThereIsAnAttackOnOpponentCard(playerCard, opponentCard))
+                            playerEvents.add(player.createAttack(playerCard, opponentCard));
+
+                } else if(playerCard.boundingBox.isOverlapping(player.board.playAreas[player.playerNumber].boundingBox))
+                    player.addCardToArea(playerCard);
+            }
+            if(playerCard.boundingBox.isOverlapping(player.board.playAreas[player.playerNumber].boundingBox) && inputBuddy.touchEvents.isEmpty())
+                player.board.playAreas[player.playerNumber].addCardToArea(playerCard);
         }
         collisionCheckAndResolve();
+    }
+
+    private boolean checkIfThereIsAnAttackOnOpponentCard(CharacterCard playerCard, CharacterCard opponentCard) {
+        return playerCard.boundingBox.isOverlapping(opponentCard.boundingBox);
     }
 
     private void collisionCheckAndResolve()

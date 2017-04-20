@@ -1,4 +1,4 @@
-package test.puigames.courseofhistory.framework.engine.Controlling;
+package test.puigames.courseofhistory.framework.engine.controlling;
 
 
 import test.puigames.courseofhistory.framework.game.assets.players.Player;

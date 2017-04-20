@@ -8,7 +8,6 @@ import android.graphics.Paint;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.BoundingBox;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Drawable;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Origin;
-import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 
 /**
  * Created by Christopher on 13/03/2017.
@@ -43,6 +42,7 @@ public abstract class UIElement implements Drawable
 
     public void update(float deltaTime) {
         this.boundingBox.setBoundingBox(this.origin);
+
     }
 
 

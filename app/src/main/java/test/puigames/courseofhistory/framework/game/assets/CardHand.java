@@ -4,7 +4,6 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Origin;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 
@@ -14,9 +13,15 @@ import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 
 public class CardHand extends CardArea{
 
-    public CardHand(float spawnX, float spawnY){
+    public CardHand(float spawnX, float spawnY, CharacterCard[] startCards){
         super(340, 65);
         spawnObject(spawnX, spawnY);
+
+        for(CharacterCard card : startCards) {
+            //Adds cards given at start to the player's hand
+            cardsInArea.add(card);
+        }
+
 
         maxCardsInArea = 7;
 //        for(int i = 1; i <= maxCardsInArea; i++)

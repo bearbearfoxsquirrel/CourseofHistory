@@ -11,7 +11,7 @@ import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 
 public class Deck extends Stack {
 
-    public void shuffle(CharacterCard[] characterCards){
+    public void shuffle(CharacterCard[] characterCards) {
         Random random = new Random();
         CharacterCard[] temp = new CharacterCard[characterCards.length];
         for(int i = characterCards.length -1; i >=0; i--){
@@ -22,6 +22,7 @@ public class Deck extends Stack {
             characterCards[ranNum] = temp[i];
         }
     }
+
     public void setUpDeck(CharacterCard[] characterCards){
         shuffle(characterCards);
         for(int i = 0; i < characterCards.length; i++){

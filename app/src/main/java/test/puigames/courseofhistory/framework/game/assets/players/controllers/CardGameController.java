@@ -2,7 +2,7 @@ package test.puigames.courseofhistory.framework.game.assets.players.controllers;
 
 import java.util.ArrayList;
 
-import test.puigames.courseofhistory.framework.engine.Controlling.Possessor;
+import test.puigames.courseofhistory.framework.engine.controlling.Possessor;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
 import test.puigames.courseofhistory.framework.game.assets.players.events.Eventable;
 

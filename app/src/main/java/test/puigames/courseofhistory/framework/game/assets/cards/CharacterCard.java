@@ -17,6 +17,8 @@ public class CharacterCard extends Card implements Damageable.Attackable {
     public int attack;
     public int health;
     public String abilityDescription;
+    public int currentAttackEnergy;
+    public int maxAttackEnergy;
 
     public CharacterCard(Bitmap cardImage, String name, String description, int mana, int attack, int health, String abilityDescription) {
         super(cardImage);
@@ -26,11 +28,13 @@ public class CharacterCard extends Card implements Damageable.Attackable {
         this.attack = attack;
         this.health = health;
         this.abilityDescription = abilityDescription;
-
+        this.currentAttackEnergy = 1;
+        this.maxAttackEnergy = 1;
     }
 
     public void attack(Damageable recipientOfThyFatalBlow) {
         recipientOfThyFatalBlow.applyDamage(this.attack);
+        currentAttackEnergy--;
     }
 
     @Override

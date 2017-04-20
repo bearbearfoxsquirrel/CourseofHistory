@@ -17,7 +17,7 @@ public abstract class Attack extends PlayerEvent implements Eventable{
     }
 
     @Override
-    public void applyEffect() {
+    public void startEvent() {
         sourceObject.attack(targetObject);
     }
 
