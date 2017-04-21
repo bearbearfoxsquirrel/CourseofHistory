@@ -18,6 +18,8 @@ public abstract class GameObject {
     public float overlapAllowance; //default overlap allowance
     public final float MAX_OVERLAP_ALLOWANCE = 1.0f;
     public final float MIN_OVERLAP_ALLOWANCE = 0.0f;
+    public int rotation = 0;
+
 
     public GameObject(int width, int height) {
         this.width = width;

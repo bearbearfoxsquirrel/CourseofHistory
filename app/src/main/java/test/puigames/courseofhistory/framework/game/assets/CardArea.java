@@ -76,8 +76,11 @@ public abstract class CardArea extends GameObject
     public void setUpPositions()
     {
         positions = new Origin[maxCardsInArea];
-        for(int i = 1; i <= maxCardsInArea; i++)
-            positions[i - 1] = new Origin(cardPadding + ((width / maxCardsInArea) * i) / 1.2f,
+        for(int i = 1; i <= maxCardsInArea; i++) {
+
+            positions[i - 1] = new Origin(cardPadding + ((width / maxCardsInArea) * i)/1.2f,
                     this.origin.y + (cardPadding * 2));
+
+    }
     }
 }

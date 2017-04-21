@@ -59,9 +59,9 @@ public class Board extends Sprite implements Drawable {
         //width = 460, height = 140
         for (int i = 0; i < cardHands.length; i++) {
             if(i == 0) {
-                cardHands[i] = new CardHand(240f, 288f);
+                cardHands[i] = new CardHand(240.f, 62.5f);
             }else{
-                cardHands[i] = new CardHand(240f, 65f);
+                cardHands[i] = new CardHand(240.f, 287.5f);
             }
         }
 
