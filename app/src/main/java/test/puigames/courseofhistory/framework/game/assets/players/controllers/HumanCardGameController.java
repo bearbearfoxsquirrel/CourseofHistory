@@ -23,9 +23,9 @@ public class HumanCardGameController extends CardGameController implements Input
 
     public void update(float deltaTime) {
         if (player.playerCurrentState == Player.PawnState.TURN_ACTIVE) {
-            //   updateCardsInHand(deltaTime);
-            updateCardsOnBoardPlayArea(deltaTime);
-
+            updateCardsInHand(deltaTime);
+//            updateCardsOnBoardPlayArea(deltaTime);
+            collisionCheckAndResolve();
             //For test cards
 //            if (playerEvents.size() == 0) {
 //                for (CharacterCard playerCard : player.board.playAreas[player.playerNumber].cardsInArea)
@@ -52,42 +52,68 @@ public class HumanCardGameController extends CardGameController implements Input
         }
     }
 
-    public void updateCardsOnBoardPlayArea(float deltaTime) {
+    private void updateCardsOnBoardPlayArea(float deltaTime) {
         for(CharacterCard card : player.board.playAreas[player.playerNumber].cardsInArea) {
             for (Input.TouchEvent touchEvent : inputBuddy.getTouchEvents()) {
                 if (checkIsTouched(touchEvent, card)) {
                     player.moveCard(card, touchEvent.x, touchEvent.y);
                     if(player.board.playAreas[player.playerNumber].cardsInArea.contains(card)) {
-                        card.setOrigin(new Origin(touchEvent.x, touchEvent.y));
+                        //card.origin.setOrigin(touchEvent.x, touchEvent.y);
                         player.removeCardFromArea(card);
                     }
-                } else if(card.boundingBox.isOverlapping(player.board.playAreas[player.playerNumber]
-                        .boundingBox))
-                    player.addCardToArea(card);
+                } //else if(card.boundingBox.isOverlapping(player.board.playAreas[player.playerNumber].boundingBox))
+//                    player.addCardToArea(card);
             }
-            if(card.boundingBox.isOverlapping(player.board.playAreas[player.playerNumber].boundingBox)
-                    && inputBuddy.touchEvents.isEmpty())
-                player.board.playAreas[player.playerNumber].addCardToArea(card);
+//            if(card.boundingBox.isOverlapping(player.board.playAreas[player.playerNumber].boundingBox) && inputBuddy.touchEvents.isEmpty())
+//                player.board.playAreas[player.playerNumber].addCardToArea(card);
         }
-        collisionCheckAndResolve();
+    }
+
+    private void updateCardsInHand(float deltaTime) {
+        for(int i = 0; i < player.board.cardHands[player.playerNumber].cardsInArea.size(); i++) {
+            CharacterCard card = player.board.cardHands[player.playerNumber].cardsInArea.get(i);
+            if(inputBuddy.touchEvents.size() > 0) {
+                Input.TouchEvent touchEvent = inputBuddy.touchEvents.get(0);
+                if(checkIsTouched(touchEvent, card)) {
+                    card.origin.setOrigin(touchEvent.x, touchEvent.y);
+                    player.moveCard(card, card.origin.x, card.origin.y);
+                }
+            } else if(card.boundingBox.isOverlapping(player.board.playAreas[player.playerNumber].boundingBox) && inputBuddy.touchEvents.isEmpty()) {
+                playCard(card);
+            }
+        }
     }
 
     private void collisionCheckAndResolve()
     {
-        for(CharacterCard card : player.board.playAreas[player.playerNumber].cardsInArea)
+        for(CharacterCard card : player.board.cardHands[player.playerNumber].cardsInArea)
         {
-            for(CharacterCard card2 : player.board.playAreas[player.playerNumber].cardsInArea)
+            for(CharacterCard card2 : player.board.cardHands[player.playerNumber].cardsInArea)
             {
                 if(card.origin.equals(card2.origin))
                     card.boundingBox.getCollisionDetector().resolveCollision(card, card2, card.overlapAllowance);
 
-                if(card.boundingBox.getCollisionDetector().checkForCollision(card, card2))
-                    //collision with cards
+                if(card.boundingBox.getCollisionDetector().checkForCollision(card.boundingBox, card2.boundingBox))
                     card.boundingBox.getCollisionDetector().resolveCollision(card, card2, card.overlapAllowance);
-                if(!card2.boundingBox.isEncapsulated(player.board.boundingBox)) //collision with board
-                    player.board.boundingBox.getCollisionDetector().keepInsideBoundingBox(player.board, card2);
             }
+            if(!card.boundingBox.isEncapsulated(player.board.boundingBox))
+                card.boundingBox.getCollisionDetector().keepInsideBoundingBox(player.board, card);
         }
+
+//        for(CharacterCard card : player.board.playAreas[player.playerNumber].cardsInArea)
+//        {
+//            for(CharacterCard card2 : player.board.playAreas[player.playerNumber].cardsInArea)
+//            {
+//                if(card.origin.equals(card2.origin))
+//                    card.boundingBox.getCollisionDetector().resolveCollision(card, card2, card.overlapAllowance);
+//
+//                if(card.boundingBox.getCollisionDetector().checkForCollision(card, card2))
+//                    card.boundingBox.getCollisionDetector().resolveCollision(card, card2, card.overlapAllowance);
+//
+//                if(!card2.boundingBox.isEncapsulated(player.board.boundingBox)) //collision with board
+//                    player.board.boundingBox.getCollisionDetector().keepInsideBoundingBox(player.board, card2);
+//            }
+//        }
     }
 
     /**
@@ -99,17 +125,18 @@ public class HumanCardGameController extends CardGameController implements Input
      *          currentMana
      * @param card - card that is being played
      */
-    public void addCardToBoardPlayArea(CharacterCard card) {
+    public void playCard(CharacterCard card)
+    {
         //player.currentAction = Player.PawnAction.PLACE_CARD_ON_BOARD;
-        if(player.currentMana >= card.mana)
-        {
+//        if(player.currentMana >= card.mana)
+//        {
             player.placeCardOnBoard(card);
-            removeManaFromPlayer(card.mana);
-        }
-        else
-        {
+//            removeManaFromPlayer(card.mana);
+//        }
+//        else
+//        {
             //should probably tell the user that they can't do that
-        }
+//        }
     }
 
     /**

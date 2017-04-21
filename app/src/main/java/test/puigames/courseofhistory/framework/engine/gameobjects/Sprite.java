@@ -94,7 +94,7 @@ public abstract class Sprite extends GameObject implements Drawable {
     }
 
     public void setWidth(float width) {
-        this.width = width;
+        this.width = width; this.halfWidth = (this.width/2);
     }
 
     public float getHeight() {
@@ -102,7 +102,7 @@ public abstract class Sprite extends GameObject implements Drawable {
     }
 
     public void setHeight(float height) {
-        this.height = height;
+        this.height = height; this.halfHeight = (this.height/2);
     }
 
     public BoundingBox getBoundingBox() {

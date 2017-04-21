@@ -23,21 +23,18 @@ public class CollisionDetector implements Collision
 
     //object = object2
     //this = object1
-    public boolean checkForCollision(GameObject object1, GameObject object2)
+    public boolean checkForCollision(BoundingBox boundingBox1, BoundingBox boundingBox2)
     {
-        if(object1.equals(object2))
+        if(boundingBox1.equals(boundingBox2))
             return false;
-        else if(object1.boundingBox.isOverlapping(object2.boundingBox))
-        {
-            Log.d("objects overlapping", "true:" + object1.toString());
+        else if(boundingBox1.isOverlapping(boundingBox2))
             return true;
-        }
         return false;
     }
 
     public void resolveCollision(GameObject object1, GameObject object2, float overlapModifier)
     {
-        if(overlapModifier == object1.MAX_OVERLAP_ALLOWANCE)
+        if(overlapModifier == object1.MIN_OVERLAP_ALLOWANCE || object1.equals(object2))
             return;
         else
             object1.boundingBox.getCollisionDetector()
@@ -45,7 +42,7 @@ public class CollisionDetector implements Collision
     }
 
     //determines which bound was broken and (hopefully) resolves the collision peacefully
-    public BoundingBox.bound determineAndResolveCollision(GameObject object1, GameObject
+    private void determineAndResolveCollision(GameObject object1, GameObject
             object2, double overlapModifier)
     {
         BoundingBox.bound collisionType = BoundingBox.bound.NONE;
@@ -53,7 +50,7 @@ public class CollisionDetector implements Collision
         BoundingBox boundingBox1 = object1.boundingBox;
         BoundingBox boundingBox2 = object2.boundingBox;
 
-        if(isCollision(boundingBox1, boundingBox2) || object1.origin.equals(object2))
+        if(checkForCollision(boundingBox1, boundingBox2))
         {
             //determine side of *least collision*
             float collisionDepth = Float.MAX_VALUE;
@@ -109,7 +106,17 @@ public class CollisionDetector implements Collision
                     break;
             }
         }
-        return collisionType;
+    }
+
+    /**
+     * Attempts to separate two objects. Usually called when two object's origins are the same
+     * @param object1 - object to separate
+     * @param object2 - (other) object to separate
+     * @param separationAmount - amount objects will be separated by
+     */
+    public void separate(GameObject object1, GameObject object2, float separationAmount)
+    {
+
     }
 
     /**
@@ -121,7 +128,7 @@ public class CollisionDetector implements Collision
      * Keeps sprite2 within sprite1's bounding box, plus some padding: 2
      *
      * @param sprite1 - the game object's bounding box we are testing against sprite
-     *          we are containing the sprite within @this' bounding box
+     *          we are containing the sprite within this bounding box
      * @param sprite2 - sprite you want to keep in bounds
      */
     public void keepInsideBoundingBox(Sprite sprite1, Sprite sprite2)

@@ -130,12 +130,16 @@ public class TestLevel extends Level
     @Override
     public void draw(Canvas canvas, float deltaTime) {
         super.draw(canvas, deltaTime);
+        // FIXME: 21/04/2017 pls make me draw things better
         for(int i = 0; i < gameMachine.players.length; i++) {
             for (int j = 0; j < gameMachine.players[i].board.cardHands[i].cardsInArea.size(); j++) {
                 scaler.scaleToScreen(gameMachine.players[i].board.cardHands[i].cardsInArea.get(j));
                 gameMachine.players[i].board.cardHands[i].cardsInArea.get(j).draw(canvas, deltaTime);
-
             }
+//            for(int j = 0; j < gameMachine.players[i].board.playAreas[i].cardsInArea.size(); j++) {
+//                scaler.scaleToScreen(gameMachine.players[i].board.playAreas[i].cardsInArea.get(j));
+//                gameMachine.players[i].board.cardHands[i].cardsInArea.get(j).draw(canvas, deltaTime);
+//            }
         }
     }
 

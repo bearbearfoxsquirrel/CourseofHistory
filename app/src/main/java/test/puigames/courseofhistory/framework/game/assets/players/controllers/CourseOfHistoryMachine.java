@@ -11,8 +11,8 @@ import test.puigames.courseofhistory.framework.game.assets.players.Player;
  */
 
 public class CourseOfHistoryMachine {
-    private static float TURN_TIME = 1.f;
-    private static float COIN_TOSS_DELAY = 1.f;
+    private static float TURN_TIME = 5.f;
+    private static float COIN_TOSS_DELAY = 5.f;
 
     private float startDelayTimeRemaining;
     private float turnTimeRemaining;
@@ -98,10 +98,10 @@ public class CourseOfHistoryMachine {
 
 
     public void updateCardsInPlay() {
-        for (Player player: players)
-            for (CharacterCard card : player.board.playAreas[player.playerNumber].cardsInArea)
-                if (card.isDeaders())
-                    player.board.playAreas[player.playerNumber].removeCardFromArea(card);
+//        for (Player player: players)
+//            for (CharacterCard card : player.board.playAreas[player.playerNumber].cardsInArea)
+//                if (card.isDeaders())
+//                    player.board.playAreas[player.playerNumber].removeCardFromArea(card);
         //Testing purposes only!
          /*  for (Player player: players)
             for (CharacterCard card : player.testCards)

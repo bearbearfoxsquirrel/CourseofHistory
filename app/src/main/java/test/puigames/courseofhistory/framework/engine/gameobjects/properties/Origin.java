@@ -31,4 +31,16 @@ public class Origin {
     {
         return (this.x == other.x && this.y == other.y);
     }
+
+    public void setOrigin(Origin origin)
+    {
+        this.x = origin.x;
+        this.y = origin.y;
+    }
+
+    public void setOrigin(float x, float y)
+    {
+        this.x = x;
+        this.y = y;
+    }
 }

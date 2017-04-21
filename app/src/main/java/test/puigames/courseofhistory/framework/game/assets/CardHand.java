@@ -48,7 +48,7 @@ public class CardHand extends CardArea{
                 characterCard.rotateCard(180);
             }
 
-            Log.d("Positions", ""  +cardsInArea.size() +positions[cardsInArea.size()].toString() +isAi);
+//            Log.d("Positions", ""  +cardsInArea.size() +positions[cardsInArea.size()].toString() +isAi);
 
 
             super.addCardToArea(characterCard);
@@ -63,15 +63,15 @@ public class CardHand extends CardArea{
         //Log.d("update called", "" + cardsInArea.size());
     }
 
-    public void positionCardsInArea()
-    {
-        for (int i = 0; i < cardsInArea.size(); i++)
-        {
-//            if(!cardsInArea.get(i).origin.equals(positions[i]))
-            cardsInArea.get(i).setOrigin(new Origin(positions[i]));
-        }
-        //Log.d("Called", "positioned cards");
-    }
+//    public void positionCardsInArea()
+//    {
+//        for (int i = 0; i < cardsInArea.size(); i++)
+//        {
+////            if(!cardsInArea.get(i).origin.equals(positions[i]))
+//            cardsInArea.get(i).setOrigin(new Origin(positions[i]));
+//        }
+//        //Log.d("Called", "positioned cards");
+//    }
     public ArrayList<CharacterCard> getCardsInHand(){
         return cardsInArea;
     }
