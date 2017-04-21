@@ -1,71 +1,159 @@
 {
-  "cards1" : [
+  "greatMindsCards":[
     {
-      "ID":"studentJimmy",
-      "name": "Student Jimmy",
-      "charDescription":"Absolutely Dying for a Boojum",
-      "mana": 1,
-      "health": 1,
-      "attack": 1,
-      "abilityName":"charge",
+      "ID":"chairman",
+      "name": "Chairman",
+      "charDescription":"Sure I can buy more land in Stranmillis",
+      "mana": 3,
+      "health": 3,
+      "attack": 2,
+      "abilityName":"",
       "portraitSrc" : "images/cards/tier1/chairman.png"
     },
 
     {
-      "ID":"studentIvan",
-      "name": "Student Ivan",
-      "charDescription":"My mothers name is also Ivan",
-      "mana": 1,
-      "health": 1,
+      "ID":"chancellor",
+      "name": "Chancellor",
+      "charDescription":"<insert generic boring speech>",
+      "mana": 3,
+      "health": 3,
       "attack": 1,
       "abilityName":"taunt",
-      "portraitSrc" : "images/cards/tier1/studentIvan.png"
+      "portraitSrc" : "images/cards/tier1/chancellor.png"
     },
 
     {
-      "ID":"studentSarah",
-      "name": "Student Sarah",
-      "charDescription":"Got a bine m8?",
-      "mana": 1,
-      "health": 2,
+      "ID":"counselor",
+      "name": "Counselor",
+      "charDescription":"If you want to get better, you would have already",
+      "mana": 3,
+      "health": 3,
       "attack": 1,
+      "abilityName":"heal(+2)",
+      "portraitSrc" : "images/cards/tier1/counselor.png"
+    },
+
+    {
+      "ID":"adaLovelace",
+      "name": "Ada Lovelace",
+      "charDescription":"That brain of mine is something more than merely mortal",
+      "mana": 4,
+      "health": 2,
+      "attack": 4,
+      "abilityName":"",
+      "portraitSrc" : "images/cards/tier2/great_minds/adaLovelace.png"
+    },
+
+    {
+      "ID":"alanTuring",
+      "name": "Alan Turing",
+      "charDescription":"Machines take me by suprise with great frequency",
+      "mana": 5,
+      "health": 5,
+      "attack": 2,
       "abilityName":"taunt",
-      "portraitSrc" : "images/cards/tier1/studentSarah.png"
+      "portraitSrc" : "images/cards/tier2/great_minds/alanTuring.png"
+    },
+
+    {
+      "ID":"albertEinstein",
+      "name": "Albert Einstein",
+      "charDescription":"Education remains when school is forgotten",
+      "mana": 6,
+      "health": 5,
+      "attack": 3,
+      "abilityName":"duality",
+      "portraitSrc" : "images/cards/tier2/great_minds/albertEinstein.png"
+    },
+
+    {
+      "ID":"benjaminFranklin",
+      "name": "Benjamin Franklin",
+      "charDescription":"You may delay but time will not",
+      "mana": 5,
+      "health": 3,
+      "attack": 4,
+      "abilityName":"inspireHealth(+1)",
+      "portraitSrc" : "images/cards/tier2/great_minds/benjaminFranklin.png"
     }
   ],
 
-  "cards2" : [
+  "evilLeaderCards":[
     {
-      "ID":"studentJimmy",
-      "name": "Student Jimmy",
-      "charDescription":"Absolutely Dying for a Boojum",
-      "mana": 1,
-      "health": 1,
-      "attack": 1,
-      "abilityName":"charge",
+      "ID":"chairman",
+      "name": "Chairman",
+      "charDescription":"Sure I can buy more land in Stranmillis",
+      "mana": 3,
+      "health": 3,
+      "attack": 2,
+      "abilityName":"",
       "portraitSrc" : "images/cards/tier1/chairman.png"
     },
 
     {
-      "ID":"studentIvan",
-      "name": "Student Ivan",
-      "charDescription":"My mothers name is also Ivan",
-      "mana": 1,
-      "health": 1,
+      "ID":"chancellor",
+      "name": "Chancellor",
+      "charDescription":"<insert generic boring speech here>",
+      "mana": 3,
+      "health": 3,
       "attack": 1,
       "abilityName":"taunt",
-      "portraitSrc" : "images/cards/tier1/studentIvan.png"
+      "portraitSrc" : "images/cards/tier1/chancellor.png"
     },
 
     {
-      "ID":"studentSarah",
-      "name": "Student Sarah",
-      "charDescription":"Got a bine m8?",
-      "mana": 1,
-      "health": 2,
+      "ID":"counselor",
+      "name": "Counselor",
+      "charDescription":"If you want to get better, you would have already",
+      "mana": 3,
+      "health": 3,
       "attack": 1,
+      "abilityName":"heal(+2)",
+      "portraitSrc" : "images/cards/tier1/counselor.png"
+    },
+
+    {
+      "ID":"alCapone",
+      "name": "Al Capone",
+      "charDescription":"I am like any other man. All I do is supply demand",
+      "mana": 4,
+      "health": 2,
+      "attack": 2,
+      "abilityName":"sayHelloToMyLittleFriend",
+      "portraitSrc" : "images/cards/tier2/evil_leaders/alCapone.png"
+    },
+
+    {
+      "ID":"alexanderTheGreat",
+      "name": "Alexander The Great",
+      "charDescription":"There is nothing impossible to him who will try",
+      "mana": 5,
+      "health": 3,
+      "attack": 3,
       "abilityName":"taunt",
-      "portraitSrc" : "images/cards/tier1/studentSarah.png"
+      "portraitSrc" : "images/cards/tier2/evil_leaders/alexanderTheGreat.png"
+    },
+
+    {
+      "ID":"atillaTheHun",
+      "name": "Atilla The Hun",
+      "charDescription":"Trample the weak, Hurdle the dead",
+      "mana": 5,
+      "health": 1,
+      "attack": 5,
+      "abilityName":"charge",
+      "portraitSrc" : "images/cards/tier2/evil_leaders/atillaTheHun.png"
+    },
+
+    {
+      "ID":"emperorHirohito",
+      "name": "Emperor Hirohito",
+      "charDescription":"When and where are you ever going to put up a good fight",
+      "mana": 4,
+      "health": 3,
+      "attack": 2,
+      "abilityName":"drawACard",
+      "portraitSrc" : "images/cards/tier2/evil_leaders/emperorHirohito.png"
     }
   ]
 }

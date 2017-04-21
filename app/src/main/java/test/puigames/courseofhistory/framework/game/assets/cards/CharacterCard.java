@@ -1,6 +1,10 @@
 package test.puigames.courseofhistory.framework.game.assets.cards;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 
 import test.puigames.courseofhistory.framework.game.assets.players.events.Damageable;
 
@@ -26,6 +30,8 @@ public class CharacterCard extends Card implements Damageable.Attackable {
         this.attack = attack;
         this.health = health;
         this.abilityDescription = abilityDescription;
+
+        super.drawTextToImage("999", super.image, 15, 15);
 
     }
 
@@ -58,5 +64,8 @@ public class CharacterCard extends Card implements Damageable.Attackable {
     public boolean isDeaders() {
        return this.health <= 0;
     }
+
+
+
 
 }

@@ -2,8 +2,11 @@ package test.puigames.courseofhistory.framework.engine.gameobjects;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Rect;
+import android.text.TextPaint;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.BoundingBox;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Drawable;
@@ -33,6 +36,7 @@ public abstract class Sprite extends GameObject implements Drawable {
     public Sprite(Bitmap bitmap, int width, int height) {
         super(width,  height);
         this.image = bitmap;
+
     }
 
     //deals with acceleration and velocity of sprite
@@ -119,5 +123,29 @@ public abstract class Sprite extends GameObject implements Drawable {
 
     public void setOrigin(Origin origin) {
         this.origin = origin;
+    }
+
+    public void drawTextToImage(String text, Bitmap card, int locationX, int locationY) {
+        Bitmap mutableBitmap = card.copy(Bitmap.Config.ARGB_8888, true);
+        Canvas canvas = new Canvas(mutableBitmap);
+        paint.reset();
+
+        // new antialised Paint
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        // text color - #3D3D3D
+        paint.setColor(Color.rgb(255,255, 255));
+        // text size in pixels
+        paint.setTextSize(12);
+        // text shadow
+        paint.setShadowLayer(1, 0, 1, Color.DKGRAY);
+
+        // draw text to the Canvas center
+        Rect bounds = new Rect();
+        paint.getTextBounds(text, 0, text.length(), bounds);
+
+
+        canvas.drawText(text, locationX, locationY, paint);
+
+        setImage(mutableBitmap);
     }
 }

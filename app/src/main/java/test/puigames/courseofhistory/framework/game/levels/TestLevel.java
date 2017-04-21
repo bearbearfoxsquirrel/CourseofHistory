@@ -29,7 +29,6 @@ public class TestLevel extends Level
 {
     public static int MAX_PLAYERS = 2;
     private final String[] DECK_NAMES = {"greatMindsCards", "evilLeaderCards"};
-    private final String[] TEST_CARD_NAMES = {"cards1", "cards2"};
     private Animation animation;
     private Bitmap explodeAnimation;
     private Board board;
