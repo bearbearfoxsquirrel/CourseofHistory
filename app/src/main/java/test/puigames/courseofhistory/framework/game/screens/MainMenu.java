@@ -1,12 +1,17 @@
 package test.puigames.courseofhistory.framework.game.screens;
 
 import android.graphics.Canvas;
+import android.text.method.Touch;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
+import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
+import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
+import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.engine.ui.MenuButton;
 import test.puigames.courseofhistory.framework.engine.ui.imageUIElement;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
 import test.puigames.courseofhistory.framework.engine.screen.Menu;
+import test.puigames.courseofhistory.framework.game.levels.TestLevel;
 
 /**
  * Created by Christopher on 08/02/2017.
@@ -52,20 +57,24 @@ public class MainMenu extends Menu {
             e.printStackTrace();
         }
 
-        backgroundMainMenu.placeUIElement(240.f, 160.f);
-        title.placeUIElement(240.0f, 30.0f);
-        playGame.placeUIElement((240.f), (100.f));
-        howToPlay.placeUIElement((240.f), (175.f));
-        settings.placeUIElement((240.f), (250.f));
-
         uiElements.add(backgroundMainMenu);
         uiElements.add(title);
         uiElements.add(playGame);
         uiElements.add(howToPlay);
         uiElements.add(settings);
+
+        backgroundMainMenu.placeUIElement(240.f, 160.f);
+        title.placeUIElement(240.0f, 30.0f);
+        playGame.placeUIElement((240.f), (100.f));
+        howToPlay.placeUIElement((240.f), (175.f));
+        settings.placeUIElement((240.f), (250.f));
     }
 
-
+    public void switchScreen(Screen screen){
+        if(playGame.boundingBox.isTouchOn(gameProperties.getInput().getTouchEvents().get(0))){
+            gameProperties.setScreen(new TestLevel(this.gameProperties));
+        }
+    }
 
     @Override
     public void draw(Canvas canvas, float deltaTime) {

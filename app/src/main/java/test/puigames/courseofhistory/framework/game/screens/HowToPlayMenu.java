@@ -35,9 +35,9 @@ public class HowToPlayMenu extends Menu {
             e.printStackTrace();
         }
 
-        backgroundHowToPlay.placeUIElement(240.f, 160.f);
-
         uiElements.add(backgroundHowToPlay);
+
+        backgroundHowToPlay.placeUIElement(240.f, 160.f);
     }
 
     @Override

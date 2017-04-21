@@ -36,9 +36,9 @@ public class SettingsMenu extends Menu {
             e.printStackTrace();
         }
 
-        backgroundSettings.placeUIElement(0.f, 0.f);
-
         uiElements.add(backgroundSettings);
+
+        backgroundSettings.placeUIElement(0.f, 0.f);
     }
 
     @Override

@@ -1,9 +1,5 @@
 package test.puigames.courseofhistory.framework.engine.screen.scaling;
 
-import android.graphics.Bitmap;
-import android.graphics.Matrix;
-import android.util.Log;
-
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
