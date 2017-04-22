@@ -1,15 +1,12 @@
 package test.puigames.courseofhistory.framework.game.screens;
 
 import android.graphics.Canvas;
-import android.text.method.Touch;
+import android.util.Log;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
-import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
-import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.engine.ui.MenuButton;
 import test.puigames.courseofhistory.framework.engine.ui.imageUIElement;
-import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
 import test.puigames.courseofhistory.framework.engine.screen.Menu;
 import test.puigames.courseofhistory.framework.game.levels.TestLevel;
 
@@ -32,14 +29,24 @@ public class MainMenu extends Menu {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
+
+        for (Input.TouchEvent touchEvent : this.gameProperties.getInput().getTouchEvents()) {
+            if (playGame.boundingBox.isTouchOn(touchEvent))
+                gameProperties.setScreen(new TestLevel(this.gameProperties));
+            else if (howToPlay.boundingBox.isTouchOn(touchEvent))
+                gameProperties.setScreen(new HowToPlayMenu(this.gameProperties));
+            else if (settings.boundingBox.isTouchOn(touchEvent))
+                gameProperties.setScreen(new SettingsMenu(this.gameProperties));
+        }
     }
 
     public void load(){
+
         backgroundMainMenu = null;
         title = null;
         playGame = null;
-        settings = null;
         howToPlay = null;
+        settings = null;
 
         try{
             backgroundMainMenu = new imageUIElement(resourceFetcher.getBitmapFromFile("images/backgrounds/main_menu_background.png"),
@@ -54,8 +61,14 @@ public class MainMenu extends Menu {
                     buttonWidth, buttonHeight);
         }
         catch(NullPointerException e){
-            e.printStackTrace();
+            Log.d("Error", "UI Element loading has failed");
         }
+
+        backgroundMainMenu.placeUIElement(240.f, 160.f);
+        title.placeUIElement(240.0f, 30.0f);
+        playGame.placeUIElement((240.f), (100.f));
+        howToPlay.placeUIElement((240.f), (175.f));
+        settings.placeUIElement((240.f), (250.f));
 
         uiElements.add(backgroundMainMenu);
         uiElements.add(title);
@@ -63,17 +76,6 @@ public class MainMenu extends Menu {
         uiElements.add(howToPlay);
         uiElements.add(settings);
 
-        backgroundMainMenu.placeUIElement(240.f, 160.f);
-        title.placeUIElement(240.0f, 30.0f);
-        playGame.placeUIElement((240.f), (100.f));
-        howToPlay.placeUIElement((240.f), (175.f));
-        settings.placeUIElement((240.f), (250.f));
-    }
-
-    public void switchScreen(Screen screen){
-        if(playGame.boundingBox.isTouchOn(gameProperties.getInput().getTouchEvents().get(0))){
-            gameProperties.setScreen(new TestLevel(this.gameProperties));
-        }
     }
 
     @Override
