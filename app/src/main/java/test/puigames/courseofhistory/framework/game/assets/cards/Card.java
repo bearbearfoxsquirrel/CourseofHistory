@@ -30,6 +30,13 @@ public class Card extends Sprite {
         maxVelocity = 20.0f;
         overlapAllowance = MAX_OVERLAP_ALLOWANCE / 5;
     }
+    public void rotateCard(int degreeToRotate){
+        this.rotation = degreeToRotate;
+    }
+    public void adjustCardSize(float factor){
+        this.setHeight(this.height*factor);
+        this.setWidth(this.width*factor);
+    }
 
     //draw
     @Override

@@ -31,22 +31,26 @@ public class Scaler {
 
     public void scaleToScreen(Sprite sprite){
         sprite.matrix.reset();
+        sprite.matrix.preRotate(sprite.rotation, scaleFactorX * sprite.width/ 2.0f,
+                scaleFactorY * sprite.height / 2.0f);
         sprite.matrix.postScale((sprite.width / sprite.image.getWidth()) * scaleFactorX,
                 (sprite.height / sprite.image.getHeight()) * scaleFactorY);
-        sprite.matrix.postRotate(0, scaleFactorX * sprite.image.getWidth()/ 2.0f,
-                scaleFactorY * sprite.image.getHeight() / 2.0f);
+
         sprite.matrix.postTranslate((sprite.origin.x - sprite.width / 2) * scaleFactorX,
                 (sprite.origin.y - sprite.height / 2) * scaleFactorY);
+
+
         //Updating of matrix done only here
     }
 
     public void scaleObjectToScreen(GameObject gameObject){
         gameObject.matrix.reset();
         gameObject.matrix.postScale(gameObject.width * scaleFactorX,  gameObject.height  * scaleFactorY);
-        gameObject.matrix.postRotate(0, scaleFactorX
+        gameObject.matrix.preRotate(gameObject.rotation, scaleFactorX
                 / 2.0f, scaleFactorY / 2.0f);
         gameObject.matrix.postTranslate((gameObject.origin.x - gameObject.width / 2) * scaleFactorX,
                 (gameObject.origin.y - gameObject.height / 2) * scaleFactorY);
+
         //Updating of matrix done only here
     }
 
@@ -54,8 +58,9 @@ public class Scaler {
         uiElement.matrix.reset();
         uiElement.matrix.postScale((uiElement.width / uiElement.image.getWidth()) * scaleFactorX,
                 (uiElement.height / uiElement.image.getHeight() * scaleFactorY));
-        uiElement.matrix.postRotate(0, scaleFactorX * uiElement.image.getWidth() /2.0f,
-                scaleFactorY * uiElement.image.getHeight() / 2.0f);
+        /*uiElement.matrix.setRotate(uiElement.rotation, scaleFactorX * uiElement.image.getWidth() /2.0f,
+                scaleFactorY * uiElement.image.getHeight() / 2.0f);*/
+
         uiElement.matrix.postTranslate((uiElement.origin.x - uiElement.width / 2) * scaleFactorX,
                 (uiElement.origin.y - uiElement.height / 2) * scaleFactorY);
 
