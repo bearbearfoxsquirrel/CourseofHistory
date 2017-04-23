@@ -4,17 +4,17 @@ import android.graphics.Canvas;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.ui.MenuButton;
-import test.puigames.courseofhistory.framework.engine.ui.imageUIElement;
-import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
+import test.puigames.courseofhistory.framework.engine.ui.ImageUIElement;
 import test.puigames.courseofhistory.framework.engine.screen.Menu;
 
 /**
  * Created by Christopher on 08/02/2017.
  */
 
+/*
 public class MainMenu extends Menu {
 
-    imageUIElement backgroundMainMenu, title;
+    ImageUIElement backgroundMainMenu, title;
     MenuButton playGame, settings, howToPlay;
     float buttonWidth = 75.f;
     float buttonHeight = 50.f;
@@ -37,9 +37,9 @@ public class MainMenu extends Menu {
         howToPlay = null;
 
         try{
-            backgroundMainMenu = new imageUIElement(resourceFetcher.getBitmapFromFile("images/backgrounds/main_menu_background.png"),
+            backgroundMainMenu = new ImageUIElement(resourceFetcher.getBitmapFromFile("images/backgrounds/main_menu_background.png"),
                     480.0f, 320.0f);
-            title = new imageUIElement(resourceFetcher.getBitmapFromFile("images/title/coh_title.png"),
+            title = new ImageUIElement(resourceFetcher.getBitmapFromFile("images/title/coh_title.png"),
                     340.0f, 100.0f);
             playGame = new MenuButton(gameProperties.getResourceFetcher().getBitmapFromFile("images/buttons/button_play.png"),
                     buttonWidth, buttonHeight);
@@ -52,11 +52,11 @@ public class MainMenu extends Menu {
             e.printStackTrace();
         }
 
-        backgroundMainMenu.placeUIElement(240.f, 160.f);
-        title.placeUIElement(240.0f, 30.0f);
-        playGame.placeUIElement((240.f), (100.f));
-        howToPlay.placeUIElement((240.f), (175.f));
-        settings.placeUIElement((240.f), (250.f));
+        backgroundMainMenu.initPlacement(240.f, 160.f);
+        title.initPlacement(240.0f, 30.0f);
+        playGame.initPlacement((240.f), (100.f));
+        howToPlay.initPlacement((240.f), (175.f));
+        settings.initPlacement((240.f), (250.f));
 
         uiElements.add(backgroundMainMenu);
         uiElements.add(title);
@@ -88,3 +88,4 @@ public class MainMenu extends Menu {
     }
 
 }
+*/

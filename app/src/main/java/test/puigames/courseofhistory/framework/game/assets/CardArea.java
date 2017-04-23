@@ -1,11 +1,10 @@
 package test.puigames.courseofhistory.framework.game.assets;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Origin;
+import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 
 /**
@@ -23,9 +22,9 @@ public abstract class CardArea extends GameObject
     public Origin[] positions;
     protected int maxCardsInArea;
 
-    public CardArea(int width, int height)
+    public CardArea(Screen screen, int width, int height)
     {
-        super(width, height);
+        super(screen, width, height);
 
         this.cardPadding = 2.0f;
         this.cardsInArea = new ArrayList<>();

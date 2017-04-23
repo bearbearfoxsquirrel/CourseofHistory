@@ -5,8 +5,6 @@ import android.graphics.Canvas;
 import java.util.ArrayList;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
-import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
-import test.puigames.courseofhistory.framework.engine.resourceloading.Fetcher;
 import test.puigames.courseofhistory.framework.engine.ui.UIElement;
 
 /**
@@ -14,22 +12,17 @@ import test.puigames.courseofhistory.framework.engine.ui.UIElement;
  */
 
 public abstract class Menu extends Screen{
-
-    protected InputBuddy inputBuddy;
-    protected Fetcher resourceFetcher;
     protected ArrayList<UIElement> uiElements;
 
     public Menu(GameProperties gameProperties){
         super(gameProperties);
-
-        this.resourceFetcher = gameProperties.getResourceFetcher();
         this.uiElements = new ArrayList<>();
     }
 
     @Override
     public void update(float deltaTime) {
-        for(UIElement uiElement : uiElements)
-        {
+        super.update(deltaTime);
+        for(UIElement uiElement : uiElements) {
             uiElement.update(deltaTime);
             scaler.scaleToScreen(uiElement);
         }
@@ -37,25 +30,8 @@ public abstract class Menu extends Screen{
 
     @Override
     public void draw(Canvas canvas, float deltaTime) {
-        for(UIElement uiElement : uiElements)
+        super.draw(canvas, deltaTime);
+        for (UIElement uiElement : uiElements)
             uiElement.draw(canvas, deltaTime);
     }
-
-    public abstract void load();
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void dispose() {
-
-    }
-
 }

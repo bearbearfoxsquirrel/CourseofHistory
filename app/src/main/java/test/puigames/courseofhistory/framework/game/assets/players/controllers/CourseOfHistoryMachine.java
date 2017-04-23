@@ -1,5 +1,6 @@
 package test.puigames.courseofhistory.framework.game.assets.players.controllers;
 
+import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Updateable;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
 import test.puigames.courseofhistory.framework.game.assets.StartingHandSelector;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
@@ -10,7 +11,7 @@ import test.puigames.courseofhistory.framework.game.assets.players.Player;
  * Created by Michael on 06/03/2017.
  */
 
-public class CourseOfHistoryMachine {
+public class CourseOfHistoryMachine implements Updateable {
     private static float TURN_TIME = 20.f;
     private static float COIN_TOSS_DELAY = 3.f;
     private static int STARTING_HAND_SIZE = 3;
@@ -20,9 +21,8 @@ public class CourseOfHistoryMachine {
     public Player[] players;
     public GameState currentGameState;
     public int turnIndex;
-    Coin coin;
-    Board board;
-
+    public Coin coin;
+    public Board board;
 
     public enum GameState {
         CREATED, COIN_TOSS, CREATE_STARTING_HAND, GAME_ACTIVE, GAME_PAUSED, GG
@@ -50,7 +50,7 @@ public class CourseOfHistoryMachine {
         else
             turnIndex = 1;
 
-        coin.setImage(coin.coinSides[turnIndex]);
+        coin.setBitmap(coin.coinSides[turnIndex]);
         currentGameState = GameState.GAME_ACTIVE;//To transition FSM to the game being active so turns are now being made
     }
 
@@ -95,7 +95,7 @@ public class CourseOfHistoryMachine {
     }
 
     public void createStartingHand(int playerIndex) {
-        players[playerIndex].playerCurrentState = Player.PawnState.CREATING_START_HAND;
+        players[playerIndex].playerCurrentState = Player.PawnState.BEGIN_CREATING_STARTING_HAND;
 
         CharacterCard[] startingHand = new CharacterCard[STARTING_HAND_SIZE];
         for (int handIndex = 0; handIndex < STARTING_HAND_SIZE; handIndex++)
@@ -167,7 +167,7 @@ public class CourseOfHistoryMachine {
     private void updateAndCheckTurnTimeRemaining(float deltaTime) {
         turnTimeRemaining -= deltaTime; //decrements their turn time by the delta time
         if (isTurnTimeLeft())
-            nextPlayersTurn();; //Checks if the player's turn is over
+            nextPlayersTurn(); //Checks if the player's turn is over
     }
 
     private boolean isTurnTimeLeft(){
@@ -177,7 +177,7 @@ public class CourseOfHistoryMachine {
     private void nextPlayersTurn() {
         players[turnIndex].playerCurrentState = Player.PawnState.WAITING_FOR_TURN;
         incrementTurnIndex();
-        coin.setImage(coin.coinSides[turnIndex]); //Just to test turns are working :)
+        coin.setBitmap(coin.coinSides[turnIndex]); //Just to test turns are working :)
         players[turnIndex].playerCurrentState = Player.PawnState.TURN_STARTED;
     }
 

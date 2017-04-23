@@ -9,13 +9,15 @@ import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Bou
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Drawable;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Origin;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Vector;
+import test.puigames.courseofhistory.framework.engine.screen.Screen;
+import test.puigames.courseofhistory.framework.engine.screen.scaling.Scalable;
 
 /**
  * Created by Michael on 21/11/2016.
  */
 
-public abstract class Sprite extends GameObject implements Drawable {
-    public Bitmap image;
+public abstract class Sprite extends GameObject implements Drawable, Scalable.ImageScalable {
+    public Bitmap bitmap;
     protected Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
     //set reference default max acceleration adn velocity
@@ -30,9 +32,9 @@ public abstract class Sprite extends GameObject implements Drawable {
     public float maxVelocity = DEFAULT_MAX_VELOCITY;
 
 
-    public Sprite(Bitmap bitmap, int width, int height) {
-        super(width,  height);
-        this.image = bitmap;
+    public Sprite(Screen screen, Bitmap bitmap, int width, int height) {
+        super(screen, width,  height);
+        this.bitmap = bitmap;
     }
 
     //deals with acceleration and velocity of sprite
@@ -61,7 +63,7 @@ public abstract class Sprite extends GameObject implements Drawable {
     }
 
 
-
+    @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
         handleMovement(deltaTime);
@@ -70,15 +72,15 @@ public abstract class Sprite extends GameObject implements Drawable {
     @Override
     //drawing to the canvas for all sprites
     public void draw(Canvas canvas, float deltaTime) {
-        canvas.drawBitmap(image, matrix, paint);
+        canvas.drawBitmap(bitmap, matrix, paint);
     }
 
-    public Bitmap getImage() {
-        return image;
+    public Bitmap getBitmap() {
+        return bitmap;
     }
 
-    public void setImage(Bitmap image) {
-        this.image = image;
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
     }
 
     public Matrix getMatrix() {
@@ -119,5 +121,28 @@ public abstract class Sprite extends GameObject implements Drawable {
 
     public void setOrigin(Origin origin) {
         this.origin = origin;
+    }
+
+    @Override
+    public void place(Screen screen, float placementX, float placementY){
+        super.place(screen, placementX, placementY);
+        if (!screen.drawables.contains(this))
+            screen.drawables.add(this);
+
+        if (!screen.imageScalables.contains(this))
+            screen.imageScalables.add(this);
+
+        if (screen.scalables.contains(this))
+            screen.scalables.remove(this); //Not needed in scalables now
+    }
+
+    @Override
+    public void remove(Screen screen) {
+        super.remove(screen);
+        if (screen.drawables.contains(this))
+            screen.drawables.remove(this);
+
+        if(screen.imageScalables.contains(this))
+            screen.imageScalables.remove(this);
     }
 }

@@ -171,8 +171,7 @@ public class MainGame extends Activity implements GameProperties, Runnable
         return audio;
     }
 
-    public Screen getCurrentScreen()
-    {
+    public Screen getCurrentScreen() {
         return screen;
     }
 
@@ -181,6 +180,7 @@ public class MainGame extends Activity implements GameProperties, Runnable
     {
         return null;
     }
+
 
 
 

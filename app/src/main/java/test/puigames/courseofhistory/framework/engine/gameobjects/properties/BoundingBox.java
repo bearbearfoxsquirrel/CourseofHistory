@@ -30,7 +30,7 @@ public class BoundingBox {
         this.right = origin.x + this.halfWidth;
         this.top = origin.y - this.halfHeight;
         this.bottom = origin.y + this.halfHeight;
-        collisionDetector = new CollisionDetector();
+        this.collisionDetector = new CollisionDetector();
     }
 
     //checks if this bounding box if overlapping with another bounding box (on one side or more)

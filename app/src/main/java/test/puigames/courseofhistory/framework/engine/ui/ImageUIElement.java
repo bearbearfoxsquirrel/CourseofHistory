@@ -6,11 +6,11 @@ import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Dra
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
 
 /**
-* Created by Christopher on 09/03/2017.
-*/
+ * Created by Jordan on 20/03/2017.
+ */
 
-public class MenuButton extends UIElement implements Drawable{
-    public MenuButton(Screen screen, Bitmap buttonImage, float width, float height){
-        super(screen, buttonImage, width, height);
+public class ImageUIElement extends UIElement implements Drawable {
+    public ImageUIElement(Screen screen, Bitmap bitmap, float width, float height) {
+        super(screen, bitmap, width, height);
     }
 }

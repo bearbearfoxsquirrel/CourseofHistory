@@ -4,7 +4,7 @@ import android.graphics.Canvas;
 import android.util.Log;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
-import test.puigames.courseofhistory.framework.engine.ui.imageUIElement;
+import test.puigames.courseofhistory.framework.engine.ui.ImageUIElement;
 import test.puigames.courseofhistory.framework.engine.screen.Menu;
 import test.puigames.courseofhistory.framework.game.levels.TestLevel;
 
@@ -14,7 +14,7 @@ import test.puigames.courseofhistory.framework.game.levels.TestLevel;
 
 public class SplashScreen extends Menu
 {
-    private imageUIElement logo;
+    private ImageUIElement logo;
     private float duration = 0.0f;
     private float splashscreenDelay = 3.0f;
 
@@ -25,16 +25,16 @@ public class SplashScreen extends Menu
 
     @Override
     public void load() {
-        //load image
+        //load bitmap
         try {
-            logo = new imageUIElement(resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png"),
+            logo = new ImageUIElement(resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png"),
                     480.0f, 320.0f);
         }
         catch(NullPointerException e) {
             Log.d("Error", "Can't load UI elements");
             gameProperties.setScreen(new SplashScreen(this.gameProperties));
         }
-        logo.placeUIElement(240f, 160.0f);
+        logo.initPlacement(240f, 160.0f);
         uiElements.add(logo);
     }
 
@@ -43,7 +43,7 @@ public class SplashScreen extends Menu
         super.update(deltaTime);
 
         if(duration > splashscreenDelay)
-                gameProperties.setScreen(new MainMenu(gameProperties));
+                gameProperties.setScreen(new TestLevel(gameProperties));
 
         duration += deltaTime;
     }

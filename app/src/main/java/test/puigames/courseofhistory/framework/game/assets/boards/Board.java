@@ -6,10 +6,9 @@ import android.util.Log;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Drawable;
+import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.game.assets.PlayArea;
-import test.puigames.courseofhistory.framework.game.assets.CardArea;
 import test.puigames.courseofhistory.framework.game.assets.CardHand;
-import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 
 /**
  * Created by 40123577 on 14/11/2016.
@@ -27,8 +26,8 @@ public class Board extends Sprite implements Drawable {
     private int playAreaHeight = 95;
 
     //spawnX = 480/2, spawnY = 320/2
-    public Board(Bitmap bitmap){
-        super(bitmap, 480, 320);
+    public Board(Screen screen, Bitmap bitmap){
+        super(screen, bitmap, 480, 320);
         overlapAllowance = 1.0f;
     }
 
@@ -51,17 +50,17 @@ public class Board extends Sprite implements Drawable {
     }
 
     @Override
-    public void spawnObject(float spawnX, float spawnY){
-        super.spawnObject(spawnX, spawnY);
+    public void initPlacement(float spawnX, float spawnY){
+        super.initPlacement(spawnX, spawnY);
         //player 1 - human: player one - bottom half of screen
         //spawnX = boundingBox.left + areaPaddingX
         //spawnY = halfWidth + areaPaddingY
         //width = 460, height = 140
         for (int i = 0; i < cardHands.length; i++) {
             if(i == 0) {
-                cardHands[i] = new CardHand(240f, 288f);
+                cardHands[i] = new CardHand(this.currentScrren, 240f, 288f);
             }else{
-                cardHands[i] = new CardHand(240f, 65f);
+                cardHands[i] = new CardHand(this.currentScrren, 240f, 65f);
             }
         }
 
@@ -71,10 +70,10 @@ public class Board extends Sprite implements Drawable {
         //width = 460, height = 140
         //playAreas[1] = new PlayArea(460, 140);
 
-        playAreas[0] = new PlayArea(playAreaWidth, playAreaHeight, (int)halfWidth, (int)
+        playAreas[0] = new PlayArea(this.currentScrren, playAreaWidth, playAreaHeight, (int)halfWidth, (int)
                 (halfHeight * 0.50));
 
-        playAreas[1] = new PlayArea(playAreaWidth, playAreaHeight, (int)halfWidth, (int)
+        playAreas[1] = new PlayArea(this.currentScrren, playAreaWidth, playAreaHeight, (int)halfWidth, (int)
                 (halfHeight * 0.75));
     }
 }

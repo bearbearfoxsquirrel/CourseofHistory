@@ -12,6 +12,8 @@ import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Ori
 public class Viewport {
     public float width;
     public float height;
+    public float centerX;
+    public float centerY;
 
     BoundingBox boundingBox;
     Origin origin;
@@ -22,7 +24,8 @@ public class Viewport {
         this.width = width;
         this.origin = new Origin(width/2, height/2);
         this.boundingBox = new BoundingBox(width, height, origin);
-
+        this.centerX = origin.x;
+        this.centerY = origin.y;
     }
 
     public Rect createViewportRect(float width, float height){

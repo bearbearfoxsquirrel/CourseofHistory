@@ -5,30 +5,31 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Origin;
+import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 
 /**
  * Created by mjtod on 13/03/2017.
  */
 
-public class CardHand extends CardArea{
+public class CardHand extends CardArea {
+    public CardHand(Screen screen, float spawnX, float spawnY, CharacterCard[] startCards){
+        super(screen, 340, 65);
+        initPlacement(spawnX, spawnY);
 
-    public CardHand(float spawnX, float spawnY, CharacterCard[] startCards){
-        super(340, 65);
-        spawnObject(spawnX, spawnY);
-
-        for(CharacterCard card : startCards) {
+        for(CharacterCard card : startCards)
             //Adds cards given at start to the player's hand
             cardsInArea.add(card);
-        }
-
 
         maxCardsInArea = 7;
-//        for(int i = 1; i <= maxCardsInArea; i++)
-//            handPositions[i - 1] = new Origin((width/maxCardsInArea) * i, this.origin.y + this.halfHeight/maxCardsInArea);
         setUpPositions();
+    }
 
-
+    public CardHand(Screen screen, float spawnX, float spawnY){
+        super(screen, 340, 65);
+        initPlacement(spawnX, spawnY);
+        maxCardsInArea = 7;
+        setUpPositions();
     }
 
     public void adjustCardSize(CharacterCard characterCard){
@@ -41,9 +42,9 @@ public class CardHand extends CardArea{
 
         if(cardsInArea.size()< maxCardsInArea) {
             adjustCardSize(characterCard);
-
-                characterCard.spawnObject(positions[cardsInArea.size()].x, positions[cardsInArea.size()].y);
-                //characterCard.spawnObject(40, 40);
+                characterCard.place(this.currentScrren, positions[cardsInArea.size()].x, positions[cardsInArea.size()].y);
+                //characterCard.initPlacement(positions[cardsInArea.size()].x, positions[cardsInArea.size()].y);
+                //characterCard.initPlacement(40, 40);
                 Log.d("firsthand position", "" +positions[0]);
             super.addCardToArea(characterCard);
             positionCardsInArea();
@@ -69,5 +70,4 @@ public class CardHand extends CardArea{
     public ArrayList<CharacterCard> getCardsInHand(){
         return cardsInArea;
     }
-
 }

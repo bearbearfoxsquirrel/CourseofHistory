@@ -2,6 +2,7 @@ package test.puigames.courseofhistory.framework.game.assets.cards;
 
 import android.graphics.Bitmap;
 
+import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.game.assets.players.events.Damageable;
 
 /**
@@ -13,15 +14,14 @@ public class CharacterCard extends Card implements Damageable.Attackable {
     public String name;
     public String description;
     public int mana;
-    //protected Bitmap image;
     public int attack;
     public int health;
     public String abilityDescription;
     public int currentAttackEnergy;
     public int maxAttackEnergy;
 
-    public CharacterCard(Bitmap cardImage, String name, String description, int mana, int attack, int health, String abilityDescription) {
-        super(cardImage);
+    public CharacterCard(Screen screen, Bitmap cardImage, String name, String description, int mana, int attack, int health, String abilityDescription) {
+        super(screen, cardImage);
         this.name = name;
         this.description = description;
         this.mana = mana;

@@ -11,8 +11,6 @@ import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.An
  */
 
 public class FastRenderView extends View {
-
-
     MainGame game;
     volatile boolean running = false;
 
@@ -34,7 +32,6 @@ public class FastRenderView extends View {
         running = true;
     }
 
-
     //Called when the loops calls postInvalidate()
     @Override
     protected void onDraw(Canvas canvas) {
@@ -55,15 +52,5 @@ public class FastRenderView extends View {
 
     public void pause() {
         running = false;
-//        this.pause();
-//        while (true) //replace with !userNotQuit()
-//        {
-//          /*  try {
-//                renderThread.join();
-//                return;
-//            } catch (InterruptedException e) {
-//
-//            }*/
-//        }
     }
 }

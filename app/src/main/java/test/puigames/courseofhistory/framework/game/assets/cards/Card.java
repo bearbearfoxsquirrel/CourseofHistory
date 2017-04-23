@@ -2,13 +2,9 @@ package test.puigames.courseofhistory.framework.game.assets.cards;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.util.Log;
 
-import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
-import test.puigames.courseofhistory.framework.engine.gameobjects.properties.BoundingBox;
-import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
-import test.puigames.courseofhistory.framework.game.assets.boards.Board;
+import test.puigames.courseofhistory.framework.engine.screen.Screen;
 
 /**
  * Created by Jordan on 10/11/2016.
@@ -18,8 +14,8 @@ public class Card extends Sprite {
     //private variables
 
     //constructor
-    public Card(Bitmap cardImage) {
-        super(cardImage, 60, 83);
+    public Card(Screen screen, Bitmap cardImage) {
+        super(screen, cardImage, 60, 83);
     }
 
     public void translateCard(float updatedX, float updatedY) {

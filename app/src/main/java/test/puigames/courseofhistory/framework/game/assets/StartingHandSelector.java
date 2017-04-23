@@ -11,8 +11,8 @@ import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
  */
 
 public class StartingHandSelector {
-    Set<CharacterCard> cardsToKeep;
-    Set<CharacterCard> cardsToToss;
+    public Set<CharacterCard> cardsToKeep;
+    public Set<CharacterCard> cardsToToss;
 
     public StartingHandSelector(CharacterCard[] cards){
         cardsToKeep = new HashSet<>();

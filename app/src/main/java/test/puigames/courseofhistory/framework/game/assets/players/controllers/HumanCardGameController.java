@@ -1,7 +1,7 @@
 package test.puigames.courseofhistory.framework.game.assets.players.controllers;
 
+import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.controlling.Inputable;
-import test.puigames.courseofhistory.framework.engine.controlling.Possessor;
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Origin;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
@@ -11,25 +11,36 @@ import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
 
 //This class is for allowing the user to interact with a pawn pawn
-public class HumanCardGameController extends CardGameController implements Inputable, Possessor {
+public class HumanCardGameController extends CardGameController implements Inputable {
     public InputBuddy inputBuddy;
     public StartingHandSelectionUI startingHandSelectionUI;
+    private GameProperties gameProperties;
 
-    public HumanCardGameController(InputBuddy inputBuddy, StartingHandSelectionUI startingHandSelectionUI) {
+    public HumanCardGameController(InputBuddy inputBuddy, StartingHandSelectionUI startingHandSelectionUI, GameProperties gameProperties) {
         this.inputBuddy = inputBuddy;
         this.startingHandSelectionUI = startingHandSelectionUI;
+        this.gameProperties = gameProperties;
     }
 
+    @Override
     public void update(float deltaTime) {
         switch (player.playerCurrentState) {
             case TURN_ACTIVE:
                 updateCardsInHand();
                 updateCardsOnBoardPlayArea(deltaTime);
                 break;
+            case BEGIN_CREATING_STARTING_HAND:
+                showStartingHandCreationUI();
+                player.playerCurrentState = Player.PawnState.CREATING_START_HAND;
+                break;
             case CREATING_START_HAND:
                 updatePlayersStartingHand();
                 break;
+            case FINISHED_CREATING_START_HAND:
+                hideStartingHandCreationUI();
+                break;
         }
+
 
        /* if (player.playerCurrentState == Player.PawnState.TURN_ACTIVE) {
 
@@ -50,13 +61,26 @@ public class HumanCardGameController extends CardGameController implements Input
         }*/
     }
 
-    public void updatePlayersStartingHand() {
-        for (CharacterCard card : player.board.cardHands[player.playerNumber].cardsInArea) {
+    private void hideStartingHandCreationUI() {
+        startingHandSelectionUI.remove(this.gameProperties.getCurrentScreen());
+    }
 
-            for (Input.TouchEvent touchEvent : inputBuddy.getTouchEvents()) {
-                if (card.boundingBox.isTouchOn(touchEvent) && touchEvent.type == Input.TouchEvent.TOUCH_UP){
+    private void showStartingHandCreationUI() {
+        startingHandSelectionUI.place(gameProperties.getCurrentScreen() ,startingHandSelectionUI.UI_POS_X, startingHandSelectionUI.UI_POS_Y);
+    }
+
+    public void updatePlayersStartingHand() {
+        for (Input.TouchEvent touchEvent : inputBuddy.getTouchEvents()) {
+            for (CharacterCard card : player.board.cardHands[player.playerNumber].cardsInArea) {
+                if (card.boundingBox.isTouchOn(touchEvent) && touchEvent.type == Input.TouchEvent.TOUCH_UP && player.startingHandSelector.cardsToKeep.contains(card)){ //check if card is selected or deselected
                     player.selectCardToRemove(card);
+                } else if (card.boundingBox.isTouchOn(touchEvent) && touchEvent.type == Input.TouchEvent.TOUCH_UP && player.startingHandSelector.cardsToKeep.contains(card)) {
+                    player.selectCardToKeep(card);
                 }
+            }
+
+            if (startingHandSelectionUI.confirmationButton.boundingBox.isTouchOn(touchEvent)) {
+
             }
         }
     }

@@ -8,13 +8,16 @@ import android.graphics.Paint;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.BoundingBox;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Drawable;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Origin;
+import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Placeable;
+import test.puigames.courseofhistory.framework.engine.screen.Screen;
+import test.puigames.courseofhistory.framework.engine.screen.scaling.Scalable;
 
 /**
  * Created by Christopher on 13/03/2017.
  */
 
-public abstract class UIElement implements Drawable
-{
+public abstract class UIElement implements Drawable, Scalable.ImageScalable, Placeable {
+    protected Screen currentScreen;
     public Bitmap image;
     public float width, halfWidth;
     public float height, halfHeight;
@@ -24,7 +27,8 @@ public abstract class UIElement implements Drawable
     protected Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
 
-    public UIElement(Bitmap bitmap, float width, float height){
+    public UIElement(Screen screen, Bitmap bitmap, float width, float height){
+        this.currentScreen = screen;
         this.image = bitmap;
         this.width = width;
         this.halfWidth = (width / 2);
@@ -33,7 +37,7 @@ public abstract class UIElement implements Drawable
     }
 
 
-    public void placeUIElement(float spawnX, float spawnY) {
+    public void initPlacement(float spawnX, float spawnY) {
         this.origin = new Origin(spawnX, spawnY);
         this.boundingBox = new BoundingBox(width, height, origin);
         this.matrix = new Matrix();
@@ -42,7 +46,6 @@ public abstract class UIElement implements Drawable
 
     public void update(float deltaTime) {
         this.boundingBox.setBoundingBox(this.origin);
-
     }
 
 
@@ -60,6 +63,11 @@ public abstract class UIElement implements Drawable
 
     public Matrix getMatrix() {
         return matrix;
+    }
+
+    @Override
+    public Bitmap getBitmap() {
+        return image;
     }
 
     public void setMatrix(Matrix matrix) {
@@ -96,5 +104,21 @@ public abstract class UIElement implements Drawable
 
     public void setOrigin(Origin origin) {
         this.origin = origin;
+    }
+
+    @Override
+    public void place(Screen screen, float placementX, float placementY) {
+        initPlacement(placementX, placementY);
+        screen.imageScalables.add(this);
+        screen.drawables.add(this);
+    }
+
+    @Override
+    public void remove(Screen screen) {
+        //Checks if the object exists in the arrays and then removes them
+        if (screen.imageScalables.contains(this))
+            screen.imageScalables.remove(this);
+        if (screen.drawables.contains(this))
+            screen.drawables.remove(this);
     }
 }

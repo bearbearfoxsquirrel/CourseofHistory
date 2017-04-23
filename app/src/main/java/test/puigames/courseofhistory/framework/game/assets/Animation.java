@@ -3,9 +3,8 @@ package test.puigames.courseofhistory.framework.game.assets;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 
-import java.util.Random;
-
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
+import test.puigames.courseofhistory.framework.engine.screen.Screen;
 
 /**
  * Created by Tommy on 10/03/2017.
@@ -70,9 +69,9 @@ public class Animation extends Sprite {
      *        (assumed to be of equal width)
      */
 
-    public Animation(Bitmap bitmap, int width, int height, int frameCount )
+    public Animation(Screen screen, Bitmap bitmap, int width, int height, int frameCount )
     {
-        super(bitmap, width, height);
+        super(screen, bitmap, width, height);
 
         this.animationFrames = bitmap;
         this.frameCount = frameCount;

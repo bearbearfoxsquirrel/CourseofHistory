@@ -22,7 +22,7 @@ public class Player {
     public StartingHandSelector startingHandSelector;
 
     public enum PawnState {
-        TURN_STARTED, TURN_ACTIVE, CREATED, WAITING_FOR_TURN, TURN_ENDED, WIN, LOSE, CREATING_START_HAND, FINISHED_CREATING_START_HAND
+        TURN_STARTED, TURN_ACTIVE, CREATED, WAITING_FOR_TURN, TURN_ENDED, WIN, LOSE, BEGIN_CREATING_STARTING_HAND, CREATING_START_HAND, FINISHED_CREATING_START_HAND
         //PLAY_ACTIVE refers to when the player is allowed to take active decision in their turn
     }
 
@@ -62,7 +62,7 @@ public class Player {
     }
 
     public CharacterCard drawCardFromDeck() {
-        ((CharacterCard)playerDeck.peek()).spawnObject(0, 0);
+        ((CharacterCard)playerDeck.peek());
         return (CharacterCard)playerDeck.pop();
     }
 
@@ -82,7 +82,18 @@ public class Player {
         board.playAreas[playerNumber].removeCardFromArea(card);
     }
 
-    public void selectCardToRemove(CharacterCard card) {
+    public void selectCardToKeep(CharacterCard card) {
+        //Adds card to keep set, and removes it from to toss set if it is in there
+        if (startingHandSelector.cardsToToss.contains(card))
+            startingHandSelector.cardsToToss.remove(card);
+        startingHandSelector.cardsToKeep.add(card);
+    }
 
+
+    public void selectCardToRemove(CharacterCard card) {
+        //Adds card to toss set, and removes it from to keep set if it is there
+        if (startingHandSelector.cardsToKeep.contains(card))
+            startingHandSelector.cardsToKeep.remove(card);
+        startingHandSelector.cardsToToss.add(card);
     }
 }
