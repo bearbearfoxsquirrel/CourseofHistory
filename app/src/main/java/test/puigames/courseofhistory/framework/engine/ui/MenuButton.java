@@ -9,7 +9,7 @@ import test.puigames.courseofhistory.framework.engine.screen.Screen;
 * Created by Christopher on 09/03/2017.
 */
 
-public class MenuButton extends UIElement implements Drawable{
+public abstract class MenuButton extends UIElement implements Drawable, UIActionable{
     public MenuButton(Screen screen, Bitmap buttonImage, float width, float height){
         super(screen, buttonImage, width, height);
     }

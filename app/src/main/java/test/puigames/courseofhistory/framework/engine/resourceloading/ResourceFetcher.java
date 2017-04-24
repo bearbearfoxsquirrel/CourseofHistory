@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 
@@ -38,7 +39,7 @@ public class ResourceFetcher implements Fetcher {
     }
 
     @Override
-    public Board loadBoard(String boardName) throws NullPointerException {
+    public Board loadBoard(Screen screen, String boardName) throws NullPointerException {
         //Takes a boards name as an input and returns the corresponding board object.
         //If a board is not found a null pointer is returned
         JSONArray boardJsonArray = jsonBourne.fromJSONStringToJsonArray(getStringFromFile(BOARDS_URL), BOARDS_ARRAY_NAME);
@@ -47,7 +48,7 @@ public class ResourceFetcher implements Fetcher {
         Board board = null;
         try {
             JSONObject jsonBoard = jsonBourne.searchJSONArray(boardJsonArray, "boardName", boardName);
-            board = new Board(getBitmapFromFile(jsonBoard.getString("url"))); //where board
+            board = new Board(screen, getBitmapFromFile(jsonBoard.getString("url"))); //where board
             // is created
         } catch (JSONException e) {
             Log.d("Loading Resource: ", "Cannot find board of name: " + boardName);
@@ -59,8 +60,8 @@ public class ResourceFetcher implements Fetcher {
     //For now just returns all cards
     //TODO: loadCharacterCards will be used to load a specified set of cards e.g. decks and all cards
     @Override
-    public CharacterCard[] loadCharacterCards(String cardsNames) throws NullPointerException{
-        JSONArray cardJsonArray = jsonBourne.fromJSONStringToJsonArray(getStringFromFile(TEST_CARDS_URL), cardsNames);
+    public CharacterCard[] loadCharacterCards(Screen screen, String cardsNames) throws NullPointerException{
+        JSONArray cardJsonArray = jsonBourne.fromJSONStringToJsonArray(getStringFromFile(CARDS_URL), cardsNames);
 
         CharacterCard[] characterCards = new CharacterCard[cardJsonArray.length()];
         int index = 0;
@@ -69,7 +70,7 @@ public class ResourceFetcher implements Fetcher {
                 JSONObject jsonCard = cardJsonArray.getJSONObject(index);
                 //creating a new character card with attributes from JSONObject
                 // an arbitrary spawn point is also set until we decide how to spawn cards
-                characterCards[index] = new CharacterCard(getBitmapFromFile(jsonCard.getString("portraitSrc")),
+                characterCards[index] = new CharacterCard(screen, getBitmapFromFile(jsonCard.getString("portraitSrc")),
                         jsonCard.getString("name"),
                         jsonCard.getString("charDescription"),
                         jsonCard.getInt("mana"),

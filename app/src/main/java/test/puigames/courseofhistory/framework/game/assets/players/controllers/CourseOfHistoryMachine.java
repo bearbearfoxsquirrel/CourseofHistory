@@ -1,8 +1,8 @@
 package test.puigames.courseofhistory.framework.game.assets.players.controllers;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Updateable;
+import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
-import test.puigames.courseofhistory.framework.game.assets.StartingHandSelector;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
@@ -13,16 +13,16 @@ import test.puigames.courseofhistory.framework.game.assets.players.Player;
 
 public class CourseOfHistoryMachine implements Updateable {
     private static float TURN_TIME = 20.f;
-    private static float COIN_TOSS_DELAY = 3.f;
-    private static int STARTING_HAND_SIZE = 3;
+    private static final float COIN_TOSS_DELAY = 3.f;
+    public static int PLAYER_COUNT = 2;
 
     private float startDelayTimeRemaining;
     private float turnTimeRemaining;
     public Player[] players;
-    public GameState currentGameState;
+    private GameState currentGameState;
     public int turnIndex;
-    public Coin coin;
-    public Board board;
+    private Coin coin;
+    private Board board;
 
     public enum GameState {
         CREATED, COIN_TOSS, CREATE_STARTING_HAND, GAME_ACTIVE, GAME_PAUSED, GG
@@ -37,7 +37,7 @@ public class CourseOfHistoryMachine implements Updateable {
         this.board = board;
     }
 
-    public void startGame() {
+    private void startGame() {
         currentGameState = GameState.COIN_TOSS;
         //Tells the game it needs to make a coin toss
     }
@@ -51,9 +51,21 @@ public class CourseOfHistoryMachine implements Updateable {
             turnIndex = 1;
 
         coin.setBitmap(coin.coinSides[turnIndex]);
-        currentGameState = GameState.GAME_ACTIVE;//To transition FSM to the game being active so turns are now being made
     }
 
+    @Override
+    public void startTicking(Screen screen) {
+        if (!screen.isInUpdateables(this))
+            screen.addToUpdateables(this);
+    }
+
+    @Override
+    public void stopTicking(Screen screen) {
+        if (screen.isInUpdateables(this))
+            screen.removeFromUpdateables(this);
+    }
+
+    @Override
     public void update(float deltaTime) {
         switch (currentGameState) {
             case CREATED:
@@ -64,13 +76,33 @@ public class CourseOfHistoryMachine implements Updateable {
 
             case COIN_TOSS:
                 tossCoin();
+                currentGameState = GameState.CREATE_STARTING_HAND;//To transition FSM to the game being active so turns are now being made
+
+                for (Player player : players)
+                    player.playerCurrentState = Player.PlayerState.WAITING_TO_BEGIN_CREATING_HAND;
                 break;
 
             case CREATE_STARTING_HAND:
-                if (players[turnIndex].playerCurrentState != Player.PawnState.CREATING_START_HAND)
-                    createStartingHand(turnIndex);
-                else
-                    updateStartingHandCreation(turnIndex);
+                if (players[turnIndex].playerCurrentState == Player.PlayerState.WAITING_TO_BEGIN_CREATING_HAND)
+                    players[turnIndex].playerCurrentState = Player.PlayerState.BEGIN_CREATING_STARTING_HAND;
+
+
+                switch (players[turnIndex].playerCurrentState) {
+                    case BEGIN_CREATING_STARTING_HAND:
+                        players[turnIndex].createNewStartingHand();
+                        break;
+                    case FINISHED_CREATING_START_HAND:
+                        nextPlayersTurn();
+                        players[turnIndex].playerCurrentState = Player.PlayerState.BEGIN_CREATING_STARTING_HAND;
+                        break;
+                }
+
+               if (isBothPlayersFinishedCreatingStartHand()) {
+                   nextPlayersTurn(); //get back to original players turn
+                   //If both players are finished taking their turn it selects the player that won the coin toss and lets them go first
+                   transitionPlayerStatesFromCreatingHandToTurnStates();
+                   currentGameState = GameState.GAME_ACTIVE;
+               }
                 break;
 
             case GAME_ACTIVE:
@@ -90,35 +122,37 @@ public class CourseOfHistoryMachine implements Updateable {
         }
     }
 
-    private void updateStartingHandCreation(int turnIndex) {
-
+    private void transitionPlayerStatesFromCreatingHandToTurnStates() {
+        for (int i = 0; i < players.length; i++) {
+            if (i == turnIndex)
+                players[i].playerCurrentState = Player.PlayerState.TURN_STARTED;
+            else
+                players[i].playerCurrentState = Player.PlayerState.WAITING_FOR_TURN;
+        }
     }
 
-    public void createStartingHand(int playerIndex) {
-        players[playerIndex].playerCurrentState = Player.PawnState.BEGIN_CREATING_STARTING_HAND;
-
-        CharacterCard[] startingHand = new CharacterCard[STARTING_HAND_SIZE];
-        for (int handIndex = 0; handIndex < STARTING_HAND_SIZE; handIndex++)
-            startingHand[playerIndex] = players[playerIndex].drawCardFromDeck(); //Draws the amount of starting cards from the player's deck for each player
-
-        players[playerIndex].startingHandSelector = new StartingHandSelector(startingHand); //Creates a new instance of starting hand selector for the player to use
+    private boolean isBothPlayersFinishedCreatingStartHand() {
+        for (int i = 0; i < players.length; i++)
+            if (!isPlayerFinishedCreatingStartingHand(i))
+                return false;
+        return true;
     }
 
     private boolean isPlayerFinishedCreatingStartingHand(int playerIndex) {
-        return (players[playerIndex].playerCurrentState == Player.PawnState.FINISHED_CREATING_START_HAND);
+        return (players[playerIndex].playerCurrentState == Player.PlayerState.FINISHED_CREATING_START_HAND);
     }
 
-    public void checkWinStatus(){
+    private void checkWinStatus(){
         for (int i = 0; i < players.length; i++) {
-            if(players[i].playerDeck.size() == 0 && players[i].playerCurrentState == Player.PawnState.TURN_STARTED) { //TODO add if hero health is <= 0
-                players[i].playerCurrentState = Player.PawnState.LOSE;
-                players[findNextPlayer(i)].playerCurrentState = Player.PawnState.WIN;
+            if(players[i].playerDeck.size() == 0 && players[i].playerCurrentState == Player.PlayerState.TURN_STARTED) { //TODO add if hero health is <= 0
+                players[i].playerCurrentState = Player.PlayerState.LOSE;
+                players[findNextPlayer(i)].playerCurrentState = Player.PlayerState.WIN;
                 currentGameState = GameState.GG;
             }
         }
     }
 
-    public void updateCardsInPlay() {
+    private void updateCardsInPlay() {
         for (Player player: players)
             for (CharacterCard card : player.board.playAreas[player.playerNumber].cardsInArea)
                 if (card.isDeaders())
@@ -130,16 +164,16 @@ public class CourseOfHistoryMachine implements Updateable {
                     card.height = 0;*/
     }
 
-    public void takeTurn(float deltaTime) {
+    private void takeTurn(float deltaTime) {
         //Turn being made
         switch (players[turnIndex].playerCurrentState) {
             case CREATED:
-                players[turnIndex].playerCurrentState = Player.PawnState.TURN_STARTED;
+                players[turnIndex].playerCurrentState = Player.PlayerState.TURN_STARTED;
                 break;
 
             case TURN_STARTED:
                 startTurn();
-                players[turnIndex].playerCurrentState = Player.PawnState.TURN_ACTIVE;
+                players[turnIndex].playerCurrentState = Player.PlayerState.TURN_ACTIVE;
                 break;
 
             case TURN_ACTIVE:
@@ -175,10 +209,10 @@ public class CourseOfHistoryMachine implements Updateable {
     }
 
     private void nextPlayersTurn() {
-        players[turnIndex].playerCurrentState = Player.PawnState.WAITING_FOR_TURN;
+        players[turnIndex].playerCurrentState = Player.PlayerState.WAITING_FOR_TURN;
         incrementTurnIndex();
         coin.setBitmap(coin.coinSides[turnIndex]); //Just to test turns are working :)
-        players[turnIndex].playerCurrentState = Player.PawnState.TURN_STARTED;
+        players[turnIndex].playerCurrentState = Player.PlayerState.TURN_STARTED;
     }
 
     private void incrementTurnIndex() {

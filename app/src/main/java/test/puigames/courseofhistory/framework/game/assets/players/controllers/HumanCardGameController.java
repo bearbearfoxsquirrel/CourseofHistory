@@ -1,11 +1,13 @@
 package test.puigames.courseofhistory.framework.game.assets.players.controllers;
 
-import test.puigames.courseofhistory.framework.engine.GameProperties;
+import android.graphics.Bitmap;
+
 import test.puigames.courseofhistory.framework.engine.controlling.Inputable;
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Origin;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
+import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.game.assets.StartingHandSelectionUI;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
@@ -14,12 +16,18 @@ import test.puigames.courseofhistory.framework.game.assets.players.Player;
 public class HumanCardGameController extends CardGameController implements Inputable {
     public InputBuddy inputBuddy;
     public StartingHandSelectionUI startingHandSelectionUI;
-    private GameProperties gameProperties;
+    private Screen currentScreen;
 
-    public HumanCardGameController(InputBuddy inputBuddy, StartingHandSelectionUI startingHandSelectionUI, GameProperties gameProperties) {
+    public HumanCardGameController(InputBuddy inputBuddy, Screen screen, Player player, Bitmap startingHandSelectionUIBackgroundBitmap, Bitmap confirmationButtonBitmap) {
+        this.inputBuddy = inputBuddy;
+        this.currentScreen = screen;
+        this.player = player;
+        this.startingHandSelectionUI = new StartingHandSelectionUI(this.currentScreen, player, startingHandSelectionUIBackgroundBitmap, confirmationButtonBitmap);
+    }
+
+    public HumanCardGameController(InputBuddy inputBuddy, StartingHandSelectionUI startingHandSelectionUI) {
         this.inputBuddy = inputBuddy;
         this.startingHandSelectionUI = startingHandSelectionUI;
-        this.gameProperties = gameProperties;
     }
 
     @Override
@@ -31,9 +39,9 @@ public class HumanCardGameController extends CardGameController implements Input
                 break;
             case BEGIN_CREATING_STARTING_HAND:
                 showStartingHandCreationUI();
-                player.playerCurrentState = Player.PawnState.CREATING_START_HAND;
+                player.playerCurrentState = Player.PlayerState.STARTING_HAND_CHOOSING_CARDS_TO_TOSS;
                 break;
-            case CREATING_START_HAND:
+            case STARTING_HAND_CHOOSING_CARDS_TO_TOSS:
                 updatePlayersStartingHand();
                 break;
             case FINISHED_CREATING_START_HAND:
@@ -42,7 +50,7 @@ public class HumanCardGameController extends CardGameController implements Input
         }
 
 
-       /* if (player.playerCurrentState == Player.PawnState.TURN_ACTIVE) {
+       /* if (player.playerCurrentState == Player.PlayerState.TURN_ACTIVE) {
 
 
             //For actual thing
@@ -56,17 +64,17 @@ public class HumanCardGameController extends CardGameController implements Input
                 for (Eventable event : playerEvents)
                     event.update(deltaTime);
 
-        } else if (player.playerCurrentState == Player.PawnState.CREATING_START_HAND) {
+        } else if (player.playerCurrentState == Player.PlayerState.CREATING_START_HAND) {
             updatePlayersStartingHand();
         }*/
     }
 
     private void hideStartingHandCreationUI() {
-        startingHandSelectionUI.remove(this.gameProperties.getCurrentScreen());
+        startingHandSelectionUI.remove(this.currentScreen);
     }
 
     private void showStartingHandCreationUI() {
-        startingHandSelectionUI.place(gameProperties.getCurrentScreen() ,startingHandSelectionUI.UI_POS_X, startingHandSelectionUI.UI_POS_Y);
+        startingHandSelectionUI.place(this.currentScreen ,startingHandSelectionUI.UI_POS_X, startingHandSelectionUI.UI_POS_Y);
     }
 
     public void updatePlayersStartingHand() {
@@ -80,7 +88,7 @@ public class HumanCardGameController extends CardGameController implements Input
             }
 
             if (startingHandSelectionUI.confirmationButton.boundingBox.isTouchOn(touchEvent)) {
-
+                startingHandSelectionUI.confirmationButton.applyAction();
             }
         }
     }

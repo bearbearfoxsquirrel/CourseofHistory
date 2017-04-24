@@ -3,6 +3,7 @@ package test.puigames.courseofhistory.framework.game.assets.players.controllers;
 import java.util.ArrayList;
 
 import test.puigames.courseofhistory.framework.engine.controlling.Controlling;
+import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
 import test.puigames.courseofhistory.framework.game.assets.players.events.Eventable;
 
@@ -16,6 +17,19 @@ public abstract class CardGameController implements Controlling {
 
     @Override
     public abstract void update(float deltaTime);
+
+    @Override
+    public void startTicking(Screen screen) {
+        if (!screen.isInUpdateables(this))
+            screen.addToUpdateables(this);
+    }
+
+    @Override
+    public void stopTicking(Screen screen) {
+        if (screen.isInUpdateables(this))
+            screen.removeFromUpdateables(this);
+    }
+
 
     public CardGameController() {
         this.playerEvents = new ArrayList<>();

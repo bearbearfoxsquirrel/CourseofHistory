@@ -1,17 +1,14 @@
 package test.puigames.courseofhistory.framework.game.levels;
 
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.util.Log;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
-import test.puigames.courseofhistory.framework.engine.controlling.Possessor;
+import test.puigames.courseofhistory.framework.engine.controlling.Controlling;
 import test.puigames.courseofhistory.framework.engine.screen.Level;
-import test.puigames.courseofhistory.framework.game.assets.Animation;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
-import test.puigames.courseofhistory.framework.game.assets.StartingHandSelectionUI;
+import test.puigames.courseofhistory.framework.game.assets.Deck;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
-import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
 import test.puigames.courseofhistory.framework.game.assets.players.controllers.CourseOfHistoryMachine;
 import test.puigames.courseofhistory.framework.game.assets.players.controllers.HumanCardGameController;
@@ -21,49 +18,56 @@ import test.puigames.courseofhistory.framework.game.screens.SplashScreen;
  * Created by Jordan on 10/11/2016.
  */
 
-public class TestLevel extends Level
-{
-    public static int MAX_PLAYERS = 2;
+public class TestLevel extends Level {
     private final String[] DECK_NAMES = {"greatMindsCards", "evilLeaderCards"};
     private final String[] TEST_CARD_NAMES = {"cards1", "cards2"};
-    private Animation animation;
-    private Bitmap explodeAnimation;
+   //private Animation animation;
+   // private Bitmap explodeAnimation;
 
-    Possessor controllers[];
-    CourseOfHistoryMachine gameMachine;
+    //Controlling controllers[];
+    //CourseOfHistoryMachine gameMachine;
 
     public TestLevel(GameProperties gameProperties) {
         super(gameProperties);
         load();
     }
 
+    @Override
     public void load() {
        try {
            //Setting up the board and spawning it
-           Board board = resourceFetcher.loadBoard("testBoard");
-           board.place(this, viewport.centerX, viewport.centerY);
+           Board board = resourceFetcher.loadBoard(this, "testBoard");
+           board.place(this, 480/2, 320/2);
 
            //Setting up the coin and spawning it
            Bitmap coinSides[] = {resourceFetcher.getBitmapFromFile("images/coins/coin-heads.png"), resourceFetcher.getBitmapFromFile("images/coins/coin-tails.png")};
            Coin coin = new Coin(this, coinSides, 80, 80);
-           board.place(this, 300, 200);
+           coin.place(this, 300, 200);
 
-           //Setting up the players and controllers
-           controllers = new HumanCardGameController[MAX_PLAYERS];
-           Player[] players = new Player[MAX_PLAYERS];
+           //Setting up the game machine and players
+           CourseOfHistoryMachine gameMachine = null;
+           Player[] players = new Player[gameMachine.PLAYER_COUNT];
 
            //Creates a controller and a player for each participant
-           for(int i = 0; i < controllers.length; i++) {
-                controllers[i] = new HumanCardGameController(gameProperties.getInput(), new StartingHandSelectionUI(this, resourceFetcher.getBitmapFromFile("images/backgrounds/starting_hand_selection_ui_background.png"), resourceFetcher.getBitmapFromFile("images/buttons/confirmation_button.png")), gameProperties);
-                players[i] = new Player(resourceFetcher.loadCharacterCards(TEST_CARD_NAMES[i]), board, i); //Creating a new player pawn for each controller
+           for(int i = 0; i < players.length; i++) {
+               players[i] = new Player(this, resourceFetcher.loadCharacterCards(this, DECK_NAMES[i]), board, new Deck(this, resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png")), i); //Creating a new player pawn for each controller
+               players[i].playerDeck.place(this, 300, 50);
+               //TODO give proper deck image!!!
            }
 
            //creating the game machine for processing the game
            gameMachine = new CourseOfHistoryMachine(players, coin, board);
+           gameMachine.startTicking(this);
 
+           Controlling[] controllers = new HumanCardGameController[gameMachine.PLAYER_COUNT];
            //Giving the controllers possession of the corresponding player in the game machine
-           for (int i = 0; i < controllers.length; i++)
-               controllers[i].possessPlayer(gameMachine.players[i]); //Giving the player controller a pawn to manipulate for the game
+           for (int i = 0; i < controllers.length; i++) {
+               controllers[i] = new HumanCardGameController(inputBuddy, this, gameMachine.players[i], resourceFetcher.getBitmapFromFile("images/backgrounds/starting_hand_selection_ui_background.png"), resourceFetcher.getBitmapFromFile("images/buttons/confirmation_button.png"));
+               //controllers[i] = new HumanCardGameController(gameProperties.getInput(), new StartingHandSelectionUI(this, gameMachine.players[i], resourceFetcher.getBitmapFromFile("images/backgrounds/starting_hand_selection_ui_background.png"), resourceFetcher.getBitmapFromFile("images/buttons/confirmation_button.png")), gameProperties);
+               controllers[i].startTicking(this);
+           }
+
+
 
        } catch(NullPointerException e) {
            Log.d("Loading Error:", "Error fetching resources, returning to menu");
@@ -78,17 +82,17 @@ public class TestLevel extends Level
             controller.update(deltaTime);
     }*/
 
-    public void update(float deltaTime) {
+  /*  public void update(float deltaTime) {
         super.update(deltaTime);
       //  updateControllers(deltaTime); //Should be called before the game machine is updated
         //gameMachine.update(deltaTime);
 
-       /* for(int i = 0; i < gameMachine.players.length; i++){
+       for(int i = 0; i < gameMachine.players.length; i++){
             gameMachine.players[i].board.cardHands[i].update(deltaTime);
             for(int j = 0; j < gameMachine.players[i].board.cardHands[i].cardsInArea.size(); j++){
                 gameMachine.players[i].board.cardHands[i].cardsInArea.get(j).update(deltaTime);
                // if (
-               // gameMachine.players[i].playerCurrentState == Player.PawnState.CREATING_START_HAND)
+               // gameMachine.players[i].playerCurrentState == Player.PlayerState.CREATING_START_HAND)
                  //   drawables.add()
             }
 
@@ -98,8 +102,8 @@ public class TestLevel extends Level
                 gameMachine.players[i].cardHand.cardsInArea.get(j).update(deltaTime);
             }
         }
-        */
-    }
+
+    }/*
 
     private void collisionCheckAndResolve() {
         for(CharacterCard card : controllers[gameMachine.turnIndex].getPlayer().board.playAreas[controllers[gameMachine.turnIndex].getPlayer().playerNumber].cardsInArea)
@@ -112,7 +116,7 @@ public class TestLevel extends Level
         }
     }
 
-    @Override
+  /*  @Override
     public void draw(Canvas canvas, float deltaTime) {
         super.draw(canvas, deltaTime);
         /*for(int i = 0; i < gameMachine.players.length; i++) {
@@ -120,11 +124,12 @@ public class TestLevel extends Level
                 scaler.scaleToScreen(gameMachine.players[i].board.cardHands[i].cardsInArea.get(j));
                 gameMachine.players[i].board.cardHands[i].cardsInArea.get(j).draw(canvas, deltaTime);
             }
-        }*/
-    }
+        }
+    }*/
 
     @Override
     public void pause() {
+
     }
 
     @Override

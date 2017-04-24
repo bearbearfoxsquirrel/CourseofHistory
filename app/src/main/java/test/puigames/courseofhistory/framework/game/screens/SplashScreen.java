@@ -27,7 +27,7 @@ public class SplashScreen extends Menu
     public void load() {
         //load bitmap
         try {
-            logo = new ImageUIElement(resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png"),
+            logo = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png"),
                     480.0f, 320.0f);
         }
         catch(NullPointerException e) {

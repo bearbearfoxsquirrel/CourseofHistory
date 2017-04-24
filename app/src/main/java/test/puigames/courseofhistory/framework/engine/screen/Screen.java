@@ -24,7 +24,11 @@ public abstract class Screen {
     protected Scaler scaler;
     protected Viewport viewport;
     public ArrayList<Drawable> drawables;
-    public ArrayList<Updateable> updateables;
+    private ArrayList<Updateable> updateables;
+    private ArrayList<Updateable> updateablesToAdd;
+    private ArrayList<Updateable> updateablesToRemove;
+
+
     public ArrayList<Scalable> scalables;
     public ArrayList<Scalable.ImageScalable> imageScalables;
 
@@ -54,14 +58,50 @@ public abstract class Screen {
         this.updateables = new ArrayList<>();
         this.scalables = new ArrayList<>();
         this.imageScalables = new ArrayList<>();
+        this.updateablesToAdd = new ArrayList<>();
+        this.updateablesToRemove = new ArrayList<>();
     }
 
     public abstract void load();
 
     public void update(float deltaTime) {
         scaler.scaleTouchInput(gameProperties.getInput());
-        for (Updateable updateable : updateables)
-            updateable.update(deltaTime);
+        for (int i = 0; i < updateables.size(); i++) //Has to be smelly loop as Java doesn't like adding to an ArrayList when iterating through it
+            updateables.get(i).update(deltaTime);
+        processUpdateablesListChanges();
+    }
+
+    public boolean isInUpdateables(Updateable updateable) {
+        return updateables.contains(updateable);
+    }
+
+    private void processUpdateablesListChanges() {
+        for (Updateable updateable : updateablesToRemove)
+            updateables.remove(updateable);
+        for (Updateable updateable : updateablesToAdd)
+            updateables.add(updateable);
+        resetUpdateablesChangeLists();
+    }
+
+    private void resetUpdateablesChangeLists() {
+        clearUpdateablesToAdd();
+        clearUpdateablesToRemove();
+    }
+
+    private void clearUpdateablesToAdd() {
+        updateablesToAdd.clear();
+    }
+
+    private void clearUpdateablesToRemove() {
+        updateablesToRemove.clear();
+    }
+
+    public void addToUpdateables(Updateable updateable) {
+        updateablesToAdd.add(updateable);
+    }
+
+    public void removeFromUpdateables(Updateable updateable) {
+        updateablesToRemove.add(updateable);
     }
 
     public void draw(Canvas canvas, float deltaTime) {

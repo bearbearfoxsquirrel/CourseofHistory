@@ -11,6 +11,9 @@ import test.puigames.courseofhistory.framework.engine.screen.Screen;
  */
 
 public class Card extends Sprite {
+    public static final float CARD_HEIGHT = 83;
+    public static final float CARD_WIDTH = 60;
+
     //private variables
 
     //constructor

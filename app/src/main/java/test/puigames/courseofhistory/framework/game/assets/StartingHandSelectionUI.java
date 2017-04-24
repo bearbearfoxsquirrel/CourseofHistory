@@ -6,6 +6,7 @@ import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.engine.ui.MenuButton;
 import test.puigames.courseofhistory.framework.engine.ui.UIElement;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
+import test.puigames.courseofhistory.framework.game.assets.players.Player;
 
 /**
  * Created by Michael on 11/04/2017.
@@ -28,42 +29,64 @@ public class StartingHandSelectionUI extends UIElement {
     private final float CONFIRMATION_BUTTON_HEIGHT = 20;
 
     public MenuButton confirmationButton;
+    private Bitmap confirmationButtonBitmap;
 
-    public StartingHandSelector startingHandSelector;
+    public Player player;
     //TODO add highlight bitmap
 
-
-
-    public StartingHandSelectionUI(Screen screen, StartingHandSelector startingHandSelector, Bitmap uIBackground, Bitmap confirmationButtonBitmap) {
+    public StartingHandSelectionUI(Screen screen, final Player player, Bitmap uIBackground, Bitmap confirmationButtonBitmap) {
         super(screen, uIBackground, 300, 100);
-        this.startingHandSelector = startingHandSelector;
+        this.player = player;
+        this.confirmationButtonBitmap = confirmationButtonBitmap;
 
-        this.confirmationButton = new MenuButton(this.currentScreen, confirmationButtonBitmap, CONFIRMATION_BUTTON_WIDTH, CONFIRMATION_BUTTON_HEIGHT);
+        this.confirmationButton = new MenuButton(this.currentScreen, confirmationButtonBitmap, CONFIRMATION_BUTTON_WIDTH, CONFIRMATION_BUTTON_HEIGHT) {
+            @Override
+            public void applyAction() {
+                player.playerCurrentState = Player.PlayerState.BEGIN_CREATING_STARTING_HAND;
+            }
+        };
     }
 
-    public StartingHandSelectionUI(Screen screen, Bitmap uIBackground, Bitmap confirmationButtonBitmap) {
-        super(screen, uIBackground, 300, 100);
+    private void resizeAllCardsInSelector(StartingHandSelector startingHandSelector) {
+        for(CharacterCard card : startingHandSelector.cardsToKeep)
+            adjustCardSize(card);
 
-        this.confirmationButton = new MenuButton(this.currentScreen, confirmationButtonBitmap, CONFIRMATION_BUTTON_WIDTH, CONFIRMATION_BUTTON_HEIGHT);
+        for(CharacterCard card : startingHandSelector.cardsToToss)
+            adjustCardSize(card);
     }
 
-    public void adjustCardSize(CharacterCard card){
+    private void adjustCardSize(CharacterCard card){
         card.setWidth(ADJUSTED_CARD_WIDTH);
         card.setHeight(ADJUSTED_CARD_HEIGHT);
     }
 
-    public void selectCardToToss(int cardToBeRemoved) {
-
+    public void selectCardToToss(CharacterCard cardToBeRemoved) {
+        player.startingHandSelector.cardsToToss.add(cardToBeRemoved);
+        player.startingHandSelector.cardsToKeep.remove(cardToBeRemoved);
     }
 
-    public void deselectCardToToss(int cardToBeKept) {
-
+    public void deselectCardToToss(CharacterCard cardToBeKept) {
+        player.startingHandSelector.cardsToKeep.add(cardToBeKept);
+        player.startingHandSelector.cardsToToss.remove(cardToBeKept);
     }
 
     @Override
     public void initPlacement(float spawnX, float spawnY) {
         super.initPlacement(spawnX, spawnY);
         this.confirmationButton.initPlacement(CONFIRMATION_BUTTON_POS_X, CONFIRMATION_BUTTON_POS_Y);
+    }
+
+    public void place(Screen screen, float placementX, float placementY) {
+        super.place(screen, placementX, placementY);
+        confirmationButton.place(screen, placementX, placementY);
+
+        for (CharacterCard card : player.startingHandSelector.cardsToKeep)
+            card.place(screen, 20, 40);
+
+        resizeAllCardsInSelector(player.startingHandSelector);
+
+        screen.drawables.addAll(player.startingHandSelector.cardsToKeep);
+        screen.drawables.addAll(player.startingHandSelector.cardsToToss);
     }
 
 }

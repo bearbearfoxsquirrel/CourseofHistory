@@ -1,5 +1,6 @@
 package test.puigames.courseofhistory.framework.game.assets.players;
 
+import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.game.assets.Deck;
 import test.puigames.courseofhistory.framework.game.assets.StartingHandSelector;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
@@ -14,29 +15,44 @@ import test.puigames.courseofhistory.framework.game.assets.players.events.Damage
 
 public class Player {
     //TODO: Add hero
+    private static final int STARTING_HAND_SIZE = 3;
+
     public int playerNumber;
+    public Screen spawnScreen;
     //public CharacterCard[] testCards;
-    public PawnState playerCurrentState;
+    public PlayerState playerCurrentState;
     public Deck playerDeck;
     public Board board;
     public StartingHandSelector startingHandSelector;
 
-    public enum PawnState {
-        TURN_STARTED, TURN_ACTIVE, CREATED, WAITING_FOR_TURN, TURN_ENDED, WIN, LOSE, BEGIN_CREATING_STARTING_HAND, CREATING_START_HAND, FINISHED_CREATING_START_HAND
+    public enum PlayerState {
+        CREATED, TURN_STARTED, TURN_ACTIVE, WAITING_FOR_TURN, TURN_ENDED, WIN, LOSE,
+        WAITING_TO_BEGIN_CREATING_HAND, BEGIN_CREATING_STARTING_HAND, STARTING_HAND_CHOOSING_CARDS_TO_TOSS, FINISHED_CREATING_START_HAND;
         //PLAY_ACTIVE refers to when the player is allowed to take active decision in their turn
     }
 
-    public Player(CharacterCard[] playerCards, Board board, int playerNumber) {
-        this.playerCurrentState = PawnState.CREATED;
+    public Player(Screen screen, CharacterCard[] playerCards, Board board, Deck deck, int playerNumber) {
+       // this.playerCurrentState = PlayerState.CREATED;
+        this.playerCurrentState = PlayerState.CREATED;
         this.playerNumber = playerNumber;
         this.board = board;
         //this.testCards = playerCards;
+        this.spawnScreen = screen;
         this.board = board;
+        this.playerDeck = deck;
         setUpPlayerDeck(playerCards);
     }
 
+    public void createNewStartingHand() {
+        playerCurrentState = Player.PlayerState.BEGIN_CREATING_STARTING_HAND;
+
+        CharacterCard[] startingHand = new CharacterCard[STARTING_HAND_SIZE];
+        for (int handIndex = 0; handIndex < STARTING_HAND_SIZE; handIndex++)
+            startingHand[handIndex] = drawCardFromDeck(); //Draws the amount of starting cards from the player's deck for each player
+        startingHandSelector = new StartingHandSelector(startingHand); //Creates a new instance of starting hand selector for the player to use
+    }
+
     public void setUpPlayerDeck(CharacterCard[] playerCards){
-        this.playerDeck = new Deck();
         playerDeck.setUpDeck(playerCards);
     }
 
@@ -54,20 +70,20 @@ public class Player {
     }
 
     public void endTurn() {
-        playerCurrentState = PawnState.TURN_ENDED;
+        playerCurrentState = PlayerState.TURN_ENDED;
     }
 
     public void startTurn() {
-        playerCurrentState = PawnState.TURN_STARTED;
+        playerCurrentState = PlayerState.TURN_STARTED;
     }
 
     public CharacterCard drawCardFromDeck() {
-        ((CharacterCard)playerDeck.peek());
+      //  ((CharacterCard)playerDeck.peek()).place(this.spawnScreen, 200, 300); //TODO give proper spawn places
         return (CharacterCard)playerDeck.pop();
     }
 
     public void finishedCreatingStartHand() {
-        playerCurrentState = PawnState.FINISHED_CREATING_START_HAND;
+        //playerCurrentState = PlayerState.FINISHED_CREATING_START_HAND;
     }
 
     public void placeCardOnBoard(CharacterCard card) {

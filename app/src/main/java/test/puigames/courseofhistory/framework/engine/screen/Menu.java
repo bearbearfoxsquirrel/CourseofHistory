@@ -13,7 +13,7 @@ import test.puigames.courseofhistory.framework.engine.ui.UIElement;
 
 public abstract class Menu extends Screen{
     protected ArrayList<UIElement> uiElements;
-
+    
     public Menu(GameProperties gameProperties){
         super(gameProperties);
         this.uiElements = new ArrayList<>();
@@ -23,7 +23,6 @@ public abstract class Menu extends Screen{
     public void update(float deltaTime) {
         super.update(deltaTime);
         for(UIElement uiElement : uiElements) {
-            uiElement.update(deltaTime);
             scaler.scaleToScreen(uiElement);
         }
     }

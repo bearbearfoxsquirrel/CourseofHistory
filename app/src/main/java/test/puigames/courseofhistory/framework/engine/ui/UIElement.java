@@ -43,12 +43,6 @@ public abstract class UIElement implements Drawable, Scalable.ImageScalable, Pla
         this.matrix = new Matrix();
     }
 
-
-    public void update(float deltaTime) {
-        this.boundingBox.setBoundingBox(this.origin);
-    }
-
-
     @Override
     public void draw(Canvas canvas, float deltaTime) {
         canvas.drawBitmap(image, matrix, paint);

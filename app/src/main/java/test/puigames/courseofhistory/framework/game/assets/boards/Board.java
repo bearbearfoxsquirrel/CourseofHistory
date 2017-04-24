@@ -2,13 +2,12 @@ package test.puigames.courseofhistory.framework.game.assets.boards;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.util.Log;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Drawable;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
-import test.puigames.courseofhistory.framework.game.assets.PlayArea;
 import test.puigames.courseofhistory.framework.game.assets.CardHand;
+import test.puigames.courseofhistory.framework.game.assets.PlayArea;
 
 /**
  * Created by 40123577 on 14/11/2016.
@@ -38,15 +37,14 @@ public class Board extends Sprite implements Drawable {
 
     public void update(float deltaTime) {
         super.update(deltaTime);
-        Log.d("board update called", "");
-        Log.d("board update", "called");
         for(PlayArea playArea : playAreas)
             playArea.update(deltaTime); //update play areas
+    }
 
-        //update hands
-
-        //keep cards inside board bounds
-
+    @Override
+    public void place(Screen screen, float placementX, float placementY) {
+        initPlacement(placementX, placementY);
+        super.place(screen, placementX, placementY);
     }
 
     @Override

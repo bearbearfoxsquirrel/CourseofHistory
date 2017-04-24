@@ -68,13 +68,25 @@ public abstract class GameObject implements Updateable, Placeable, Scalable {
     }
 
     @Override
+    public void startTicking(Screen screen) {
+        if (!screen.isInUpdateables(this))
+            screen.addToUpdateables(this);
+    }
+
+    @Override
     public void place(Screen screen, float placementX, float placementY) {
         this.initPlacement(placementX, placementY);
         //Checks if the object does not already exist on the screen and then places them if it is not
-        if (!screen.updateables.contains(this))
-            screen.updateables.add(this);
+        startTicking(screen);
+
         if (!screen.scalables.contains(this))
             screen.scalables.add(this);
+    }
+
+    @Override
+    public void stopTicking(Screen screen){
+        if (screen.isInUpdateables(this))
+            screen.removeFromUpdateables(this);
     }
 
     @Override
@@ -82,7 +94,6 @@ public abstract class GameObject implements Updateable, Placeable, Scalable {
         //Checks if the object exists in the arrays and then removes them
         if (screen.scalables.contains(this))
             screen.scalables.remove(this);
-        if (screen.updateables.contains(this))
-            screen.updateables.remove(this);
+        stopTicking(screen);
     }
 }
