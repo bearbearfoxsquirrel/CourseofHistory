@@ -33,7 +33,6 @@ public class TestLevel extends Level
     private Animation animation;
     private Bitmap explodeAnimation;
     private Board board;
-    private imageUIElement pauseButton;
 
     Possessor controllers[];
     CourseOfHistoryMachine gameMachine;
@@ -75,11 +74,6 @@ public class TestLevel extends Level
                    players[i].mana[j] = new Mana(manaTypes);
            }
 
-//           //place pause button
-//           pauseButton = new imageUIElement(resourceFetcher.getBitmapFromFile
-//                   ("images/ui/pause-button.png"), 10, 10);
-//            placeUI(pauseButton, 470, 310);
-
            //creating the game machine for turns :)
            gameMachine = new CourseOfHistoryMachine(players, coin, board);
        } catch(NullPointerException e) {
@@ -99,7 +93,6 @@ public class TestLevel extends Level
     public void update(float deltaTime) {
         super.update(deltaTime);
         updateControllers(deltaTime); //Should be called before the game machine is updated
-//        updateUI(deltaTime);
         gameMachine.update(deltaTime);
         for(int i = 0; i < gameMachine.players.length; i++){
             gameMachine.players[i].board.cardHands[i].update(deltaTime);
@@ -113,19 +106,6 @@ public class TestLevel extends Level
         }
     }
 
-    private void updateUI(float deltaTime)
-    {
-        if(pauseButton.boundingBox.isTouchOn(inputBuddy.getTouchEvents().get(0)))
-        {
-            gameMachine.currentGameState = CourseOfHistoryMachine.GameState.GAME_PAUSED;
-            initPauseMenu();
-        }
-    }
-
-    private void initPauseMenu()
-    {
-        //TODO: show pause menu - somehow
-    }
 
     @Override
     public void draw(Canvas canvas, float deltaTime) {
