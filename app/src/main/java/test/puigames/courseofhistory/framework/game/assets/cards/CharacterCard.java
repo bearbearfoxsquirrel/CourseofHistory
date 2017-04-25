@@ -53,6 +53,7 @@ public class CharacterCard extends Card implements Damageable.Attackable {
 
 
     public void drawCardStats(Canvas canvas) {
+        //To update it
         canvas.drawText(Integer.toString(mana), (getOrigin().x)+manaLocationX, (getOrigin().y)+manaLocationY, paint);
         canvas.drawText(Integer.toString(attack), (getOrigin().x)+attackLocationX, (getOrigin().y)+attackLocationY, paint);
         canvas.drawText(Integer.toString(health), (getOrigin().x)+healthLocationX, (getOrigin().y)+healthLocationY, paint);
