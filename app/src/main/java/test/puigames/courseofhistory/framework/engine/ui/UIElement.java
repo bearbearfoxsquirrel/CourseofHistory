@@ -103,15 +103,13 @@ public abstract class UIElement implements Drawable, Scalable.ImageScalable, Pla
     @Override
     public void place(Screen screen, float placementX, float placementY) {
         initPlacement(placementX, placementY);
-        screen.imageScalables.add(this);
+        screen.scalables.add(this);
         screen.drawables.add(this);
     }
 
     @Override
     public void remove(Screen screen) {
         //Checks if the object exists in the arrays and then removes them
-        if (screen.imageScalables.contains(this))
-            screen.imageScalables.remove(this);
         if (screen.drawables.contains(this))
             screen.drawables.remove(this);
     }

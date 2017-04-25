@@ -1,33 +1,27 @@
 package test.puigames.courseofhistory.framework.game.assets.players.controllers;
 
-import android.graphics.Bitmap;
-
 import test.puigames.courseofhistory.framework.engine.controlling.Inputable;
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Origin;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
-import test.puigames.courseofhistory.framework.game.assets.StartingHandSelectionUI;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
 
 //This class is for allowing the user to interact with a pawn pawn
 public class HumanCardGameController extends CardGameController implements Inputable {
     public InputBuddy inputBuddy;
-    public StartingHandSelectionUI startingHandSelectionUI;
     private Screen currentScreen;
 
-    public HumanCardGameController(InputBuddy inputBuddy, Screen screen, Player player, Bitmap startingHandSelectionUIBackgroundBitmap, Bitmap confirmationButtonBitmap) {
+    public HumanCardGameController(Screen screen, InputBuddy inputBuddy, Player player) {
         this.inputBuddy = inputBuddy;
         this.currentScreen = screen;
         this.player = player;
-        this.startingHandSelectionUI = new StartingHandSelectionUI(this.currentScreen, player, startingHandSelectionUIBackgroundBitmap, confirmationButtonBitmap);
     }
 
-    public HumanCardGameController(InputBuddy inputBuddy, StartingHandSelectionUI startingHandSelectionUI) {
+    public HumanCardGameController(Screen screen, InputBuddy inputBuddy) {
         this.inputBuddy = inputBuddy;
-        this.startingHandSelectionUI = startingHandSelectionUI;
     }
 
     @Override
@@ -38,14 +32,14 @@ public class HumanCardGameController extends CardGameController implements Input
                 updateCardsOnBoardPlayArea(deltaTime);
                 break;
             case BEGIN_CREATING_STARTING_HAND:
-                showStartingHandCreationUI();
+              //  showStartingHandCreationUI();
                 player.playerCurrentState = Player.PlayerState.STARTING_HAND_CHOOSING_CARDS_TO_TOSS;
                 break;
             case STARTING_HAND_CHOOSING_CARDS_TO_TOSS:
-                updatePlayersStartingHand();
+                //updatePlayersStartingHand();
                 break;
             case FINISHED_CREATING_START_HAND:
-                hideStartingHandCreationUI();
+                //hideStartingHandCreationUI();
                 break;
         }
 
@@ -69,7 +63,7 @@ public class HumanCardGameController extends CardGameController implements Input
         }*/
     }
 
-    private void hideStartingHandCreationUI() {
+   /* private void hideStartingHandCreationUI() {
         startingHandSelectionUI.remove(this.currentScreen);
     }
 
@@ -91,7 +85,7 @@ public class HumanCardGameController extends CardGameController implements Input
                 startingHandSelectionUI.confirmationButton.applyAction();
             }
         }
-    }
+    }*/
 
     public void updateCardsInHand() {
         for (CharacterCard card : player.board.cardHands[player.playerNumber].cardsInArea) {

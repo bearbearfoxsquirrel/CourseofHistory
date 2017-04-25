@@ -1,6 +1,5 @@
 package test.puigames.courseofhistory.framework.game.assets.players;
 
-import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.game.assets.Deck;
 import test.puigames.courseofhistory.framework.game.assets.StartingHandSelector;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
@@ -18,8 +17,6 @@ public class Player {
     private static final int STARTING_HAND_SIZE = 3;
 
     public int playerNumber;
-    public Screen spawnScreen;
-    //public CharacterCard[] testCards;
     public PlayerState playerCurrentState;
     public Deck playerDeck;
     public Board board;
@@ -31,13 +28,10 @@ public class Player {
         //PLAY_ACTIVE refers to when the player is allowed to take active decision in their turn
     }
 
-    public Player(Screen screen, CharacterCard[] playerCards, Board board, Deck deck, int playerNumber) {
-       // this.playerCurrentState = PlayerState.CREATED;
+    public Player(CharacterCard[] playerCards, Board board, Deck deck, int playerNumber) {
         this.playerCurrentState = PlayerState.CREATED;
         this.playerNumber = playerNumber;
         this.board = board;
-        //this.testCards = playerCards;
-        this.spawnScreen = screen;
         this.board = board;
         this.playerDeck = deck;
         setUpPlayerDeck(playerCards);

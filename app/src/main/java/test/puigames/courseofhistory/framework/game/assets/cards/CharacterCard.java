@@ -1,6 +1,7 @@
 package test.puigames.courseofhistory.framework.game.assets.cards;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.game.assets.players.events.Damageable;
@@ -38,14 +39,24 @@ public class CharacterCard extends Card implements Damageable.Attackable {
     }
 
     @Override
+    public void draw(Canvas canvas, float deltaTime) {
+        super.draw(canvas, deltaTime);
+    }
+
+    @Override
+    public void scale(float scaleFactorX, float scaleFactorY) {
+        //TODO Matthew pls intement
+    }
+
+
+    @Override
     public int getAttack() {
         return this.attack;
     }
 
     @Override
     public boolean hasEnergyToAttack() {
-        return true;
-        //TODO implement some way of knowing that an attack can be made or not
+        return currentAttackEnergy > 0;
     }
 
     @Override

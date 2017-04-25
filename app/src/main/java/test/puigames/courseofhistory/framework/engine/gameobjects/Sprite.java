@@ -124,16 +124,20 @@ public abstract class Sprite extends GameObject implements Drawable, Scalable.Im
     }
 
     @Override
+    public void scale(float scaleFactorX, float scaleFactorY) {
+        this.getMatrix().postScale((this.getWidth() / this.getBitmap().getWidth()) * scaleFactorX,
+                (this.getHeight() / this.getBitmap().getHeight()) * scaleFactorY);
+        this.getMatrix().postRotate(0, scaleFactorX * this.getBitmap().getWidth()/ 2.0f,
+                scaleFactorY * this.getBitmap().getHeight() / 2.0f);
+        this.getMatrix().postTranslate((this.getOrigin().x - this.getWidth() / 2) * scaleFactorX,
+                (this.getOrigin().y - this.getHeight() / 2) * scaleFactorY);
+    }
+
+    @Override
     public void place(Screen screen, float placementX, float placementY){
         super.place(screen, placementX, placementY);
         if (!screen.drawables.contains(this))
             screen.drawables.add(this);
-
-        if (!screen.imageScalables.contains(this))
-            screen.imageScalables.add(this);
-
-        if (screen.scalables.contains(this))
-            screen.scalables.remove(this); //Not needed in scalables now
     }
 
     @Override
@@ -141,8 +145,5 @@ public abstract class Sprite extends GameObject implements Drawable, Scalable.Im
         super.remove(screen);
         if (screen.drawables.contains(this))
             screen.drawables.remove(this);
-
-        if(screen.imageScalables.contains(this))
-            screen.imageScalables.remove(this);
     }
 }

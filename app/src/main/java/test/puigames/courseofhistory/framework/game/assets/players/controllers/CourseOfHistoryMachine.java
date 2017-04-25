@@ -223,4 +223,8 @@ public class CourseOfHistoryMachine implements Updateable {
     public int findNextPlayer(int playerIndex) {
         return (playerIndex + 1) & 2;
     }
+
+    public GameState getCurrentGameState(){
+        return  this.currentGameState;
+    }
 }

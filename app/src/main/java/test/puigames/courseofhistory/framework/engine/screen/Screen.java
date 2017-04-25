@@ -28,9 +28,7 @@ public abstract class Screen {
     private ArrayList<Updateable> updateablesToAdd;
     private ArrayList<Updateable> updateablesToRemove;
 
-
     public ArrayList<Scalable> scalables;
-    public ArrayList<Scalable.ImageScalable> imageScalables;
 
     final static float DEFAULT_LEVEL_HEIGHT = 320.f;
     final static float DEFAULT_LEVEL_WIDTH = 480.f;
@@ -57,7 +55,7 @@ public abstract class Screen {
         this.drawables = new ArrayList<>();
         this.updateables = new ArrayList<>();
         this.scalables = new ArrayList<>();
-        this.imageScalables = new ArrayList<>();
+
         this.updateablesToAdd = new ArrayList<>();
         this.updateablesToRemove = new ArrayList<>();
     }
@@ -66,9 +64,9 @@ public abstract class Screen {
 
     public void update(float deltaTime) {
         scaler.scaleTouchInput(gameProperties.getInput());
+        processUpdateablesListChanges();
         for (int i = 0; i < updateables.size(); i++) //Has to be smelly loop as Java doesn't like adding to an ArrayList when iterating through it
             updateables.get(i).update(deltaTime);
-        processUpdateablesListChanges();
     }
 
     public boolean isInUpdateables(Updateable updateable) {
@@ -107,9 +105,6 @@ public abstract class Screen {
     public void draw(Canvas canvas, float deltaTime) {
         for (Scalable scalable : scalables)
             scaler.scaleToScreen(scalable);
-
-        for (Scalable.ImageScalable imageScalable : imageScalables)
-            scaler.scaleToScreen(imageScalable);
 
         for (Drawable drawable : drawables)
             drawable.draw(canvas, deltaTime);

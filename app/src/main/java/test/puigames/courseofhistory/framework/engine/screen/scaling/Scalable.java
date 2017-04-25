@@ -10,6 +10,8 @@ import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Ori
  */
 
 public interface Scalable {
+    void scale(float scaleFactorX, float scaleFactorY);
+
     Matrix getMatrix();
 
     Origin getOrigin();

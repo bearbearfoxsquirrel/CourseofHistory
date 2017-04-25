@@ -48,6 +48,16 @@ public abstract class GameObject implements Updateable, Placeable, Scalable {
 
 
     @Override
+    public void scale(float scaleFactorX, float scaleFactorY) {
+        this.getMatrix().postScale((this.getWidth() / this.getWidth()) * scaleFactorX,
+                (this.getHeight() / this.getHeight()) * scaleFactorY);
+        this.getMatrix().postRotate(0, scaleFactorX * this.getWidth()/ 2.0f,
+                scaleFactorY * this.getHeight() / 2.0f);
+        this.getMatrix().postTranslate((this.getOrigin().x - this.getWidth() / 2) * scaleFactorX,
+                (this.getOrigin().y - this.getHeight() / 2) * scaleFactorY);
+    }
+
+    @Override
     public Matrix getMatrix() {
         return this.matrix;
     }

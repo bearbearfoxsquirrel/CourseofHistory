@@ -42,7 +42,7 @@ public class StartingHandSelectionUI extends UIElement {
         this.confirmationButton = new MenuButton(this.currentScreen, confirmationButtonBitmap, CONFIRMATION_BUTTON_WIDTH, CONFIRMATION_BUTTON_HEIGHT) {
             @Override
             public void applyAction() {
-                player.playerCurrentState = Player.PlayerState.BEGIN_CREATING_STARTING_HAND;
+                player.playerCurrentState = Player.PlayerState.FINISHED_CREATING_START_HAND;
             }
         };
     }
