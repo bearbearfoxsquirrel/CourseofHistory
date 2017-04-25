@@ -9,8 +9,9 @@ import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Bou
 
 public interface Collision
 {
-    public boolean isCollision(BoundingBox boundingBox1, BoundingBox boundingBox2);
+    boolean checkForCollision(BoundingBox boundingBox1, BoundingBox boundingBox2);
 
-    public BoundingBox.bound determineAndResolveCollision(GameObject object1, GameObject
-            object2, double overlapModifier);
+    void resolveCollision(GameObject object1, GameObject object2, float overlapModifier);
+
+    void separate(GameObject object1, GameObject object2, float separationAmount);
 }

@@ -16,6 +16,6 @@ public class CourseOfHistory extends MainGame
      * change this to return new [screenName](this)
      */
     public Screen getStartScreen() {
-        return new SplashScreen(this);
+        return new TestLevel(this);
     }
 }

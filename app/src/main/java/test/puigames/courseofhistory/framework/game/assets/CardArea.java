@@ -40,9 +40,11 @@ public abstract class CardArea extends GameObject
     public void addCardToArea(CharacterCard card)
     {
         if(!cardsInArea.contains(card) && cardsInArea.size() < maxCardsInArea)
-            if (card.boundingBox.isOverlapping(this.boundingBox))
-                cardsInArea.add(card);
-        positionCardsInArea();
+        {
+            cardsInArea.add(card);
+            Log.d("cardarea", "added card: " + this.toString());
+        }
+//        positionCardsInArea();
     }
 
     /**
@@ -52,8 +54,11 @@ public abstract class CardArea extends GameObject
     public void removeCardFromArea(CharacterCard card)
     {
         if(cardsInArea.contains(card) && cardsInArea.size() > 0)
+        {
             cardsInArea.remove(card);
-        positionCardsInArea();
+            Log.d("cardarea", "removed card: " + this.toString());
+        }
+//        positionCardsInArea();
     }
 
     /**
@@ -62,9 +67,13 @@ public abstract class CardArea extends GameObject
      */
     public void positionCardsInArea()
     {
-        for (int i = 0; i < cardsInArea.size(); i++)
-            if(!cardsInArea.get(i).origin.equals(positions[i]))
-                cardsInArea.get(i).setOrigin(new Origin(positions[i]));
+        if(cardsInArea.size() == 0)
+            return;
+
+        for (int i = cardsInArea.size() - 1; i >= 0; i--)
+            for(int j = 0; j < cardsInArea.size(); j++)
+                if(!cardsInArea.get(i).origin.equals(positions[j]) && !cardsInArea.get(i).origin.equals(positions[i]))
+                    cardsInArea.get(i).origin.setOrigin(new Origin(positions[i]));
     }
 
     /**
@@ -76,11 +85,7 @@ public abstract class CardArea extends GameObject
     public void setUpPositions()
     {
         positions = new Origin[maxCardsInArea];
-        for(int i = 1; i <= maxCardsInArea; i++) {
-
-            positions[i - 1] = new Origin(cardPadding + ((width / maxCardsInArea) * i)/1.2f,
-                    this.origin.y + (cardPadding * 2));
-
-    }
+        for(int i = 1; i <= maxCardsInArea; i++)
+            positions[i - 1] = new Origin(cardPadding + ((width / maxCardsInArea) * i) / 1.2f, this.origin.y + (cardPadding * 2));
     }
 }

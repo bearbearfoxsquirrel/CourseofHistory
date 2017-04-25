@@ -5,6 +5,7 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
+import test.puigames.courseofhistory.framework.game.assets.CardArea;
 import test.puigames.courseofhistory.framework.game.assets.Mana;
 import test.puigames.courseofhistory.framework.game.assets.PlayArea;
 import test.puigames.courseofhistory.framework.game.assets.PlayArea;
@@ -86,7 +87,8 @@ public class Player {
 
 
     public void placeCardOnBoard(CharacterCard card) {
-
+        board.playAreas[playerNumber].addCardToArea(card);
+//        board.cardHands[playerNumber].removeCardFromArea(card);
     }
 
     public void endPlayerTurn() {

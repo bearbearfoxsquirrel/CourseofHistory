@@ -24,8 +24,8 @@ public class HumanCardGameController extends CardGameController implements Input
 
     public void update(float deltaTime) {
         if (player.playerCurrentState == Player.PawnState.TURN_ACTIVE) {
-            updateCardsInHand(deltaTime);
-//            updateCardsOnBoardPlayArea(deltaTime);
+            //   updateCardsInHand(deltaTime);
+            updateCardsOnBoardPlayArea(deltaTime);
             collisionCheckAndResolve(player.board.playAreas[player.playerNumber]);
             collisionCheckAndResolve(player.board.cardHands[player.playerNumber]);
             //For test cards
@@ -86,6 +86,21 @@ public class HumanCardGameController extends CardGameController implements Input
         }
     }
 
+    private void updateCardsInHand(float deltaTime) {
+        for(int i = 0; i < player.board.cardHands[player.playerNumber].cardsInArea.size(); i++) {
+            CharacterCard card = player.board.cardHands[player.playerNumber].cardsInArea.get(i);
+            if(inputBuddy.touchEvents.size() > 0) {
+                Input.TouchEvent touchEvent = inputBuddy.touchEvents.get(0);
+                if(checkIsTouched(touchEvent, card)) {
+                    card.origin.setOrigin(touchEvent.x, touchEvent.y);
+                    player.moveCard(card, card.origin.x, card.origin.y);
+                }
+            } else if(card.boundingBox.isOverlapping(player.board.playAreas[player.playerNumber].boundingBox) && inputBuddy.touchEvents.isEmpty()) {
+                playCard(card);
+            }
+        }
+    }
+
     private void collisionCheckAndResolve(CardArea cardArea)
     {
         for(CharacterCard card : cardArea.cardsInArea)
@@ -97,6 +112,8 @@ public class HumanCardGameController extends CardGameController implements Input
 
                 if(card.boundingBox.getCollisionDetector().checkForCollision(card.boundingBox, card2.boundingBox))
                     card.boundingBox.getCollisionDetector().resolveCollision(card, card2, card.overlapAllowance);
+                if(!card2.boundingBox.isEncapsulated(player.board.boundingBox)) //collision with board
+                    player.board.boundingBox.getCollisionDetector().keepInsideBoundingBox(player.board, card2);
             }
             if(!card.boundingBox.isEncapsulated(player.board.boundingBox))
                 card.boundingBox.getCollisionDetector().keepInsideBoundingBox(player.board, card);

@@ -31,8 +31,7 @@ public class Scaler {
 
     public void scaleToScreen(Sprite sprite){
         sprite.matrix.reset();
-        sprite.matrix.preRotate(sprite.rotation, scaleFactorX * sprite.width/ 2.0f,
-                scaleFactorY * sprite.height / 2.0f);
+        sprite.matrix.preRotate(sprite.rotation, scaleFactorX * sprite.width, scaleFactorY * sprite.height);
         sprite.matrix.postScale((sprite.width / sprite.image.getWidth()) * scaleFactorX,
                 (sprite.height / sprite.image.getHeight()) * scaleFactorY);
 

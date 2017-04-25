@@ -21,10 +21,8 @@ public class Board extends Sprite implements Drawable {
     //public PlayArea[] playAreas;
     public PlayArea[] playAreas = new PlayArea[2];
     public CardHand[] cardHands = new CardHand[2];
-    private float areaPaddingX = 10.0f;
-    private float areaPaddingY = 6.0f;
     private int playAreaWidth = 460;
-    private int playAreaHeight = 95;
+    private int playAreaHeight = 90;
 
     //spawnX = 480/2, spawnY = 320/2
     public Board(Bitmap bitmap){
@@ -45,8 +43,8 @@ public class Board extends Sprite implements Drawable {
             playArea.update(deltaTime); //update play areas
 
         //update hands
-
-        //keep cards inside board bounds
+        for(CardHand cardhand : cardHands)
+            cardhand.update(deltaTime); //update play areas
 
     }
 
@@ -59,10 +57,14 @@ public class Board extends Sprite implements Drawable {
         //width = 460, height = 140
         for (int i = 0; i < cardHands.length; i++) {
             if(i == 0) {
-                cardHands[i] = new CardHand(240.f, 62.5f);
+                cardHands[i] = new CardHand(240.f, 32.25f);
+                playAreas[0] = new PlayArea(playAreaWidth, playAreaHeight, (int)halfWidth, (int)(114));
             }else{
-                cardHands[i] = new CardHand(240.f, 287.5f);
+                cardHands[i] = new CardHand(240.f, 287.75f);
+                playAreas[1] = new PlayArea(playAreaWidth, playAreaHeight, (int)halfWidth, (int)(208));
             }
+            Log.d("cardhand " + i, "" + cardHands[i].boundingBox.toString());
+            Log.d("playArea " + i, "" + playAreas[i].boundingBox.toString());
         }
 
         //player 2 - opponent: AI/other player - top half of screen
@@ -71,11 +73,11 @@ public class Board extends Sprite implements Drawable {
         //width = 460, height = 140
         //playAreas[1] = new PlayArea(460, 140);
 
-        playAreas[0] = new PlayArea(playAreaWidth, playAreaHeight, (int)halfWidth, (int)
-                (halfHeight * 0.50));
-
-        playAreas[1] = new PlayArea(playAreaWidth, playAreaHeight, (int)halfWidth, (int)
-                (halfHeight * 0.75));
+//        playAreas[0] = new PlayArea(playAreaWidth, playAreaHeight, (int)halfWidth, (int)
+//                (halfHeight * 0.50));
+//
+//        playAreas[1] = new PlayArea(playAreaWidth, playAreaHeight, (int)halfWidth, (int)
+//                (halfHeight * 0.75));
     }
 }
 
