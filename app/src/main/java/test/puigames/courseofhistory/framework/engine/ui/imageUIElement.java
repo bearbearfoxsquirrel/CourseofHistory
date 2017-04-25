@@ -15,6 +15,7 @@ public class imageUIElement extends UIElement implements Drawable
         super(bitmap, width, height);
     }
 
+    @Override
     public void update(float deltaTime)
     {
         super.update(deltaTime);

@@ -1,13 +1,12 @@
 package test.puigames.courseofhistory.framework.game.screens;
 
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.util.Log;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
+import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.ui.imageUIElement;
-import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.AndroidInput;
 import test.puigames.courseofhistory.framework.engine.screen.Menu;
-import test.puigames.courseofhistory.framework.game.levels.TestLevel;
 
 /**
  * Created by Christopher on 02/03/2017.
@@ -33,12 +32,12 @@ public class SettingsMenu extends Menu {
                     480.0f, 320.0f);
         }
         catch(NullPointerException e){
-            e.printStackTrace();
+            Log.d("Error", "UI Element loading has failed");
         }
 
-        uiElements.add(backgroundSettings);
+        backgroundSettings.placeUIElement(240.f, 160.f);
 
-        backgroundSettings.placeUIElement(0.f, 0.f);
+        uiElements.add(backgroundSettings);
     }
 
     @Override
