@@ -2,8 +2,11 @@ package test.puigames.courseofhistory.framework.engine.gameobjects;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Rect;
+import android.text.TextPaint;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.BoundingBox;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Drawable;
@@ -33,6 +36,7 @@ public abstract class Sprite extends GameObject implements Drawable {
     public Sprite(Bitmap bitmap, int width, int height) {
         super(width,  height);
         this.image = bitmap;
+
     }
 
     //deals with acceleration and velocity of sprite
