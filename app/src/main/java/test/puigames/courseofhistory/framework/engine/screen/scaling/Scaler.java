@@ -26,20 +26,9 @@ public class Scaler {
         setScaleFactor(viewport.width, viewport.height);
     }
 
-    public void scaleToScreen(Scalable.ImageScalable scalable) {
-        scalable.getMatrix().reset();
-        scalable.scale(scaleFactorX, scaleFactorY);
-
-}
-
     public void scaleToScreen(Scalable scalable) {
         scalable.getMatrix().reset();
-        scalable.getMatrix().postScale((scalable.getWidth() / scalable.getWidth()) * scaleFactorX,
-                (scalable.getHeight() / scalable.getHeight()) * scaleFactorY);
-        scalable.getMatrix().postRotate(0, scaleFactorX * scalable.getWidth()/ 2.0f,
-                scaleFactorY * scalable.getHeight() / 2.0f);
-        scalable.getMatrix().postTranslate((scalable.getOrigin().x - scalable.getWidth() / 2) * scaleFactorX,
-                (scalable.getOrigin().y - scalable.getHeight() / 2) * scaleFactorY);
+        scalable.scale(scaleFactorX, scaleFactorY);
     }
 
     public void scaleTouchInput(InputBuddy inputBuddy) {

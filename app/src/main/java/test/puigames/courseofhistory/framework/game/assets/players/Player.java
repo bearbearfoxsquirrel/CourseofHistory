@@ -1,6 +1,7 @@
 package test.puigames.courseofhistory.framework.game.assets.players;
 
 import test.puigames.courseofhistory.framework.game.assets.Deck;
+import test.puigames.courseofhistory.framework.game.assets.Mana;
 import test.puigames.courseofhistory.framework.game.assets.StartingHandSelector;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.Card;
@@ -18,13 +19,17 @@ public class Player {
 
     public int playerNumber;
     public PlayerState playerCurrentState;
+    public CharacterCard[] testCards;
+    public final int MAX_MANA = 10;
+    public Mana[] mana = new Mana[MAX_MANA];
+    public int currentMana;
     public Deck playerDeck;
     public Board board;
     public StartingHandSelector startingHandSelector;
 
     public enum PlayerState {
         CREATED, TURN_STARTED, TURN_ACTIVE, WAITING_FOR_TURN, TURN_ENDED, WIN, LOSE,
-        WAITING_TO_BEGIN_CREATING_HAND, BEGIN_CREATING_STARTING_HAND, STARTING_HAND_CHOOSING_CARDS_TO_TOSS, FINISHED_CREATING_START_HAND;
+        WAITING_TO_BEGIN_CREATING_HAND, BEGIN_CREATING_STARTING_HAND, STARTING_HAND_CHOOSING_CARDS_TO_TOSS, FINISHED_CREATING_START_HAND
         //PLAY_ACTIVE refers to when the player is allowed to take active decision in their turn
     }
 
@@ -34,7 +39,10 @@ public class Player {
         this.board = board;
         this.board = board;
         this.playerDeck = deck;
+        this.currentMana = 0;
+
         setUpPlayerDeck(playerCards);
+
     }
 
     public void createNewStartingHand() {
@@ -81,7 +89,8 @@ public class Player {
     }
 
     public void placeCardOnBoard(CharacterCard card) {
-
+        board.playAreas[playerNumber].addCardToArea(card);
+//        board.cardHands[playerNumber].removeCardFromArea(card);
     }
 
     public void addCardToArea(CharacterCard card) {

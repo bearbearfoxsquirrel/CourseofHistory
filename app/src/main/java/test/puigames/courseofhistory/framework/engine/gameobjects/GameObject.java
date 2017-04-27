@@ -23,6 +23,8 @@ public abstract class GameObject implements Updateable, Placeable, Scalable {
     public float overlapAllowance; //default overlap allowance
     public final float MAX_OVERLAP_ALLOWANCE = 1.0f;
     public final float MIN_OVERLAP_ALLOWANCE = 0.0f;
+    public int rotation = 0;
+
 
     public GameObject(Screen screen, int width, int height) {
         this.width = width;

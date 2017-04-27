@@ -4,8 +4,6 @@ package test.puigames.courseofhistory.framework.engine.resourceloading;
  * Created by Jordan on 05/11/2016.
  */
 
-
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;

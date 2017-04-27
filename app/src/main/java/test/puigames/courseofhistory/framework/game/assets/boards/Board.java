@@ -2,6 +2,7 @@ package test.puigames.courseofhistory.framework.game.assets.boards;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.util.Log;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Drawable;
@@ -19,10 +20,8 @@ public class Board extends Sprite implements Drawable {
     //public PlayArea[] playAreas;
     public PlayArea[] playAreas = new PlayArea[2];
     public CardHand[] cardHands = new CardHand[2];
-    private float areaPaddingX = 10.0f;
-    private float areaPaddingY = 6.0f;
     private int playAreaWidth = 460;
-    private int playAreaHeight = 95;
+    private int playAreaHeight = 90;
 
     //spawnX = 480/2, spawnY = 320/2
     public Board(Screen screen, Bitmap bitmap){
@@ -43,8 +42,11 @@ public class Board extends Sprite implements Drawable {
 
     @Override
     public void place(Screen screen, float placementX, float placementY) {
-        initPlacement(placementX, placementY);
         super.place(screen, placementX, placementY);
+        //update hands
+    //    for (int i = 0; i < playAreas.length; i++) {
+        //    playAreas[i].place(screen, );
+      //  }
     }
 
     @Override
@@ -57,9 +59,14 @@ public class Board extends Sprite implements Drawable {
         for (int i = 0; i < cardHands.length; i++) {
             if(i == 0) {
                 cardHands[i] = new CardHand(this.currentScrren, 240f, 288f);
+                playAreas[i] = new PlayArea(this.currentScrren, playAreaWidth, playAreaHeight, (int)halfWidth, 114);
             }else{
                 cardHands[i] = new CardHand(this.currentScrren, 240f, 65f);
+                playAreas[i] = new PlayArea(this.currentScrren, playAreaWidth, playAreaHeight, (int)halfWidth, 208);
             }
+
+            Log.d("cardhand " + i, "" + cardHands[i].boundingBox.toString());
+            Log.d("playArea " + i, "" + playAreas[i].boundingBox.toString());
         }
 
         //player 2 - opponent: AI/other player - top half of screen
@@ -68,11 +75,10 @@ public class Board extends Sprite implements Drawable {
         //width = 460, height = 140
         //playAreas[1] = new PlayArea(460, 140);
 
-        playAreas[0] = new PlayArea(this.currentScrren, playAreaWidth, playAreaHeight, (int)halfWidth, (int)
-                (halfHeight * 0.50));
 
-        playAreas[1] = new PlayArea(this.currentScrren, playAreaWidth, playAreaHeight, (int)halfWidth, (int)
-                (halfHeight * 0.75));
+//
+//        playAreas[1] = new PlayArea(playAreaWidth, playAreaHeight, (int)halfWidth, (int)
+//                (halfHeight * 0.75));
     }
 }
 

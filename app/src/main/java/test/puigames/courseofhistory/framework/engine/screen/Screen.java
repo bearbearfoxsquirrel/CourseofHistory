@@ -65,8 +65,8 @@ public abstract class Screen {
     public void update(float deltaTime) {
         scaler.scaleTouchInput(gameProperties.getInput());
         processUpdateablesListChanges();
-        for (int i = 0; i < updateables.size(); i++) //Has to be smelly loop as Java doesn't like adding to an ArrayList when iterating through it
-            updateables.get(i).update(deltaTime);
+        for (Updateable updateable : updateables)
+            updateable.update(deltaTime);
     }
 
     public boolean isInUpdateables(Updateable updateable) {

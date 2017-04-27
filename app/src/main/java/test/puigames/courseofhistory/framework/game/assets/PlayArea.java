@@ -5,6 +5,7 @@ package test.puigames.courseofhistory.framework.game.assets;
  */
 
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
+import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 
 /**
  * Play area a player can use to play their cards in (their area)
@@ -29,5 +30,13 @@ public class PlayArea extends CardArea
     public void initPlacement(float spawnX, float spawnY){
         super.initPlacement(spawnX, spawnY);
         setUpPositions();
+    }
+
+    @Override
+    public void addCardToArea(CharacterCard card)
+    {
+        if (!cardsInArea.contains(card))
+            card.adjustCardSize(1.25f);
+        super.addCardToArea(card);
     }
 }

@@ -29,6 +29,7 @@ public abstract class UIElement implements Drawable, Scalable.ImageScalable, Pla
 
     public UIElement(Screen screen, Bitmap bitmap, float width, float height){
         this.currentScreen = screen;
+    //Constructor - takes in a bitmap image, along with a width and height
         this.image = bitmap;
         this.width = width;
         this.halfWidth = (width / 2);
@@ -36,19 +37,13 @@ public abstract class UIElement implements Drawable, Scalable.ImageScalable, Pla
         this.halfHeight = (height / 2);
     }
 
-
-    public void initPlacement(float spawnX, float spawnY) {
-        this.origin = new Origin(spawnX, spawnY);
-        this.boundingBox = new BoundingBox(width, height, origin);
-        this.matrix = new Matrix();
-    }
-
+    //Allows for drawing of the objects to the canvas
     @Override
     public void draw(Canvas canvas, float deltaTime) {
         canvas.drawBitmap(image, matrix, paint);
     }
 
-
+    //Getters and Setters
     Bitmap getImage() { return image; }
 
     public void setImage(Bitmap image) {
@@ -100,6 +95,15 @@ public abstract class UIElement implements Drawable, Scalable.ImageScalable, Pla
         this.origin = origin;
     }
 
+    //Method to place the UI Element on screen based on the middle of the object
+    //takes in a position and calculated with the origin
+    public void initPlacement(float spawnX, float spawnY) {
+        this.origin = new Origin(spawnX, spawnY);
+        this.boundingBox = new BoundingBox(width, height, origin);
+        this.matrix = new Matrix();
+    }
+
+
     @Override
     public void place(Screen screen, float placementX, float placementY) {
         initPlacement(placementX, placementY);
@@ -112,5 +116,15 @@ public abstract class UIElement implements Drawable, Scalable.ImageScalable, Pla
         //Checks if the object exists in the arrays and then removes them
         if (screen.drawables.contains(this))
             screen.drawables.remove(this);
+    }
+
+    @Override
+    public void scale(float scaleFactorX, float scaleFactorY) {
+        this.getMatrix().postScale((this.getWidth() / this.getBitmap().getWidth()) * scaleFactorX,
+                (this.getHeight() / this.getBitmap().getHeight()) * scaleFactorY);
+        this.getMatrix().postRotate(0, scaleFactorX * this.getBitmap().getWidth()/ 2.0f,
+                scaleFactorY * this.getBitmap().getHeight() / 2.0f);
+        this.getMatrix().postTranslate((this.getOrigin().x - this.getWidth() / 2) * scaleFactorX,
+                (this.getOrigin().y - this.getHeight() / 2) * scaleFactorY);
     }
 }

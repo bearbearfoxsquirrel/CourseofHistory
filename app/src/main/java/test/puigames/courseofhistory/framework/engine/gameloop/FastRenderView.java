@@ -41,7 +41,6 @@ public class FastRenderView extends View {
         startTime = System.nanoTime();
 
         inputBuddy.update();
-
         //Calls the update and draw methods of the current screen that is active
         game.getCurrentScreen().update(deltaTime);
         game.getCurrentScreen().draw(canvas, deltaTime);

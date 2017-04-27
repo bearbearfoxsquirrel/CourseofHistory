@@ -1,34 +1,51 @@
 package test.puigames.courseofhistory.framework.game.screens;
 
 /*
+import android.graphics.Canvas;
+import android.util.Log;
+
+import test.puigames.courseofhistory.framework.engine.GameProperties;
+import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
+import test.puigames.courseofhistory.framework.engine.ui.imageUIElement;
+import test.puigames.courseofhistory.framework.engine.screen.Menu;
+
+/**
  * Created by Christopher on 02/03/2017.
  */
-/*
+
+import android.graphics.Canvas;
+
+import test.puigames.courseofhistory.framework.engine.GameProperties;
+import test.puigames.courseofhistory.framework.engine.screen.Menu;
+import test.puigames.courseofhistory.framework.engine.ui.ImageUIElement;
+
 public class SettingsMenu extends Menu {
 
     ImageUIElement backgroundSettings;
 
-    public SettingsMenu(GameProperties gameProperties){
+    public SettingsMenu(GameProperties gameProperties) {
         super(gameProperties);
         load();
     }
 
-    public void update(float deltaTime, AndroidInput input) {
+    @Override
+    public void update(float deltaTime) {
         super.update(deltaTime);
     }
 
     public void load(){
-        try {
+      /*  try {
             backgroundSettings = new ImageUIElement(resourceFetcher.getBitmapFromFile("images/backgrounds/settings_background.png"),
                     480.0f, 320.0f);
         }
         catch(NullPointerException e){
-            e.printStackTrace();
+            Log.d("Error", "UI Element loading has failed");
         }
 
-        backgroundSettings.placeUIElement(0.f, 0.f);
+        backgroundSettings.placeUIElement(240.f, 160.f);
 
         uiElements.add(backgroundSettings);
+        */
     }
 
     @Override
@@ -52,4 +69,3 @@ public class SettingsMenu extends Menu {
     }
 
 }
-*/

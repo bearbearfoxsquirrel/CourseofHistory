@@ -4,8 +4,8 @@ import android.graphics.Canvas;
 import android.util.Log;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
-import test.puigames.courseofhistory.framework.engine.ui.ImageUIElement;
 import test.puigames.courseofhistory.framework.engine.screen.Menu;
+import test.puigames.courseofhistory.framework.engine.ui.ImageUIElement;
 import test.puigames.courseofhistory.framework.game.levels.TestLevel;
 
 /**
@@ -32,18 +32,19 @@ public class SplashScreen extends Menu
         }
         catch(NullPointerException e) {
             Log.d("Error", "Can't load UI elements");
-            gameProperties.setScreen(new SplashScreen(this.gameProperties));
+            this.gameProperties.setScreen(new SplashScreen(this.gameProperties));
         }
         logo.initPlacement(240f, 160.0f);
         uiElements.add(logo);
     }
 
+    //Allows for the splash image to display and then swaps screen to main menu after a set time
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
 
         if(duration > splashscreenDelay)
-                gameProperties.setScreen(new TestLevel(gameProperties));
+                this.gameProperties.setScreen(new TestLevel(this.gameProperties)); //TODO: change back to MainMenu
 
         duration += deltaTime;
     }
@@ -67,4 +68,5 @@ public class SplashScreen extends Menu
     public void dispose() {
 
     }
+
 }
