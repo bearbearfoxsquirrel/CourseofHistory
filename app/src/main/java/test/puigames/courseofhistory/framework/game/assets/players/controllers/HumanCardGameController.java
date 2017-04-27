@@ -120,22 +120,24 @@ public class HumanCardGameController extends CardGameController implements Input
 //    }
 
     private void updateCardsOnBoardPlayArea(float deltaTime){
-//        for(CharacterCard card : player.board.playAreas[player.playerNumber].cardsInArea) {
-//            for (Input.TouchEvent touchEvent : inputBuddy.getTouchEvents()) {
-//                if (checkIsTouched(touchEvent, card)) {
-//                    player.moveCard(card, touchEvent.x, touchEvent.y);
-//                    if(player.board.playAreas[player.playerNumber].cardsInArea.contains(card)) {
-//                        //card.origin.setOrigin(touchEvent.x, touchEvent.y);
-//                        player.removeCardFromArea(card);
-//                    }
-//                } //else if(card.boundingBox.isOverlapping(player.board.playAreas[player.playerNumber].boundingBox))
-////                    player.addCardToArea(card);
-//            }
-//            if(card.boundingBox.isOverlapping(player.board.playAreas[player.playerNumber].boundingBox) && inputBuddy.touchEvents.isEmpty())
-//                player.board.playAreas[player.playerNumber].addCardToArea(card);
-//        }
-//    }
+        for(int i = 0; i < player.board.playAreas[player.playerNumber].cardsInArea.size(); i++) {
+            CharacterCard card = player.board.playAreas[player.playerNumber].cardsInArea.get(i);
+            if(inputBuddy.touchEvents.size() > 0) {
+                Input.TouchEvent touchEvent = inputBuddy.touchEvents.get(0);
+                if(checkIsTouched(touchEvent, card)) {
+                    card.origin.setOrigin(touchEvent.x, touchEvent.y);
+                    player.moveCard(card, card.origin.x, card.origin.y);
+                }
+            } else if(inputBuddy.touchEvents.isEmpty()) {
+                player.board.playAreas[player.playerNumber].positionCardsInArea();
+            }
+            if(card.isDeaders()) {
+                player.board.playAreas[player.playerNumber].cardsInArea.remove(card);
+                //TODO: its dead so should be removed from the universe
+            }
         }
+    }
+
     private void updateCardsInHand(float deltaTime) {
         for(int i = 0; i < player.board.cardHands[player.playerNumber].cardsInArea.size(); i++) {
             CharacterCard card = player.board.cardHands[player.playerNumber].cardsInArea.get(i);
