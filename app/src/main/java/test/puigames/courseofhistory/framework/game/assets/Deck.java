@@ -25,6 +25,7 @@ public class Deck extends Stack implements Placeable, Scalable.ImageScalable, Dr
     Screen currentScreen;
     Matrix matrix;
     Origin origin;
+    float rotation;
 
     float width;
     float height;
@@ -33,6 +34,7 @@ public class Deck extends Stack implements Placeable, Scalable.ImageScalable, Dr
         this.currentScreen = screen;
         this.bitmap = bitmap;
         this.paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        this.rotation = 0;
 
         this.height = CharacterCard.CARD_HEIGHT;
         this.width = CharacterCard.CARD_WIDTH;
@@ -93,22 +95,19 @@ public class Deck extends Stack implements Placeable, Scalable.ImageScalable, Dr
 
     @Override
     public void scale(float scaleFactorX, float scaleFactorY) {
+        this.getMatrix().reset();
+
         this.getMatrix().postScale((this.getWidth() / this.getBitmap().getWidth()) * scaleFactorX,
                 (this.getHeight() / this.getBitmap().getHeight()) * scaleFactorY);
-        this.getMatrix().postRotate(0, scaleFactorX * this.getBitmap().getWidth()/ 2.0f,
+        this.getMatrix().postRotate(rotation, scaleFactorX * this.getBitmap().getWidth()/ 2.0f,
                 scaleFactorY * this.getBitmap().getHeight() / 2.0f);
-        this.getMatrix().postTranslate((this.getOrigin().x - this.getWidth() / 2) * scaleFactorX,
-                (this.getOrigin().y - this.getHeight() / 2) * scaleFactorY);
+        this.getMatrix().postTranslate((this.getPosX() - this.getWidth() / 2) * scaleFactorX,
+                (this.getPosY() - this.getHeight() / 2) * scaleFactorY);
     }
 
     @Override
     public Matrix getMatrix() {
         return this.matrix;
-    }
-
-    @Override
-    public Origin getOrigin() {
-        return this.origin;
     }
 
     @Override
@@ -119,6 +118,21 @@ public class Deck extends Stack implements Placeable, Scalable.ImageScalable, Dr
     @Override
     public float getHeight() {
         return this.height;
+    }
+
+    @Override
+    public float getPosX() {
+        return origin.x;
+    }
+
+    @Override
+    public float getPosY() {
+        return origin.y;
+    }
+
+    @Override
+    public float getRotation() {
+        return this.rotation;
     }
 
     @Override

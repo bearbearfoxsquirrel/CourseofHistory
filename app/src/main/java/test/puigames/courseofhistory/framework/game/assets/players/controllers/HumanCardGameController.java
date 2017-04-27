@@ -1,10 +1,13 @@
 package test.puigames.courseofhistory.framework.game.assets.players.controllers;
 
+import android.graphics.Bitmap;
+
 import test.puigames.courseofhistory.framework.engine.controlling.Inputable;
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
+import test.puigames.courseofhistory.framework.engine.ui.MenuButton;
 import test.puigames.courseofhistory.framework.game.assets.CardArea;
 import test.puigames.courseofhistory.framework.game.assets.Mana;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
@@ -14,34 +17,41 @@ import test.puigames.courseofhistory.framework.game.assets.players.Player;
 //This class is for allowing the user to interact with a pawn pawn
 public class HumanCardGameController extends CardGameController implements Inputable {
     public InputBuddy inputBuddy;
-    private Screen currentScreen;
+    HumanCardGameUIContainer controllerUI;
 
-    public HumanCardGameController(Screen screen, InputBuddy inputBuddy, Player player) {
+    public HumanCardGameController(Screen screen, InputBuddy inputBuddy, Player player, Bitmap startingHandSelectorBackgroundBitmap, Bitmap confirmationButtonBitmap, Bitmap endTurnButtonBitmap) {
         this.inputBuddy = inputBuddy;
-        this.currentScreen = screen;
         this.player = player;
+        this.controllerUI= new HumanCardGameUIContainer(screen, this.player, startingHandSelectorBackgroundBitmap, confirmationButtonBitmap, endTurnButtonBitmap);
     }
 
-    public HumanCardGameController(Screen screen, InputBuddy inputBuddy) {
+    public HumanCardGameController(InputBuddy inputBuddy, Player player) {
         this.inputBuddy = inputBuddy;
+        this.player = player;
     }
 
     @Override
     public void update(float deltaTime) {
+        for (MenuButton menuButton : controllerUI.getShownMenuButtons())
+            if (menuButton.checkForInput(inputBuddy))
+                menuButton.applyAction();
+
         switch (player.playerCurrentState) {
             case TURN_ACTIVE:
                 updateCardsInHand(deltaTime);
                 updateCardsOnBoardPlayArea(deltaTime);
                 break;
+
+            case TURN_ENDED:
+
             case BEGIN_CREATING_STARTING_HAND:
-              //  showStartingHandCreationUI();
-                //player.playerCurrentState = Player.PlayerState.STARTING_HAND_CHOOSING_CARDS_TO_TOSS;
+
                 break;
             case STARTING_HAND_CHOOSING_CARDS_TO_TOSS:
-                //updatePlayersStartingHand();
+
                 break;
             case FINISHED_CREATING_START_HAND:
-                //hideStartingHandCreationUI();
+
                 break;
         }
         collisionCheckAndResolve(player.board.playAreas[player.playerNumber]);
@@ -228,5 +238,17 @@ public class HumanCardGameController extends CardGameController implements Input
     @Override
     public Player getPlayer() {
         return super.getPlayer();
+    }
+
+    @Override
+    public void startTicking(Screen screen) {
+        super.startTicking(screen);
+        controllerUI.place(screen, 480/2, 320/2);
+    }
+
+    @Override
+    public void stopTicking(Screen screen) {
+       super.stopTicking(screen);
+        controllerUI.stopTicking(screen);
     }
 }

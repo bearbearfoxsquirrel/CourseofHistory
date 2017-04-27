@@ -45,9 +45,4 @@ public class Coin extends Sprite {
                 break;
         }
     }
-
-    @Override
-    public void update(float deltaTime) {
-        super.update(deltaTime);
-    }
 }

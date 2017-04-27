@@ -51,12 +51,13 @@ public abstract class GameObject implements Updateable, Placeable, Scalable {
 
     @Override
     public void scale(float scaleFactorX, float scaleFactorY) {
+        this.getMatrix().reset();
         this.getMatrix().postScale((this.getWidth() / this.getWidth()) * scaleFactorX,
                 (this.getHeight() / this.getHeight()) * scaleFactorY);
-        this.getMatrix().postRotate(0, scaleFactorX * this.getWidth()/ 2.0f,
+        this.getMatrix().postRotate(getRotation(), scaleFactorX * this.getWidth()/ 2.0f,
                 scaleFactorY * this.getHeight() / 2.0f);
-        this.getMatrix().postTranslate((this.getOrigin().x - this.getWidth() / 2) * scaleFactorX,
-                (this.getOrigin().y - this.getHeight() / 2) * scaleFactorY);
+        this.getMatrix().postTranslate((this.getPosX() - this.getWidth() / 2) * scaleFactorX,
+                (this.getPosY() - this.getHeight() / 2) * scaleFactorY);
     }
 
     @Override
@@ -64,7 +65,6 @@ public abstract class GameObject implements Updateable, Placeable, Scalable {
         return this.matrix;
     }
 
-    @Override
     public Origin getOrigin() {
         return this.origin;
     }
@@ -108,4 +108,21 @@ public abstract class GameObject implements Updateable, Placeable, Scalable {
             screen.scalables.remove(this);
         stopTicking(screen);
     }
+
+    @Override
+    public float getPosX() {
+        return origin.x;
+    }
+
+    @Override
+    public float getPosY() {
+        return origin.y;
+    }
+
+    @Override
+    public float getRotation() {
+        return rotation;
+    }
+
+
 }

@@ -1,10 +1,11 @@
-package test.puigames.courseofhistory.framework.game.assets;
+package test.puigames.courseofhistory.framework.game.assets.players.controllers;
 
 import android.graphics.Bitmap;
 
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.engine.ui.MenuButton;
 import test.puigames.courseofhistory.framework.engine.ui.UIElement;
+import test.puigames.courseofhistory.framework.game.assets.StartingHandSelector;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
 
@@ -13,20 +14,20 @@ import test.puigames.courseofhistory.framework.game.assets.players.Player;
  */
 
 public class StartingHandSelectionUI extends UIElement {
-    //Created for the human controller
-    public final float UI_POS_X = 240;
-    public final float UI_POS_Y = 160;
+    private static final float STARTING_HAND_SELECTOR_WIDTH = 400.f;
+    private static final float STARTING_HAND_SELECTOR_HEIGHT = 200.f;
 
+    //Created for the human controller
     private final float ADJUSTED_CARD_WIDTH = 72.f;
     private final float ADJUSTED_CARD_HEIGHT = 99.6f;
     private final float CARD_SELECTED_OVERLAY_OFFSET_X = 20;
     private final float CARD_SELECTED_OVERLAY_OFFSET_Y = 20;
 
-    private final float CONFIRMATION_BUTTON_POS_X = 300;
-    private final float CONFIRMATION_BUTTON_POS_Y = 200;
+    private final float CONFIRMATION_BUTTON_OFFSET_X = 50;
+    private final float CONFIRMATION_BUTTON_OFFSET_Y = 30;
 
-    private final float CONFIRMATION_BUTTON_WIDTH = 10;
-    private final float CONFIRMATION_BUTTON_HEIGHT = 20;
+    private final float CONFIRMATION_BUTTON_WIDTH = 75;
+    private final float CONFIRMATION_BUTTON_HEIGHT = 50;
 
     public MenuButton confirmationButton;
     private Bitmap confirmationButtonBitmap;
@@ -35,7 +36,7 @@ public class StartingHandSelectionUI extends UIElement {
     //TODO add highlight bitmap
 
     public StartingHandSelectionUI(Screen screen, final Player player, Bitmap uIBackground, Bitmap confirmationButtonBitmap) {
-        super(screen, uIBackground, 300, 100);
+        super(screen, uIBackground, STARTING_HAND_SELECTOR_WIDTH, STARTING_HAND_SELECTOR_HEIGHT);
         this.player = player;
         this.confirmationButtonBitmap = confirmationButtonBitmap;
 
@@ -70,15 +71,9 @@ public class StartingHandSelectionUI extends UIElement {
         player.startingHandSelector.cardsToToss.remove(cardToBeKept);
     }
 
-    @Override
-    public void initPlacement(float spawnX, float spawnY) {
-        super.initPlacement(spawnX, spawnY);
-        this.confirmationButton.initPlacement(CONFIRMATION_BUTTON_POS_X, CONFIRMATION_BUTTON_POS_Y);
-    }
-
     public void place(Screen screen, float placementX, float placementY) {
         super.place(screen, placementX, placementY);
-        confirmationButton.place(screen, placementX, placementY);
+        confirmationButton.place(screen, findXPositionInRelationToContainer(CONFIRMATION_BUTTON_OFFSET_X), findYPositionInRelationToContainer(CONFIRMATION_BUTTON_OFFSET_Y));
 
         for (CharacterCard card : player.startingHandSelector.cardsToKeep)
             card.place(screen, 20, 40);
@@ -89,4 +84,12 @@ public class StartingHandSelectionUI extends UIElement {
         screen.drawables.addAll(player.startingHandSelector.cardsToToss);
     }
 
+
+    private float findXPositionInRelationToContainer(float offsetX) {
+        return getPosX() + offsetX;
+    }
+
+    private float findYPositionInRelationToContainer(float offsetY) {
+        return getPosY() + offsetY;
+    }
 }

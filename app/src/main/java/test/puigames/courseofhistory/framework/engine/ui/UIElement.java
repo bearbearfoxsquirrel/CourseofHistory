@@ -23,6 +23,7 @@ public abstract class UIElement implements Drawable, Scalable.ImageScalable, Pla
     public float height, halfHeight;
     public BoundingBox boundingBox;
     public Origin origin;
+    public float rotation;
     public Matrix matrix;
     protected Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
@@ -32,6 +33,7 @@ public abstract class UIElement implements Drawable, Scalable.ImageScalable, Pla
     //Constructor - takes in a bitmap image, along with a width and height
         this.image = bitmap;
         this.width = width;
+        this.rotation = 0;
         this.halfWidth = (width / 2);
         this.height = height;
         this.halfHeight = (height / 2);
@@ -59,10 +61,6 @@ public abstract class UIElement implements Drawable, Scalable.ImageScalable, Pla
         return image;
     }
 
-    public void setMatrix(Matrix matrix) {
-        this.matrix = matrix;
-    }
-
     public float getWidth() {
         return width;
     }
@@ -73,6 +71,21 @@ public abstract class UIElement implements Drawable, Scalable.ImageScalable, Pla
 
     public float getHeight() {
         return height;
+    }
+
+    @Override
+    public float getPosX() {
+        return this.origin.x;
+    }
+
+    @Override
+    public float getPosY() {
+        return this.origin.y;
+    }
+
+    @Override
+    public float getRotation() {
+        return this.rotation;
     }
 
     public void setHeight(float height) {
@@ -120,6 +133,8 @@ public abstract class UIElement implements Drawable, Scalable.ImageScalable, Pla
 
     @Override
     public void scale(float scaleFactorX, float scaleFactorY) {
+        this.getMatrix().reset();
+
         this.getMatrix().postScale((this.getWidth() / this.getBitmap().getWidth()) * scaleFactorX,
                 (this.getHeight() / this.getBitmap().getHeight()) * scaleFactorY);
         this.getMatrix().postRotate(0, scaleFactorX * this.getBitmap().getWidth()/ 2.0f,

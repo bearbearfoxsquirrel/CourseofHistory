@@ -67,6 +67,7 @@ public class CharacterCard extends Card implements Damageable.Attackable {
 
     @Override
     public void scale(float scaleFactorX, float scaleFactorY) {
+        super.scale(scaleFactorX, scaleFactorY);
         //TODO Matthew pls intement
     }
 

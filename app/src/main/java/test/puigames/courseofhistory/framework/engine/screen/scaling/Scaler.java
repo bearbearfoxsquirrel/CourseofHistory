@@ -27,7 +27,6 @@ public class Scaler {
     }
 
     public void scaleToScreen(Scalable scalable) {
-        scalable.getMatrix().reset();
         scalable.scale(scaleFactorX, scaleFactorY);
     }
 
@@ -56,11 +55,4 @@ public class Scaler {
             scaleFactorY = viewportHeight / screenHeight;
         this.scaleFactorY = scaleFactorY;
     }
-
-    public float getScaleFactorX(){
-        return scaleFactorX;
-    }
-    public float getScaleFactorY(){ return scaleFactorY;}
-
-
 }

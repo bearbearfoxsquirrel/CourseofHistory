@@ -9,11 +9,11 @@ import test.puigames.courseofhistory.framework.engine.screen.Level;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
 import test.puigames.courseofhistory.framework.game.assets.Deck;
 import test.puigames.courseofhistory.framework.game.assets.Mana;
-import test.puigames.courseofhistory.framework.game.assets.StartingHandSelectionUI;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
 import test.puigames.courseofhistory.framework.game.assets.players.controllers.CourseOfHistoryMachine;
 import test.puigames.courseofhistory.framework.game.assets.players.controllers.HumanCardGameController;
+import test.puigames.courseofhistory.framework.game.assets.players.controllers.StartingHandSelectionUI;
 import test.puigames.courseofhistory.framework.game.screens.SplashScreen;
 
 /**
@@ -67,7 +67,7 @@ public class TestLevel extends Level {
            Controlling[] controllers = new HumanCardGameController[CourseOfHistoryMachine.PLAYER_COUNT];
            //Giving the controllers possession of the corresponding player in the game machine
            for (int i = 0; i < controllers.length; i++) {
-               controllers[i] = new HumanCardGameController(this, inputBuddy, gameMachine.players[i]);
+               controllers[i] = new HumanCardGameController(this, inputBuddy, gameMachine.players[i], resourceFetcher.getBitmapFromFile("images/backgrounds/starting_hand_selection_ui_background.png"), resourceFetcher.getBitmapFromFile("images/buttons/confirmation_button.png"), resourceFetcher.getBitmapFromFile("images/buttons/end_turn_button.png"));
                controllers[i].startTicking(this);
            }
 
@@ -88,7 +88,7 @@ public class TestLevel extends Level {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
-
+/*
         if (gameMachine.getCurrentGameState() == CourseOfHistoryMachine.GameState.CREATE_STARTING_HAND)
             switch (gameMachine.getPlayerWithCurrentTurn().playerCurrentState) {
                 case BEGIN_CREATING_STARTING_HAND:
@@ -96,14 +96,8 @@ public class TestLevel extends Level {
                             resourceFetcher.getBitmapFromFile("images/backgrounds/starting_hand_selection_ui_background.png"),
                             resourceFetcher.getBitmapFromFile("images/buttons/confirmation_button.png"));
                     startingHandSelectionUI.place(this, viewport.centerX, viewport.centerY);
-            }
+            }*/
     }
-
-
-   /* public void updateControllers(float deltaTime) {
-        for (Possessor controller: controllers)
-            controller.update(deltaTime);
-    }*/
 
   /*  public void update(float deltaTime) {
         super.update(deltaTime);
