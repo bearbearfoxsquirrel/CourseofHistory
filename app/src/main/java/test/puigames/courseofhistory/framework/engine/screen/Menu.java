@@ -12,6 +12,7 @@ import test.puigames.courseofhistory.framework.engine.ui.UIElement;
  */
 
 public abstract class Menu extends Screen {
+
     protected ArrayList<UIElement> uiElements;
 
     //Constructor - assigns resource fetcher as one in game properties, and sets up the

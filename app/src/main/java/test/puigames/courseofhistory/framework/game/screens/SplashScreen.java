@@ -12,11 +12,12 @@ import test.puigames.courseofhistory.framework.game.levels.TestLevel;
  * Created by Christopher on 24/11/2016.
  */
 
-public class SplashScreen extends Menu
-{
+public class SplashScreen extends Menu {
+
     private ImageUIElement logo;
-    private float duration = 0.0f;
-    private float splashscreenDelay = 3.0f;
+    private float duration = 0.0f, splashscreenDelay = 3.0f;
+    private float bgImageWidth = 480.0f, bgImageHeight = 320.0f;
+    private float bgImageX = 240.0f, bgImageY = 160.0f;
 
     public SplashScreen(GameProperties gameProperties) {
         super(gameProperties);
@@ -25,16 +26,18 @@ public class SplashScreen extends Menu
 
     @Override
     public void load() {
-        //load bitmap
+        //Try to load the bitmap
         try {
             logo = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png"),
-                    480.0f, 320.0f);
+                    bgImageWidth, bgImageHeight);
         }
         catch(NullPointerException e) {
             Log.d("Error", "Can't load UI elements");
             this.gameProperties.setScreen(new SplashScreen(this.gameProperties));
         }
-        logo.initPlacement(240f, 160.0f);
+
+        logo.place(this, bgImageX, bgImageY);
+
         uiElements.add(logo);
     }
 
@@ -44,7 +47,7 @@ public class SplashScreen extends Menu
         super.update(deltaTime);
 
         if(duration > splashscreenDelay)
-                this.gameProperties.setScreen(new TestLevel(this.gameProperties)); //TODO: change back to MainMenu
+                this.gameProperties.setScreen(new MainMenu(this.gameProperties)); //TODO: change back to MainMenu
 
         duration += deltaTime;
     }
