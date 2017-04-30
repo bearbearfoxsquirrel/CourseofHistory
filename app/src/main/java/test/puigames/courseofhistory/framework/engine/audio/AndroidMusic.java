@@ -11,8 +11,8 @@ import java.io.IOException;
 
 public class AndroidMusic implements Music, MediaPlayer.OnCompletionListener
 {
-    MediaPlayer mediaPlayer;
-    boolean isPrepared = false;
+    private MediaPlayer mediaPlayer;
+    private boolean isPrepared = false;
 
     public AndroidMusic(AssetFileDescriptor assetDescriptor)
     {
@@ -108,5 +108,21 @@ public class AndroidMusic implements Music, MediaPlayer.OnCompletionListener
         {
             isPrepared = false;
         }
+    }
+
+    public MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
+    }
+
+    public void setMediaPlayer(MediaPlayer mediaPlayer) {
+        this.mediaPlayer = mediaPlayer;
+    }
+
+    public boolean isPrepared() {
+        return isPrepared;
+    }
+
+    public void setPrepared(boolean prepared) {
+        isPrepared = prepared;
     }
 }

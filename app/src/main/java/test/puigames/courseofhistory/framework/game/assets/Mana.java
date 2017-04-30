@@ -12,8 +12,8 @@ import test.puigames.courseofhistory.framework.engine.screen.Screen;
 public class Mana extends Sprite
 {
     //Current state of mana
-    public ManaState manaState;
-    public Bitmap[] manaType; //0 is available, 1 is used
+    private ManaState manaState;
+    private Bitmap[] manaType; //0 is available, 1 is used
 
     public enum ManaState
     {
@@ -26,6 +26,22 @@ public class Mana extends Sprite
         //width=10, height=15
         super(screen, manaType[0], 10, 15);
         manaState = ManaState.available;
+        this.manaType = manaType;
+    }
+
+    public ManaState getManaState() {
+        return manaState;
+    }
+
+    public void setManaState(ManaState manaState) {
+        this.manaState = manaState;
+    }
+
+    public Bitmap[] getManaType() {
+        return manaType;
+    }
+
+    public void setManaType(Bitmap[] manaType) {
         this.manaType = manaType;
     }
 }

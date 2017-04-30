@@ -12,11 +12,11 @@ import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.In
 
 public interface TouchHandler extends OnTouchListener
 {
-    public boolean isTouchDown(int pointer);
+    boolean isTouchDown(int pointer);
 
-    public float getTouchX(int pointer);
+    float getTouchX(int pointer);
 
-    public float getTouchY(int pointer);
+    float getTouchY(int pointer);
 
-    public List<TouchEvent> getTouchEvents();
+    List<TouchEvent> getTouchEvents();
 }

@@ -6,7 +6,6 @@ package test.puigames.courseofhistory.framework.engine.audio;
 
 public interface Audio
 {
-    public Music newMusic(String fileName);
-
-    public Sound newSound(String fileName);
+    Music newMusic(String fileName);
+    Sound newSound(String fileName);
 }

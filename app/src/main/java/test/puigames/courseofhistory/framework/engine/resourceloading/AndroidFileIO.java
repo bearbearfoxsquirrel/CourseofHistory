@@ -19,9 +19,9 @@ import java.io.OutputStream;
 
 public class AndroidFileIO implements FileIO
 {
-    Context context;
-    AssetManager assets;
-    String externalStoragePath;
+    private Context context;
+    private AssetManager assets;
+    private String externalStoragePath;
 
     public AndroidFileIO(Context context)
     {
@@ -30,8 +30,6 @@ public class AndroidFileIO implements FileIO
         this.externalStoragePath = Environment.getExternalStorageDirectory()
                 .getAbsolutePath() + File.separator;
     }
-
-
 
     public InputStream readAsset(String fileName) throws IOException
     {
@@ -53,5 +51,29 @@ public class AndroidFileIO implements FileIO
     public SharedPreferences getPreferences()
     {
         return PreferenceManager.getDefaultSharedPreferences(context);
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    public AssetManager getAssets() {
+        return assets;
+    }
+
+    public void setAssets(AssetManager assets) {
+        this.assets = assets;
+    }
+
+    public String getExternalStoragePath() {
+        return externalStoragePath;
+    }
+
+    public void setExternalStoragePath(String externalStoragePath) {
+        this.externalStoragePath = externalStoragePath;
     }
 }

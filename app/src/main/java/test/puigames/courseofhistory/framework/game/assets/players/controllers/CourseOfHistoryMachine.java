@@ -14,16 +14,17 @@ import test.puigames.courseofhistory.framework.game.assets.players.Player;
 
 public class CourseOfHistoryMachine implements Updateable {
     private static float TURN_TIME = 20.f;
+    //initial turn
     private static final float COIN_TOSS_DELAY = 3.f;
-    public static int PLAYER_COUNT = 2;
+    private static int PLAYER_COUNT = 2;
     private float startDelayTimeRemaining;
     private float turnTimeRemaining;
-    public Player[] players;
-    public int[] manaCount;
-    public GameState currentGameState;
-    int turnIndex;
+    private Player[] players;
+    private int[] manaCount;
+    private GameState currentGameState;
+    private int turnIndex;
     private Coin coin;
-    public Board board;
+    private Board board;
 
 
     public enum GameState {
@@ -49,12 +50,12 @@ public class CourseOfHistoryMachine implements Updateable {
     private void tossCoin() {
         coin.flipCoin();
 
-        if(coin.faceUp == Coin.Result.HEADS)
+        if(coin.getFaceUp() == Coin.Result.HEADS)
             turnIndex = 0;
         else
             turnIndex = 1;
 
-        coin.setBitmap(coin.coinSides[turnIndex]);
+        coin.setBitmap(coin.getCoinSides()[turnIndex]);
     }
 
     @Override
@@ -83,7 +84,7 @@ public class CourseOfHistoryMachine implements Updateable {
                 currentGameState = GameState.CREATE_STARTING_HAND;//To transition FSM to the game being active so turns are now being made
 
                 for (Player player : players)
-                    player.playerCurrentState = Player.PlayerState.WAITING_TO_BEGIN_CREATING_HAND;
+                    player.setPlayerCurrentState(Player.PlayerState.WAITING_TO_BEGIN_CREATING_HAND);
                 break;
 
             case CREATE_STARTING_HAND:
@@ -101,16 +102,16 @@ public class CourseOfHistoryMachine implements Updateable {
                 }
 
                 //Handles each player creating their hand and checking if they are finished making their hand
-                switch (players[turnIndex].playerCurrentState) {
+                switch (players[turnIndex].getPlayerCurrentState()) {
                     case WAITING_FOR_TURN:
-                        players[turnIndex].playerCurrentState = Player.PlayerState.BEGIN_CREATING_STARTING_HAND;
+                        players[turnIndex].setPlayerCurrentState(Player.PlayerState.BEGIN_CREATING_STARTING_HAND);
                     case WAITING_TO_BEGIN_CREATING_HAND:
                         players[turnIndex].createNewStartingHand();
                         break;
 
                     case FINISHED_CREATING_START_HAND:
                         nextPlayersTurn();
-                        players[turnIndex].playerCurrentState = Player.PlayerState.BEGIN_CREATING_STARTING_HAND;
+                        players[turnIndex].setPlayerCurrentState(Player.PlayerState.BEGIN_CREATING_STARTING_HAND);
                         break;
                 }
                 break;
@@ -135,9 +136,9 @@ public class CourseOfHistoryMachine implements Updateable {
     private void transitionPlayerStatesFromCreatingHandToTurnStates() {
         for (int i = 0; i < players.length; i++) {
             if (i == turnIndex)
-                players[i].playerCurrentState = Player.PlayerState.TURN_STARTED;
+                players[i].setPlayerCurrentState(Player.PlayerState.TURN_STARTED);
             else
-                players[i].playerCurrentState = Player.PlayerState.WAITING_FOR_TURN;
+                players[i].setPlayerCurrentState(Player.PlayerState.WAITING_FOR_TURN);
         }
     }
 
@@ -149,14 +150,14 @@ public class CourseOfHistoryMachine implements Updateable {
     }
 
     private boolean isPlayerFinishedCreatingStartingHand(int playerIndex) {
-        return (players[playerIndex].playerCurrentState == Player.PlayerState.FINISHED_CREATING_START_HAND);
+        return (players[playerIndex].getPlayerCurrentState() == Player.PlayerState.FINISHED_CREATING_START_HAND);
     }
 
     private void checkWinStatus(){
         for (int i = 0; i < players.length; i++) {
-            if(players[i].playerDeck.size() == 0 && players[i].playerCurrentState == Player.PlayerState.TURN_STARTED) { //TODO add if hero health is <= 0
-                players[i].playerCurrentState = Player.PlayerState.LOSE;
-                players[findNextPlayer(i)].playerCurrentState = Player.PlayerState.WIN;
+            if(players[i].getPlayerDeck().size() == 0 && players[i].getPlayerCurrentState() == Player.PlayerState.TURN_STARTED) { //TODO add if hero health is <= 0
+                players[i].setPlayerCurrentState(Player.PlayerState.LOSE);
+                players[findNextPlayer(i)].setPlayerCurrentState(Player.PlayerState.WIN);
                 currentGameState = GameState.GG;
             }
         }
@@ -164,9 +165,9 @@ public class CourseOfHistoryMachine implements Updateable {
 
     private void updateCardsInPlay() {
         for (Player player: players)
-            for (CharacterCard card : player.board.playAreas[player.playerNumber].cardsInArea)
+            for (CharacterCard card : player.getBoard().getPlayAreas()[player.getPlayerNumber()].getCardsInArea())
                 if (card.isDeaders())
-                    player.board.playAreas[player.playerNumber].removeCardFromArea(card);
+                    player.getBoard().getPlayAreas()[player.getPlayerNumber()].removeCardFromArea(card);
         //Testing purposes only!
          /*  for (Player player: players)
             for (CharacterCard card : player.testCards)
@@ -176,14 +177,14 @@ public class CourseOfHistoryMachine implements Updateable {
 
     private void takeTurn(float deltaTime) {
         //Turn being made
-        switch (players[turnIndex].playerCurrentState) {
+        switch (players[turnIndex].getPlayerCurrentState()) {
             case CREATED:
-                players[turnIndex].playerCurrentState = Player.PlayerState.TURN_STARTED;
+                players[turnIndex].setPlayerCurrentState(Player.PlayerState.TURN_STARTED);
                 break;
 
             case TURN_STARTED:
                 startTurn();
-                players[turnIndex].playerCurrentState = Player.PlayerState.TURN_ACTIVE;
+                players[turnIndex].setPlayerCurrentState(Player.PlayerState.TURN_ACTIVE);
                 break;
 
             case TURN_ACTIVE:
@@ -198,15 +199,15 @@ public class CourseOfHistoryMachine implements Updateable {
 
     private void startTurn() {
         turnTimeRemaining = TURN_TIME;
-        if (players[turnIndex].playerDeck.size() != 0) {
+        if (players[turnIndex].getPlayerDeck().size() != 0) {
             players[turnIndex].startTurn();
-            players[turnIndex].board.cardHands[turnIndex].addToHand(players[turnIndex].drawCardFromDeck());
+            players[turnIndex].getBoard().getCardHands()[turnIndex].addToHand(players[turnIndex].drawCardFromDeck());
         }
 
-        for (CharacterCard card : players[turnIndex].board.playAreas[turnIndex].cardsInArea) {
-            card.currentAttackEnergy = card.maxAttackEnergy;
+        for (CharacterCard card : players[turnIndex].getBoard().getPlayAreas()[turnIndex].getCardsInArea()) {
+            card.setCurrentAttackEnergy(card.getMaxAttackEnergy());
 
-            if (manaCount[turnIndex] < players[turnIndex].MAX_MANA) //don't want it going over 10 - max
+            if (manaCount[turnIndex] < players[turnIndex].getMAX_MANA()) //don't want it going over 10 - max
             {
                 manaCount[turnIndex]++;
                 giveManaToPlayer();
@@ -220,11 +221,11 @@ public class CourseOfHistoryMachine implements Updateable {
      */
     private void giveManaToPlayer()
     {
-        players[turnIndex].currentMana = manaCount[turnIndex];
-        for(int i = 0; i < players[turnIndex].MAX_MANA; i++)
+        players[turnIndex].setCurrentMana(manaCount[turnIndex]);
+        for(int i = 0; i < players[turnIndex].getMAX_MANA(); i++)
         {
-            players[turnIndex].mana[i].manaState = Mana.ManaState.available;
-            players[turnIndex].mana[i].setBitmap(players[turnIndex].mana[i].manaType[0]);
+            players[turnIndex].getMana()[i].setManaState(Mana.ManaState.available);
+            players[turnIndex].getMana()[i].setBitmap(players[turnIndex].getMana()[i].getManaType()[0]);
         }
     }
 
@@ -239,10 +240,10 @@ public class CourseOfHistoryMachine implements Updateable {
     }
 
     private void nextPlayersTurn() {
-        players[turnIndex].playerCurrentState = Player.PlayerState.WAITING_FOR_TURN;
+        players[turnIndex].setPlayerCurrentState(Player.PlayerState.WAITING_FOR_TURN);
         incrementTurnIndex();
-        coin.setBitmap(coin.coinSides[turnIndex]); //Just to test turns are working :)
-        players[turnIndex].playerCurrentState = Player.PlayerState.TURN_STARTED;
+        coin.setBitmap(coin.getCoinSides()[turnIndex]); //Just to test turns are working :)
+        players[turnIndex].setPlayerCurrentState(Player.PlayerState.TURN_STARTED);
     }
 
     private void incrementTurnIndex() {
@@ -261,5 +262,85 @@ public class CourseOfHistoryMachine implements Updateable {
 
     public GameState getCurrentGameState(){
         return  this.currentGameState;
+    }
+
+    public static float getTurnTime() {
+        return TURN_TIME;
+    }
+
+    public static void setTurnTime(float turnTime) {
+        TURN_TIME = turnTime;
+    }
+
+    public static float getCoinTossDelay() {
+        return COIN_TOSS_DELAY;
+    }
+
+    public static int getPlayerCount() {
+        return PLAYER_COUNT;
+    }
+
+    public static void setPlayerCount(int playerCount) {
+        PLAYER_COUNT = playerCount;
+    }
+
+    public float getStartDelayTimeRemaining() {
+        return startDelayTimeRemaining;
+    }
+
+    public void setStartDelayTimeRemaining(float startDelayTimeRemaining) {
+        this.startDelayTimeRemaining = startDelayTimeRemaining;
+    }
+
+    public float getTurnTimeRemaining() {
+        return turnTimeRemaining;
+    }
+
+    public void setTurnTimeRemaining(float turnTimeRemaining) {
+        this.turnTimeRemaining = turnTimeRemaining;
+    }
+
+    public Player[] getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(Player[] players) {
+        this.players = players;
+    }
+
+    public int[] getManaCount() {
+        return manaCount;
+    }
+
+    public void setManaCount(int[] manaCount) {
+        this.manaCount = manaCount;
+    }
+
+    public void setCurrentGameState(GameState currentGameState) {
+        this.currentGameState = currentGameState;
+    }
+
+    public int getTurnIndex() {
+        return turnIndex;
+    }
+
+    public void setTurnIndex(int turnIndex) {
+        this.turnIndex = turnIndex;
+    }
+
+    public Coin getCoin() {
+        return coin;
+    }
+
+    public void setCoin(Coin coin) {
+        this.coin = coin;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
     }
 }

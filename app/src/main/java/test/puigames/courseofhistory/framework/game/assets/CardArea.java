@@ -19,9 +19,9 @@ import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
  */
 public abstract class CardArea extends GameObject
 {
-    public float cardPadding;
-    public ArrayList<CharacterCard> cardsInArea;
-    public Origin[] positions;
+    protected float cardPadding;
+    protected ArrayList<CharacterCard> cardsInArea;
+    protected Origin[] positions;
     protected int maxCardsInArea;
 
     public CardArea(Screen screen, int width, int height)
@@ -73,8 +73,8 @@ public abstract class CardArea extends GameObject
 
         for (int i = cardsInArea.size() - 1; i >= 0; i--)
             for(int j = 0; j < cardsInArea.size(); j++)
-                if(!cardsInArea.get(i).origin.equals(positions[j]) && !cardsInArea.get(i).origin.equals(positions[i]))
-                    cardsInArea.get(i).origin.setOrigin(new Origin(positions[i]));
+                if(!cardsInArea.get(i).getOrigin().equals(positions[j]) && !cardsInArea.get(i).getOrigin().equals(positions[i]))
+                    cardsInArea.get(i).getOrigin().setOrigin(new Origin(positions[i]));
     }
 
     /**
@@ -87,6 +87,38 @@ public abstract class CardArea extends GameObject
     {
         positions = new Origin[maxCardsInArea];
         for(int i = 1; i <= maxCardsInArea; i++)
-            positions[i - 1] = new Origin(cardPadding + ((width / maxCardsInArea) * i) / 1.2f, this.origin.y + (cardPadding * 2));
+            positions[i - 1] = new Origin(cardPadding + ((width / maxCardsInArea) * i) / 1.2f, this.origin.getOriginY() + (cardPadding * 2));
+    }
+
+    public float getCardPadding() {
+        return cardPadding;
+    }
+
+    public void setCardPadding(float cardPadding) {
+        this.cardPadding = cardPadding;
+    }
+
+    public ArrayList<CharacterCard> getCardsInArea() {
+        return cardsInArea;
+    }
+
+    public void setCardsInArea(ArrayList<CharacterCard> cardsInArea) {
+        this.cardsInArea = cardsInArea;
+    }
+
+    public Origin[] getPositions() {
+        return positions;
+    }
+
+    public void setPositions(Origin[] positions) {
+        this.positions = positions;
+    }
+
+    public int getMaxCardsInArea() {
+        return maxCardsInArea;
+    }
+
+    public void setMaxCardsInArea(int maxCardsInArea) {
+        this.maxCardsInArea = maxCardsInArea;
     }
 }

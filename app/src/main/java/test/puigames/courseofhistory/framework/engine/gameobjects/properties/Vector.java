@@ -6,10 +6,10 @@ package test.puigames.courseofhistory.framework.engine.gameobjects.properties;
 
 public class Vector
 {
-    public static final Vector Zero = new Vector(0, 0);
+    private static final Vector Zero = new Vector(0, 0);
 
-    public float x;
-    public float y;
+    private float x;
+    private float y;
 
     public Vector()
     {
@@ -99,4 +99,24 @@ public class Vector
            y /= length;
        }
    }
+
+    public static Vector getZero() {
+        return Zero;
+    }
+
+    public float getVectorX() {
+        return x;
+    }
+
+    public void setVectorX(float x) {
+        this.x = x;
+    }
+
+    public float getVectorY() {
+        return y;
+    }
+
+    public void setVectorY(float y) {
+        this.y = y;
+    }
 }

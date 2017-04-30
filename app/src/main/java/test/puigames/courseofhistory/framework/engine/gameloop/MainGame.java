@@ -25,21 +25,21 @@ import test.puigames.courseofhistory.framework.engine.screen.Screen;
 
 public class MainGame extends Activity implements GameProperties, Runnable
 {
-    FastRenderView renderView;
-    ResourceFetcher resourceFetcher;
-    Audio audio;
-    Screen screen;
-    WakeLock wakeLock;
-    Thread renderThread = null;
-    MediaPlayer mySound;
+    private FastRenderView renderView;
+    private ResourceFetcher resourceFetcher;
+    private Audio audio;
+    private Screen screen;
+    private WakeLock wakeLock;
+    private Thread renderThread = null;
+    private MediaPlayer mySound;
 
-    volatile boolean running = false;
-    volatile boolean drawNeeded = false;
+    private volatile boolean running = false;
+    private volatile boolean drawNeeded = false;
 
-    long startTime = System.nanoTime();
+    private long startTime = System.nanoTime();
 
-    int screenWidth;
-    int screenHeight;
+    private int screenWidth;
+    private int screenHeight;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -158,7 +158,7 @@ public class MainGame extends Activity implements GameProperties, Runnable
 
     public InputBuddy getInput()
     {
-        return renderView.inputBuddy;
+        return renderView.getInputBuddy();
     }
 
     @Override
@@ -179,6 +179,82 @@ public class MainGame extends Activity implements GameProperties, Runnable
     public Screen getStartScreen()
     {
         return null;
+    }
+
+    public FastRenderView getRenderView() {
+        return renderView;
+    }
+
+    public void setRenderView(FastRenderView renderView) {
+        this.renderView = renderView;
+    }
+
+    public void setResourceFetcher(ResourceFetcher resourceFetcher) {
+        this.resourceFetcher = resourceFetcher;
+    }
+
+    public void setAudio(Audio audio) {
+        this.audio = audio;
+    }
+
+    public Screen getScreen() {
+        return screen;
+    }
+
+    public WakeLock getWakeLock() {
+        return wakeLock;
+    }
+
+    public void setWakeLock(WakeLock wakeLock) {
+        this.wakeLock = wakeLock;
+    }
+
+    public Thread getRenderThread() {
+        return renderThread;
+    }
+
+    public void setRenderThread(Thread renderThread) {
+        this.renderThread = renderThread;
+    }
+
+    public MediaPlayer getMySound() {
+        return mySound;
+    }
+
+    public void setMySound(MediaPlayer mySound) {
+        this.mySound = mySound;
+    }
+
+    public boolean isRunning() {
+        return running;
+    }
+
+    public void setRunning(boolean running) {
+        this.running = running;
+    }
+
+    public boolean isDrawNeeded() {
+        return drawNeeded;
+    }
+
+    public void setDrawNeeded(boolean drawNeeded) {
+        this.drawNeeded = drawNeeded;
+    }
+
+    public long getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(long startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setScreenWidth(int screenWidth) {
+        this.screenWidth = screenWidth;
+    }
+
+    public void setScreenHeight(int screenHeight) {
+        this.screenHeight = screenHeight;
     }
 
 

@@ -11,15 +11,15 @@ import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.In
  */
 
 public class InputBuddy {
-    AndroidInput androidInput;
+    private AndroidInput androidInput;
     //Our little buddy for giving us the nice input that he got off his other input friends
     //He holds this while we have to use it
     //And afterwards goes and talk to his friends again to bring us more input
-    public List<Input.TouchEvent> touchEvents;
-    public List<Input.KeyEvent> keyEvents;
-    public float accelerationX;
-    public float accelerationY;
-    public float accelerationZ;
+    private List<Input.TouchEvent> touchEvents;
+    private List<Input.KeyEvent> keyEvents;
+    private float accelerationX;
+    private float accelerationY;
+    private float accelerationZ;
 
     //Creates storage for the events of input until the next time the update loop for the screen is made
     public InputBuddy(AndroidInput androidInput) {
@@ -83,5 +83,13 @@ public class InputBuddy {
     public void setAccelerationZ(float accelerationZ) {
         this.accelerationZ = accelerationZ;
     }
-    //  public  boolean isTouchDown;
+
+    public AndroidInput getAndroidInput() {
+        return androidInput;
+    }
+
+    public void setAndroidInput(AndroidInput androidInput) {
+        this.androidInput = androidInput;
+    }
+
 }

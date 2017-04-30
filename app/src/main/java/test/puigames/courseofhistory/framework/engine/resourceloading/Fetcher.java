@@ -13,9 +13,9 @@ import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 public interface Fetcher {
     //public JSONArray getJSONArrayFromJSONFile(String url);
 
-    public Bitmap getBitmapFromFile(String url);
+    Bitmap getBitmapFromFile(String url);
 
-    public Board loadBoard(Screen screen, String boardName);
+    Board loadBoard(Screen screen, String boardName);
 
-    public CharacterCard[] loadCharacterCards(Screen screen, String deckName);
+    CharacterCard[] loadCharacterCards(Screen screen, String deckName);
 }

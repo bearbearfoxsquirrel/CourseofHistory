@@ -20,22 +20,21 @@ import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
  */
 
 public class Deck extends Stack implements Placeable, Scalable.ImageScalable, Drawable {
-    Bitmap bitmap;
-    Paint paint;
-    Screen currentScreen;
-    Matrix matrix;
-    Origin origin;
-
-    float width;
-    float height;
+    private Bitmap bitmap;
+    private Paint paint;
+    private Screen currentScreen;
+    private Matrix matrix;
+    private Origin origin;
+    private float width;
+    private float height;
 
     public Deck(Screen screen, Bitmap bitmap) {
         this.currentScreen = screen;
         this.bitmap = bitmap;
         this.paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-        this.height = CharacterCard.CARD_HEIGHT;
-        this.width = CharacterCard.CARD_WIDTH;
+        this.height = CharacterCard.getCardHeight();
+        this.width = CharacterCard.getCardWidth();
     }
 
     public void shuffle(CharacterCard[] characterCards) {
@@ -73,22 +72,22 @@ public class Deck extends Stack implements Placeable, Scalable.ImageScalable, Dr
         this.matrix = new Matrix();
         //Checks if the deck is in the list of things to be drawn and scaled
         //And removes them if they are not
-        if (!screen.drawables.contains(this))
-            screen.drawables.add(this);
+        if (!screen.getDrawables().contains(this))
+            screen.getDrawables().add(this);
 
-        if (!screen.scalables.contains(this))
-            screen.scalables.add(this);
+        if (!screen.getScalables().contains(this))
+            screen.getScalables().add(this);
     }
 
     @Override
     public void remove(Screen screen) {
         //Checks if the deck is in the list of things to be drawn and scaled
         //And removes them if they are
-        if (screen.drawables.contains(this))
-            screen.drawables.remove(this);
+        if (screen.getDrawables().contains(this))
+            screen.getDrawables().remove(this);
 
-        if (screen.scalables.contains(this))
-            screen.scalables.remove(this);
+        if (screen.getScalables().contains(this))
+            screen.getScalables().remove(this);
     }
 
     @Override
@@ -97,8 +96,8 @@ public class Deck extends Stack implements Placeable, Scalable.ImageScalable, Dr
                 (this.getHeight() / this.getBitmap().getHeight()) * scaleFactorY);
         this.getMatrix().postRotate(0, scaleFactorX * this.getBitmap().getWidth()/ 2.0f,
                 scaleFactorY * this.getBitmap().getHeight() / 2.0f);
-        this.getMatrix().postTranslate((this.getOrigin().x - this.getWidth() / 2) * scaleFactorX,
-                (this.getOrigin().y - this.getHeight() / 2) * scaleFactorY);
+        this.getMatrix().postTranslate((this.getOrigin().getOriginX() - this.getWidth() / 2) * scaleFactorX,
+                (this.getOrigin().getOriginY() - this.getHeight() / 2) * scaleFactorY);
     }
 
     @Override
@@ -124,6 +123,42 @@ public class Deck extends Stack implements Placeable, Scalable.ImageScalable, Dr
     @Override
     public Bitmap getBitmap() {
         return this.bitmap;
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+    }
+
+    public Paint getPaint() {
+        return paint;
+    }
+
+    public void setPaint(Paint paint) {
+        this.paint = paint;
+    }
+
+    public Screen getCurrentScreen() {
+        return currentScreen;
+    }
+
+    public void setCurrentScreen(Screen currentScreen) {
+        this.currentScreen = currentScreen;
+    }
+
+    public void setMatrix(Matrix matrix) {
+        this.matrix = matrix;
+    }
+
+    public void setOrigin(Origin origin) {
+        this.origin = origin;
+    }
+
+    public void setWidth(float width) {
+        this.width = width;
+    }
+
+    public void setHeight(float height) {
+        this.height = height;
     }
 }
 

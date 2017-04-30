@@ -23,7 +23,7 @@ public class Scaler {
         gameproperties.calculateScreenSize();
         screenWidth = gameproperties.getScreenWidth();
         screenHeight = gameproperties.getScreenHeight();
-        setScaleFactor(viewport.width, viewport.height);
+        setScaleFactor(viewport.getWidth(), viewport.getHeight());
     }
 
     public void scaleToScreen(Scalable scalable) {
@@ -32,7 +32,7 @@ public class Scaler {
     }
 
     public void scaleTouchInput(InputBuddy inputBuddy) {
-        for(Input.TouchEvent touchEvent : inputBuddy.touchEvents) {
+        for(Input.TouchEvent touchEvent : inputBuddy.getTouchEvents()) {
             touchEvent.x /= scaleFactorX;
             touchEvent.y /= scaleFactorY;
         }
@@ -61,6 +61,38 @@ public class Scaler {
         return scaleFactorX;
     }
     public float getScaleFactorY(){ return scaleFactorY;}
+
+    public float getScreenWidth() {
+        return screenWidth;
+    }
+
+    public void setScreenWidth(float screenWidth) {
+        this.screenWidth = screenWidth;
+    }
+
+    public float getScreenHeight() {
+        return screenHeight;
+    }
+
+    public void setScreenHeight(float screenHeight) {
+        this.screenHeight = screenHeight;
+    }
+
+    public void setScaleFactorX(float scaleFactorX) {
+        this.scaleFactorX = scaleFactorX;
+    }
+
+    public void setScaleFactorY(float scaleFactorY) {
+        this.scaleFactorY = scaleFactorY;
+    }
+
+    public Viewport getViewport() {
+        return viewport;
+    }
+
+    public void setViewport(Viewport viewport) {
+        this.viewport = viewport;
+    }
 
 
 }

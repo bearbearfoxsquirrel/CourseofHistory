@@ -6,21 +6,21 @@ package test.puigames.courseofhistory.framework.engine.audio;
 
 public interface Music
 {
-    public void play();
+    void play();
 
-    public void stop();
+    void stop();
 
-    public void pause();
+    void pause();
 
-    public void setLooping(boolean looping);
+    void setLooping(boolean looping);
 
-    public void setVolume(float volume);
+    void setVolume(float volume);
 
-    public boolean isPlaying();
+    boolean isPlaying();
 
-    public boolean isStopped();
+    boolean isStopped();
 
-    public boolean isLooping();
+    boolean isLooping();
 
-    public void dispose();
+    void dispose();
 }

@@ -16,10 +16,10 @@ import test.puigames.courseofhistory.framework.engine.Pool.PoolObjectFactory;
 
 public class KeyboardHandler implements OnKeyListener
 {
-    boolean[] pressedKeys = new boolean[128];
-    Pool<KeyEvent> keyEventPool;
-    List<KeyEvent> keyEventsBuffer = new ArrayList<KeyEvent>();
-    List<KeyEvent> keyEvents = new ArrayList<KeyEvent>();
+    private boolean[] pressedKeys = new boolean[128];
+    private Pool<KeyEvent> keyEventPool;
+    private List<KeyEvent> keyEventsBuffer = new ArrayList<KeyEvent>();
+    private List<KeyEvent> keyEvents = new ArrayList<KeyEvent>();
 
     public KeyboardHandler(View view)
     {
@@ -92,5 +92,33 @@ public class KeyboardHandler implements OnKeyListener
             keyEventsBuffer.clear();
             return keyEvents;
         }
+    }
+
+    public boolean[] getPressedKeys() {
+        return pressedKeys;
+    }
+
+    public void setPressedKeys(boolean[] pressedKeys) {
+        this.pressedKeys = pressedKeys;
+    }
+
+    public Pool<KeyEvent> getKeyEventPool() {
+        return keyEventPool;
+    }
+
+    public void setKeyEventPool(Pool<KeyEvent> keyEventPool) {
+        this.keyEventPool = keyEventPool;
+    }
+
+    public List<KeyEvent> getKeyEventsBuffer() {
+        return keyEventsBuffer;
+    }
+
+    public void setKeyEventsBuffer(List<KeyEvent> keyEventsBuffer) {
+        this.keyEventsBuffer = keyEventsBuffer;
+    }
+
+    public void setKeyEvents(List<KeyEvent> keyEvents) {
+        this.keyEvents = keyEvents;
     }
 }

@@ -19,15 +19,15 @@ import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.In
 public class MultiTouchHandler implements TouchHandler
 {
     private static final int MAX_TOUCHPOINTS = 10;
-    boolean[] isTouched = new boolean[MAX_TOUCHPOINTS];
-    float[] touchX = new float[MAX_TOUCHPOINTS];
-    float[] touchY = new float[MAX_TOUCHPOINTS];
-    int[] id = new int[MAX_TOUCHPOINTS];
-    Pool<TouchEvent> touchEventPool;
-    List<TouchEvent> touchEvents = new ArrayList<TouchEvent>();
-    List<TouchEvent> touchEventsBuffer = new ArrayList<TouchEvent>();
-    float scaleX;
-    float scaleY;
+    private boolean[] isTouched = new boolean[MAX_TOUCHPOINTS];
+    private float[] touchX = new float[MAX_TOUCHPOINTS];
+    private float[] touchY = new float[MAX_TOUCHPOINTS];
+    private int[] id = new int[MAX_TOUCHPOINTS];
+    private Pool<TouchEvent> touchEventPool;
+    private List<TouchEvent> touchEvents = new ArrayList<TouchEvent>();
+    private List<TouchEvent> touchEventsBuffer = new ArrayList<TouchEvent>();
+    private float scaleX;
+    private float scaleY;
 
     public MultiTouchHandler(View view, float scaleX, float scaleY)
     {
@@ -176,5 +176,70 @@ public class MultiTouchHandler implements TouchHandler
                 return i;
         return -1;
     }
+
+    public static int getMaxTouchpoints() {
+        return MAX_TOUCHPOINTS;
+    }
+
+    public boolean[] getIsTouched() {
+        return isTouched;
+    }
+
+    public void setIsTouched(boolean[] isTouched) {
+        this.isTouched = isTouched;
+    }
+
+    public float[] getTouchX() {
+        return touchX;
+    }
+
+    public void setTouchX(float[] touchX) {
+        this.touchX = touchX;
+    }
+
+    public float[] getTouchY() {
+        return touchY;
+    }
+
+    public void setTouchY(float[] touchY) {
+        this.touchY = touchY;
+    }
+
+    public int[] getId() {
+        return id;
+    }
+
+    public void setId(int[] id) {
+        this.id = id;
+    }
+
+    public Pool<TouchEvent> getTouchEventPool() {
+        return touchEventPool;
+    }
+
+    public void setTouchEventPool(Pool<TouchEvent> touchEventPool) {
+        this.touchEventPool = touchEventPool;
+    }
+
+    public void setTouchEvents(List<TouchEvent> touchEvents) {
+        this.touchEvents = touchEvents;
+    }
+
+    public List<TouchEvent> getTouchEventsBuffer() {
+        return touchEventsBuffer;
+    }
+
+    public void setTouchEventsBuffer(List<TouchEvent> touchEventsBuffer) {
+        this.touchEventsBuffer = touchEventsBuffer;
+    }
+
+    public float getScaleX() {
+        return scaleX;
+    }
+
+    public float getScaleY() {
+        return scaleY;
+    }
+
 
 }

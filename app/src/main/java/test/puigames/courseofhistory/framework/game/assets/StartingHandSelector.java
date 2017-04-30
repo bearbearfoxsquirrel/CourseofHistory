@@ -11,13 +11,29 @@ import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
  */
 
 public class StartingHandSelector {
-    public Set<CharacterCard> cardsToKeep;
-    public Set<CharacterCard> cardsToToss;
+    private Set<CharacterCard> cardsToKeep;
+    private Set<CharacterCard> cardsToToss;
 
     public StartingHandSelector(CharacterCard[] cards){
         cardsToKeep = new HashSet<>();
         cardsToToss = new HashSet<>();
 
         cardsToKeep.addAll(Arrays.asList(cards));
+    }
+
+    public Set<CharacterCard> getCardsToKeep() {
+        return cardsToKeep;
+    }
+
+    public void setCardsToKeep(Set<CharacterCard> cardsToKeep) {
+        this.cardsToKeep = cardsToKeep;
+    }
+
+    public Set<CharacterCard> getCardsToToss() {
+        return cardsToToss;
+    }
+
+    public void setCardsToToss(Set<CharacterCard> cardsToToss) {
+        this.cardsToToss = cardsToToss;
     }
 }

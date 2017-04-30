@@ -10,8 +10,9 @@ import test.puigames.courseofhistory.framework.engine.screen.Screen;
  */
 
 public abstract class Card extends Sprite {
-    public static final float CARD_HEIGHT = 83;
-    public static final float CARD_WIDTH = 60;
+    protected static final float CARD_HEIGHT = 83;
+    protected static final float CARD_WIDTH = 60;
+
 
     //private variables
 
@@ -21,8 +22,9 @@ public abstract class Card extends Sprite {
     }
 
     public void translateCard(float updatedX, float updatedY) {
-        this.origin.x -= ((origin.x - updatedX) / 2);
-        this.origin.y -= ((origin.y - updatedY) / 2);
+        this.origin.setOriginX(origin.getOriginX() - ((origin.getOriginX() - updatedX) / 2));
+        this.origin.setOriginY(origin.getOriginY()- ((origin.getOriginY() - updatedY) / 2));
+
 
         maxAcceleration = 60.0f;
         maxVelocity = 20.0f;
@@ -34,5 +36,12 @@ public abstract class Card extends Sprite {
     public void adjustCardSize(float factor){
         this.setHeight(this.height*factor);
         this.setWidth(this.width*factor);
+    }
+    public static float getCardHeight() {
+        return CARD_HEIGHT;
+    }
+
+    public static float getCardWidth() {
+        return CARD_WIDTH;
     }
 }

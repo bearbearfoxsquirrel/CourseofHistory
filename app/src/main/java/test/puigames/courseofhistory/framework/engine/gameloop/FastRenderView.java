@@ -11,14 +11,12 @@ import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.An
  */
 
 public class FastRenderView extends View {
-    MainGame game;
-    volatile boolean running = false;
-
-    float deltaTime;
-    float startTime;
-
-    AndroidInput input;
-    InputBuddy inputBuddy;
+    private MainGame game;
+    private volatile boolean running = false;
+    private float deltaTime;
+    private float startTime;
+    private AndroidInput input;
+    private InputBuddy inputBuddy;
 
     public FastRenderView(MainGame game) {
         super(game);
@@ -46,10 +44,58 @@ public class FastRenderView extends View {
         game.getCurrentScreen().draw(canvas, deltaTime);
 
         //Tells the loop that another draw is now needed
-        game.drawNeeded = true;
+        game.setDrawNeeded(true);
     }
 
     public void pause() {
         running = false;
+    }
+
+    public MainGame getGame() {
+        return game;
+    }
+
+    public void setGame(MainGame game) {
+        this.game = game;
+    }
+
+    public boolean isRunning() {
+        return running;
+    }
+
+    public void setRunning(boolean running) {
+        this.running = running;
+    }
+
+    public float getDeltaTime() {
+        return deltaTime;
+    }
+
+    public void setDeltaTime(float deltaTime) {
+        this.deltaTime = deltaTime;
+    }
+
+    public float getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(float startTime) {
+        this.startTime = startTime;
+    }
+
+    public AndroidInput getInput() {
+        return input;
+    }
+
+    public void setInput(AndroidInput input) {
+        this.input = input;
+    }
+
+    public InputBuddy getInputBuddy() {
+        return inputBuddy;
+    }
+
+    public void setInputBuddy(InputBuddy inputBuddy) {
+        this.inputBuddy = inputBuddy;
     }
 }

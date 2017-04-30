@@ -13,8 +13,9 @@ import test.puigames.courseofhistory.framework.game.assets.players.Player;
 
 //This class is for allowing the user to interact with a pawn pawn
 public class HumanCardGameController extends CardGameController implements Inputable {
-    public InputBuddy inputBuddy;
+    private InputBuddy inputBuddy;
     private Screen currentScreen;
+
 
     public HumanCardGameController(Screen screen, InputBuddy inputBuddy, Player player) {
         this.inputBuddy = inputBuddy;
@@ -28,7 +29,7 @@ public class HumanCardGameController extends CardGameController implements Input
 
     @Override
     public void update(float deltaTime) {
-        switch (player.playerCurrentState) {
+        switch (player.getPlayerCurrentState()) {
             case TURN_ACTIVE:
                 updateCardsInHand(deltaTime);
                 updateCardsOnBoardPlayArea(deltaTime);
@@ -44,8 +45,8 @@ public class HumanCardGameController extends CardGameController implements Input
                 //hideStartingHandCreationUI();
                 break;
         }
-        collisionCheckAndResolve(player.board.playAreas[player.playerNumber]);
-        collisionCheckAndResolve(player.board.cardHands[player.playerNumber]);
+        collisionCheckAndResolve(player.getBoard().getPlayAreas()[player.getPlayerNumber()]);
+        collisionCheckAndResolve(player.getBoard().getCardHands()[player.getPlayerNumber()]);
 
 
        /* if (player.playerCurrentState == Player.PlayerState.TURN_ACTIVE) {
@@ -120,34 +121,34 @@ public class HumanCardGameController extends CardGameController implements Input
 //    }
 
     private void updateCardsOnBoardPlayArea(float deltaTime){
-        for(int i = 0; i < player.board.playAreas[player.playerNumber].cardsInArea.size(); i++) {
-            CharacterCard card = player.board.playAreas[player.playerNumber].cardsInArea.get(i);
-            if(inputBuddy.touchEvents.size() > 0) {
-                Input.TouchEvent touchEvent = inputBuddy.touchEvents.get(0);
+        for(int i = 0; i < player.getBoard().getPlayAreas()[player.getPlayerNumber()].getCardsInArea().size(); i++) {
+            CharacterCard card = player.getBoard().getPlayAreas()[player.getPlayerNumber()].getCardsInArea().get(i);
+            if(inputBuddy.getTouchEvents().size() > 0) {
+                Input.TouchEvent touchEvent = inputBuddy.getTouchEvents().get(0);
                 if(checkIsTouched(touchEvent, card)) {
-                    card.origin.setOrigin(touchEvent.x, touchEvent.y);
-                    player.moveCard(card, card.origin.x, card.origin.y);
+                    card.getOrigin().setOrigin(touchEvent.x, touchEvent.y);
+                    player.moveCard(card, card.getOrigin().getOriginX(), card.getOrigin().getOriginY());
                 }
-            } else if(inputBuddy.touchEvents.isEmpty()) {
-                player.board.playAreas[player.playerNumber].positionCardsInArea();
+            } else if(inputBuddy.getTouchEvents().isEmpty()) {
+                player.getBoard().getPlayAreas()[player.getPlayerNumber()].positionCardsInArea();
             }
             if(card.isDeaders()) {
-                player.board.playAreas[player.playerNumber].cardsInArea.remove(card);
+                player.getBoard().getPlayAreas()[player.getPlayerNumber()].getCardsInArea().remove(card);
                 //TODO: its dead so should be removed from the universe
             }
         }
     }
 
     private void updateCardsInHand(float deltaTime) {
-        for(int i = 0; i < player.board.cardHands[player.playerNumber].cardsInArea.size(); i++) {
-            CharacterCard card = player.board.cardHands[player.playerNumber].cardsInArea.get(i);
-            if(inputBuddy.touchEvents.size() > 0) {
-                Input.TouchEvent touchEvent = inputBuddy.touchEvents.get(0);
+        for(int i = 0; i < player.getBoard().getCardHands()[player.getPlayerNumber()].getCardsInArea().size(); i++) {
+            CharacterCard card = player.getBoard().getCardHands()[player.getPlayerNumber()].getCardsInArea().get(i);
+            if(inputBuddy.getTouchEvents().size() > 0) {
+                Input.TouchEvent touchEvent = inputBuddy.getTouchEvents().get(0);
                 if(checkIsTouched(touchEvent, card)) {
-                    card.origin.setOrigin(touchEvent.x, touchEvent.y);
-                    player.moveCard(card, card.origin.x, card.origin.y);
+                    card.getOrigin().setOrigin(touchEvent.x, touchEvent.y);
+                    player.moveCard(card, card.getOrigin().getOriginX(), card.getOrigin().getOriginY());
                 }
-            } else if(card.boundingBox.isOverlapping(player.board.playAreas[player.playerNumber].boundingBox) && inputBuddy.touchEvents.isEmpty()) {
+            } else if(card.boundingBox.isOverlapping(player.getBoard().getPlayAreas()[player.getPlayerNumber()].boundingBox) && inputBuddy.getTouchEvents().isEmpty()) {
                 playCard(card);
             }
         }
@@ -159,20 +160,20 @@ public class HumanCardGameController extends CardGameController implements Input
 
     private void collisionCheckAndResolve(CardArea cardArea)
     {
-        for(CharacterCard card : cardArea.cardsInArea)
+        for(CharacterCard card : cardArea.getCardsInArea())
         {
-            for(CharacterCard card2 : cardArea.cardsInArea)
+            for(CharacterCard card2 : cardArea.getCardsInArea())
             {
-                if(card.origin.equals(card2.origin))
-                    card.boundingBox.getCollisionDetector().resolveCollision(card, card2, card.overlapAllowance);
+                if(card.getOrigin().equals(card2.getOrigin()))
+                    card.boundingBox.getCollisionDetector().resolveCollision(card, card2, card.getOverlapAllowance());
 
                 if(card.boundingBox.getCollisionDetector().checkForCollision(card.boundingBox, card2.boundingBox))
-                    card.boundingBox.getCollisionDetector().resolveCollision(card, card2, card.overlapAllowance);
-                if(!card2.boundingBox.isEncapsulated(player.board.boundingBox)) //collision with board
-                    player.board.boundingBox.getCollisionDetector().keepInsideBoundingBox(player.board, card2);
+                    card.boundingBox.getCollisionDetector().resolveCollision(card, card2, card.getOverlapAllowance());
+                if(!card2.boundingBox.isEncapsulated(player.getBoard().boundingBox)) //collision with board
+                    player.getBoard().boundingBox.getCollisionDetector().keepInsideBoundingBox(player.getBoard(), card2);
             }
-            if(!card.boundingBox.isEncapsulated(player.board.boundingBox))
-                card.boundingBox.getCollisionDetector().keepInsideBoundingBox(player.board, card);
+            if(!card.boundingBox.isEncapsulated(player.getBoard().boundingBox))
+                card.boundingBox.getCollisionDetector().keepInsideBoundingBox(player.getBoard(), card);
         }
     }
 
@@ -205,11 +206,11 @@ public class HumanCardGameController extends CardGameController implements Input
      */
     private void removeManaFromPlayer(int manaCost)
     {
-        player.currentMana -= manaCost;
-        for(int i = (player.MAX_MANA - 1); i >= (player.currentMana - 1); i++)
+        player.setCurrentMana(player.getCurrentMana()- manaCost);
+        for(int i = (player.getMAX_MANA() - 1); i >= (player.getCurrentMana() - 1); i++)
         {
-            player.mana[i].manaState = Mana.ManaState.used;
-            player.mana[i].setBitmap(player.mana[i].manaType[1]);
+            player.getMana()[i].setManaState(Mana.ManaState.used);
+            player.getMana()[i].setBitmap(player.getMana()[i].getManaType()[1]);
         }
     }
 
@@ -231,4 +232,21 @@ public class HumanCardGameController extends CardGameController implements Input
     public Player getPlayer() {
         return super.getPlayer();
     }
+
+    public InputBuddy getInputBuddy() {
+        return inputBuddy;
+    }
+
+    public void setInputBuddy(InputBuddy inputBuddy) {
+        this.inputBuddy = inputBuddy;
+    }
+
+    public Screen getCurrentScreen() {
+        return currentScreen;
+    }
+
+    public void setCurrentScreen(Screen currentScreen) {
+        this.currentScreen = currentScreen;
+    }
+
 }

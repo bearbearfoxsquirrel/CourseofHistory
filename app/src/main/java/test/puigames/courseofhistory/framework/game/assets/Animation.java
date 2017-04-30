@@ -18,40 +18,31 @@ public class Animation extends Sprite {
 
     /**
      * Bitmap holding the frames of this animation
+
      */
     private Bitmap animationFrames;
-
-    public Bitmap getBitmap() {
-        return animationFrames;
-    }
-
     /**
      * Width and height of each frame of the animation
      */
     private int frameWidth;
     private int frameHeight;
-
     /**
      * Number of frames in the animation
      */
     private int frameCount;
-
     /**
      * Index of the current frame of animation
      */
     private int currentFrame;
-
     /**
      * Display period for each frame alongside a frame timer
      */
     private double frameTimer;
     private double framePeriod;
-
     /**
      * Boolean flag determining if the animation should loop
      */
     private boolean isLooping = false;
-
     /**
      * Boolean flag determining if the animation is currently playing
      */
@@ -142,5 +133,80 @@ public class Animation extends Sprite {
         if(currentFrame >= 0)
             sourceRect.set(currentFrame * frameWidth, 0, currentFrame
                     * frameWidth + frameWidth, frameHeight);
+    }
+    public Bitmap getBitmap() {
+        return animationFrames;
+    }
+
+    public Bitmap getAnimationFrames() {
+        return animationFrames;
+    }
+
+    public void setAnimationFrames(Bitmap animationFrames) {
+        this.animationFrames = animationFrames;
+    }
+
+    public int getFrameWidth() {
+        return frameWidth;
+    }
+
+    public void setFrameWidth(int frameWidth) {
+        this.frameWidth = frameWidth;
+    }
+
+    public int getFrameHeight() {
+        return frameHeight;
+    }
+
+    public void setFrameHeight(int frameHeight) {
+        this.frameHeight = frameHeight;
+    }
+
+    public int getFrameCount() {
+        return frameCount;
+    }
+
+    public void setFrameCount(int frameCount) {
+        this.frameCount = frameCount;
+    }
+
+    public int getCurrentFrame() {
+        return currentFrame;
+    }
+
+    public void setCurrentFrame(int currentFrame) {
+        this.currentFrame = currentFrame;
+    }
+
+    public double getFrameTimer() {
+        return frameTimer;
+    }
+
+    public void setFrameTimer(double frameTimer) {
+        this.frameTimer = frameTimer;
+    }
+
+    public double getFramePeriod() {
+        return framePeriod;
+    }
+
+    public void setFramePeriod(double framePeriod) {
+        this.framePeriod = framePeriod;
+    }
+
+    public boolean isLooping() {
+        return isLooping;
+    }
+
+    public void setLooping(boolean looping) {
+        isLooping = looping;
+    }
+
+    public boolean isPlaying() {
+        return isPlaying;
+    }
+
+    public void setPlaying(boolean playing) {
+        isPlaying = playing;
     }
 }

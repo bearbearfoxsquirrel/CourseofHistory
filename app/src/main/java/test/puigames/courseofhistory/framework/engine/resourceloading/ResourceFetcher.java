@@ -22,14 +22,13 @@ import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
  */
 
 public class ResourceFetcher implements Fetcher {
-    AndroidFileIO androidFileIO;
-    GraphicsIO graphicsIO;
-    JSONBourne jsonBourne;
-
-    final static String BOARDS_URL = "json_files/boards.json";
-    final static String CARDS_URL = "json_files/characterCard.json";
-    final static String TEST_CARDS_URL = "json_files/cardtests.json";
-    final static String BOARDS_ARRAY_NAME = "boards";
+    private AndroidFileIO androidFileIO;
+    private GraphicsIO graphicsIO;
+    private JSONBourne jsonBourne;
+    private final static String BOARDS_URL = "json_files/boards.json";
+    private final static String CARDS_URL = "json_files/characterCard.json";
+    private final static String TEST_CARDS_URL = "json_files/cardtests.json";
+    private final static String BOARDS_ARRAY_NAME = "boards";
 
 
     public ResourceFetcher(Context context) {
@@ -124,6 +123,46 @@ public class ResourceFetcher implements Fetcher {
         }
         inputStream.close();
         return stringBuilder.toString();
+    }
+
+    public AndroidFileIO getAndroidFileIO() {
+        return androidFileIO;
+    }
+
+    public void setAndroidFileIO(AndroidFileIO androidFileIO) {
+        this.androidFileIO = androidFileIO;
+    }
+
+    public GraphicsIO getGraphicsIO() {
+        return graphicsIO;
+    }
+
+    public void setGraphicsIO(GraphicsIO graphicsIO) {
+        this.graphicsIO = graphicsIO;
+    }
+
+    public JSONBourne getJsonBourne() {
+        return jsonBourne;
+    }
+
+    public void setJsonBourne(JSONBourne jsonBourne) {
+        this.jsonBourne = jsonBourne;
+    }
+
+    public static String getBoardsUrl() {
+        return BOARDS_URL;
+    }
+
+    public static String getCardsUrl() {
+        return CARDS_URL;
+    }
+
+    public static String getTestCardsUrl() {
+        return TEST_CARDS_URL;
+    }
+
+    public static String getBoardsArrayName() {
+        return BOARDS_ARRAY_NAME;
     }
 
 }

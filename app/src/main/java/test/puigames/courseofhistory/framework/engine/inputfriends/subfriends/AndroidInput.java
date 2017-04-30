@@ -16,9 +16,10 @@ import test.puigames.courseofhistory.framework.engine.inputfriends.unusedfriends
 
 public class AndroidInput implements Input
 {
-    AccelerometerHandler accelHandler;
-    KeyboardHandler keyHandler;
-    TouchHandler touchHandler;
+    private AccelerometerHandler accelHandler;
+    private KeyboardHandler keyHandler;
+
+    private TouchHandler touchHandler;
 //    MultiTouchHandler multiTouchHandler;
 
 
@@ -74,5 +75,29 @@ public class AndroidInput implements Input
 
     public List<KeyEvent> getKeyEvents() {
         return keyHandler.getKeyEvents();
+    }
+
+    public AccelerometerHandler getAccelHandler() {
+        return accelHandler;
+    }
+
+    public void setAccelHandler(AccelerometerHandler accelHandler) {
+        this.accelHandler = accelHandler;
+    }
+
+    public KeyboardHandler getKeyHandler() {
+        return keyHandler;
+    }
+
+    public void setKeyHandler(KeyboardHandler keyHandler) {
+        this.keyHandler = keyHandler;
+    }
+
+    public TouchHandler getTouchHandler() {
+        return touchHandler;
+    }
+
+    public void setTouchHandler(TouchHandler touchHandler) {
+        this.touchHandler = touchHandler;
     }
 }

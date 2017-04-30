@@ -12,10 +12,9 @@ import test.puigames.courseofhistory.framework.engine.screen.Screen;
  */
 
 public class Coin extends Sprite {
-
     private Random rand; //for generating random number for flipping
-    public Result faceUp = null;
-    public Bitmap coinSides[]; //Note 0 is heads and 1 is tails
+    private Result faceUp = null;
+    private Bitmap coinSides[]; //Note 0 is heads and 1 is tails
 
     public enum Result
     {
@@ -49,5 +48,29 @@ public class Coin extends Sprite {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
+    }
+
+    public Random getRand() {
+        return rand;
+    }
+
+    public void setRand(Random rand) {
+        this.rand = rand;
+    }
+
+    public Result getFaceUp() {
+        return faceUp;
+    }
+
+    public void setFaceUp(Result faceUp) {
+        this.faceUp = faceUp;
+    }
+
+    public Bitmap[] getCoinSides() {
+        return coinSides;
+    }
+
+    public void setCoinSides(Bitmap[] coinSides) {
+        this.coinSides = coinSides;
     }
 }

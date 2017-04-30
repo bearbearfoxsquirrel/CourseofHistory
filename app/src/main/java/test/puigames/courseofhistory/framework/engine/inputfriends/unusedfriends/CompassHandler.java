@@ -12,9 +12,9 @@ import android.hardware.SensorManager;
 
 public class CompassHandler implements SensorEventListener
 {
-    float yaw;
-    float pitch;
-    float roll;
+    private float yaw;
+    private float pitch;
+    private float roll;
 
     public CompassHandler(Context context)
     {
@@ -55,5 +55,17 @@ public class CompassHandler implements SensorEventListener
     public float getRoll()
     {
         return roll;
+    }
+
+    public void setYaw(float yaw) {
+        this.yaw = yaw;
+    }
+
+    public void setPitch(float pitch) {
+        this.pitch = pitch;
+    }
+
+    public void setRoll(float roll) {
+        this.roll = roll;
     }
 }

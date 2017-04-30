@@ -42,4 +42,17 @@ public class Pool<T>
         if(freeObjects.size() < maxSize)
             freeObjects.add(object);
     }
+
+    public List<T> getFreeObjects() {
+        return freeObjects;
+    }
+
+    public PoolObjectFactory<T> getFactory() {
+        return factory;
+    }
+
+    public int getMaxSize() {
+        return maxSize;
+    }
+
 }

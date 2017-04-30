@@ -23,15 +23,13 @@ public abstract class Screen {
     protected final ResourceFetcher resourceFetcher;
     protected Scaler scaler;
     protected Viewport viewport;
-    public ArrayList<Drawable> drawables;
+    protected ArrayList<Drawable> drawables;
     private ArrayList<Updateable> updateables;
     private ArrayList<Updateable> updateablesToAdd;
     private ArrayList<Updateable> updateablesToRemove;
-
-    public ArrayList<Scalable> scalables;
-
-    final static float DEFAULT_LEVEL_HEIGHT = 320.f;
-    final static float DEFAULT_LEVEL_WIDTH = 480.f;
+    protected ArrayList<Scalable> scalables;
+    protected final static float DEFAULT_LEVEL_HEIGHT = 320.f;
+    protected final static float DEFAULT_LEVEL_WIDTH = 480.f;
 
     /**
      * Constructor stores passed in GameProperties object
@@ -115,4 +113,84 @@ public abstract class Screen {
     public abstract void resume();
 
     public abstract void dispose();
+
+    public InputBuddy getInputBuddy() {
+        return inputBuddy;
+    }
+
+    public void setInputBuddy(InputBuddy inputBuddy) {
+        this.inputBuddy = inputBuddy;
+    }
+
+    public GameProperties getGameProperties() {
+        return gameProperties;
+    }
+
+    public ResourceFetcher getResourceFetcher() {
+        return resourceFetcher;
+    }
+
+    public Scaler getScaler() {
+        return scaler;
+    }
+
+    public void setScaler(Scaler scaler) {
+        this.scaler = scaler;
+    }
+
+    public Viewport getViewport() {
+        return viewport;
+    }
+
+    public void setViewport(Viewport viewport) {
+        this.viewport = viewport;
+    }
+
+    public ArrayList<Drawable> getDrawables() {
+        return drawables;
+    }
+
+    public void setDrawables(ArrayList<Drawable> drawables) {
+        this.drawables = drawables;
+    }
+
+    public ArrayList<Updateable> getUpdateables() {
+        return updateables;
+    }
+
+    public void setUpdateables(ArrayList<Updateable> updateables) {
+        this.updateables = updateables;
+    }
+
+    public ArrayList<Updateable> getUpdateablesToAdd() {
+        return updateablesToAdd;
+    }
+
+    public void setUpdateablesToAdd(ArrayList<Updateable> updateablesToAdd) {
+        this.updateablesToAdd = updateablesToAdd;
+    }
+
+    public ArrayList<Updateable> getUpdateablesToRemove() {
+        return updateablesToRemove;
+    }
+
+    public void setUpdateablesToRemove(ArrayList<Updateable> updateablesToRemove) {
+        this.updateablesToRemove = updateablesToRemove;
+    }
+
+    public ArrayList<Scalable> getScalables() {
+        return scalables;
+    }
+
+    public void setScalables(ArrayList<Scalable> scalables) {
+        this.scalables = scalables;
+    }
+
+    public static float getDefaultLevelHeight() {
+        return DEFAULT_LEVEL_HEIGHT;
+    }
+
+    public static float getDefaultLevelWidth() {
+        return DEFAULT_LEVEL_WIDTH;
+    }
 }

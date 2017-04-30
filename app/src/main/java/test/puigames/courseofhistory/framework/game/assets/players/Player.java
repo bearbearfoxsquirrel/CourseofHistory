@@ -16,16 +16,15 @@ import test.puigames.courseofhistory.framework.game.assets.players.events.Damage
 public class Player {
     //TODO: Add hero
     private static final int STARTING_HAND_SIZE = 3;
-
-    public int playerNumber;
-    public PlayerState playerCurrentState;
-    public CharacterCard[] testCards;
-    public final int MAX_MANA = 10;
-    public Mana[] mana = new Mana[MAX_MANA];
-    public int currentMana;
-    public Deck playerDeck;
-    public Board board;
-    public StartingHandSelector startingHandSelector;
+    private int playerNumber;
+    private PlayerState playerCurrentState;
+    private CharacterCard[] testCards;
+    private final int MAX_MANA = 10;
+    private Mana[] mana = new Mana[MAX_MANA];
+    private int currentMana;
+    private Deck playerDeck;
+    private Board board;
+    private StartingHandSelector startingHandSelector;
 
     public enum PlayerState {
         CREATED, TURN_STARTED, TURN_ACTIVE, WAITING_FOR_TURN, TURN_ENDED, WIN, LOSE,
@@ -89,30 +88,102 @@ public class Player {
     }
 
     public void placeCardOnBoard(CharacterCard card) {
-        board.playAreas[playerNumber].addCardToArea(card);
+        board.getPlayAreas()[playerNumber].addCardToArea(card);
 //        board.cardHands[playerNumber].removeCardFromArea(card);
     }
 
     public void addCardToArea(CharacterCard card) {
-        board.playAreas[playerNumber].addCardToArea(card);
+        board.getPlayAreas()[playerNumber].addCardToArea(card);
     }
 
     public void removeCardFromArea(CharacterCard card) {
-        board.playAreas[playerNumber].removeCardFromArea(card);
+        board.getPlayAreas()[playerNumber].removeCardFromArea(card);
     }
 
     public void selectCardToKeep(CharacterCard card) {
         //Adds card to keep set, and removes it from to toss set if it is in there
-        if (startingHandSelector.cardsToToss.contains(card))
-            startingHandSelector.cardsToToss.remove(card);
-        startingHandSelector.cardsToKeep.add(card);
+        if (startingHandSelector.getCardsToToss().contains(card))
+            startingHandSelector.getCardsToToss().remove(card);
+        startingHandSelector.getCardsToKeep().add(card);
     }
 
 
     public void selectCardToRemove(CharacterCard card) {
         //Adds card to toss set, and removes it from to keep set if it is there
-        if (startingHandSelector.cardsToKeep.contains(card))
-            startingHandSelector.cardsToKeep.remove(card);
-        startingHandSelector.cardsToToss.add(card);
+        if (startingHandSelector.getCardsToKeep().contains(card))
+            startingHandSelector.getCardsToKeep().remove(card);
+        startingHandSelector.getCardsToToss().add(card);
+    }
+
+    public static int getStartingHandSize() {
+        return STARTING_HAND_SIZE;
+    }
+
+    public int getPlayerNumber() {
+        return playerNumber;
+    }
+
+    public void setPlayerNumber(int playerNumber) {
+        this.playerNumber = playerNumber;
+    }
+
+    public PlayerState getPlayerCurrentState() {
+        return playerCurrentState;
+    }
+
+    public void setPlayerCurrentState(PlayerState playerCurrentState) {
+        this.playerCurrentState = playerCurrentState;
+    }
+
+    public CharacterCard[] getTestCards() {
+        return testCards;
+    }
+
+    public void setTestCards(CharacterCard[] testCards) {
+        this.testCards = testCards;
+    }
+
+    public int getMAX_MANA() {
+        return MAX_MANA;
+    }
+
+    public Mana[] getMana() {
+        return mana;
+    }
+
+    public void setMana(Mana[] mana) {
+        this.mana = mana;
+    }
+
+    public int getCurrentMana() {
+        return currentMana;
+    }
+
+    public void setCurrentMana(int currentMana) {
+        this.currentMana = currentMana;
+    }
+
+    public Deck getPlayerDeck() {
+        return playerDeck;
+    }
+
+    public void setPlayerDeck(Deck playerDeck) {
+        this.playerDeck = playerDeck;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    public StartingHandSelector getStartingHandSelector() {
+        return startingHandSelector;
+    }
+
+    public void setStartingHandSelector(StartingHandSelector startingHandSelector) {
+        this.startingHandSelector = startingHandSelector;
     }
 }

@@ -13,10 +13,10 @@ public class CollisionDetector implements Collision
     //determine if the two specified bounding boxes are in collision
     public boolean isCollision(BoundingBox boundingBox1, BoundingBox boundingBox2)
     {
-        return (boundingBox1.left < boundingBox2.right)
-                && (boundingBox1.right > boundingBox2.left)
-                && (boundingBox1.top < boundingBox2.bottom)
-                && (boundingBox1.bottom > boundingBox2.top);
+        return (boundingBox1.getLeft() < boundingBox2.getRight())
+                && (boundingBox1.getRight() > boundingBox2.getLeft())
+                && (boundingBox1.getTop() < boundingBox2.getBottom())
+                && (boundingBox1.getBottom() > boundingBox2.getTop());
     }
 
     //object = object2
@@ -32,7 +32,7 @@ public class CollisionDetector implements Collision
 
     public void resolveCollision(GameObject object1, GameObject object2, float overlapModifier)
     {
-        if(overlapModifier == object1.MIN_OVERLAP_ALLOWANCE || object1.equals(object2))
+        if(overlapModifier == object1.getMIN_OVERLAP_ALLOWANCE() || object1.equals(object2))
             return;
         else
             object1.boundingBox.getCollisionDetector()
@@ -54,7 +54,7 @@ public class CollisionDetector implements Collision
             float collisionDepth = Float.MAX_VALUE;
 
             //Check top
-            float topOverlap = (boundingBox2.bottom - boundingBox1.top);
+            float topOverlap = (boundingBox2.getBottom() - boundingBox1.getTop());
             if(topOverlap > 0.0f && topOverlap < collisionDepth)
             {
                 collisionType = BoundingBox.bound.TOP;
@@ -62,7 +62,7 @@ public class CollisionDetector implements Collision
             }
 
             //Check bottom
-            float bottomOverlap = (boundingBox1.bottom - boundingBox2.top);
+            float bottomOverlap = (boundingBox1.getBottom() - boundingBox2.getTop());
             if(bottomOverlap > 0.0f && bottomOverlap < collisionDepth)
             {
                 collisionType = BoundingBox.bound.BOTTOM;
@@ -70,7 +70,7 @@ public class CollisionDetector implements Collision
             }
 
             //Check right
-            float rightOverlap = (boundingBox1.right - boundingBox2.left);
+            float rightOverlap = (boundingBox1.getRight() - boundingBox2.getLeft());
             if(rightOverlap > 0.0f && rightOverlap < collisionDepth)
             {
                 collisionType = BoundingBox.bound.RIGHT;
@@ -78,7 +78,7 @@ public class CollisionDetector implements Collision
             }
 
             //Check left
-            float leftOverlap = (boundingBox2.right - boundingBox1.left);
+            float leftOverlap = (boundingBox2.getRight() - boundingBox1.getLeft());
             if(leftOverlap > 0.0f && leftOverlap < collisionDepth)
             {
                 collisionType = BoundingBox.bound.LEFT;
@@ -89,16 +89,16 @@ public class CollisionDetector implements Collision
             switch (collisionType)
             {
                 case TOP:
-                    object1.origin.y += (collisionDepth * overlapModifier);
+                    object1.getOrigin().setOriginY((float)(object1.getOrigin().getOriginY() + (collisionDepth * overlapModifier)));
                     break;
                 case BOTTOM:
-                    object1.origin.y -= (collisionDepth * overlapModifier);
+                    object1.getOrigin().setOriginY((float)(object1.getOrigin().getOriginY() - (collisionDepth * overlapModifier))) ;
                     break;
                 case LEFT:
-                    object1.origin.x += (collisionDepth * overlapModifier);
+                    object1.getOrigin().setOriginX((float)(object1.getOrigin().getOriginX() + (collisionDepth * overlapModifier)));
                     break;
                 case RIGHT:
-                    object1.origin.x -= (collisionDepth * overlapModifier);
+                    object1.getOrigin().setOriginX((float)(object1.getOrigin().getOriginX() - (collisionDepth * overlapModifier)));
                     break;
                 case NONE:
                     break;
@@ -131,13 +131,13 @@ public class CollisionDetector implements Collision
      */
     public void keepInsideBoundingBox(Sprite sprite1, Sprite sprite2)
     {
-        if(sprite2.boundingBox.left < sprite1.boundingBox.left)
-            sprite2.origin.x = ((sprite1.boundingBox.left + sprite2.halfWidth) + 2);
-        else if(sprite2.boundingBox.right > sprite1.boundingBox.right)
-            sprite2.origin.x = ((sprite1.boundingBox.right - sprite2.halfWidth) - 2);
-        else if(sprite2.boundingBox.top < sprite1.boundingBox.top)
-            sprite2.origin.y = ((sprite1.boundingBox.top + sprite2.halfHeight) + 2);
-        else if(sprite2.boundingBox.bottom > sprite1.boundingBox.bottom)
-            sprite2.origin.y = ((sprite1.boundingBox.bottom - sprite2.halfHeight) - 2);
+        if(sprite2.boundingBox.getLeft() < sprite1.boundingBox.getLeft())
+            sprite2.getOrigin().setOriginX(((sprite1.boundingBox.getLeft() + sprite2.getHalfWidth()) + 2));
+        else if(sprite2.boundingBox.getRight() > sprite1.boundingBox.getRight())
+            sprite2.getOrigin().setOriginX(((sprite1.boundingBox.getRight() - sprite2.getHalfWidth()) - 2));
+        else if(sprite2.boundingBox.getTop() < sprite1.boundingBox.getTop())
+            sprite2.getOrigin().setOriginY(((sprite1.boundingBox.getTop() + sprite2.getHalfHeight()) + 2));
+        else if(sprite2.boundingBox.getBottom() > sprite1.boundingBox.getBottom())
+            sprite2.getOrigin().setOriginY(((sprite1.boundingBox.getBottom() - sprite2.getHalfHeight()) - 2));
     }
 }

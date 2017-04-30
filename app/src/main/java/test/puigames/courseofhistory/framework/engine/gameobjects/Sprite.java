@@ -17,7 +17,7 @@ import test.puigames.courseofhistory.framework.engine.screen.scaling.Scalable;
  */
 
 public abstract class Sprite extends GameObject implements Drawable, Scalable.ImageScalable {
-    public Bitmap bitmap;
+    protected Bitmap bitmap;
     protected Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
     //set reference default max acceleration adn velocity
@@ -25,11 +25,11 @@ public abstract class Sprite extends GameObject implements Drawable, Scalable.Im
     protected final float DEFAULT_MAX_VELOCITY = Float.MAX_VALUE;
 
     //acceleration and velocity of sprite, with max values that can be set
-    public Vector velocity = new Vector();
-    public Vector acceleration = new Vector();
+    protected Vector velocity = new Vector();
+    protected Vector acceleration = new Vector();
 
-    public float maxAcceleration = DEFAULT_MAX_ACCELERATION;
-    public float maxVelocity = DEFAULT_MAX_VELOCITY;
+    protected float maxAcceleration = DEFAULT_MAX_ACCELERATION;
+    protected float maxVelocity = DEFAULT_MAX_VELOCITY;
 
 
     public Sprite(Screen screen, Bitmap bitmap, int width, int height) {
@@ -49,7 +49,7 @@ public abstract class Sprite extends GameObject implements Drawable, Scalable.Im
 
         //update velocity using acceleration
         //ensure max velocity isn't exceeded
-        velocity.add(acceleration.x * deltaTime, acceleration.y * deltaTime);
+        velocity.add(acceleration.getVectorX() * deltaTime, acceleration.getVectorY() * deltaTime);
 
         if(velocity.lengthSquared() > maxVelocity * maxVelocity)
         {
@@ -58,8 +58,8 @@ public abstract class Sprite extends GameObject implements Drawable, Scalable.Im
         }
 
         //update position using velocity
-        origin.x += (velocity.x * deltaTime);
-        origin.y += (velocity.y * deltaTime);
+        origin.setOriginX(origin.getOriginX()+ (velocity.getVectorX() * deltaTime));
+        origin.setOriginY(origin.getOriginY()+ (velocity.getVectorY() * deltaTime));
     }
 
 
@@ -129,21 +129,69 @@ public abstract class Sprite extends GameObject implements Drawable, Scalable.Im
                 (this.getHeight() / this.getBitmap().getHeight()) * scaleFactorY);
         this.getMatrix().postRotate(0, scaleFactorX * this.getBitmap().getWidth()/ 2.0f,
                 scaleFactorY * this.getBitmap().getHeight() / 2.0f);
-        this.getMatrix().postTranslate((this.getOrigin().x - this.getWidth() / 2) * scaleFactorX,
-                (this.getOrigin().y - this.getHeight() / 2) * scaleFactorY);
+        this.getMatrix().postTranslate((this.getOrigin().getOriginX() - this.getWidth() / 2) * scaleFactorX,
+                (this.getOrigin().getOriginY() - this.getHeight() / 2) * scaleFactorY);
     }
 
     @Override
     public void place(Screen screen, float placementX, float placementY){
         super.place(screen, placementX, placementY);
-        if (!screen.drawables.contains(this))
-            screen.drawables.add(this);
+        if (!screen.getDrawables().contains(this))
+            screen.getDrawables().add(this);
     }
 
     @Override
     public void remove(Screen screen) {
         super.remove(screen);
-        if (screen.drawables.contains(this))
-            screen.drawables.remove(this);
+        if (screen.getDrawables().contains(this))
+            screen.getDrawables().remove(this);
+    }
+
+    public Paint getPaint() {
+        return paint;
+    }
+
+    public void setPaint(Paint paint) {
+        this.paint = paint;
+    }
+
+    public float getDEFAULT_MAX_ACCELERATION() {
+        return DEFAULT_MAX_ACCELERATION;
+    }
+
+    public float getDEFAULT_MAX_VELOCITY() {
+        return DEFAULT_MAX_VELOCITY;
+    }
+
+    public Vector getVelocity() {
+        return velocity;
+    }
+
+    public void setVelocity(Vector velocity) {
+        this.velocity = velocity;
+    }
+
+    public Vector getAcceleration() {
+        return acceleration;
+    }
+
+    public void setAcceleration(Vector acceleration) {
+        this.acceleration = acceleration;
+    }
+
+    public float getMaxAcceleration() {
+        return maxAcceleration;
+    }
+
+    public void setMaxAcceleration(float maxAcceleration) {
+        this.maxAcceleration = maxAcceleration;
+    }
+
+    public float getMaxVelocity() {
+        return maxVelocity;
+    }
+
+    public void setMaxVelocity(float maxVelocity) {
+        this.maxVelocity = maxVelocity;
     }
 }

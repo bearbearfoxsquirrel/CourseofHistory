@@ -14,8 +14,8 @@ import java.io.IOException;
 
 public class AndroidAudio implements Audio
 {
-    AssetManager assets;
-    SoundPool soundPool;
+    private AssetManager assets;
+    private SoundPool soundPool;
 
     public AndroidAudio(Activity activity)
     {
@@ -49,5 +49,21 @@ public class AndroidAudio implements Audio
         {
             throw new RuntimeException("Couldn't load sound '" + filename + "'");
         }
+    }
+
+    public AssetManager getAssets() {
+        return assets;
+    }
+
+    public void setAssets(AssetManager assets) {
+        this.assets = assets;
+    }
+
+    public SoundPool getSoundPool() {
+        return soundPool;
+    }
+
+    public void setSoundPool(SoundPool soundPool) {
+        this.soundPool = soundPool;
     }
 }

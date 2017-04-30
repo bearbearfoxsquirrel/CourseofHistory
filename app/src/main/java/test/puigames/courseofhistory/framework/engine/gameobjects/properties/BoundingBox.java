@@ -10,10 +10,10 @@ import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.In
 public class BoundingBox {
     //Set up so top left of screen is 0,0;
     //Arbitrary values
-    public float left;
-    public float right;
-    public float top;
-    public float bottom;
+    private float left;
+    private float right;
+    private float top;
+    private float bottom;
     private float width, halfWidth;
     private float height, halfHeight;
     private CollisionDetector collisionDetector;
@@ -26,10 +26,10 @@ public class BoundingBox {
     public BoundingBox(float width, float height, Origin origin) {
         this.width = width;     this.halfWidth = (width/2);
         this.height = height;   this.halfHeight = (height/2);
-        this.left = origin.x - this.halfWidth ;
-        this.right = origin.x + this.halfWidth;
-        this.top = origin.y - this.halfHeight;
-        this.bottom = origin.y + this.halfHeight;
+        this.left = origin.getOriginX() - this.halfWidth ;
+        this.right = origin.getOriginX() + this.halfWidth;
+        this.top = origin.getOriginY() - this.halfHeight;
+        this.bottom = origin.getOriginY() + this.halfHeight;
         this.collisionDetector = new CollisionDetector();
     }
 
@@ -60,18 +60,18 @@ public class BoundingBox {
 
     //updates the bounding box for sprites not taking user input
     public void setBoundingBox(float width, float height, Origin origin) {
-        this.left = origin.x - (width/2) ;
-        this.right = origin.x + (width/2);
-        this.top = origin.y - (height/2);
-        this.bottom = origin.y + (height/2);
+        this.left = origin.getOriginX() - (width/2) ;
+        this.right = origin.getOriginX() + (width/2);
+        this.top = origin.getOriginY() - (height/2);
+        this.bottom = origin.getOriginY() + (height/2);
     }
 
     //updates where the bounding box refers to on screen
     public void setBoundingBox(Origin origin) {
-        this.left = origin.x - this.halfWidth ;
-        this.right = origin.x + this.halfWidth;
-        this.top = origin.y - this.halfHeight;
-        this.bottom = origin.y + this.halfHeight;
+        this.left = origin.getOriginX() - this.halfWidth ;
+        this.right = origin.getOriginX() + this.halfWidth;
+        this.top = origin.getOriginY() - this.halfHeight;
+        this.bottom = origin.getOriginY() + this.halfHeight;
     }
 
     //returns the bound that has been broken,
@@ -137,5 +137,41 @@ public class BoundingBox {
     public CollisionDetector getCollisionDetector()
     {
         return collisionDetector;
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public void setWidth(float width) {
+        this.width = width;
+    }
+
+    public float getHalfWidth() {
+        return halfWidth;
+    }
+
+    public void setHalfWidth(float halfWidth) {
+        this.halfWidth = halfWidth;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public void setHeight(float height) {
+        this.height = height;
+    }
+
+    public float getHalfHeight() {
+        return halfHeight;
+    }
+
+    public void setHalfHeight(float halfHeight) {
+        this.halfHeight = halfHeight;
+    }
+
+    public void setCollisionDetector(CollisionDetector collisionDetector) {
+        this.collisionDetector = collisionDetector;
     }
 }

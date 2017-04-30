@@ -14,8 +14,8 @@ import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 
 public class CardHand extends CardArea {
     private static final float CARD_SCALE_FACTOR = 0.75f;
-    float positionPadding = 76.09525f;
-    boolean isAi = false;
+    private float positionPadding = 76.09525f;
+    private boolean isAi = false;
 
     public CardHand(Screen screen, float spawnX, float spawnY, CharacterCard[] startCards){
         super(screen, 340, 65);
@@ -50,13 +50,13 @@ public class CardHand extends CardArea {
     public void addToHand(CharacterCard characterCard) {
         if(cardsInArea.size()< maxCardsInArea) {
             characterCard.adjustCardSize(CARD_SCALE_FACTOR);
-            characterCard.place(this.currentScrren, positions[cardsInArea.size()].x, positions[cardsInArea.size()].y);
+            characterCard.place(this.currentScrren, positions[cardsInArea.size()].getOriginX(), positions[cardsInArea.size()].getOriginY());
             //characterCard.initPlacement(positions[cardsInArea.size()].x, positions[cardsInArea.size()].y);
             //characterCard.initPlacement(40, 40);
             Log.d("firsthand position", "" + positions[0]);
 
 
-            characterCard.place(this.currentScrren, positions[cardsInArea.size()].x, positions[cardsInArea.size()].y);
+            characterCard.place(this.currentScrren, positions[cardsInArea.size()].getOriginX(), positions[cardsInArea.size()].getOriginY());
             if(isAi) {
                 characterCard.rotateCard(180);
             }
@@ -71,7 +71,7 @@ public class CardHand extends CardArea {
     public void setUpPositions() {
         super.setUpPositions();
         for(int i = 0; i < positions.length; i++) {
-            positions[i].x = positions[i].x + positionPadding;
+            positions[i].setOriginX(positions[i].getOriginX() + positionPadding);
         }
     }
 
@@ -91,5 +91,25 @@ public class CardHand extends CardArea {
 //    }
     public ArrayList<CharacterCard> getCardsInHand(){
         return cardsInArea;
+    }
+
+    public static float getCardScaleFactor() {
+        return CARD_SCALE_FACTOR;
+    }
+
+    public float getPositionPadding() {
+        return positionPadding;
+    }
+
+    public void setPositionPadding(float positionPadding) {
+        this.positionPadding = positionPadding;
+    }
+
+    public boolean isAi() {
+        return isAi;
+    }
+
+    public void setAi(boolean ai) {
+        isAi = ai;
     }
 }

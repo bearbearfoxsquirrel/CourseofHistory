@@ -16,10 +16,8 @@ import test.puigames.courseofhistory.framework.game.assets.PlayArea;
 
 
 public class Board extends Sprite implements Drawable {
-
-    //public PlayArea[] playAreas;
-    public PlayArea[] playAreas = new PlayArea[2];
-    public CardHand[] cardHands = new CardHand[2];
+    private PlayArea[] playAreas = new PlayArea[2];
+    private CardHand[] cardHands = new CardHand[2];
     private int playAreaWidth = 460;
     private int playAreaHeight = 90;
 
@@ -79,6 +77,38 @@ public class Board extends Sprite implements Drawable {
 //
 //        playAreas[1] = new PlayArea(playAreaWidth, playAreaHeight, (int)halfWidth, (int)
 //                (halfHeight * 0.75));
+    }
+
+    public PlayArea[] getPlayAreas() {
+        return playAreas;
+    }
+
+    public void setPlayAreas(PlayArea[] playAreas) {
+        this.playAreas = playAreas;
+    }
+
+    public CardHand[] getCardHands() {
+        return cardHands;
+    }
+
+    public void setCardHands(CardHand[] cardHands) {
+        this.cardHands = cardHands;
+    }
+
+    public int getPlayAreaWidth() {
+        return playAreaWidth;
+    }
+
+    public void setPlayAreaWidth(int playAreaWidth) {
+        this.playAreaWidth = playAreaWidth;
+    }
+
+    public int getPlayAreaHeight() {
+        return playAreaHeight;
+    }
+
+    public void setPlayAreaHeight(int playAreaHeight) {
+        this.playAreaHeight = playAreaHeight;
     }
 }
 

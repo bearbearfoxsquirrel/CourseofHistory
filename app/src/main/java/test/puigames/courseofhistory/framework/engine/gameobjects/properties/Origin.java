@@ -5,8 +5,8 @@ package test.puigames.courseofhistory.framework.engine.gameobjects.properties;
  */
 
 public class Origin {
-    public float x;
-    public float y;
+    private float x;
+    private float y;
 
     public Origin(float x, float y) {
         this.x = x;
@@ -41,6 +41,21 @@ public class Origin {
     public void setOrigin(float x, float y)
     {
         this.x = x;
+        this.y = y;
+    }
+    public float getOriginX() {
+        return x;
+    }
+
+    public void setOriginX(float x) {
+        this.x = x;
+    }
+
+    public float getOriginY() {
+        return y;
+    }
+
+    public void setOriginY(float y) {
         this.y = y;
     }
 }

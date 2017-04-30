@@ -44,7 +44,7 @@ public class TestLevel extends Level {
            Coin coin = new Coin(this, coinSides, 80, 80);
            coin.place(this, 300, 200);
 
-           Player[] players = new Player[CourseOfHistoryMachine.PLAYER_COUNT];
+           Player[] players = new Player[CourseOfHistoryMachine.getPlayerCount()];
 
            //Load mana images
            Bitmap manaTypes[] = {resourceFetcher.getBitmapFromFile("images/mana/mana.png"),
@@ -53,21 +53,21 @@ public class TestLevel extends Level {
            //Creates a controller and a player for each participant
            for(int i = 0; i < players.length; i++) {
                players[i] = new Player(resourceFetcher.loadCharacterCards(this, DECK_NAMES[i]), board, new Deck(this, resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png")), i); //Creating a new player pawn for each controller
-               players[i].playerDeck.place(this, 300, 50);
+               players[i].getPlayerDeck().place(this, 300, 50);
                //TODO give proper deck image!!!
 
-               for (int j = 0; j < players[i].MAX_MANA; j++)
-                   players[i].mana[j] = new Mana(this, manaTypes);
+               for (int j = 0; j < players[i].getMAX_MANA(); j++)
+                   players[i].getMana()[j] = new Mana(this, manaTypes);
            }
 
            //creating the game machine for processing the game
            gameMachine = new CourseOfHistoryMachine(players, coin, board);
            gameMachine.startTicking(this);
 
-           Controlling[] controllers = new HumanCardGameController[CourseOfHistoryMachine.PLAYER_COUNT];
+           Controlling[] controllers = new HumanCardGameController[CourseOfHistoryMachine.getPlayerCount()];
            //Giving the controllers possession of the corresponding player in the game machine
            for (int i = 0; i < controllers.length; i++) {
-               controllers[i] = new HumanCardGameController(this, inputBuddy, gameMachine.players[i]);
+               controllers[i] = new HumanCardGameController(this, inputBuddy, gameMachine.getPlayers()[i]);
                controllers[i].startTicking(this);
            }
 
@@ -90,12 +90,12 @@ public class TestLevel extends Level {
         super.update(deltaTime);
 
         if (gameMachine.getCurrentGameState() == CourseOfHistoryMachine.GameState.CREATE_STARTING_HAND)
-            switch (gameMachine.getPlayerWithCurrentTurn().playerCurrentState) {
+            switch (gameMachine.getPlayerWithCurrentTurn().getPlayerCurrentState()) {
                 case BEGIN_CREATING_STARTING_HAND:
                     startingHandSelectionUI = new StartingHandSelectionUI(this, gameMachine.getPlayerWithCurrentTurn(),
                             resourceFetcher.getBitmapFromFile("images/backgrounds/starting_hand_selection_ui_background.png"),
                             resourceFetcher.getBitmapFromFile("images/buttons/confirmation_button.png"));
-                    startingHandSelectionUI.place(this, viewport.centerX, viewport.centerY);
+                    startingHandSelectionUI.place(this, viewport.getCenterX(), viewport.getCenterY());
             }
     }
 

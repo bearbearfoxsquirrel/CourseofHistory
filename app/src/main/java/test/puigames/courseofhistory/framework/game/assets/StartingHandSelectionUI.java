@@ -14,8 +14,8 @@ import test.puigames.courseofhistory.framework.game.assets.players.Player;
 
 public class StartingHandSelectionUI extends UIElement {
     //Created for the human controller
-    public final float UI_POS_X = 240;
-    public final float UI_POS_Y = 160;
+    private final float UI_POS_X = 240;
+    private final float UI_POS_Y = 160;
 
     private final float ADJUSTED_CARD_WIDTH = 72.f;
     private final float ADJUSTED_CARD_HEIGHT = 99.6f;
@@ -42,16 +42,16 @@ public class StartingHandSelectionUI extends UIElement {
         this.confirmationButton = new MenuButton(this.currentScreen, confirmationButtonBitmap, CONFIRMATION_BUTTON_WIDTH, CONFIRMATION_BUTTON_HEIGHT) {
             @Override
             public void applyAction() {
-                player.playerCurrentState = Player.PlayerState.FINISHED_CREATING_START_HAND;
+                player.setPlayerCurrentState(Player.PlayerState.FINISHED_CREATING_START_HAND);
             }
         };
     }
 
     private void resizeAllCardsInSelector(StartingHandSelector startingHandSelector) {
-        for(CharacterCard card : startingHandSelector.cardsToKeep)
+        for(CharacterCard card : startingHandSelector.getCardsToKeep())
             adjustCardSize(card);
 
-        for(CharacterCard card : startingHandSelector.cardsToToss)
+        for(CharacterCard card : startingHandSelector.getCardsToToss())
             adjustCardSize(card);
     }
 
@@ -61,13 +61,13 @@ public class StartingHandSelectionUI extends UIElement {
     }
 
     public void selectCardToToss(CharacterCard cardToBeRemoved) {
-        player.startingHandSelector.cardsToToss.add(cardToBeRemoved);
-        player.startingHandSelector.cardsToKeep.remove(cardToBeRemoved);
+        player.getStartingHandSelector().getCardsToToss().add(cardToBeRemoved);
+        player.getStartingHandSelector().getCardsToKeep().remove(cardToBeRemoved);
     }
 
     public void deselectCardToToss(CharacterCard cardToBeKept) {
-        player.startingHandSelector.cardsToKeep.add(cardToBeKept);
-        player.startingHandSelector.cardsToToss.remove(cardToBeKept);
+        player.getStartingHandSelector().getCardsToKeep().add(cardToBeKept);
+        player.getStartingHandSelector().getCardsToToss().remove(cardToBeKept);
     }
 
     @Override
@@ -80,13 +80,77 @@ public class StartingHandSelectionUI extends UIElement {
         super.place(screen, placementX, placementY);
         confirmationButton.place(screen, placementX, placementY);
 
-        for (CharacterCard card : player.startingHandSelector.cardsToKeep)
+        for (CharacterCard card : player.getStartingHandSelector().getCardsToKeep())
             card.place(screen, 20, 40);
 
-        resizeAllCardsInSelector(player.startingHandSelector);
+        resizeAllCardsInSelector(player.getStartingHandSelector());
 
-        screen.drawables.addAll(player.startingHandSelector.cardsToKeep);
-        screen.drawables.addAll(player.startingHandSelector.cardsToToss);
+        screen.getDrawables().addAll(player.getStartingHandSelector().getCardsToKeep());
+        screen.getDrawables().addAll(player.getStartingHandSelector().getCardsToToss());
+    }
+
+    public float getUI_POS_X() {
+        return UI_POS_X;
+    }
+
+    public float getUI_POS_Y() {
+        return UI_POS_Y;
+    }
+
+    public float getADJUSTED_CARD_WIDTH() {
+        return ADJUSTED_CARD_WIDTH;
+    }
+
+    public float getADJUSTED_CARD_HEIGHT() {
+        return ADJUSTED_CARD_HEIGHT;
+    }
+
+    public float getCARD_SELECTED_OVERLAY_OFFSET_X() {
+        return CARD_SELECTED_OVERLAY_OFFSET_X;
+    }
+
+    public float getCARD_SELECTED_OVERLAY_OFFSET_Y() {
+        return CARD_SELECTED_OVERLAY_OFFSET_Y;
+    }
+
+    public float getCONFIRMATION_BUTTON_POS_X() {
+        return CONFIRMATION_BUTTON_POS_X;
+    }
+
+    public float getCONFIRMATION_BUTTON_POS_Y() {
+        return CONFIRMATION_BUTTON_POS_Y;
+    }
+
+    public float getCONFIRMATION_BUTTON_WIDTH() {
+        return CONFIRMATION_BUTTON_WIDTH;
+    }
+
+    public float getCONFIRMATION_BUTTON_HEIGHT() {
+        return CONFIRMATION_BUTTON_HEIGHT;
+    }
+
+    public MenuButton getConfirmationButton() {
+        return confirmationButton;
+    }
+
+    public void setConfirmationButton(MenuButton confirmationButton) {
+        this.confirmationButton = confirmationButton;
+    }
+
+    public Bitmap getConfirmationButtonBitmap() {
+        return confirmationButtonBitmap;
+    }
+
+    public void setConfirmationButtonBitmap(Bitmap confirmationButtonBitmap) {
+        this.confirmationButtonBitmap = confirmationButtonBitmap;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 
 }

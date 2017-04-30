@@ -18,14 +18,13 @@ import test.puigames.courseofhistory.framework.engine.screen.scaling.Scalable;
 
 public abstract class UIElement implements Drawable, Scalable.ImageScalable, Placeable {
     protected Screen currentScreen;
-    public Bitmap image;
-    public float width, halfWidth;
-    public float height, halfHeight;
-    public BoundingBox boundingBox;
-    public Origin origin;
-    public Matrix matrix;
+    protected Bitmap image;
+    protected float width, halfWidth;
+    protected float height, halfHeight;
+    protected BoundingBox boundingBox;
+    protected Origin origin;
+    protected Matrix matrix;
     protected Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-
 
     public UIElement(Screen screen, Bitmap bitmap, float width, float height){
         this.currentScreen = screen;
@@ -107,15 +106,15 @@ public abstract class UIElement implements Drawable, Scalable.ImageScalable, Pla
     @Override
     public void place(Screen screen, float placementX, float placementY) {
         initPlacement(placementX, placementY);
-        screen.scalables.add(this);
-        screen.drawables.add(this);
+        screen.getScalables().add(this);
+        screen.getDrawables().add(this);
     }
 
     @Override
     public void remove(Screen screen) {
         //Checks if the object exists in the arrays and then removes them
-        if (screen.drawables.contains(this))
-            screen.drawables.remove(this);
+        if (screen.getDrawables().contains(this))
+            screen.getDrawables().remove(this);
     }
 
     @Override
@@ -124,7 +123,39 @@ public abstract class UIElement implements Drawable, Scalable.ImageScalable, Pla
                 (this.getHeight() / this.getBitmap().getHeight()) * scaleFactorY);
         this.getMatrix().postRotate(0, scaleFactorX * this.getBitmap().getWidth()/ 2.0f,
                 scaleFactorY * this.getBitmap().getHeight() / 2.0f);
-        this.getMatrix().postTranslate((this.getOrigin().x - this.getWidth() / 2) * scaleFactorX,
-                (this.getOrigin().y - this.getHeight() / 2) * scaleFactorY);
+        this.getMatrix().postTranslate((this.getOrigin().getOriginX() - this.getWidth() / 2) * scaleFactorX,
+                (this.getOrigin().getOriginY() - this.getHeight() / 2) * scaleFactorY);
+    }
+
+    public Screen getCurrentScreen() {
+        return currentScreen;
+    }
+
+    public void setCurrentScreen(Screen currentScreen) {
+        this.currentScreen = currentScreen;
+    }
+
+    public float getHalfWidth() {
+        return halfWidth;
+    }
+
+    public void setHalfWidth(float halfWidth) {
+        this.halfWidth = halfWidth;
+    }
+
+    public float getHalfHeight() {
+        return halfHeight;
+    }
+
+    public void setHalfHeight(float halfHeight) {
+        this.halfHeight = halfHeight;
+    }
+
+    public Paint getPaint() {
+        return paint;
+    }
+
+    public void setPaint(Paint paint) {
+        this.paint = paint;
     }
 }

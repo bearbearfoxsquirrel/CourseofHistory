@@ -71,4 +71,29 @@ public class GraphicsIO
         }
         return bitmap;
     }
+
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    public AssetManager getAssetManager() {
+        return assetManager;
+    }
+
+    public void setAssetManager(AssetManager assetManager) {
+        this.assetManager = assetManager;
+    }
+
+    public String getExternalStoragePath() {
+        return externalStoragePath;
+    }
+
+    public void setExternalStoragePath(String externalStoragePath) {
+        this.externalStoragePath = externalStoragePath;
+    }
+
 }

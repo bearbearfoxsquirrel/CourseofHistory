@@ -17,14 +17,14 @@ import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.To
 
 public class SingleTouchHandler implements TouchHandler
 {
-    boolean isTouched;
-    float touchX;
-    float touchY;
-    Pool<TouchEvent> touchEventPool;
-    List<TouchEvent> touchEvents = new ArrayList<TouchEvent>();
-    List<TouchEvent> touchEventBuffer = new ArrayList<TouchEvent>();
-    float scaleX;
-    float scaleY;
+    private boolean isTouched;
+    private float touchX;
+    private float touchY;
+    private Pool<TouchEvent> touchEventPool;
+    private List<TouchEvent> touchEvents = new ArrayList<TouchEvent>();
+    private List<TouchEvent> touchEventBuffer = new ArrayList<TouchEvent>();
+    private float scaleX;
+    private float scaleY;
 
     public SingleTouchHandler(View view, float scaleX, float scaleY)
     {
@@ -112,5 +112,65 @@ public class SingleTouchHandler implements TouchHandler
             touchEventBuffer.clear();
             return touchEvents;
         }
+    }
+
+    public boolean isTouched() {
+        return isTouched;
+    }
+
+    public void setTouched(boolean touched) {
+        isTouched = touched;
+    }
+
+    public float getTouchX() {
+        return touchX;
+    }
+
+    public void setTouchX(float touchX) {
+        this.touchX = touchX;
+    }
+
+    public float getTouchY() {
+        return touchY;
+    }
+
+    public void setTouchY(float touchY) {
+        this.touchY = touchY;
+    }
+
+    public Pool<TouchEvent> getTouchEventPool() {
+        return touchEventPool;
+    }
+
+    public void setTouchEventPool(Pool<TouchEvent> touchEventPool) {
+        this.touchEventPool = touchEventPool;
+    }
+
+    public void setTouchEvents(List<TouchEvent> touchEvents) {
+        this.touchEvents = touchEvents;
+    }
+
+    public List<TouchEvent> getTouchEventBuffer() {
+        return touchEventBuffer;
+    }
+
+    public void setTouchEventBuffer(List<TouchEvent> touchEventBuffer) {
+        this.touchEventBuffer = touchEventBuffer;
+    }
+
+    public float getScaleX() {
+        return scaleX;
+    }
+
+    public void setScaleX(float scaleX) {
+        this.scaleX = scaleX;
+    }
+
+    public float getScaleY() {
+        return scaleY;
+    }
+
+    public void setScaleY(float scaleY) {
+        this.scaleY = scaleY;
     }
 }

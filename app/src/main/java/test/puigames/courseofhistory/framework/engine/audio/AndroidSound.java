@@ -8,8 +8,8 @@ import android.media.SoundPool;
 
 public class AndroidSound implements Sound
 {
-    int soundId;
-    SoundPool soundPool;
+    private int soundId;
+    private SoundPool soundPool;
 
     public AndroidSound(SoundPool soundPool, int soundId)
     {
@@ -25,5 +25,21 @@ public class AndroidSound implements Sound
     public void dispose()
     {
         soundPool.unload(soundId);
+    }
+
+    public int getSoundId() {
+        return soundId;
+    }
+
+    public void setSoundId(int soundId) {
+        this.soundId = soundId;
+    }
+
+    public SoundPool getSoundPool() {
+        return soundPool;
+    }
+
+    public void setSoundPool(SoundPool soundPool) {
+        this.soundPool = soundPool;
     }
 }

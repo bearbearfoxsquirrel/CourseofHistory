@@ -36,4 +36,12 @@ public abstract class Menu extends Screen {
         for (UIElement uiElement : uiElements)
             uiElement.draw(canvas, deltaTime);
     }
+
+    public ArrayList<UIElement> getUiElements() {
+        return uiElements;
+    }
+
+    public void setUiElements(ArrayList<UIElement> uiElements) {
+        this.uiElements = uiElements;
+    }
 }
