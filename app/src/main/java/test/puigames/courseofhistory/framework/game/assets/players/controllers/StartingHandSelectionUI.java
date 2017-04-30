@@ -71,12 +71,13 @@ public class StartingHandSelectionUI extends UIElement {
         player.startingHandSelector.cardsToToss.remove(cardToBeKept);
     }
 
-    public void place(Screen screen, float placementX, float placementY) {
-        super.place(screen, placementX, placementY);
-        confirmationButton.place(screen, findXPositionInRelationToContainer(CONFIRMATION_BUTTON_OFFSET_X), findYPositionInRelationToContainer(CONFIRMATION_BUTTON_OFFSET_Y));
+    @Override
+    public void place(Screen screen, float placementX, float placementY, float rotation) {
+        super.place(screen, placementX, placementY, rotation);
+        confirmationButton.place(screen, findXPositionInRelationToContainer(CONFIRMATION_BUTTON_OFFSET_X), findYPositionInRelationToContainer(CONFIRMATION_BUTTON_OFFSET_Y), rotation);
 
         for (CharacterCard card : player.startingHandSelector.cardsToKeep)
-            card.place(screen, 20, 40);
+            card.place(screen, 20, 40, rotation);
 
         resizeAllCardsInSelector(player.startingHandSelector);
 

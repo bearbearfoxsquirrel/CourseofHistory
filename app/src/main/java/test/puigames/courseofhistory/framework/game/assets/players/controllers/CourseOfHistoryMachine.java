@@ -1,5 +1,6 @@
 package test.puigames.courseofhistory.framework.game.assets.players.controllers;
 
+import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Placeable;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Updateable;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
@@ -13,6 +14,9 @@ import test.puigames.courseofhistory.framework.game.assets.players.Player;
  */
 
 public class CourseOfHistoryMachine implements Updateable {
+
+    private Screen drawScreen;
+
     private static float TURN_TIME = 20.f;
     private static final float COIN_TOSS_DELAY = 3.f;
     public static int PLAYER_COUNT = 2;
@@ -25,12 +29,12 @@ public class CourseOfHistoryMachine implements Updateable {
     private Coin coin;
     public Board board;
 
-
     public enum GameState {
         CREATED, COIN_TOSS, CREATE_STARTING_HAND, GAME_ACTIVE, GAME_PAUSED, GG
     }
 
     public CourseOfHistoryMachine(Player[] players, Coin coin, Board board) {
+        this.drawScreen = drawScreen;
         this.players = players;
         this.coin = coin;
         this.currentGameState = GameState.CREATED;
@@ -40,6 +44,56 @@ public class CourseOfHistoryMachine implements Updateable {
         this.manaCount = new int[players.length];
         this.manaCount[0] = 0;  this.manaCount[1] = 0;
     }
+
+    private float workOutPlayerRotation(int playerNumber) {
+        return ((playerNumber % 2) * 180) % 360;
+    }
+
+    private void placePlaceableRelativeToAnchorPoint(Screen screen, Placeable placeable, float anchorPosX, float anchorPosY, float offsetX, float offsetY, float rotationAroundAnchor, float placeableRotation) {
+        rotationAroundAnchor = rotationAroundAnchor *  ((float) Math.PI / 180);
+        float sin = (float) Math.sin(rotationAroundAnchor);
+        float cos = (float) Math.cos(rotationAroundAnchor);
+
+        // newX = centerX + ( cosX * (point2X-centerX) + sinX * (point2Y -centerY))
+        // newY = centerY + ( -sinX * (point2X-centerX) + cosX * (point2Y -centerY))
+        //  var rotatedX = Math.cos(angle) * (point.x - center.x) - Math.sin(angle) * (point.y-center.y) + center.x;
+        //  var rotatedY = Math.sin(angle) * (point.x - center.x) + Math.cos(angle) * (point.y - center.y) + center.y;
+
+        float rotatedX = anchorPosX + ((offsetX - anchorPosX) * cos) + ((offsetY - anchorPosY) * sin);
+        float rotatedY = anchorPosY + ((offsetX - anchorPosX) * -sin) + ((offsetY - anchorPosY) * cos);
+
+        placeable.place(screen,  rotatedX, rotatedY, placeableRotation);
+    }
+
+
+  /*  public void setUpGamePiecePositions(Screen screen, float placementX, float placementY) {
+        board.place(screen, placementX, placementY,  0);
+        // gameMachine.board.setUpGamePiecePositions(screen, (placementX), (placementY), 0);
+
+        float anchorX = board.getPosX();
+        float anchorY = board.getPosY();
+        for(int i = 0; i < players.length; i++) {
+            //Find player rotation
+            players[i].setRotation(workOutPlayerRotation(i));
+            Player currentPlayer = players[i];
+
+            placePlaceableRelativeToAnchorPoint(this, currentPlayer.playerDeck, anchorX, anchorY,
+                    anchorX + -50, anchor, currentPlayer.getRotation(), workOutObjectRotation(currentPlayer.getRotation(), PLAYER_DECK_ROTATION));
+
+            placePlaceableRelativeToAnchorPoint(this, currentPlayer.board.playAreas[i], anchorX, anchorY,
+                    BOARD_PLAYER_AREA_OFFSET_X, BOARD_PLAYER_AREA_OFFSET_Y, gameMachine.players[i].getRotation(), workOutObjectRotation(currentPlayer.getRotation(), PLAYER_DECK_ROTATION));
+
+            placePlaceableRelativeToAnchorPoint(this, currentPlayer.board.cardHands[i], placementX, placementY,
+                    PLAYER_HAND_OFFSET_X, PLAYER_HAND_OFFSET_Y, currentPlayer.getRotation(), workOutObjectRotation(currentPlayer.getRotation(), PLAYER_DECK_ROTATION));
+
+            float manaRelOffsetFromLast = 0;
+            for (Mana mana : gameMachine.players[i].mana) {
+                placePlaceableRelativeToAnchorPoint(this, mana, placementX, placementY, MANA_OFFSET_X + manaRelOffsetFromLast, MANA_OFFSET_Y, currentPlayer.getRotation(), workOutObjectRotation(currentPlayer.getRotation(), PLAYER_DECK_ROTATION));
+                manaRelOffsetFromLast += MANA_PADDING;
+            }
+            // players[i].hero.setUpGamePiecePositions(); TODO
+        }
+    }*/
 
     private void startGame() {
         currentGameState = GameState.COIN_TOSS;
@@ -87,11 +141,12 @@ public class CourseOfHistoryMachine implements Updateable {
                 break;
 
             case CREATE_STARTING_HAND:
-                /*
+
                 transitionPlayerStatesFromCreatingHandToTurnStates();
                 currentGameState = GameState.GAME_ACTIVE;
                 //TO SKIP THIS STAGE OF THE GAME UNCOMMENT THIS BLOCK
-                */
+
+                /*
 
                 if (isBothPlayersFinishedCreatingStartHand()) {
                     nextPlayersTurn(); //get back to original players turn
@@ -112,7 +167,7 @@ public class CourseOfHistoryMachine implements Updateable {
                         nextPlayersTurn();
                         players[turnIndex].playerCurrentState = Player.PlayerState.BEGIN_CREATING_STARTING_HAND;
                         break;
-                }
+                }*/
                 break;
 
             case GAME_ACTIVE:
@@ -200,7 +255,7 @@ public class CourseOfHistoryMachine implements Updateable {
         turnTimeRemaining = TURN_TIME;
         if (players[turnIndex].playerDeck.size() != 0) {
             players[turnIndex].startTurn();
-            players[turnIndex].board.cardHands[turnIndex].addToHand(players[turnIndex].drawCardFromDeck());
+            players[turnIndex].board.cardHands[turnIndex].addCardToArea(players[turnIndex].drawCardFromDeck());
         }
 
         for (CharacterCard card : players[turnIndex].board.playAreas[turnIndex].cardsInArea) {

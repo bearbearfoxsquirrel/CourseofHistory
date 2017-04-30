@@ -34,7 +34,7 @@ public class SplashScreen extends Menu
             Log.d("Error", "Can't load UI elements");
             this.gameProperties.setScreen(new SplashScreen(this.gameProperties));
         }
-        logo.initPlacement(240f, 160.0f);
+        logo.initPlacement(240f, 160.0f, 0);
         uiElements.add(logo);
     }
 

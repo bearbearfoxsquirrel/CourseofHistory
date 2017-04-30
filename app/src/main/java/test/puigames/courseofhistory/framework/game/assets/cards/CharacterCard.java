@@ -47,8 +47,8 @@ public class CharacterCard extends Card implements Damageable.Attackable {
     }
 
     @Override
-    public void draw(Canvas canvas, float deltatime){
-        super.draw(canvas, deltatime);
+    public void draw(Canvas canvas, float deltaTime){
+        super.draw(canvas, deltaTime);
         drawCardStats(canvas);
     }
 

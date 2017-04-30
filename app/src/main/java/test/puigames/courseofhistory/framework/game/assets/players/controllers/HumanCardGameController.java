@@ -56,78 +56,9 @@ public class HumanCardGameController extends CardGameController implements Input
         }
         collisionCheckAndResolve(player.board.playAreas[player.playerNumber]);
         collisionCheckAndResolve(player.board.cardHands[player.playerNumber]);
-
-
-       /* if (player.playerCurrentState == Player.PlayerState.TURN_ACTIVE) {
-
-
-            //For actual thing
-
-            if (playerEvents.size() == 0) {
-                for (CharacterCard playerCard : player.board.playAreas[player.playerNumber].cardsInArea)
-                    for (CharacterCard opponentCard : player.board.playAreas[oppositePlayerNumber].cardsInArea)
-                        if (playerCard.boundingBox.isOverlapping(opponentCard.boundingBox))
-                            playerEvents.add(player.createAttack(playerCard, opponentCard));
-            } else {
-                for (Eventable event : playerEvents)
-                    event.update(deltaTime);
-
-        } else if (player.playerCurrentState == Player.PlayerState.CREATING_START_HAND) {
-            updatePlayersStartingHand();
-        }*/
     }
 
-   /* private void hideStartingHandCreationUI() {
-        startingHandSelectionUI.remove(this.currentScreen);
-    }
 
-    private void showStartingHandCreationUI() {
-        startingHandSelectionUI.place(this.currentScreen ,startingHandSelectionUI.UI_POS_X, startingHandSelectionUI.UI_POS_Y);
-    }
-
-    public void updatePlayersStartingHand() {
-        for (Input.TouchEvent touchEvent : inputBuddy.getTouchEvents()) {
-            for (CharacterCard card : player.board.cardHands[player.playerNumber].cardsInArea) {
-                if (card.boundingBox.isTouchOn(touchEvent) && touchEvent.type == Input.TouchEvent.TOUCH_UP && player.startingHandSelector.cardsToKeep.contains(card)){ //check if card is selected or deselected
-                    player.selectCardToRemove(card);
-                } else if (card.boundingBox.isTouchOn(touchEvent) && touchEvent.type == Input.TouchEvent.TOUCH_UP && player.startingHandSelector.cardsToKeep.contains(card)) {
-                    player.selectCardToKeep(card);
-                }
-            }
-
-            if (startingHandSelectionUI.confirmationButton.boundingBox.isTouchOn(touchEvent)) {
-                startingHandSelectionUI.confirmationButton.applyAction();
-            }
-        }
-    }*/
-//            updateCardsOnBoardPlayArea(deltaTime);
-
-            //For test cards
-//            if (playerEvents.size() == 0) {
-//                for (CharacterCard playerCard : player.board.playAreas[player.playerNumber].cardsInArea)
-//                    for (CharacterCard opponentCard : player.board.playAreas[player.playerNumber].cardsInArea)
-//                        if (playerCard.boundingBox.isOverlapping(opponentCard.boundingBox)) {
-//                            playerEvents.add(player.createAttack(playerCard, opponentCard));
-//                        }
-//            } else {
-//                for (Eventable event : playerEvents)
-//                    event.update(deltaTime);
-//            }
-
-            //For actual thing
-
-//            if (playerEvents.size() == 0) {
-//                for (CharacterCard playerCard : player.board.playAreas[player.playerNumber].cardsInArea)
-//                    for (CharacterCard opponentCard : player.board.playAreas[oppositePlayerNumber].cardsInArea)
-//                        if (playerCard.boundingBox.isOverlapping(opponentCard.boundingBox))
-//                            playerEvents.add(player.createAttack(playerCard, opponentCard));
-//            } else {
-//                for (Eventable event : playerEvents)
-//                    event.update(deltaTime);
-//            }
-//        }
-
-//    }
 
     private void updateCardsOnBoardPlayArea(float deltaTime){
 //        for(CharacterCard card : player.board.playAreas[player.playerNumber].cardsInArea) {
@@ -146,6 +77,7 @@ public class HumanCardGameController extends CardGameController implements Input
 //        }
 //    }
         }
+
     private void updateCardsInHand(float deltaTime) {
         for(int i = 0; i < player.board.cardHands[player.playerNumber].cardsInArea.size(); i++) {
             CharacterCard card = player.board.cardHands[player.playerNumber].cardsInArea.get(i);
@@ -167,20 +99,20 @@ public class HumanCardGameController extends CardGameController implements Input
 
     private void collisionCheckAndResolve(CardArea cardArea)
     {
-        for(CharacterCard card : cardArea.cardsInArea)
-        {
-            for(CharacterCard card2 : cardArea.cardsInArea)
-            {
-                if(card.origin.equals(card2.origin))
-                    card.boundingBox.getCollisionDetector().resolveCollision(card, card2, card.overlapAllowance);
+        if (cardArea.cardsInArea.size() > 0) {
+            for (CharacterCard card : cardArea.cardsInArea) {
+                for (CharacterCard card2 : cardArea.cardsInArea) {
+                    if (card.origin.equals(card2.origin))
+                        card.boundingBox.getCollisionDetector().resolveCollision(card, card2, card.overlapAllowance);
 
-                if(card.boundingBox.getCollisionDetector().checkForCollision(card.boundingBox, card2.boundingBox))
-                    card.boundingBox.getCollisionDetector().resolveCollision(card, card2, card.overlapAllowance);
-                if(!card2.boundingBox.isEncapsulated(player.board.boundingBox)) //collision with board
-                    player.board.boundingBox.getCollisionDetector().keepInsideBoundingBox(player.board, card2);
+                    if (card.boundingBox.getCollisionDetector().checkForCollision(card.boundingBox, card2.boundingBox))
+                        card.boundingBox.getCollisionDetector().resolveCollision(card, card2, card.overlapAllowance);
+                    if (!card2.boundingBox.isEncapsulated(player.board.boundingBox)) //collision with board
+                        player.board.boundingBox.getCollisionDetector().keepInsideBoundingBox(player.board, card2);
+                }
+                if (!card.boundingBox.isEncapsulated(player.board.boundingBox))
+                    card.boundingBox.getCollisionDetector().keepInsideBoundingBox(player.board, card);
             }
-            if(!card.boundingBox.isEncapsulated(player.board.boundingBox))
-                card.boundingBox.getCollisionDetector().keepInsideBoundingBox(player.board, card);
         }
     }
 
@@ -220,7 +152,6 @@ public class HumanCardGameController extends CardGameController implements Input
             player.mana[i].setBitmap(player.mana[i].manaType[1]);
         }
     }
-
     private boolean checkIsTouched(Input.TouchEvent touchEvent, GameObject object) {
         return (object.boundingBox.isTouchOn(touchEvent));
     }
@@ -243,7 +174,7 @@ public class HumanCardGameController extends CardGameController implements Input
     @Override
     public void startTicking(Screen screen) {
         super.startTicking(screen);
-        controllerUI.place(screen, 480/2, 320/2);
+       // controllerUI.setUpGamePiecePositions(screen, 480/2, 320/2 );
     }
 
     @Override

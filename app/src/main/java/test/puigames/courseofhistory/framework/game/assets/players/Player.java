@@ -17,9 +17,10 @@ public class Player {
     //TODO: Add hero
     private static final int STARTING_HAND_SIZE = 3;
 
+    private float rotation;
+
     public int playerNumber;
     public PlayerState playerCurrentState;
-    public CharacterCard[] testCards;
     public final int MAX_MANA = 10;
     public Mana[] mana = new Mana[MAX_MANA];
     public int currentMana;
@@ -40,9 +41,9 @@ public class Player {
         this.board = board;
         this.playerDeck = deck;
         this.currentMana = 0;
+        this.rotation = 0;
 
         setUpPlayerDeck(playerCards);
-
     }
 
     public void createNewStartingHand() {
@@ -80,7 +81,7 @@ public class Player {
     }
 
     public CharacterCard drawCardFromDeck() {
-      //  ((CharacterCard)playerDeck.peek()).place(this.spawnScreen, 200, 300); //TODO give proper spawn places
+      //  ((CharacterCard)playerDeck.peek()).setUpGamePiecePositions(this.spawnScreen, 200, 300); //TODO give proper spawn places
         return (CharacterCard)playerDeck.pop();
     }
 
@@ -108,11 +109,18 @@ public class Player {
         startingHandSelector.cardsToKeep.add(card);
     }
 
-
     public void selectCardToRemove(CharacterCard card) {
         //Adds card to toss set, and removes it from to keep set if it is there
         if (startingHandSelector.cardsToKeep.contains(card))
             startingHandSelector.cardsToKeep.remove(card);
         startingHandSelector.cardsToToss.add(card);
+    }
+
+    public void setRotation(float rotation) {
+        this.rotation = rotation;
+    }
+
+    public float getRotation() {
+        return this.rotation;
     }
 }

@@ -120,7 +120,7 @@ public class ResourceFetcher implements Fetcher {
         StringBuilder stringBuilder = new StringBuilder();
         String line = null;
         while ((line = reader.readLine()) != null) {
-            stringBuilder.append(line + "\n");
+            stringBuilder.append(line);
         }
         inputStream.close();
         return stringBuilder.toString();

@@ -125,19 +125,15 @@ public abstract class Sprite extends GameObject implements Drawable, Scalable.Im
 
     @Override
     public void scale(float scaleFactorX, float scaleFactorY) {
-        this.getMatrix().reset();
-
-        this.getMatrix().postScale((this.getWidth() / this.getBitmap().getWidth()) * scaleFactorX,
-                (this.getHeight() / this.getBitmap().getHeight()) * scaleFactorY);
-        this.getMatrix().postRotate(rotation, scaleFactorX * this.getBitmap().getWidth()/ 2.0f,
-                scaleFactorY * this.getBitmap().getHeight() / 2.0f);
-        this.getMatrix().postTranslate((this.getPosX() - this.getWidth() / 2) * scaleFactorX,
-                (this.getPosY() - this.getHeight() / 2) * scaleFactorY);
+        getMatrix().reset(); // Resets the matrix for
+        getMatrix().postScale((getWidth() / getBitmap().getWidth()) * scaleFactorX, getHeight() / getBitmap().getHeight() * scaleFactorY); //Scales the object/image ratio by the scale factor
+        getMatrix().postRotate(getRotation(), getHalfWidth() * scaleFactorX, getHalfHeight() * scaleFactorY); //Rotates from the middle of the object on the screen
+        getMatrix().postTranslate((getPosX() - getWidth() / 2.f) * scaleFactorX, (getPosY() - getHeight() / 2.f) * scaleFactorY); //Translates the object by the scale factor
     }
 
     @Override
-    public void place(Screen screen, float placementX, float placementY){
-        super.place(screen, placementX, placementY);
+    public void place(Screen screen, float placementX, float placementY, float rotation){
+        super.place(screen, placementX, placementY, rotation);
         if (!screen.drawables.contains(this))
             screen.drawables.add(this);
     }

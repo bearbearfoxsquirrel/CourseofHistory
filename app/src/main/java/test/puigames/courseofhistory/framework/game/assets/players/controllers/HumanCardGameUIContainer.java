@@ -35,7 +35,6 @@ public class HumanCardGameUIContainer implements Updateable, Placeable, Drawable
     public final static float STARTING_HAND_SELECTOR_OFFSET_X = 0.f;
     public final static float STARTING_HAND_SELECTOR_OFFSET_Y = 0.f;
 
-
     Screen currentScreen;
     Matrix matrix;
     Origin origin;
@@ -72,7 +71,6 @@ public class HumanCardGameUIContainer implements Updateable, Placeable, Drawable
             @Override
             public void applyAction() {
                 currentScreen.pause();
-
                 //TODO INSTEAD PAUSE GAMEMACHINE AND SHOW A PAUSE MENU
                 //TODO PAUSE MENU WILL BE ADDED TO THIS UI CONTAINER
             }
@@ -87,9 +85,15 @@ public class HumanCardGameUIContainer implements Updateable, Placeable, Drawable
         };
     }
 
+    private void initPlacement(float spawnX, float spawnY, float rotation) {
+        this.origin = new Origin(spawnX, spawnY);
+        this.matrix = new Matrix();
+        this.rotation = rotation;
+    }
+
     @Override
-    public void place(Screen screen, float placementX, float placementY) {
-        initPlacement(placementX, placementY);
+    public void place(Screen screen, float placementX, float placementY, float rotation) {
+        initPlacement(placementX, placementY, rotation);
         startTicking(screen);
         if (!screen.scalables.contains(this))
             screen.scalables.add(this);
@@ -129,7 +133,7 @@ public class HumanCardGameUIContainer implements Updateable, Placeable, Drawable
     public float getRotation() { return this.rotation; }
 
     private void showUIElement(UIElement uiElement, float positionX, float positionY, float rotation) {
-        uiElement.place(currentScreen, positionX, positionY);
+        uiElement.place(currentScreen, positionX, positionY, rotation);
         uiElementsShown.add(uiElement);
     }
 
@@ -142,13 +146,9 @@ public class HumanCardGameUIContainer implements Updateable, Placeable, Drawable
         menuButtonsShown.remove(menuButton);
         hideUIElement(menuButton);
     }
+
     private void hideUIElement(UIElement uiElement) {
         uiElementsShown.remove(uiElement);
-    }
-
-    private void initPlacement(float spawnX, float spawnY) {
-        this.origin = new Origin(spawnX, spawnY);
-        this.matrix = new Matrix();
     }
 
     @Override
@@ -165,7 +165,6 @@ public class HumanCardGameUIContainer implements Updateable, Placeable, Drawable
 
     @Override
     public void update(float deltaTime) {
-
         switch (this.player.playerCurrentState) {
             case TURN_ACTIVE:
                showMenuButton(endTurnButton,
@@ -229,5 +228,4 @@ public class HumanCardGameUIContainer implements Updateable, Placeable, Drawable
     public MenuButton[] getShownMenuButtons() {
         return menuButtonsShown.toArray(new MenuButton[menuButtonsShown.size()]);
     }
-
 }

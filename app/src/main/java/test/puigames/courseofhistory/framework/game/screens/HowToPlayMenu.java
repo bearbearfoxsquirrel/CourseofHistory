@@ -37,7 +37,7 @@ public class HowToPlayMenu extends Menu {
             Log.d("Error", "UI Element loading has failed");
         }
 
-        backgroundHowToPlay.initPlacement(240.f, 160.f);
+        backgroundHowToPlay.initPlacement(240.f, 160.f, 0);
 
         uiElements.add(backgroundHowToPlay);
 

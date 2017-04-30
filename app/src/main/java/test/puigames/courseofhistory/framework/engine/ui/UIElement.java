@@ -108,18 +108,19 @@ public abstract class UIElement implements Drawable, Scalable.ImageScalable, Pla
         this.origin = origin;
     }
 
-    //Method to place the UI Element on screen based on the middle of the object
+    //Method to setUpGamePiecePositions the UI Element on screen based on the middle of the object
     //takes in a position and calculated with the origin
-    public void initPlacement(float spawnX, float spawnY) {
+    public void initPlacement(float spawnX, float spawnY, float rotation) {
         this.origin = new Origin(spawnX, spawnY);
         this.boundingBox = new BoundingBox(width, height, origin);
         this.matrix = new Matrix();
+        this.rotation = rotation;
     }
 
 
     @Override
-    public void place(Screen screen, float placementX, float placementY) {
-        initPlacement(placementX, placementY);
+    public void place(Screen screen, float placementX, float placementY, float rotation) {
+        initPlacement(placementX, placementY, rotation);
         screen.scalables.add(this);
         screen.drawables.add(this);
     }

@@ -23,7 +23,7 @@ public abstract class GameObject implements Updateable, Placeable, Scalable {
     public float overlapAllowance; //default overlap allowance
     public final float MAX_OVERLAP_ALLOWANCE = 1.0f;
     public final float MIN_OVERLAP_ALLOWANCE = 0.0f;
-    public int rotation = 0;
+    public float rotation = 0;
 
 
     public GameObject(Screen screen, int width, int height) {
@@ -35,10 +35,11 @@ public abstract class GameObject implements Updateable, Placeable, Scalable {
         this.currentScrren = screen;
     }
 
-    protected void initPlacement(float spawnX, float spawnY) {
+    protected void initPlacement(float spawnX, float spawnY, float rotation) {
         this.origin = new Origin(spawnX, spawnY);
         this.boundingBox = new BoundingBox(width, height, origin);
         this.matrix = new Matrix();
+        this.rotation = rotation;
     }
 
     @Override
@@ -51,13 +52,10 @@ public abstract class GameObject implements Updateable, Placeable, Scalable {
 
     @Override
     public void scale(float scaleFactorX, float scaleFactorY) {
-        this.getMatrix().reset();
-        this.getMatrix().postScale((this.getWidth() / this.getWidth()) * scaleFactorX,
-                (this.getHeight() / this.getHeight()) * scaleFactorY);
-        this.getMatrix().postRotate(getRotation(), scaleFactorX * this.getWidth()/ 2.0f,
-                scaleFactorY * this.getHeight() / 2.0f);
-        this.getMatrix().postTranslate((this.getPosX() - this.getWidth() / 2) * scaleFactorX,
-                (this.getPosY() - this.getHeight() / 2) * scaleFactorY);
+        getMatrix().reset(); // Resets the matrix for
+        getMatrix().postScale(getWidth() * scaleFactorX, getHeight() * scaleFactorY); //Scales the object size by the scale factor
+        getMatrix().postRotate(getRotation(), getHalfWidth() * scaleFactorX, getHalfHeight() * scaleFactorY); //Rotates from the middle of the object on the screen
+        getMatrix().postTranslate((getPosX() - getWidth() / 2.f) * scaleFactorX, (getPosY() - getHeight() / 2.f) * scaleFactorY); //Translates the object by the scale factor
     }
 
     @Override
@@ -86,8 +84,8 @@ public abstract class GameObject implements Updateable, Placeable, Scalable {
     }
 
     @Override
-    public void place(Screen screen, float placementX, float placementY) {
-        this.initPlacement(placementX, placementY);
+    public void place(Screen screen, float placementX, float placementY, float rotation) {
+        this.initPlacement(placementX, placementY, rotation);
         //Checks if the object does not already exist on the screen and then places them if it is not
         startTicking(screen);
 
@@ -124,5 +122,7 @@ public abstract class GameObject implements Updateable, Placeable, Scalable {
         return rotation;
     }
 
+    public float getHalfHeight() {return halfHeight;}
 
+    public float getHalfWidth() {return halfWidth;}
 }

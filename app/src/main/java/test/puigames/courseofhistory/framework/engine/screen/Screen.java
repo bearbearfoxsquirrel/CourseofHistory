@@ -30,8 +30,8 @@ public abstract class Screen {
 
     public ArrayList<Scalable> scalables;
 
-    final static float DEFAULT_LEVEL_HEIGHT = 320.f;
-    final static float DEFAULT_LEVEL_WIDTH = 480.f;
+    public final static float DEFAULT_LEVEL_HEIGHT = 320.f;
+    public final static float DEFAULT_LEVEL_WIDTH = 480.f;
 
     /**
      * Constructor stores passed in GameProperties object
