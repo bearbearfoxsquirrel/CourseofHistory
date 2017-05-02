@@ -12,6 +12,4 @@ public interface Collision
     boolean checkForCollision(BoundingBox boundingBox1, BoundingBox boundingBox2);
 
     void resolveCollision(GameObject object1, GameObject object2, float overlapModifier);
-
-    void separate(GameObject object1, GameObject object2, float separationAmount);
 }

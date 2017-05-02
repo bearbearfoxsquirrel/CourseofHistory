@@ -16,15 +16,19 @@ import test.puigames.courseofhistory.framework.game.assets.PlayArea;
 
 
 public class Board extends Sprite implements Drawable {
+
     private PlayArea[] playAreas = new PlayArea[2];
     private CardHand[] cardHands = new CardHand[2];
-    private int playAreaWidth = 460;
-    private int playAreaHeight = 90;
+    private final int PLAY_AREA_WIDTH = 460;
+    private final int PLAY_AREA_HEIGHT = 85;
+    private final float PLAY_AREA_POS_Y_PLAYER1 = 208.f;
+    private final float PLAY_AREA_POS_Y_PLAYER2 = 88.f;
+    private final float CARD_HAND_POS_Y_PLAYER_1 = 288.f;
+    private final float CARD_HAND_POS_Y_PLAYER_2 = 10.f;
 
-    //spawnX = 480/2, spawnY = 320/2
     public Board(Screen screen, Bitmap bitmap){
         super(screen, bitmap, 480, 320);
-        overlapAllowance = 1.0f;
+        overlapAllowance = 1.f;
     }
 
     @Override
@@ -34,49 +38,25 @@ public class Board extends Sprite implements Drawable {
 
     public void update(float deltaTime) {
         super.update(deltaTime);
-        for(PlayArea playArea : playAreas)
-            playArea.update(deltaTime); //update play areas
     }
 
     @Override
     public void place(Screen screen, float placementX, float placementY) {
         super.place(screen, placementX, placementY);
-        //update hands
-    //    for (int i = 0; i < playAreas.length; i++) {
-        //    playAreas[i].place(screen, );
-      //  }
     }
 
     @Override
     public void initPlacement(float spawnX, float spawnY){
         super.initPlacement(spawnX, spawnY);
-        //player 1 - human: player one - bottom half of screen
-        //spawnX = boundingBox.left + areaPaddingX
-        //spawnY = halfWidth + areaPaddingY
-        //width = 460, height = 140
         for (int i = 0; i < cardHands.length; i++) {
-            if(i == 0) {
-                cardHands[i] = new CardHand(this.currentScrren, 240f, 288f);
-                playAreas[i] = new PlayArea(this.currentScrren, playAreaWidth, playAreaHeight, (int)halfWidth, 114);
-            }else{
-                cardHands[i] = new CardHand(this.currentScrren, 240f, 65f);
-                playAreas[i] = new PlayArea(this.currentScrren, playAreaWidth, playAreaHeight, (int)halfWidth, 208);
+            if(i == 0) {               //PLAYER 1 - bottom half of screen
+                cardHands[i] = new CardHand(this.currentScreen, halfWidth, CARD_HAND_POS_Y_PLAYER_1);
+                playAreas[i] = new PlayArea(this.currentScreen, PLAY_AREA_WIDTH, PLAY_AREA_HEIGHT, halfWidth, PLAY_AREA_POS_Y_PLAYER1);
+            } else {                  //PLAYER 2 - top half of screen
+                cardHands[i] = new CardHand(this.currentScreen, halfWidth, CARD_HAND_POS_Y_PLAYER_2);
+                playAreas[i] = new PlayArea(this.currentScreen, PLAY_AREA_WIDTH, PLAY_AREA_HEIGHT, halfWidth, PLAY_AREA_POS_Y_PLAYER2);
             }
-
-            Log.d("cardhand " + i, "" + cardHands[i].boundingBox.toString());
-            Log.d("playArea " + i, "" + playAreas[i].boundingBox.toString());
         }
-
-        //player 2 - opponent: AI/other player - top half of screen
-        //spawnX = boundingBox.left + areaPaddingX
-        //spawnY = boundingBox.top
-        //width = 460, height = 140
-        //playAreas[1] = new PlayArea(460, 140);
-
-
-//
-//        playAreas[1] = new PlayArea(playAreaWidth, playAreaHeight, (int)halfWidth, (int)
-//                (halfHeight * 0.75));
     }
 
     public PlayArea[] getPlayAreas() {
@@ -87,6 +67,14 @@ public class Board extends Sprite implements Drawable {
         this.playAreas = playAreas;
     }
 
+    public PlayArea getPlayArea(int i) {
+        return playAreas[i];
+    }
+
+    public void setPlayArea(PlayArea playArea, int i) {
+        this.playAreas[i] = playArea;
+    }
+
     public CardHand[] getCardHands() {
         return cardHands;
     }
@@ -95,20 +83,36 @@ public class Board extends Sprite implements Drawable {
         this.cardHands = cardHands;
     }
 
-    public int getPlayAreaWidth() {
-        return playAreaWidth;
+    public CardHand getCardHand(int i) {
+        return cardHands[i];
     }
 
-    public void setPlayAreaWidth(int playAreaWidth) {
-        this.playAreaWidth = playAreaWidth;
+    public void setCardHand(CardHand cardHand, int i) {
+        this.cardHands[i] = cardHand;
     }
 
-    public int getPlayAreaHeight() {
-        return playAreaHeight;
+    public int getPLAY_AREA_WIDTH() {
+        return PLAY_AREA_WIDTH;
     }
 
-    public void setPlayAreaHeight(int playAreaHeight) {
-        this.playAreaHeight = playAreaHeight;
+    public int getPLAY_AREA_HEIGHT() {
+        return PLAY_AREA_HEIGHT;
+    }
+
+    public float getPLAY_AREA_POS_Y_PLAYER1() {
+        return PLAY_AREA_POS_Y_PLAYER1;
+    }
+
+    public float getPLAY_AREA_POS_Y_PLAYER2() {
+        return PLAY_AREA_POS_Y_PLAYER2;
+    }
+
+    public float getCARD_HAND_POS_Y_PLAYER_1() {
+        return CARD_HAND_POS_Y_PLAYER_1;
+    }
+
+    public float getCARD_HAND_POS_Y_PLAYER_2() {
+        return CARD_HAND_POS_Y_PLAYER_2;
     }
 }
 

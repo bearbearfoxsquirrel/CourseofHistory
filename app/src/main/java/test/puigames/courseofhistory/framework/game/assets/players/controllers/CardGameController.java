@@ -30,7 +30,6 @@ public abstract class CardGameController implements Controlling {
             screen.removeFromUpdateables(this);
     }
 
-
     public CardGameController() {
         this.playerEvents = new ArrayList<>();
     }

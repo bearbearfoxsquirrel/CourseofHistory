@@ -1,12 +1,16 @@
 package test.puigames.courseofhistory.framework.game.assets.players.controllers;
 
+import java.util.ArrayList;
+
 import test.puigames.courseofhistory.framework.engine.controlling.Inputable;
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.game.assets.CardArea;
+import test.puigames.courseofhistory.framework.game.assets.CardHand;
 import test.puigames.courseofhistory.framework.game.assets.Mana;
+import test.puigames.courseofhistory.framework.game.assets.PlayArea;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
 
@@ -33,6 +37,7 @@ public class HumanCardGameController extends CardGameController implements Input
             case TURN_ACTIVE:
                 updateCardsInHand(deltaTime);
                 updateCardsOnBoardPlayArea(deltaTime);
+                updateHero(deltaTime);
                 break;
             case BEGIN_CREATING_STARTING_HAND:
               //  showStartingHandCreationUI();
@@ -45,9 +50,13 @@ public class HumanCardGameController extends CardGameController implements Input
                 //hideStartingHandCreationUI();
                 break;
         }
-        collisionCheckAndResolve(player.getBoard().getPlayAreas()[player.getPlayerNumber()]);
-        collisionCheckAndResolve(player.getBoard().getCardHands()[player.getPlayerNumber()]);
-
+        //Inter card collision checking and handling
+//       if(inputBuddy.getTouchEvents().size() <= 0) {
+           cardCollisionCheckAndResolve(player.getBoard().getPlayArea(player.getPlayerNumber()).getCardsInArea());
+           cardCollisionCheckAndResolve(player.getBoard().getCardHand(player.getPlayerNumber()).getCardsInArea());
+//       }
+        //Keep cards on board: don't check hand, causes issues
+        keepCardsInBoardBounds(player.getBoard().getPlayArea(player.getPlayerNumber()).getCardsInArea());
 
        /* if (player.playerCurrentState == Player.PlayerState.TURN_ACTIVE) {
 
@@ -120,61 +129,73 @@ public class HumanCardGameController extends CardGameController implements Input
 
 //    }
 
-    private void updateCardsOnBoardPlayArea(float deltaTime){
-        for(int i = 0; i < player.getBoard().getPlayAreas()[player.getPlayerNumber()].getCardsInArea().size(); i++) {
-            CharacterCard card = player.getBoard().getPlayAreas()[player.getPlayerNumber()].getCardsInArea().get(i);
+    private void updateCardsOnBoardPlayArea(float deltaTime) {
+        for(int i = 0; i < player.getBoard().getPlayArea(player.getPlayerNumber()).getCardsInArea().size(); i++) {
+            CharacterCard card = player.getBoard().getPlayArea(player.getPlayerNumber()).getCardsInArea().get(i);
             if(inputBuddy.getTouchEvents().size() > 0) {
                 Input.TouchEvent touchEvent = inputBuddy.getTouchEvents().get(0);
-                if(checkIsTouched(touchEvent, card)) {
-                    card.getOrigin().setOrigin(touchEvent.x, touchEvent.y);
+                if(checkIsTouched(touchEvent, card) && touchEvent.type == Input.TouchEvent.TOUCH_DRAGGED) {
+                    card.setOrigin(touchEvent.x, touchEvent.y);
                     player.moveCard(card, card.getOrigin().getOriginX(), card.getOrigin().getOriginY());
                 }
-            } else if(inputBuddy.getTouchEvents().isEmpty()) {
-                player.getBoard().getPlayAreas()[player.getPlayerNumber()].positionCardsInArea();
-            }
-            if(card.isDeaders()) {
-                player.getBoard().getPlayAreas()[player.getPlayerNumber()].getCardsInArea().remove(card);
-                //TODO: its dead so should be removed from the universe
-            }
+            } else
+                player.getBoard().getPlayArea(player.getPlayerNumber()).positionCardsInArea();
         }
     }
 
     private void updateCardsInHand(float deltaTime) {
-        for(int i = 0; i < player.getBoard().getCardHands()[player.getPlayerNumber()].getCardsInArea().size(); i++) {
-            CharacterCard card = player.getBoard().getCardHands()[player.getPlayerNumber()].getCardsInArea().get(i);
+        for(int i = 0; i < player.getBoard().getCardHand(player.getPlayerNumber()).getCardsInArea().size(); i++) {
+            CharacterCard card = player.getBoard().getCardHand(player.getPlayerNumber()).getCardsInHand().get(i);
             if(inputBuddy.getTouchEvents().size() > 0) {
                 Input.TouchEvent touchEvent = inputBuddy.getTouchEvents().get(0);
-                if(checkIsTouched(touchEvent, card)) {
-                    card.getOrigin().setOrigin(touchEvent.x, touchEvent.y);
+                if(checkIsTouched(touchEvent, card) && touchEvent.type == Input.TouchEvent.TOUCH_DRAGGED) {
+                    card.setOrigin(touchEvent.x, touchEvent.y);
                     player.moveCard(card, card.getOrigin().getOriginX(), card.getOrigin().getOriginY());
+                    if(card.getBoundingBox().isOverlapping(player.getBoard().getPlayArea(player.getPlayerNumber()).getBoundingBox())
+                            && touchEvent.type != Input.TouchEvent.TOUCH_DOWN)
+                        playCard(card);
                 }
-            } else if(card.boundingBox.isOverlapping(player.getBoard().getPlayAreas()[player.getPlayerNumber()].boundingBox) && inputBuddy.getTouchEvents().isEmpty()) {
-                playCard(card);
+            } else {
+//                if(card.getBoundingBox().isOverlapping(player.getBoard().getCardHand(player.getPlayerNumber()).getBoundingBox()) && inputBuddy.getTouchEvents().isEmpty())
+                    player.getBoard().getCardHand(player.getPlayerNumber()).positionCardsInArea();
+            }
+        }
+    }
+
+    private void updateHero(float deltaTime) {
+        if(inputBuddy.getTouchEvents().size() > 0) {
+            Input.TouchEvent touchEvent = inputBuddy.getTouchEvents().get(0);
+            if(checkIsTouched(touchEvent, player.getHero())) {
+                //TODO: show end turn button
             }
         }
     }
 
     private boolean checkIfThereIsAnAttackOnOpponentCard(CharacterCard playerCard, CharacterCard opponentCard) {
-        return playerCard.boundingBox.isOverlapping(opponentCard.boundingBox);
+        return playerCard.getBoundingBox().isOverlapping(opponentCard.getBoundingBox());
     }
 
-    private void collisionCheckAndResolve(CardArea cardArea)
-    {
-        for(CharacterCard card : cardArea.getCardsInArea())
-        {
-            for(CharacterCard card2 : cardArea.getCardsInArea())
-            {
-                if(card.getOrigin().equals(card2.getOrigin()))
-                    card.boundingBox.getCollisionDetector().resolveCollision(card, card2, card.getOverlapAllowance());
-
-                if(card.boundingBox.getCollisionDetector().checkForCollision(card.boundingBox, card2.boundingBox))
-                    card.boundingBox.getCollisionDetector().resolveCollision(card, card2, card.getOverlapAllowance());
-                if(!card2.boundingBox.isEncapsulated(player.getBoard().boundingBox)) //collision with board
-                    player.getBoard().boundingBox.getCollisionDetector().keepInsideBoundingBox(player.getBoard(), card2);
+    private void cardCollisionCheckAndResolve(ArrayList<CharacterCard> cardList) {
+        for (CharacterCard card : cardList) {
+            for (CharacterCard card2 : cardList) {
+                if (inputBuddy.getTouchEvents().size() > 0) {
+                    Input.TouchEvent touchEvent = inputBuddy.getTouchEvents().get(0);
+                    if (!checkIsTouched(touchEvent, card) && !checkIsTouched(touchEvent, card2)) {
+                        if (card.getOrigin().equals(card2.getOrigin()) || card.getBoundingBox().getCollisionDetector().checkForCollision(card.getBoundingBox(), card2.getBoundingBox()))
+                            card.getBoundingBox().getCollisionDetector().resolveCollision(card, card2, card.getOverlapAllowance());
+                    } else {
+                        if (card.getOrigin().equals(card2.getOrigin()) || card.getBoundingBox().getCollisionDetector().checkForCollision(card.getBoundingBox(), card2.getBoundingBox()))
+                            card.getBoundingBox().getCollisionDetector().resolveCollision(card, card2, card.getOverlapAllowance());
+                    }
+                }
             }
-            if(!card.boundingBox.isEncapsulated(player.getBoard().boundingBox))
-                card.boundingBox.getCollisionDetector().keepInsideBoundingBox(player.getBoard(), card);
         }
+    }
+
+    private void keepCardsInBoardBounds(ArrayList<CharacterCard> cardList) {
+        for(CharacterCard card : cardList)
+            if(!card.getBoundingBox().isEncapsulated(player.getBoard().getBoundingBox()))
+                card.getBoundingBox().getCollisionDetector().keepInsideBoundingBox(player.getBoard(), card);
     }
 
     /**
@@ -186,8 +207,7 @@ public class HumanCardGameController extends CardGameController implements Input
      *          currentMana
      * @param card - card that is being played
      */
-    public void playCard(CharacterCard card)
-    {
+    public void playCard(CharacterCard card) {
         //player.currentAction = Player.PawnAction.PLACE_CARD_ON_BOARD;
 //        if(player.currentMana >= card.mana)
 //        {
@@ -204,8 +224,7 @@ public class HumanCardGameController extends CardGameController implements Input
      * If a player has enough mana, this method is called
      * @param manaCost - amount of mana used by playing card/switched to used state
      */
-    private void removeManaFromPlayer(int manaCost)
-    {
+    private void removeManaFromPlayer(int manaCost) {
         player.setCurrentMana(player.getCurrentMana()- manaCost);
         for(int i = (player.getMAX_MANA() - 1); i >= (player.getCurrentMana() - 1); i++)
         {
@@ -215,7 +234,7 @@ public class HumanCardGameController extends CardGameController implements Input
     }
 
     private boolean checkIsTouched(Input.TouchEvent touchEvent, GameObject object) {
-        return (object.boundingBox.isTouchOn(touchEvent));
+        return (object.getBoundingBox().isTouchOn(touchEvent));
     }
 
     @Override

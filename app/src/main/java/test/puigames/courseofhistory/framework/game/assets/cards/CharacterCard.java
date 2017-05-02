@@ -18,7 +18,9 @@ public class CharacterCard extends Card implements Damageable.Attackable {
     private String description;
     private int mana;
     private int attack;
+    private int maxAttack;
     private int health;
+    private int maxHealth;
     private String abilityDescription;
     private int currentAttackEnergy;
     private int maxAttackEnergy;
@@ -36,8 +38,8 @@ public class CharacterCard extends Card implements Damageable.Attackable {
         this.name = name;
         this.description = description;
         this.mana = mana;
-        this.attack = attack;
-        this.health = health;
+        this.attack = attack;   this.maxAttack = attack;
+        this.health = health;   this.maxHealth = health;
         this.abilityDescription = abilityDescription;
         this.currentAttackEnergy = 1;
         this.maxAttackEnergy = 1;
@@ -47,8 +49,8 @@ public class CharacterCard extends Card implements Damageable.Attackable {
     }
 
     @Override
-    public void draw(Canvas canvas, float deltatime){
-        super.draw(canvas, deltatime);
+    public void draw(Canvas canvas, float deltaTime){
+        super.draw(canvas, deltaTime);
         drawCardStats(canvas);
     }
 
@@ -68,6 +70,7 @@ public class CharacterCard extends Card implements Damageable.Attackable {
     @Override
     public void scale(float scaleFactorX, float scaleFactorY) {
         //TODO Matthew pls intement
+        super.scale(scaleFactorX, scaleFactorY);
     }
 
 
@@ -122,10 +125,30 @@ public class CharacterCard extends Card implements Damageable.Attackable {
 
     public void setAttack(int attack) {
         this.attack = attack;
+        if(this.attack > this.maxAttack)
+            this.attack = this.maxAttack;
+    }
+
+    public void setMaxAttack(int maxAttack) {
+        this.maxAttack = maxAttack;
+    }
+
+    public int getMaxAttack() {
+        return maxAttack;
+    }
+
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
+    }
+
+    public int getMaxHealth() {
+        return maxHealth;
     }
 
     public void setHealth(int health) {
         this.health = health;
+        if(this.health > this.maxHealth)
+            this.health = this.maxHealth;
     }
 
     public String getAbilityDescription() {
@@ -210,7 +233,14 @@ public class CharacterCard extends Card implements Damageable.Attackable {
         this.healthLocationY = healthLocationY;
     }
 
-
-
-
+    @Override
+    public String toString() {
+        return "{Name= " + name +
+                "\nAttack= " + attack +
+                "\nHealth= " + health +
+                "\nDesc= " + description +
+                "\nMana= " + mana +
+                "\nAbility Desc= " + abilityDescription +
+                "}";
+    }
 }

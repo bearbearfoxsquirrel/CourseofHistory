@@ -14,10 +14,10 @@ import test.puigames.courseofhistory.framework.engine.screen.scaling.Scalable;
  */
 
 public abstract class GameObject implements Updateable, Placeable, Scalable {
-    protected Screen currentScrren;
+    protected Screen currentScreen;
     protected float width, halfWidth;
     protected float height, halfHeight;
-    public BoundingBox boundingBox;
+    protected BoundingBox boundingBox;
 
 
 
@@ -35,7 +35,7 @@ public abstract class GameObject implements Updateable, Placeable, Scalable {
         this.height = height;
         this.halfHeight = (height / 2);
         this.overlapAllowance = MIN_OVERLAP_ALLOWANCE;
-        this.currentScrren = screen;
+        this.currentScreen = screen;
     }
 
     protected void initPlacement(float spawnX, float spawnY) {
@@ -112,12 +112,12 @@ public abstract class GameObject implements Updateable, Placeable, Scalable {
         stopTicking(screen);
     }
 
-    public Screen getCurrentScrren() {
-        return currentScrren;
+    public Screen getCurrentScreen() {
+        return currentScreen;
     }
 
-    public void setCurrentScrren(Screen currentScrren) {
-        this.currentScrren = currentScrren;
+    public void setCurrentScreen(Screen currentScreen) {
+        this.currentScreen = currentScreen;
     }
 
     public void setWidth(float width) {
@@ -154,6 +154,11 @@ public abstract class GameObject implements Updateable, Placeable, Scalable {
 
     public void setOrigin(Origin origin) {
         this.origin = origin;
+    }
+
+    public void setOrigin(float x, float y) {
+        this.origin.setOriginX(x);
+        this.origin.setOriginY(y);
     }
 
     public void setMatrix(Matrix matrix) {

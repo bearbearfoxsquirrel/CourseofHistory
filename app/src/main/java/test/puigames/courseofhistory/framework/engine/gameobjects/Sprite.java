@@ -58,8 +58,8 @@ public abstract class Sprite extends GameObject implements Drawable, Scalable.Im
         }
 
         //update position using velocity
-        origin.setOriginX(origin.getOriginX()+ (velocity.getVectorX() * deltaTime));
-        origin.setOriginY(origin.getOriginY()+ (velocity.getVectorY() * deltaTime));
+        origin.setOriginX(origin.getOriginX() + (velocity.getVectorX() * deltaTime));
+        origin.setOriginY(origin.getOriginY() + (velocity.getVectorY() * deltaTime));
     }
 
 
@@ -125,10 +125,11 @@ public abstract class Sprite extends GameObject implements Drawable, Scalable.Im
 
     @Override
     public void scale(float scaleFactorX, float scaleFactorY) {
+        this.getMatrix().reset();
         this.getMatrix().postScale((this.getWidth() / this.getBitmap().getWidth()) * scaleFactorX,
                 (this.getHeight() / this.getBitmap().getHeight()) * scaleFactorY);
-        this.getMatrix().postRotate(0, scaleFactorX * this.getBitmap().getWidth()/ 2.0f,
-                scaleFactorY * this.getBitmap().getHeight() / 2.0f);
+        this.getMatrix().postRotate(rotation, scaleFactorX * width/ 2.0f, scaleFactorX * height / 2.0f);
+        this.getMatrix().postRotate(0, scaleFactorX * 240, scaleFactorY * 160); //fixme: pls make not use ugly magic numbers :c
         this.getMatrix().postTranslate((this.getOrigin().getOriginX() - this.getWidth() / 2) * scaleFactorX,
                 (this.getOrigin().getOriginY() - this.getHeight() / 2) * scaleFactorY);
     }

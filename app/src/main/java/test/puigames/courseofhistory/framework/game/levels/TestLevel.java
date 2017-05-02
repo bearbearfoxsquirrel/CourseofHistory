@@ -8,6 +8,7 @@ import test.puigames.courseofhistory.framework.engine.controlling.Controlling;
 import test.puigames.courseofhistory.framework.engine.screen.Level;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
 import test.puigames.courseofhistory.framework.game.assets.Deck;
+import test.puigames.courseofhistory.framework.game.assets.Hero;
 import test.puigames.courseofhistory.framework.game.assets.Mana;
 import test.puigames.courseofhistory.framework.game.assets.StartingHandSelectionUI;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
@@ -24,6 +25,16 @@ public class TestLevel extends Level {
     private final String[] DECK_NAMES = {"greatMindsCards", "evilLeaderCards"};
     private final String[] TEST_CARD_NAMES = {"cards1", "cards2"};
     StartingHandSelectionUI startingHandSelectionUI;
+    private final int COIN_SIZE = 80;
+    private final float COIN_POS_X = 300.f;
+    private final float COIN_POS_Y = 200.0f;
+    private final int HERO_PORTRAIT_SIZE = 55;
+    private final float HERO_PLAYER_1_POS_X = 20.f;
+    private final float HERO_PLAYER_1_POS_Y = 300.f;
+    private final float HERO_PLAYER_2_POS_X = 460.f;
+    private final float HERO_PLAYER_2_POS_Y = 20.f;
+    private final float PLAYER_DECK_POS_X = 300;
+    private final float PLAYER_DECK_POS_Y = 50;
 
     CourseOfHistoryMachine gameMachine;
 
@@ -37,28 +48,41 @@ public class TestLevel extends Level {
        try {
            //Setting up the board and spawning it
            Board board = resourceFetcher.loadBoard(this, "testBoard");
-           board.place(this, 480/2, 320/2);
+           board.place(this, viewport.getCenterX(), viewport.getCenterY());
 
            //Setting up the coin and spawning it
-           Bitmap coinSides[] = {resourceFetcher.getBitmapFromFile("images/coins/coin-heads.png"), resourceFetcher.getBitmapFromFile("images/coins/coin-tails.png")};
-           Coin coin = new Coin(this, coinSides, 80, 80);
-           coin.place(this, 300, 200);
+           Bitmap coinSides[] = {
+                   resourceFetcher.getBitmapFromFile("images/coins/coin-heads.png"),
+                   resourceFetcher.getBitmapFromFile("images/coins/coin-tails.png")};
+           Coin coin = new Coin(this, coinSides, COIN_SIZE, COIN_SIZE);
+           coin.place(this, COIN_POS_X, COIN_POS_Y);
 
            Player[] players = new Player[CourseOfHistoryMachine.getPlayerCount()];
+           Hero[] heroes = new Hero[CourseOfHistoryMachine.getPlayerCount()];
 
            //Load mana images
-           Bitmap manaTypes[] = {resourceFetcher.getBitmapFromFile("images/mana/mana.png"),
+           Bitmap manaTypes[] = {
+                   resourceFetcher.getBitmapFromFile("images/mana/mana.png"),
                    resourceFetcher.getBitmapFromFile("images/mana/mana-used.png")};
+
+           //Load hero images
+           Bitmap heroBitmaps[] = {
+                   resourceFetcher.getBitmapFromFile("images/heroes/great-minds-hero.png"),
+                   resourceFetcher.getBitmapFromFile("images/heroes/evil-leaders-hero.png")};
 
            //Creates a controller and a player for each participant
            for(int i = 0; i < players.length; i++) {
-               players[i] = new Player(resourceFetcher.loadCharacterCards(this, DECK_NAMES[i]), board, new Deck(this, resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png")), i); //Creating a new player pawn for each controller
-               players[i].getPlayerDeck().place(this, 300, 50);
+               heroes[i] = new Hero(this, heroBitmaps[i], HERO_PORTRAIT_SIZE, HERO_PORTRAIT_SIZE);
+               players[i] = new Player(resourceFetcher.loadCharacterCards(this, DECK_NAMES[i]), board, new Deck(this, resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png")), heroes[i], i); //Creating a new player pawn for each controller
+               players[i].getPlayerDeck().place(this, PLAYER_DECK_POS_X, PLAYER_DECK_POS_Y);
                //TODO give proper deck image!!!
 
                for (int j = 0; j < players[i].getMAX_MANA(); j++)
                    players[i].getMana()[j] = new Mana(this, manaTypes);
            }
+           heroes[0].place(this, HERO_PLAYER_1_POS_X, HERO_PLAYER_1_POS_Y); //player 1 - bottom left
+           heroes[1].setRotation(180); //set rotation for opposite side of screen
+           heroes[1].place(this, HERO_PLAYER_2_POS_X, HERO_PLAYER_2_POS_Y); //player 2 - top right
 
            //creating the game machine for processing the game
            gameMachine = new CourseOfHistoryMachine(players, coin, board);
@@ -128,17 +152,6 @@ public class TestLevel extends Level {
 
     }/*
 
-    private void collisionCheckAndResolve() {
-        for(CharacterCard card : controllers[gameMachine.turnIndex].getPlayer().board.playAreas[controllers[gameMachine.turnIndex].getPlayer().playerNumber].cardsInArea)
-        {
-            for(CharacterCard card2 : controllers[gameMachine.turnIndex].getPlayer().board.playAreas[controllers[gameMachine.findNextPlayer(gameMachine.turnIndex)].getPlayer().playerNumber].cardsInArea)
-            {
-                if(card.boundingBox.getCollisionDetector().checkForCollision(card, card2))
-                    card.boundingBox.getCollisionDetector().resolveCollision(card, card2, card.overlapAllowance);
-            }
-        }
-    }
-
   /*  @Override
     public void draw(Canvas canvas, float deltaTime) {
         super.draw(canvas, deltaTime);
@@ -147,7 +160,6 @@ public class TestLevel extends Level {
     @Override
     public void draw(Canvas canvas, float deltaTime) {
         super.draw(canvas, deltaTime);
-        // FIXME: 21/04/2017 pls make me draw things better
         for(int i = 0; i < gameMachine.players.length; i++) {
             for (int j = 0; j < gameMachine.players[i].board.cardHands[i].cardsInArea.size(); j++) {
                 scaler.scaleToScreen(gameMachine.players[i].board.cardHands[i].cardsInArea.get(j));

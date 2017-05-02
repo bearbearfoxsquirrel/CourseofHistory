@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface Input
 {
-    public static class KeyEvent
+    class KeyEvent
     {
         public static final int KEY_DOWN = 0;
         public static final int KEY_UP = 1;
@@ -18,7 +18,7 @@ public interface Input
         public int keyChar;
     }
 
-    public static class TouchEvent
+    class TouchEvent
     {
         public static final int TOUCH_DOWN = 0;
         public static final int TOUCH_UP = 1;
@@ -29,21 +29,21 @@ public interface Input
         public int pointer;
     }
 
-    public boolean isKeyPressed(int keyCode);
+    boolean isKeyPressed(int keyCode);
 
-    public boolean isTouchDown(int pointer);
+    boolean isTouchDown(int pointer);
 
-    public float getTouchX(int pointer);
+    float getTouchX(int pointer);
 
-    public float getTouchY(int pointer);
+    float getTouchY(int pointer);
 
-    public float getAccelX();
+    float getAccelX();
 
-    public float getAccelY();
+    float getAccelY();
 
-    public float getAccelZ();
+    float getAccelZ();
 
-    public List<KeyEvent> getKeyEvents();
+    List<KeyEvent> getKeyEvents();
 
-    public List<TouchEvent> getTouchEvents();
+    List<TouchEvent> getTouchEvents();
 }

@@ -13,7 +13,7 @@ import test.puigames.courseofhistory.framework.game.assets.players.Player;
  */
 
 public class CourseOfHistoryMachine implements Updateable {
-    private static float TURN_TIME = 20.f;
+    private static float TURN_TIME = 6.f;
     //initial turn
     private static final float COIN_TOSS_DELAY = 3.f;
     private static int PLAYER_COUNT = 2;
@@ -83,18 +83,17 @@ public class CourseOfHistoryMachine implements Updateable {
                 tossCoin();
                 currentGameState = GameState.CREATE_STARTING_HAND;//To transition FSM to the game being active so turns are now being made
 
-                for (Player player : players)
-                    player.setPlayerCurrentState(Player.PlayerState.WAITING_TO_BEGIN_CREATING_HAND);
+//                for (Player player : players)
+//                    player.setPlayerCurrentState(Player.PlayerState.WAITING_TO_BEGIN_CREATING_HAND);
                 break;
 
             case CREATE_STARTING_HAND:
-                /*
+
                 transitionPlayerStatesFromCreatingHandToTurnStates();
                 currentGameState = GameState.GAME_ACTIVE;
                 //TO SKIP THIS STAGE OF THE GAME UNCOMMENT THIS BLOCK
-                */
 
-                if (isBothPlayersFinishedCreatingStartHand()) {
+                /*if (isBothPlayersFinishedCreatingStartHand()) {
                     nextPlayersTurn(); //get back to original players turn
                     //If both players are finished taking their turn it selects the player that won the coin toss and lets them go first
                     transitionPlayerStatesFromCreatingHandToTurnStates();
@@ -113,13 +112,13 @@ public class CourseOfHistoryMachine implements Updateable {
                         nextPlayersTurn();
                         players[turnIndex].setPlayerCurrentState(Player.PlayerState.BEGIN_CREATING_STARTING_HAND);
                         break;
-                }
+                }*/
                 break;
 
             case GAME_ACTIVE:
                 takeTurn(deltaTime);
                 updateCardsInPlay();
-                checkWinStatus();
+//                checkWinStatus();
                 break;
 
             case GAME_PAUSED:
@@ -192,6 +191,7 @@ public class CourseOfHistoryMachine implements Updateable {
                 break;
 
             case TURN_ENDED:
+                repositionCards();
                 nextPlayersTurn(); //Changes turn index to the next player
                 break;
         }
@@ -215,15 +215,18 @@ public class CourseOfHistoryMachine implements Updateable {
         }
     }
 
+    private void repositionCards() {
+        players[turnIndex].getBoard().getCardHand(players[turnIndex].getPlayerNumber()).positionCardsInArea();
+        players[turnIndex].getBoard().getPlayArea(players[turnIndex].getPlayerNumber()).positionCardsInArea();
+    }
+
     /**
      * At the start of every turn, give player +1 available mana than last turn
      * Change mana bitmaps to reflect that
      */
-    private void giveManaToPlayer()
-    {
+    private void giveManaToPlayer() {
         players[turnIndex].setCurrentMana(manaCount[turnIndex]);
-        for(int i = 0; i < players[turnIndex].getMAX_MANA(); i++)
-        {
+        for(int i = 0; i < players[turnIndex].getMAX_MANA(); i++) {
             players[turnIndex].getMana()[i].setManaState(Mana.ManaState.available);
             players[turnIndex].getMana()[i].setBitmap(players[turnIndex].getMana()[i].getManaType()[0]);
         }
@@ -255,8 +258,7 @@ public class CourseOfHistoryMachine implements Updateable {
         return (playerIndex + 1) & 2;
     }
 
-    public Player
-    getPlayerWithCurrentTurn() {
+    public Player getPlayerWithCurrentTurn() {
         return players[turnIndex];
     }
 

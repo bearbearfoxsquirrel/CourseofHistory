@@ -44,26 +44,23 @@ public class CardHand extends CardArea {
         setUpPositions();
     }
 
-//        for(int i = 1; i <= maxCardsInArea; i++)
-//            handPositions[i - 1] = new Origin((width/maxCardsInArea) * i, this.origin.y + this.halfHeight/maxCardsInArea);
-
     public void addToHand(CharacterCard characterCard) {
         if(cardsInArea.size()< maxCardsInArea) {
             characterCard.adjustCardSize(CARD_SCALE_FACTOR);
-            characterCard.place(this.currentScrren, positions[cardsInArea.size()].getOriginX(), positions[cardsInArea.size()].getOriginY());
+            characterCard.place(this.currentScreen, positions[cardsInArea.size()].getOriginX(), positions[cardsInArea.size()].getOriginY());
             //characterCard.initPlacement(positions[cardsInArea.size()].x, positions[cardsInArea.size()].y);
             //characterCard.initPlacement(40, 40);
-            Log.d("firsthand position", "" + positions[0]);
+//            Log.d("firsthand position", "" + positions[0]);
 
-
-            characterCard.place(this.currentScrren, positions[cardsInArea.size()].getOriginX(), positions[cardsInArea.size()].getOriginY());
+            characterCard.place(this.currentScreen, positions[cardsInArea.size()].getOriginX(), positions[cardsInArea.size()].getOriginY());
             if(isAi) {
                 characterCard.rotateCard(180);
             }
 
 //            Log.d("Positions", ""  +cardsInArea.size() +positions[cardsInArea.size()].toString() +isAi);
             super.addCardToArea(characterCard);
-            positionCardsInArea();
+//            positionCardsInArea();
+            Log.d("card", cardsInArea.get(0).toString());
         }
 
     }

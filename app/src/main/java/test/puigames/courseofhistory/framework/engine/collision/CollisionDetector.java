@@ -35,18 +35,18 @@ public class CollisionDetector implements Collision
         if(overlapModifier == object1.getMIN_OVERLAP_ALLOWANCE() || object1.equals(object2))
             return;
         else
-            object1.boundingBox.getCollisionDetector()
+            object1.getBoundingBox().getCollisionDetector()
                     .determineAndResolveCollision(object1, object2, overlapModifier);
     }
 
     //determines which bound was broken and (hopefully) resolves the collision peacefully
     private void determineAndResolveCollision(GameObject object1, GameObject
-            object2, double overlapModifier)
+            object2, float overlapModifier)
     {
         BoundingBox.bound collisionType = BoundingBox.bound.NONE;
 
-        BoundingBox boundingBox1 = object1.boundingBox;
-        BoundingBox boundingBox2 = object2.boundingBox;
+        BoundingBox boundingBox1 = object1.getBoundingBox();
+        BoundingBox boundingBox2 = object2.getBoundingBox();
 
         if(checkForCollision(boundingBox1, boundingBox2))
         {
@@ -89,16 +89,16 @@ public class CollisionDetector implements Collision
             switch (collisionType)
             {
                 case TOP:
-                    object1.getOrigin().setOriginY((float)(object1.getOrigin().getOriginY() + (collisionDepth * overlapModifier)));
+                    object1.getOrigin().setOriginY(object1.getOrigin().getOriginY() + (collisionDepth * overlapModifier));
                     break;
                 case BOTTOM:
-                    object1.getOrigin().setOriginY((float)(object1.getOrigin().getOriginY() - (collisionDepth * overlapModifier))) ;
+                    object1.getOrigin().setOriginY(object1.getOrigin().getOriginY() - (collisionDepth * overlapModifier));
                     break;
                 case LEFT:
-                    object1.getOrigin().setOriginX((float)(object1.getOrigin().getOriginX() + (collisionDepth * overlapModifier)));
+                    object1.getOrigin().setOriginX(object1.getOrigin().getOriginX() + (collisionDepth * overlapModifier));
                     break;
                 case RIGHT:
-                    object1.getOrigin().setOriginX((float)(object1.getOrigin().getOriginX() - (collisionDepth * overlapModifier)));
+                    object1.getOrigin().setOriginX(object1.getOrigin().getOriginX() - (collisionDepth * overlapModifier));
                     break;
                 case NONE:
                     break;
@@ -107,23 +107,12 @@ public class CollisionDetector implements Collision
     }
 
     /**
-     * Attempts to separate two objects. Usually called when two object's origins are the same
-     * @param object1 - object to separate
-     * @param object2 - (other) object to separate
-     * @param separationAmount - amount objects will be separated by
-     */
-    public void separate(GameObject object1, GameObject object2, float separationAmount)
-    {
-
-    }
-
-    /**
      * Only needed to be called if the bounding box you are testing against
      * this one is not encapsulated
      * @see test.puigames.courseofhistory.framework.engine.gameobjects
      * .properties.BoundingBox.isEncapsulated();
      *
-     * Keeps sprite2 within sprite1's bounding box, plus some padding: 2
+     * Keeps sprite2 within sprite1's bounding box, plus some padding: 1
      *
      * @param sprite1 - the game object's bounding box we are testing against sprite
      *          we are containing the sprite within this bounding box
@@ -131,13 +120,13 @@ public class CollisionDetector implements Collision
      */
     public void keepInsideBoundingBox(Sprite sprite1, Sprite sprite2)
     {
-        if(sprite2.boundingBox.getLeft() < sprite1.boundingBox.getLeft())
-            sprite2.getOrigin().setOriginX(((sprite1.boundingBox.getLeft() + sprite2.getHalfWidth()) + 2));
-        else if(sprite2.boundingBox.getRight() > sprite1.boundingBox.getRight())
-            sprite2.getOrigin().setOriginX(((sprite1.boundingBox.getRight() - sprite2.getHalfWidth()) - 2));
-        else if(sprite2.boundingBox.getTop() < sprite1.boundingBox.getTop())
-            sprite2.getOrigin().setOriginY(((sprite1.boundingBox.getTop() + sprite2.getHalfHeight()) + 2));
-        else if(sprite2.boundingBox.getBottom() > sprite1.boundingBox.getBottom())
-            sprite2.getOrigin().setOriginY(((sprite1.boundingBox.getBottom() - sprite2.getHalfHeight()) - 2));
+        if(sprite2.getBoundingBox().getLeft() < sprite1.getBoundingBox().getLeft())
+            sprite2.getOrigin().setOriginX(((sprite1.getBoundingBox().getLeft() + sprite2.getHalfWidth()) + 1));
+        else if(sprite2.getBoundingBox().getRight() > sprite1.getBoundingBox().getRight())
+            sprite2.getOrigin().setOriginX(((sprite1.getBoundingBox().getRight() - sprite2.getHalfWidth()) - 1));
+        else if(sprite2.getBoundingBox().getTop() < sprite1.getBoundingBox().getTop())
+            sprite2.getOrigin().setOriginY(((sprite1.getBoundingBox().getTop() + sprite2.getHalfHeight()) + 1));
+        else if(sprite2.getBoundingBox().getBottom() > sprite1.getBoundingBox().getBottom())
+            sprite2.getOrigin().setOriginY(((sprite1.getBoundingBox().getBottom() - sprite2.getHalfHeight()) - 1));
     }
 }
