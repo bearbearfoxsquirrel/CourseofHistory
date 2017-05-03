@@ -44,6 +44,16 @@ public class Player {
         setUpPlayerDeck(playerCards);
     }
 
+    public Player(CharacterCard[] playerCards, Board board, Deck deck, int playerNumber) {
+        this.playerCurrentState = PlayerState.CREATED;
+        this.playerNumber = playerNumber;
+        this.board = board;
+        this.board = board;
+        this.playerDeck = deck;
+        this.currentMana = 0;
+        setUpPlayerDeck(playerCards);
+    }
+
     public void createNewStartingHand() {
         playerCurrentState = Player.PlayerState.BEGIN_CREATING_STARTING_HAND;
 

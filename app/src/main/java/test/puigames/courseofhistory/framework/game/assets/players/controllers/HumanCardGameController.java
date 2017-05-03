@@ -1,6 +1,5 @@
 package test.puigames.courseofhistory.framework.game.assets.players.controllers;
 
-import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -9,13 +8,10 @@ import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
-import test.puigames.courseofhistory.framework.game.assets.CardArea;
-import test.puigames.courseofhistory.framework.game.assets.CardHand;
+import test.puigames.courseofhistory.framework.game.assets.Hero;
 import test.puigames.courseofhistory.framework.game.assets.Mana;
-import test.puigames.courseofhistory.framework.game.assets.PlayArea;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
-import test.puigames.courseofhistory.framework.game.assets.players.events.Eventable;
 
 
 //This class is for allowing the user to interact with a pawn pawn
@@ -23,16 +19,15 @@ public class HumanCardGameController extends CardGameController implements Input
     private InputBuddy inputBuddy;
     private Screen currentScreen;
 
-
     public HumanCardGameController(Screen screen, InputBuddy inputBuddy, Player player) {
         this.inputBuddy = inputBuddy;
         this.currentScreen = screen;
         this.player = player;
     }
 
-    public HumanCardGameController(Screen screen, InputBuddy inputBuddy) {
-        this.inputBuddy = inputBuddy;
-    }
+//    public HumanCardGameController(Screen screen, InputBuddy inputBuddy) {
+//        this.inputBuddy = inputBuddy;
+//    }
 
     @Override
     public void update(float deltaTime) {
@@ -131,6 +126,11 @@ public class HumanCardGameController extends CardGameController implements Input
 //        }
 //
 //    }
+
+    /**
+     * Handles updating cards on the board: allows cards to attack if player indicates so (and there is a card to attack)
+     * @param deltaTime - would be used for animations, should we have those
+     */
     private void updateCardsOnBoardPlayArea(float deltaTime) {
         if(inputBuddy.getTouchEvents().size() > 0) {
             Input.TouchEvent touchEvent = inputBuddy.getTouchEvents().get(0);
@@ -138,8 +138,12 @@ public class HumanCardGameController extends CardGameController implements Input
                 if (checkIfCardCanUnleashHell(touchEvent, card)) {
                     card.setOrigin(touchEvent.x, touchEvent.y);
                     player.moveCard(card, card.getOrigin().getOriginX(), card.getOrigin().getOriginY());
-                    attackIfThereACardHere(card); //fixme: intentms menp ls
                     preventGoddamnCardOriginOverlappingHopefullySuperAwesomeFunMethod(getPlayersCardsInPlayArea());
+                    if(youAreTryingToAttackAnotherCard(touchEvent, card)) {
+                        attackIfThereIsACardHere(card);
+                    } else if (youAreTryingToAttackTheEnemyHero(touchEvent, card, player.getBoard().getHero(getOppositePlayerNumber()))) {
+                        attackTheEnemyHero(card, player.getBoard().getHero(getOppositePlayerNumber()));
+                    }
                     break;
                 }
             }
@@ -178,15 +182,15 @@ public class HumanCardGameController extends CardGameController implements Input
         }
     }
 
-    /**
-     * checks if there is an attack
-     * @param playerCard - attacking card
-     * @param opponentCard - receiving card
-     * @return
-     */
-    private boolean checkIfThereIsAnAttackOnOpponentCard(CharacterCard playerCard, CharacterCard opponentCard) {
-        return playerCard.getBoundingBox().isOverlapping(opponentCard.getBoundingBox());
-    }
+//    /**
+//     * checks if there is an attack
+//     * @param playerCard - attacking card
+//     * @param opponentCard - receiving card
+//     * @return true if playerCard's bounding box is overlapping opponentCard's bounding box
+//     */
+//    private boolean checkIfThereIsAnAttackOnOpponentCard(CharacterCard playerCard, CharacterCard opponentCard) {
+//        return playerCard.getBoundingBox().isOverlapping(opponentCard.getBoundingBox());
+//    }
 
     /**
      * collision between cards - only if there are no touch events
@@ -201,6 +205,46 @@ public class HumanCardGameController extends CardGameController implements Input
                 }
             }
         }
+    }
+
+    /**
+     * @param touchEvent - touch event we are checking against card & type of touch event
+     * @param card - card we are checking if its touched
+     * @return - true if card is touched and touch event type is touch_up, false otherwise
+     */
+    private boolean youAreTryingToAttackAnotherCard(Input.TouchEvent touchEvent, CharacterCard card) {
+        return (checkIsTouched(touchEvent, card) && touchEvent.type == Input.TouchEvent.TOUCH_UP);
+    }
+
+    /**
+     *
+     * @param touchEvent
+     * @param hero - hero we are checking if it's
+     * @return - true if card is touched and touch event type is touch_up
+     */
+    private boolean youAreTryingToAttackTheEnemyHero(Input.TouchEvent touchEvent, CharacterCard card, Hero hero) {
+        return (card.getBoundingBox().isOverlapping(hero.getBoundingBox()) && touchEvent.type == Input.TouchEvent.TOUCH_UP);
+    }
+
+    /** Card passed in will attack if there is an opposing card's bounding box overlapping with it's bounding box
+     * @param card - card whose bounding box we are checking for overlaps with opponent's cards
+     */
+    private void attackIfThereIsACardHere(CharacterCard card) {
+        for(CharacterCard opponentCard : player.getBoard().getPlayArea(getOppositePlayerNumber()).getCardsInArea())
+            if(card.getBoundingBox().isOverlapping(opponentCard.getBoundingBox())) {
+                opponentCard.applyDamage(card.getAttack()); //opponent takes damage
+                card.applyDamage(opponentCard.getAttack()); //attacking card also takes damage
+                //TODO: add update for stats here man bruh dudeseph
+            }
+    }
+
+    /**
+     * Card will attack the enemy hero if their bounding boxes are overlapping
+     * @param card - card that is attacking
+     * @param hero - hero that is being attacked
+     */
+    private void attackTheEnemyHero(CharacterCard card, Hero hero) {
+            hero.applyDamage(card.getAttack());
     }
 
     /**
@@ -227,7 +271,6 @@ public class HumanCardGameController extends CardGameController implements Input
     }
 
     /**
-     *
      * @return this player's cards in their play area
      */
     private ArrayList<CharacterCard> getPlayersCardsInPlayArea() {
@@ -241,12 +284,10 @@ public class HumanCardGameController extends CardGameController implements Input
     }
 
     /**
-     * TODO: inform user of not having enough mana for action??
      * When a player moves a card from their hand to board, this is called
-     * Checks if player has enough mana for the action,
-     *      if they do, card is played
-     *          and the corresponding mana cost of card is removed from player's
-     *          currentMana
+     * Checks if player has enough mana for the action, if they do, card is played
+     * and the corresponding mana cost of card is removed from player's
+     * currentMana
      * @param card - card that is being played
      */
     public void playCard(CharacterCard card) {
@@ -259,15 +300,25 @@ public class HumanCardGameController extends CardGameController implements Input
         //}
     }
 
+    /**
+     * Checks if card is touched, and if the card has energy to attack
+     * @param touchEvent - checking this event against card
+     * @param card - card we are checking
+     * @return - true if card is touched, the touch event type is dragged, and card has attack energy, false otherwise
+     */
     private boolean checkIfCardCanUnleashHell(Input.TouchEvent touchEvent, CharacterCard card) {
         return (checkIsTouched(touchEvent, card)
-                && touchEvent.type == Input.TouchEvent.TOUCH_DRAGGED
                 && card.hasEnergyToAttack());
     }
 
+    /**
+     * Checks if card has mana to be played now nad is touched
+     * @param touchEvent - touch event on card
+     * @param card - card being touched and card's mana that is being checked
+     * @return - true if card is touched and player's mana is >= card's mana
+     */
     private boolean checkIfCardCanBePlayedNow(Input.TouchEvent touchEvent, CharacterCard card) {
         return (checkIsTouched(touchEvent, card)
-                && touchEvent.type == Input.TouchEvent.TOUCH_DRAGGED
                 && player.getCurrentMana() >= card.getMana());
     }
 
@@ -284,10 +335,20 @@ public class HumanCardGameController extends CardGameController implements Input
         }
     }
 
+    /**
+     * Checks if gameObject is touched
+     * @param touchEvent - touch event object we are checking pos(x, y) of
+     * @param object - object we are checking
+     * @return - true if touch event(x, y) falls within object's bounding box, false otherwise
+     */
     private boolean checkIsTouched(Input.TouchEvent touchEvent, GameObject object) {
         return (object.getBoundingBox().isTouchOn(touchEvent));
     }
 
+    /**
+     *  Gets opposing player's player number
+     * @return - opposing player's number
+     */
     private int getOppositePlayerNumber() {
         return ((player.getPlayerNumber() + 1) % 2);
     }

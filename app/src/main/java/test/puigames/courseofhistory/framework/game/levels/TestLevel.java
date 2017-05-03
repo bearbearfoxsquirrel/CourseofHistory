@@ -47,9 +47,14 @@ public class TestLevel extends Level {
     @Override
     public void load() {
        try {
-           //Setting up the board and spawning it
-           Board board = resourceFetcher.loadBoard(this, "testBoard");
-           board.place(this, viewport.getCenterX(), viewport.getCenterY());
+
+           Bitmap[] heroBitmaps = {
+                   resourceFetcher.getBitmapFromFile("images/heroes/great-minds-hero.png"),
+                   resourceFetcher.getBitmapFromFile("images/heroes/evil-leaders-hero.png")};
+
+//           //Setting up the board and spawning it
+//           Board board = resourceFetcher.loadBoard(this, "testBoard");
+//           board.place(this, viewport.getCenterX(), viewport.getCenterY());
 
            //Setting up the coin and spawning it
            Bitmap[] coinSides = {
@@ -60,21 +65,28 @@ public class TestLevel extends Level {
 
            Player[] players = new Player[CourseOfHistoryMachine.getPlayerCount()];
            Hero[] heroes = new Hero[CourseOfHistoryMachine.getPlayerCount()];
+           for(int i = 0; i < players.length; i++)
+               heroes[i] = new Hero(this, heroBitmaps[i], HERO_PORTRAIT_SIZE, HERO_PORTRAIT_SIZE); //create heroes
+
+           //Setting up the board and spawning it
+           Board board = resourceFetcher.loadBoard(this, "testBoard", heroes);
+           board.place(this, viewport.getCenterX(), viewport.getCenterY());
 
            //Load mana images
            Bitmap[] manaTypes = {
                    resourceFetcher.getBitmapFromFile("images/mana/mana.png"),
                    resourceFetcher.getBitmapFromFile("images/mana/mana-used.png")};
 
-           //Load hero images
-           Bitmap[] heroBitmaps = {
-                   resourceFetcher.getBitmapFromFile("images/heroes/great-minds-hero.png"),
-                   resourceFetcher.getBitmapFromFile("images/heroes/evil-leaders-hero.png")};
+//           //Load hero images
+//           Bitmap[] heroBitmaps = {
+//                   resourceFetcher.getBitmapFromFile("images/heroes/great-minds-hero.png"),
+//                   resourceFetcher.getBitmapFromFile("images/heroes/evil-leaders-hero.png")};
 
            //Creates a controller and a player for each participant
            for(int i = 0; i < players.length; i++) {
-               heroes[i] = new Hero(this, heroBitmaps[i], HERO_PORTRAIT_SIZE, HERO_PORTRAIT_SIZE);
-               players[i] = new Player(resourceFetcher.loadCharacterCards(this, DECK_NAMES[i]), board, new Deck(this, resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png")), heroes[i], i); //Creating a new player pawn for each controller
+//               heroes[i] = new Hero(this, heroBitmaps[i], HERO_PORTRAIT_SIZE, HERO_PORTRAIT_SIZE);
+//               players[i] = new Player(resourceFetcher.loadCharacterCards(this, DECK_NAMES[i]), board, new Deck(this, resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png")), heroes[i], i); //Creating a new player pawn for each controller
+               players[i] = new Player(resourceFetcher.loadCharacterCards(this, DECK_NAMES[i]), board, new Deck(this, resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png")), i);
                players[i].getPlayerDeck().place(this, PLAYER_DECK_POS_X, PLAYER_DECK_POS_Y);
                //TODO give proper deck image!!!
 

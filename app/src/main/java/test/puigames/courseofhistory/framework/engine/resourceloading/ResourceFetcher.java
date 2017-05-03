@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
+import test.puigames.courseofhistory.framework.game.assets.Hero;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 
@@ -56,10 +57,27 @@ public class ResourceFetcher implements Fetcher {
         return board;
     }
 
+    public Board loadBoard(Screen screen, String boardName, Hero[] heroes) throws NullPointerException {
+        //Takes a boards name as an input and returns the corresponding board object.
+        //If a board is not found a null pointer is returned
+        JSONArray boardJsonArray = jsonBourne.fromJSONStringToJsonArray(getStringFromFile(BOARDS_URL), BOARDS_ARRAY_NAME);
+
+        //Assume that JSON file is sorted!!!!
+        Board board = null;
+        try {
+            JSONObject jsonBoard = jsonBourne.searchJSONArray(boardJsonArray, "boardName", boardName);
+            board = new Board(screen, getBitmapFromFile(jsonBoard.getString("url")), heroes); //where board is created
+        } catch (JSONException e) {
+            Log.d("Loading Resource: ", "Cannot find board of name: " + boardName);
+            throw new NullPointerException();
+        }
+        return board;
+    }
+
     //For now just returns all cards
     //TODO: loadCharacterCards will be used to load a specified set of cards e.g. decks and all cards
     @Override
-    public CharacterCard[] loadCharacterCards(Screen screen, String cardsNames) throws NullPointerException{
+    public CharacterCard[] loadCharacterCards(Screen screen, String cardsNames) throws NullPointerException {
         JSONArray cardJsonArray = jsonBourne.fromJSONStringToJsonArray(getStringFromFile(CARDS_URL), cardsNames);
 
         CharacterCard[] characterCards = new CharacterCard[cardJsonArray.length()];

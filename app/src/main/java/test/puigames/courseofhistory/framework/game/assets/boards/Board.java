@@ -8,6 +8,7 @@ import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Drawable;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.game.assets.CardHand;
+import test.puigames.courseofhistory.framework.game.assets.Hero;
 import test.puigames.courseofhistory.framework.game.assets.PlayArea;
 
 /**
@@ -17,8 +18,10 @@ import test.puigames.courseofhistory.framework.game.assets.PlayArea;
 
 public class Board extends Sprite implements Drawable {
 
-    private PlayArea[] playAreas = new PlayArea[2];
-    private CardHand[] cardHands = new CardHand[2];
+    private final int MAX_PLAYERS_ON_BOARD = 2;
+    private PlayArea[] playAreas = new PlayArea[MAX_PLAYERS_ON_BOARD];
+    private CardHand[] cardHands = new CardHand[MAX_PLAYERS_ON_BOARD];
+    private Hero[] heroes = new Hero[MAX_PLAYERS_ON_BOARD];
     private final int PLAY_AREA_WIDTH = 460;
     private final int PLAY_AREA_HEIGHT = 85;
     private final float PLAY_AREA_POS_Y_PLAYER1 = 208.f;
@@ -27,6 +30,11 @@ public class Board extends Sprite implements Drawable {
     private final float CARD_HAND_POS_Y_PLAYER_2 = 10.f;
 
     public Board(Screen screen, Bitmap bitmap){
+        super(screen, bitmap, 480, 320);
+        overlapAllowance = 1.f;
+    }
+
+    public Board(Screen screen, Bitmap bitmap, Hero[] heroes) {
         super(screen, bitmap, 480, 320);
         overlapAllowance = 1.f;
     }
@@ -113,6 +121,26 @@ public class Board extends Sprite implements Drawable {
 
     public float getCARD_HAND_POS_Y_PLAYER_2() {
         return CARD_HAND_POS_Y_PLAYER_2;
+    }
+
+    public int getMAX_PLAYERS_ON_BOARD() {
+        return MAX_PLAYERS_ON_BOARD;
+    }
+
+    public Hero[] getHeroes() {
+        return heroes;
+    }
+
+    public Hero getHero(int i) {
+        return heroes[i];
+    }
+
+    public void setHeroes(Hero[] heroes) {
+        this.heroes = heroes;
+    }
+
+    public void setHero(Hero hero, int i) {
+        this.heroes[i] = hero;
     }
 }
 
