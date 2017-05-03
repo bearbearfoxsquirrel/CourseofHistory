@@ -1,5 +1,7 @@
 package test.puigames.courseofhistory.framework.game.assets.players.controllers;
 
+import android.util.Log;
+
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Updateable;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
@@ -117,7 +119,7 @@ public class CourseOfHistoryMachine implements Updateable {
 
             case GAME_ACTIVE:
                 takeTurn(deltaTime);
-                updateCardsInPlay();
+//                updateCardsInPlay();
 //                checkWinStatus();
                 break;
 
@@ -152,7 +154,7 @@ public class CourseOfHistoryMachine implements Updateable {
         return (players[playerIndex].getPlayerCurrentState() == Player.PlayerState.FINISHED_CREATING_START_HAND);
     }
 
-    private void checkWinStatus(){
+    private void checkWinStatus() {
         for (int i = 0; i < players.length; i++) {
             if(players[i].getPlayerDeck().size() == 0 && players[i].getPlayerCurrentState() == Player.PlayerState.TURN_STARTED) { //TODO add if hero health is <= 0
                 players[i].setPlayerCurrentState(Player.PlayerState.LOSE);
@@ -164,9 +166,15 @@ public class CourseOfHistoryMachine implements Updateable {
 
     private void updateCardsInPlay() {
         for (Player player: players)
-            for (CharacterCard card : player.getBoard().getPlayAreas()[player.getPlayerNumber()].getCardsInArea())
-                if (card.isDeaders())
-                    player.getBoard().getPlayAreas()[player.getPlayerNumber()].removeCardFromArea(card);
+            for (CharacterCard card : player.getBoard().getPlayArea(player.getPlayerNumber()).getCardsInArea())
+                if (card.isDeaders()) {
+                    player.getBoard().getPlayArea(player.getPlayerNumber()).removeCardFromArea(card);
+                    card.remove(player.getBoard().getCurrentScreen());
+//                    card.setBoundingBox(null);
+//                    card.setOrigin(null);
+                    //TODO: possibly need to set all things to null to "delete" it so it doesn't interact with objects in the game
+                    //or just remove from all possible lists it could be a part of so we never see it again
+                }
         //Testing purposes only!
          /*  for (Player player: players)
             for (CharacterCard card : player.testCards)
@@ -191,7 +199,6 @@ public class CourseOfHistoryMachine implements Updateable {
                 break;
 
             case TURN_ENDED:
-                repositionCards();
                 nextPlayersTurn(); //Changes turn index to the next player
                 break;
         }
@@ -204,20 +211,20 @@ public class CourseOfHistoryMachine implements Updateable {
             players[turnIndex].getBoard().getCardHands()[turnIndex].addToHand(players[turnIndex].drawCardFromDeck());
         }
 
+        if (manaCount[turnIndex] < players[turnIndex].getMAX_MANA()) { //don't want it going over 10 - max
+            manaCount[turnIndex]++;
+            giveManaToPlayer();
+        }
+        Log.wtf("currentPlayerMana " + turnIndex, "" + players[turnIndex].getCurrentMana());
+
         for (CharacterCard card : players[turnIndex].getBoard().getPlayAreas()[turnIndex].getCardsInArea()) {
             card.setCurrentAttackEnergy(card.getMaxAttackEnergy());
-
-            if (manaCount[turnIndex] < players[turnIndex].getMAX_MANA()) //don't want it going over 10 - max
-            {
-                manaCount[turnIndex]++;
-                giveManaToPlayer();
-            }
         }
     }
 
     private void repositionCards() {
-        players[turnIndex].getBoard().getCardHand(players[turnIndex].getPlayerNumber()).positionCardsInArea();
         players[turnIndex].getBoard().getPlayArea(players[turnIndex].getPlayerNumber()).positionCardsInArea();
+        players[turnIndex].getBoard().getCardHand(players[turnIndex].getPlayerNumber()).positionCardsInArea();
     }
 
     /**
@@ -238,12 +245,13 @@ public class CourseOfHistoryMachine implements Updateable {
             nextPlayersTurn(); //Checks if the player's turn is over
     }
 
-    private boolean isTurnTimeLeft(){
+    private boolean isTurnTimeLeft() {
         return turnTimeRemaining <= 0.f;
     }
 
     private void nextPlayersTurn() {
         players[turnIndex].setPlayerCurrentState(Player.PlayerState.WAITING_FOR_TURN);
+        repositionCards();
         incrementTurnIndex();
         coin.setBitmap(coin.getCoinSides()[turnIndex]); //Just to test turns are working :)
         players[turnIndex].setPlayerCurrentState(Player.PlayerState.TURN_STARTED);
@@ -251,11 +259,11 @@ public class CourseOfHistoryMachine implements Updateable {
 
     private void incrementTurnIndex() {
         this.turnIndex++;
-        this.turnIndex %= 2;
+        this.turnIndex %= PLAYER_COUNT;
     }
 
     public int findNextPlayer(int playerIndex) {
-        return (playerIndex + 1) & 2;
+        return (playerIndex + 1) & PLAYER_COUNT;
     }
 
     public Player getPlayerWithCurrentTurn() {
