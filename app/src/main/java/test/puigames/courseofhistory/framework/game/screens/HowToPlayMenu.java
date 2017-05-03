@@ -20,15 +20,20 @@ public class HowToPlayMenu extends Menu {
 
     private ImageUIElement backgroundHowToPlay, rulesForward, rulesBackward, howToPlayImage;
     private ArrayList<Bitmap> howToPlayTexts;
-    private MenuButton back, next, previous;
+    private MenuButton back;
     private float bgImageWidth = 480.0f, bgImageHeight = 320.0f;
     private float bgCentreX = 240.0f, bgCentreY = 160.0f;
     private float buttonWidth = 75.0f, buttonHeight = 35.0f;
     private float backCentreX = 40.0f, backCentreY = 300.0f;
+    private float rulesForwardCentreX = 460.0f, rulesForwardCentreY = 290.0f;
+    private float rulesBackwardCentreX = 400.0f, rulesBackwardCentreY = 290.0f;
+    private float rulesWidth = 50.0f, rulesHeight = 50.0f;
 
     public HowToPlayMenu(final GameProperties gameProperties){
         super(gameProperties);
+
         howToPlayTexts = new ArrayList<>();
+
         this.back = new MenuButton(this, resourceFetcher.getBitmapFromFile("images/buttons/button_back.png"),
                 buttonWidth, buttonHeight) {
             @Override
@@ -47,14 +52,14 @@ public class HowToPlayMenu extends Menu {
         if(back.checkForInput(inputBuddy)){
             back.applyAction();
         }
-
 /*
-        if(forwardRules.)){
-            //on input
-            swapImage(1);
-        }
-        else if(backward.checkForInput(inputBuddy)){
-            howToPlay.applyAction(-1);
+        if(gameProperties.getInput().getTouchEvents().size() > 0) {
+            if (rulesForward.getBoundingBox().isTouchOn(gameProperties.getInput().getTouchEvents().get(0)))
+                //on input
+               // swapImage(1);
+            if (rulesBackward.getBoundingBox().isTouchOn(gameProperties.getInput().getTouchEvents().get(0))) {
+                howToPlay.swapImage(-1);
+            }
         }*/
     }
 
@@ -62,16 +67,18 @@ public class HowToPlayMenu extends Menu {
 
         backgroundHowToPlay = null;
         rulesForward = null;
-        try{rulesBackward = null;
+        rulesBackward = null;
+        howToPlayImage = null;
+        try{
             backgroundHowToPlay = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/backgrounds/how_to_play_background.png"),
                     bgImageWidth, bgImageHeight);
-            /*rulesForward = new ImageUIElement(this, resourceFetcher.getBitmapFromFile(""),
-                    buttonWidth, buttonHeight);
-            rulesBackward = new ImageUIElement(this, resourceFetcher.getBitmapFromFile(""),
-                    buttonWidth, buttonHeight);*/
+            rulesForward = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/buttons/button_forward.png"),
+                    rulesWidth, rulesHeight);
+            rulesBackward = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/buttons/button_backward.png"),
+                    rulesWidth, rulesHeight);
             howToPlayTexts.add(resourceFetcher.getBitmapFromFile(""));
             howToPlayTexts.add(resourceFetcher.getBitmapFromFile(""));
-            //add those
+
         }
         catch (NullPointerException e) {
             Log.d("Error", "UI Element loading has failed");
@@ -79,9 +86,13 @@ public class HowToPlayMenu extends Menu {
 
         backgroundHowToPlay.place(this, bgCentreX, bgCentreY);
         back.place(this, backCentreX, backCentreY);
+        rulesForward.place(this, rulesForwardCentreX, rulesForwardCentreY);
+        rulesBackward.place(this, rulesBackwardCentreX, rulesBackwardCentreY);
 
         uiElements.add(backgroundHowToPlay);
         uiElements.add(back);
+        uiElements.add(rulesForward);
+        uiElements.add(rulesBackward);
 
     }
 

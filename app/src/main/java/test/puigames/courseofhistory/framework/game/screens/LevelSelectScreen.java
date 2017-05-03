@@ -20,7 +20,7 @@ public class LevelSelectScreen extends Menu {
     private float bgImageWidth = 480.0f, bgImageHeight = 320.0f;
     private float bgCentreX = 240.0f, bgCentreY = 160.0f;
     private float L1ImageWidth = 133.33f, L1ImageHeight = 200.0f;
-    private float L1ImageCentreX = 140.0f, L1ImageCentreY = 136.67f;
+    private float L1ImageCentreX = 100.0f, L1ImageCentreY = 136.67f;
     private float L1TextWidth = 75.0f, L1TextHeight = 35.0f;
     private float L1TextCentreX = 160.0f, L1TextCentreY = 265.0f;
     private float backWidth = 75.0f, backHeight = 35.0f;

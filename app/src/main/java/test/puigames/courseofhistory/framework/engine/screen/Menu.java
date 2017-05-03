@@ -30,7 +30,7 @@ public abstract class Menu extends Screen {
             scaler.scaleToScreen(uiElement);
     }
 
-    //Enhanced for loop that moves through the array and draw each to the screen
+    //Enhanced for loop that moves through the array and draws each to the screen
     @Override
     public void draw(Canvas canvas, float deltaTime) {
         super.draw(canvas, deltaTime);
