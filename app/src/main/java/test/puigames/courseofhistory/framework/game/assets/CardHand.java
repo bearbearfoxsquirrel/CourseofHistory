@@ -60,7 +60,7 @@ public class CardHand extends CardArea {
 //            Log.d("Positions", ""  +cardsInArea.size() +positions[cardsInArea.size()].toString() +isAi);
             super.addCardToArea(characterCard);
 //            positionCardsInArea();
-            Log.d("card", cardsInArea.get(0).toString());
+//            Log.d("card", cardsInArea.get(0).toString());
         }
 
     }

@@ -23,7 +23,7 @@ import test.puigames.courseofhistory.framework.game.screens.SplashScreen;
 
 public class TestLevel extends Level {
     private final String[] DECK_NAMES = {"greatMindsCards", "evilLeaderCards"};
-    private final String[] TEST_CARD_NAMES = {"cards1", "cards2"};
+    private final String[] TEST_CARD_NAMES = {"cards1", "cards2"}; //TODO: remove this maybe perhaps possibly
     StartingHandSelectionUI startingHandSelectionUI;
     private final int COIN_SIZE = 80;
     private final float COIN_POS_X = 300.f;
@@ -33,6 +33,7 @@ public class TestLevel extends Level {
     private final float HERO_PLAYER_1_POS_Y = 300.f;
     private final float HERO_PLAYER_2_POS_X = 460.f;
     private final float HERO_PLAYER_2_POS_Y = 20.f;
+    private final int TOP_PLAYER_ROTATION = 180;
     private final float PLAYER_DECK_POS_X = 300;
     private final float PLAYER_DECK_POS_Y = 50;
 
@@ -51,7 +52,7 @@ public class TestLevel extends Level {
            board.place(this, viewport.getCenterX(), viewport.getCenterY());
 
            //Setting up the coin and spawning it
-           Bitmap coinSides[] = {
+           Bitmap[] coinSides = {
                    resourceFetcher.getBitmapFromFile("images/coins/coin-heads.png"),
                    resourceFetcher.getBitmapFromFile("images/coins/coin-tails.png")};
            Coin coin = new Coin(this, coinSides, COIN_SIZE, COIN_SIZE);
@@ -61,12 +62,12 @@ public class TestLevel extends Level {
            Hero[] heroes = new Hero[CourseOfHistoryMachine.getPlayerCount()];
 
            //Load mana images
-           Bitmap manaTypes[] = {
+           Bitmap[] manaTypes = {
                    resourceFetcher.getBitmapFromFile("images/mana/mana.png"),
                    resourceFetcher.getBitmapFromFile("images/mana/mana-used.png")};
 
            //Load hero images
-           Bitmap heroBitmaps[] = {
+           Bitmap[] heroBitmaps = {
                    resourceFetcher.getBitmapFromFile("images/heroes/great-minds-hero.png"),
                    resourceFetcher.getBitmapFromFile("images/heroes/evil-leaders-hero.png")};
 
@@ -81,7 +82,7 @@ public class TestLevel extends Level {
                    players[i].getMana()[j] = new Mana(this, manaTypes);
            }
            heroes[0].place(this, HERO_PLAYER_1_POS_X, HERO_PLAYER_1_POS_Y); //player 1 - bottom left
-           heroes[1].setRotation(180); //set rotation for opposite side of screen
+           heroes[1].setRotation(TOP_PLAYER_ROTATION); //set rotation for opposite side of screen
            heroes[1].place(this, HERO_PLAYER_2_POS_X, HERO_PLAYER_2_POS_Y); //player 2 - top right
 
            //creating the game machine for processing the game
@@ -101,7 +102,6 @@ public class TestLevel extends Level {
            //    startingHandSelectionUIs[i] = new StartingHandSelectionUI(this, gameMachine.players[i], resourceFetcher.getBitmapFromFile("images/backgrounds/starting_hand_selection_ui_background.png"), resourceFetcher.getBitmapFromFile("images/buttons/confirmation_button.png"));
 
        } catch(NullPointerException e) {
-//           Log.d("Loading Error:", "Error fetching resources, returning to menu");
            Log.e("ERROR", e.getMessage() + "\n" + e.getCause());
            //TODO do properly
            //Failed loading the gameProperties - won't cause crash if resources set up wrong!
@@ -112,7 +112,6 @@ public class TestLevel extends Level {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
-
         if (gameMachine.getCurrentGameState() == CourseOfHistoryMachine.GameState.CREATE_STARTING_HAND)
             switch (gameMachine.getPlayerWithCurrentTurn().getPlayerCurrentState()) {
                 case BEGIN_CREATING_STARTING_HAND:

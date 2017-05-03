@@ -41,7 +41,7 @@ public class CharacterCard extends Card implements Damageable.Attackable {
         this.attack = attack;   this.maxAttack = attack;
         this.health = health;   this.maxHealth = health;
         this.abilityDescription = abilityDescription;
-        this.currentAttackEnergy = 1;
+        this.currentAttackEnergy = 0;
         this.maxAttackEnergy = 1;
 
         paint.setColor(Color.rgb(255,255, 255));
@@ -51,7 +51,7 @@ public class CharacterCard extends Card implements Damageable.Attackable {
     @Override
     public void draw(Canvas canvas, float deltaTime){
         super.draw(canvas, deltaTime);
-        drawCardStats(canvas);
+//        drawCardStats(canvas);
     }
 
 
@@ -237,10 +237,10 @@ public class CharacterCard extends Card implements Damageable.Attackable {
     public String toString() {
         return "{Name= " + name +
                 "\nAttack= " + attack +
+                "\nMaxAttack=" + maxAttack +
                 "\nHealth= " + health +
-                "\nDesc= " + description +
-                "\nMana= " + mana +
-                "\nAbility Desc= " + abilityDescription +
+                "\nMaxHealth=" + maxHealth +
+                "\nManaCost= " + mana +
                 "}";
     }
 }

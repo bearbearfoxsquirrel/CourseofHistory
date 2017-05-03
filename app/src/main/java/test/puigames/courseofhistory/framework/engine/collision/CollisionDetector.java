@@ -3,6 +3,7 @@ package test.puigames.courseofhistory.framework.engine.collision;
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.BoundingBox;
+import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Origin;
 
 /**
  * Created by Jordan on 26/01/2017.
@@ -10,17 +11,6 @@ import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Bou
 
 public class CollisionDetector implements Collision
 {
-    //determine if the two specified bounding boxes are in collision
-    public boolean isCollision(BoundingBox boundingBox1, BoundingBox boundingBox2)
-    {
-        return (boundingBox1.getLeft() < boundingBox2.getRight())
-                && (boundingBox1.getRight() > boundingBox2.getLeft())
-                && (boundingBox1.getTop() < boundingBox2.getBottom())
-                && (boundingBox1.getBottom() > boundingBox2.getTop());
-    }
-
-    //object = object2
-    //this = object1
     public boolean checkForCollision(BoundingBox boundingBox1, BoundingBox boundingBox2)
     {
         if(boundingBox1.equals(boundingBox2))
