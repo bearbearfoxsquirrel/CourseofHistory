@@ -21,8 +21,8 @@ public class SettingsMenu extends Menu {
     private MenuButton back;
     private float bgImageWidth = 480.0f, bgImageHeight = 320.0f;
     private float bgImageX = 240.0f, bgImageY = 160.0f;
-    private float buttonWidth = 75.0f, buttonHeight = 45.0f;
-    private float backCentreX = 40.0f, backCentreY = 280.0f;
+    private float buttonWidth = 75.0f, buttonHeight = 35.0f;
+    private float backCentreX = 40.0f, backCentreY = 300.0f;
 
     public SettingsMenu(final GameProperties gameProperties) {
         super(gameProperties);
@@ -42,9 +42,9 @@ public class SettingsMenu extends Menu {
     public void update(float deltaTime) {
         super.update(deltaTime);
 
-        if(back.checkForInput(inputBuddy)){
+        if(back.checkForInput(inputBuddy))
             back.applyAction();
-        }
+
     }
 
     public void load(){
@@ -81,6 +81,84 @@ public class SettingsMenu extends Menu {
     @Override
     public void dispose() {
 
+    }
+
+    public ImageUIElement getBackgroundSettings() {
+        return backgroundSettings;
+    }
+
+    public void setBackgroundSettings(ImageUIElement backgroundSettings) { this.backgroundSettings = backgroundSettings; }
+
+    public MenuButton getBack() {
+        return back;
+    }
+
+    public void setBack(MenuButton back) {
+        this.back = back;
+    }
+
+    public float getBgImageWidth() {
+        return bgImageWidth;
+    }
+
+    public void setBgImageWidth(float bgImageWidth) {
+        this.bgImageWidth = bgImageWidth;
+    }
+
+    public float getBgImageHeight() {
+        return bgImageHeight;
+    }
+
+    public void setBgImageHeight(float bgImageHeight) {
+        this.bgImageHeight = bgImageHeight;
+    }
+
+    public float getBgImageX() {
+        return bgImageX;
+    }
+
+    public void setBgImageX(float bgImageX) {
+        this.bgImageX = bgImageX;
+    }
+
+    public float getBgImageY() {
+        return bgImageY;
+    }
+
+    public void setBgImageY(float bgImageY) {
+        this.bgImageY = bgImageY;
+    }
+
+    public float getButtonWidth() {
+        return buttonWidth;
+    }
+
+    public void setButtonWidth(float buttonWidth) {
+        this.buttonWidth = buttonWidth;
+    }
+
+    public float getButtonHeight() {
+        return buttonHeight;
+    }
+
+    public void setButtonHeight(float buttonHeight) {
+        this.buttonHeight = buttonHeight;
+    }
+
+    public float getBackCentreX() {
+        return backCentreX;
+    }
+
+    public void setBackCentreX(float backCentreX) {
+        this.backCentreX = backCentreX;
+    }
+
+    public float getBackCentreY() {
+        return backCentreY;
+    }
+
+    public void setBackCentreY(float backCentreY) {
+        this.backCentreY = backCentreY;
     }
 
 }

@@ -1,7 +1,10 @@
 package test.puigames.courseofhistory.framework.game.screens;
 
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.util.Log;
+
+import java.util.ArrayList;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.screen.Menu;
@@ -15,16 +18,17 @@ import test.puigames.courseofhistory.framework.engine.ui.MenuButton;
 
 public class HowToPlayMenu extends Menu {
 
-    private ImageUIElement backgroundHowToPlay;
-    private MenuButton back;
+    private ImageUIElement backgroundHowToPlay, rulesForward, rulesBackward, howToPlayImage;
+    private ArrayList<Bitmap> howToPlayTexts;
+    private MenuButton back, next, previous;
     private float bgImageWidth = 480.0f, bgImageHeight = 320.0f;
     private float bgCentreX = 240.0f, bgCentreY = 160.0f;
-    private float buttonWidth = 75.0f, buttonHeight = 45.0f;
-    private float backCentreX = 40.0f, backCentreY = 280.0f;
+    private float buttonWidth = 75.0f, buttonHeight = 35.0f;
+    private float backCentreX = 40.0f, backCentreY = 300.0f;
 
     public HowToPlayMenu(final GameProperties gameProperties){
         super(gameProperties);
-
+        howToPlayTexts = new ArrayList<>();
         this.back = new MenuButton(this, resourceFetcher.getBitmapFromFile("images/buttons/button_back.png"),
                 buttonWidth, buttonHeight) {
             @Override
@@ -43,15 +47,31 @@ public class HowToPlayMenu extends Menu {
         if(back.checkForInput(inputBuddy)){
             back.applyAction();
         }
+
+/*
+        if(forwardRules.)){
+            //on input
+            swapImage(1);
+        }
+        else if(backward.checkForInput(inputBuddy)){
+            howToPlay.applyAction(-1);
+        }*/
     }
 
     public void load(){
 
         backgroundHowToPlay = null;
-        try{
-            backgroundHowToPlay = new ImageUIElement(this,
-                    resourceFetcher.getBitmapFromFile("images/backgrounds/how_to_play_background.png"),
+        rulesForward = null;
+        try{rulesBackward = null;
+            backgroundHowToPlay = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/backgrounds/how_to_play_background.png"),
                     bgImageWidth, bgImageHeight);
+            /*rulesForward = new ImageUIElement(this, resourceFetcher.getBitmapFromFile(""),
+                    buttonWidth, buttonHeight);
+            rulesBackward = new ImageUIElement(this, resourceFetcher.getBitmapFromFile(""),
+                    buttonWidth, buttonHeight);*/
+            howToPlayTexts.add(resourceFetcher.getBitmapFromFile(""));
+            howToPlayTexts.add(resourceFetcher.getBitmapFromFile(""));
+            //add those
         }
         catch (NullPointerException e) {
             Log.d("Error", "UI Element loading has failed");
@@ -69,6 +89,15 @@ public class HowToPlayMenu extends Menu {
     public void draw(Canvas canvas, float deltaTime) {
         super.draw(canvas, deltaTime);
     }
+
+    /*private void swapImage(int index) {
+        int currentIndex = howToPlayTexts.indexOf(howToPlayImage.getBitmap());
+        currentIndex += index;
+        if(currentIndex < 0)
+            currentIndex = howToPlayTexts.size() - 1;
+        currentIndex %= howToPlayTexts.size();
+        howToPlayImage.setImage(howToPlayTexts.get(currentIndex));
+    }*/
 
     @Override
     public void pause() {

@@ -23,7 +23,7 @@ public abstract class MenuButton extends UIElement implements Drawable, UIAction
                 if (getBoundingBox().isTouchOn(touchEvent))
                     return true;
             }
-            return false;
+        return false;
     }
 
 }
