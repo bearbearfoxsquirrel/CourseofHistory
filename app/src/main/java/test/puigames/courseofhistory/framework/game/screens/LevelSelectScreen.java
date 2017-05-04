@@ -58,9 +58,9 @@ public class LevelSelectScreen extends Menu {
         if(duration > delay) {
             if (gameProperties.getInput().getTouchEvents().size() > 0)
                 if (isTouched(inputBuddy.getTouchEvents().get(0), levelGreatMinds))
-                    gameProperties.setScreen(new TestLevel(this.gameProperties));
+                    gameProperties.setScreen(new LoadingScreen(this.gameProperties));
                 else if(isTouched(inputBuddy.getTouchEvents().get(0), levelWorldLeaders))
-                    gameProperties.setScreen(new TestLevel(this.gameProperties));
+                    gameProperties.setScreen(new LoadingScreen(this.gameProperties));
 
 
             if (back.checkForInput(inputBuddy)) {
