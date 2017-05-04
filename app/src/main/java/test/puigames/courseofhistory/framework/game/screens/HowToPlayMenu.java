@@ -7,6 +7,7 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
+import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
 import test.puigames.courseofhistory.framework.engine.screen.Menu;
 import test.puigames.courseofhistory.framework.engine.ui.ImageUIElement;
 import test.puigames.courseofhistory.framework.engine.ui.MenuButton;
@@ -25,9 +26,11 @@ public class HowToPlayMenu extends Menu {
     private float bgCentreX = 240.0f, bgCentreY = 160.0f;
     private float buttonWidth = 75.0f, buttonHeight = 35.0f;
     private float backCentreX = 40.0f, backCentreY = 300.0f;
-    private float rulesForwardCentreX = 460.0f, rulesForwardCentreY = 290.0f;
-    private float rulesBackwardCentreX = 400.0f, rulesBackwardCentreY = 290.0f;
+    private float rulesForwardCentreX = 450.0f, rulesForwardCentreY = 295.0f;
+    private float rulesBackwardCentreX = 390.0f, rulesBackwardCentreY = 295.0f;
     private float rulesWidth = 50.0f, rulesHeight = 50.0f;
+    private float howToPlayImageWidth = 400.0f, howToPlayImageHeight = 260.0f;
+    private float howToPlayCentreX = 240.0f, howToPlayCentreY = 140.0f;
 
     public HowToPlayMenu(final GameProperties gameProperties){
         super(gameProperties);
@@ -52,15 +55,17 @@ public class HowToPlayMenu extends Menu {
         if(back.checkForInput(inputBuddy)){
             back.applyAction();
         }
-/*
         if(gameProperties.getInput().getTouchEvents().size() > 0) {
-            if (rulesForward.getBoundingBox().isTouchOn(gameProperties.getInput().getTouchEvents().get(0)))
-                //on input
-               // swapImage(1);
-            if (rulesBackward.getBoundingBox().isTouchOn(gameProperties.getInput().getTouchEvents().get(0))) {
-                howToPlay.swapImage(-1);
+            if(isTouched(inputBuddy.getTouchEvents().get(0), rulesForward))
+                swapImageForward();
+            if(isTouched(inputBuddy.getTouchEvents().get(0), rulesBackward)) {
+                swapImageBackward();
             }
-        }*/
+        }
+    }
+
+    public boolean isTouched(Input.TouchEvent touchEvent, ImageUIElement imageUIElement){
+        return (imageUIElement.getBoundingBox().isTouchOn(touchEvent) && touchEvent.type == Input.TouchEvent.TOUCH_DOWN);
     }
 
     public void load(){
@@ -76,8 +81,11 @@ public class HowToPlayMenu extends Menu {
                     rulesWidth, rulesHeight);
             rulesBackward = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/buttons/button_backward.png"),
                     rulesWidth, rulesHeight);
-            howToPlayTexts.add(resourceFetcher.getBitmapFromFile(""));
-            howToPlayTexts.add(resourceFetcher.getBitmapFromFile(""));
+            howToPlayImage = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/how_to_play/Rules1Transparent.png"),
+                    howToPlayImageWidth, howToPlayImageHeight);
+            howToPlayTexts.add(resourceFetcher.getBitmapFromFile("images/how_to_play/Rules1Transparent.png"));
+            howToPlayTexts.add(resourceFetcher.getBitmapFromFile("images/how_to_play/Rules2Transparent.png"));
+            howToPlayTexts.add(resourceFetcher.getBitmapFromFile("images/how_to_play/Rules3Transparent.png"));
 
         }
         catch (NullPointerException e) {
@@ -88,11 +96,13 @@ public class HowToPlayMenu extends Menu {
         back.place(this, backCentreX, backCentreY);
         rulesForward.place(this, rulesForwardCentreX, rulesForwardCentreY);
         rulesBackward.place(this, rulesBackwardCentreX, rulesBackwardCentreY);
+        howToPlayImage.place(this, howToPlayCentreX, howToPlayCentreY);
 
         uiElements.add(backgroundHowToPlay);
         uiElements.add(back);
         uiElements.add(rulesForward);
         uiElements.add(rulesBackward);
+        uiElements.add(howToPlayImage);
 
     }
 
@@ -101,14 +111,25 @@ public class HowToPlayMenu extends Menu {
         super.draw(canvas, deltaTime);
     }
 
-    /*private void swapImage(int index) {
+    private void swapImageForward() {
         int currentIndex = howToPlayTexts.indexOf(howToPlayImage.getBitmap());
-        currentIndex += index;
+        currentIndex++;
         if(currentIndex < 0)
             currentIndex = howToPlayTexts.size() - 1;
-        currentIndex %= howToPlayTexts.size();
+        else if (currentIndex > howToPlayTexts.size() - 1)
+            currentIndex = 0;
         howToPlayImage.setImage(howToPlayTexts.get(currentIndex));
-    }*/
+    }
+
+    private void swapImageBackward() {
+        int currentIndex = howToPlayTexts.indexOf(howToPlayImage.getBitmap());
+        currentIndex--;
+        if(currentIndex < 0)
+            currentIndex = howToPlayTexts.size() - 1;
+        else if (currentIndex > howToPlayTexts.size() - 1)
+            currentIndex = 0;
+        howToPlayImage.setImage(howToPlayTexts.get(currentIndex));
+    }
 
     @Override
     public void pause() {
