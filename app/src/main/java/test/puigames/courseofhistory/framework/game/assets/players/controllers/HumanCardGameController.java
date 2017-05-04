@@ -59,6 +59,8 @@ public class HumanCardGameController extends CardGameController implements Input
                     for (CharacterCard opponentCard : player.board.playAreas[oppositePlayerNumber].cardsInArea)
                         if (playerCard.boundingBox.isOverlapping(opponentCard.boundingBox))
                             playerEvents.add(player.createAttack(playerCard, opponentCard));
+                            playerCard.UpdateCardStats();
+                            opponentCard.UpdateCardStats();
             } else {
                 for (Eventable event : playerEvents)
                     event.update(deltaTime);

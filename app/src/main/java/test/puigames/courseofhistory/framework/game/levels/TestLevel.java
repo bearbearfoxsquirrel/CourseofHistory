@@ -10,6 +10,7 @@ import test.puigames.courseofhistory.framework.game.assets.Coin;
 import test.puigames.courseofhistory.framework.game.assets.Deck;
 import test.puigames.courseofhistory.framework.game.assets.Mana;
 import test.puigames.courseofhistory.framework.game.assets.StartingHandSelectionUI;
+import test.puigames.courseofhistory.framework.game.assets.StatImage;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
 import test.puigames.courseofhistory.framework.game.assets.players.controllers.CourseOfHistoryMachine;
@@ -22,7 +23,8 @@ import test.puigames.courseofhistory.framework.game.screens.SplashScreen;
 
 public class TestLevel extends Level {
     private final String[] DECK_NAMES = {"greatMindsCards", "evilLeaderCards"};
-    private final String[] TEST_CARD_NAMES = {"cards1", "cards2"};
+
+
     StartingHandSelectionUI startingHandSelectionUI;
 
     CourseOfHistoryMachine gameMachine;
@@ -50,9 +52,20 @@ public class TestLevel extends Level {
            Bitmap manaTypes[] = {resourceFetcher.getBitmapFromFile("images/mana/mana.png"),
                    resourceFetcher.getBitmapFromFile("images/mana/mana-used.png")};
 
+           final int numSize = 10;
+           Bitmap numImages[] = new Bitmap[numSize];
+           for(int i = 0; i < numSize; i++) {
+
+               numImages[i] = resourceFetcher.getBitmapFromFile("images/numbers/" +Integer.toString(i)+".png");
+           }
+
+           StatImage[] statImage = { new StatImage(this, numImages,6, 7), new StatImage(this, numImages,5, 6), new StatImage(this, numImages,5, 6)};
+
+
+
            //Creates a controller and a player for each participant
            for(int i = 0; i < players.length; i++) {
-               players[i] = new Player(resourceFetcher.loadCharacterCards(this, DECK_NAMES[i]), board, new Deck(this, resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png")), i); //Creating a new player pawn for each controller
+               players[i] = new Player(resourceFetcher.loadCharacterCards(this, DECK_NAMES[i], statImage), board, new Deck(this, resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png")), i); //Creating a new player pawn for each controller
                players[i].getPlayerDeck().place(this, 300, 50);
                //TODO give proper deck image!!!
 

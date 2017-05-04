@@ -25,6 +25,7 @@ public abstract class Screen {
     protected Viewport viewport;
     protected ArrayList<Drawable> drawables;
     private ArrayList<Updateable> updateables;
+
     private ArrayList<Updateable> updateablesToAdd;
     private ArrayList<Updateable> updateablesToRemove;
     protected ArrayList<Scalable> scalables;
