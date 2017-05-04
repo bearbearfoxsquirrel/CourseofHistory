@@ -72,7 +72,6 @@ public class LevelSelectScreen extends Menu {
 
     @Override
     public void load() {
-
         backgroundLevelSelect = null;
         levelGreatMinds = null;
         levelGreatMindsText = null;
@@ -108,7 +107,6 @@ public class LevelSelectScreen extends Menu {
         uiElements.add(levelWorldLeaders);
         uiElements.add(levelWorldLeadersText);
         uiElements.add(back);
-
     }
 
     @Override

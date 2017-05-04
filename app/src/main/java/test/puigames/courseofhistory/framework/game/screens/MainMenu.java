@@ -19,14 +19,14 @@ public class MainMenu extends Menu {
 
     private ImageUIElement backgroundMainMenu, title;
 
-    private MenuButton playGame, settings, howToPlay;
+    private MenuButton playGame, settings, howToPlay, exitGame;
 
     private float bgImageWidth = 480.0f, bgImageHeight = 320.0f;
 
     private float titleImageWidth = 340.0f, titleImageHeight = 100.0f;
 
-    private float bgCentreY = 160.0f, titleCentreY = 30.0f, playGameCentreY = 110.0f,
-    howToPlayCentreY = 185.0f, settingsCentreY = 260.0f;
+    private float bgCentreY = 160.0f, titleCentreY = 30.0f, playGameCentreY = 90.0f,
+    howToPlayCentreY = 140.0f, settingsCentreY = 190.0f, exitGameY = 240;
 
     private float buttonWidth = 75.0f, buttonHeight = 40.0f;
     private float centreX = 240.0f;
@@ -58,6 +58,14 @@ public class MainMenu extends Menu {
             }
         };
 
+        this.exitGame = new MenuButton(this, resourceFetcher.getBitmapFromFile("images/buttons/button_exit.png"),
+                buttonWidth, buttonHeight) {
+            @Override
+            public void applyAction() {
+                System.exit(0);
+            }
+        };
+
         load();
     }
 
@@ -74,6 +82,9 @@ public class MainMenu extends Menu {
      else if(settings.checkForInput(inputBuddy)){
             settings.applyAction();
         }
+     else if(exitGame.checkForInput(inputBuddy)){
+         exitGame.applyAction();
+     }
     }
 
     public void load(){
@@ -95,12 +106,14 @@ public class MainMenu extends Menu {
         playGame.place(this, centreX, playGameCentreY);
         howToPlay.place(this, centreX, howToPlayCentreY);
         settings.place(this, centreX, settingsCentreY);
+        exitGame.place(this, centreX, exitGameY);
 
         uiElements.add(backgroundMainMenu);
         uiElements.add(title);
         uiElements.add(playGame);
         uiElements.add(howToPlay);
         uiElements.add(settings);
+        uiElements.add(exitGame);
     }
 
     @Override

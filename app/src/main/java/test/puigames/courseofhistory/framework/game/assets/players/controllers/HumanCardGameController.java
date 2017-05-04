@@ -150,14 +150,14 @@ public class HumanCardGameController extends CardGameController implements Input
                     card.getOrigin().setOrigin(touchEvent.x, touchEvent.y);
                     player.moveCard(card, card.getOrigin().getOriginX(), card.getOrigin().getOriginY());
                 }
-            } else if(card.boundingBox.isOverlapping(player.getBoard().getPlayAreas()[player.getPlayerNumber()].boundingBox) && inputBuddy.getTouchEvents().isEmpty()) {
+            } else if(card.getBoundingBox().isOverlapping(player.getBoard().getPlayAreas()[player.getPlayerNumber()].getBoundingBox()) && inputBuddy.getTouchEvents().isEmpty()) {
                 playCard(card);
             }
         }
     }
 
     private boolean checkIfThereIsAnAttackOnOpponentCard(CharacterCard playerCard, CharacterCard opponentCard) {
-        return playerCard.boundingBox.isOverlapping(opponentCard.boundingBox);
+        return playerCard.getBoundingBox().isOverlapping(opponentCard.getBoundingBox());
     }
 
     private void collisionCheckAndResolve(CardArea cardArea)
@@ -167,15 +167,15 @@ public class HumanCardGameController extends CardGameController implements Input
             for(CharacterCard card2 : cardArea.getCardsInArea())
             {
                 if(card.getOrigin().equals(card2.getOrigin()))
-                    card.boundingBox.getCollisionDetector().resolveCollision(card, card2, card.getOverlapAllowance());
+                    card.getBoundingBox().getCollisionDetector().resolveCollision(card, card2, card.getOverlapAllowance());
 
-                if(card.boundingBox.getCollisionDetector().checkForCollision(card.boundingBox, card2.boundingBox))
-                    card.boundingBox.getCollisionDetector().resolveCollision(card, card2, card.getOverlapAllowance());
-                if(!card2.boundingBox.isEncapsulated(player.getBoard().boundingBox)) //collision with board
-                    player.getBoard().boundingBox.getCollisionDetector().keepInsideBoundingBox(player.getBoard(), card2);
+                if(card.getBoundingBox().getCollisionDetector().checkForCollision(card.getBoundingBox(), card2.getBoundingBox()))
+                    card.getBoundingBox().getCollisionDetector().resolveCollision(card, card2, card.getOverlapAllowance());
+                if(!card2.getBoundingBox().isEncapsulated(player.getBoard().getBoundingBox())) //collision with board
+                    player.getBoard().getBoundingBox().getCollisionDetector().keepInsideBoundingBox(player.getBoard(), card2);
             }
-            if(!card.boundingBox.isEncapsulated(player.getBoard().boundingBox))
-                card.boundingBox.getCollisionDetector().keepInsideBoundingBox(player.getBoard(), card);
+            if(!card.getBoundingBox().isEncapsulated(player.getBoard().getBoundingBox()))
+                card.getBoundingBox().getCollisionDetector().keepInsideBoundingBox(player.getBoard(), card);
         }
     }
 
@@ -217,7 +217,7 @@ public class HumanCardGameController extends CardGameController implements Input
     }
 
     private boolean checkIsTouched(Input.TouchEvent touchEvent, GameObject object) {
-        return (object.boundingBox.isTouchOn(touchEvent));
+        return (object.getBoundingBox().isTouchOn(touchEvent));
     }
 
     @Override

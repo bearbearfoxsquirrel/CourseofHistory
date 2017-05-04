@@ -72,7 +72,6 @@ public class HowToPlayMenu extends Menu {
     }
 
     public void load(){
-
         backgroundHowToPlay = null;
         rulesForward = null;
         rulesBackward = null;
@@ -106,7 +105,6 @@ public class HowToPlayMenu extends Menu {
         uiElements.add(rulesForward);
         uiElements.add(rulesBackward);
         uiElements.add(howToPlayImage);
-
     }
 
     @Override

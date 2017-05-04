@@ -35,7 +35,7 @@ public class CollisionDetector implements Collision
         if(overlapModifier == object1.getMIN_OVERLAP_ALLOWANCE() || object1.equals(object2))
             return;
         else
-            object1.boundingBox.getCollisionDetector()
+            object1.getBoundingBox().getCollisionDetector()
                     .determineAndResolveCollision(object1, object2, overlapModifier);
     }
 
@@ -45,8 +45,8 @@ public class CollisionDetector implements Collision
     {
         BoundingBox.bound collisionType = BoundingBox.bound.NONE;
 
-        BoundingBox boundingBox1 = object1.boundingBox;
-        BoundingBox boundingBox2 = object2.boundingBox;
+        BoundingBox boundingBox1 = object1.getBoundingBox();
+        BoundingBox boundingBox2 = object2.getBoundingBox();
 
         if(checkForCollision(boundingBox1, boundingBox2))
         {
@@ -131,13 +131,13 @@ public class CollisionDetector implements Collision
      */
     public void keepInsideBoundingBox(Sprite sprite1, Sprite sprite2)
     {
-        if(sprite2.boundingBox.getLeft() < sprite1.boundingBox.getLeft())
-            sprite2.getOrigin().setOriginX(((sprite1.boundingBox.getLeft() + sprite2.getHalfWidth()) + 2));
-        else if(sprite2.boundingBox.getRight() > sprite1.boundingBox.getRight())
-            sprite2.getOrigin().setOriginX(((sprite1.boundingBox.getRight() - sprite2.getHalfWidth()) - 2));
-        else if(sprite2.boundingBox.getTop() < sprite1.boundingBox.getTop())
-            sprite2.getOrigin().setOriginY(((sprite1.boundingBox.getTop() + sprite2.getHalfHeight()) + 2));
-        else if(sprite2.boundingBox.getBottom() > sprite1.boundingBox.getBottom())
-            sprite2.getOrigin().setOriginY(((sprite1.boundingBox.getBottom() - sprite2.getHalfHeight()) - 2));
+        if(sprite2.getBoundingBox().getLeft() < sprite1.getBoundingBox().getLeft())
+            sprite2.getOrigin().setOriginX(((sprite1.getBoundingBox().getLeft() + sprite2.getHalfWidth()) + 2));
+        else if(sprite2.getBoundingBox().getRight() > sprite1.getBoundingBox().getRight())
+            sprite2.getOrigin().setOriginX(((sprite1.getBoundingBox().getRight() - sprite2.getHalfWidth()) - 2));
+        else if(sprite2.getBoundingBox().getTop() < sprite1.getBoundingBox().getTop())
+            sprite2.getOrigin().setOriginY(((sprite1.getBoundingBox().getTop() + sprite2.getHalfHeight()) + 2));
+        else if(sprite2.getBoundingBox().getBottom() > sprite1.getBoundingBox().getBottom())
+            sprite2.getOrigin().setOriginY(((sprite1.getBoundingBox().getBottom() - sprite2.getHalfHeight()) - 2));
     }
 }

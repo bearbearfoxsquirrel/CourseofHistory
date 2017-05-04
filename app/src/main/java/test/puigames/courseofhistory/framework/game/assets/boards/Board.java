@@ -63,8 +63,8 @@ public class Board extends Sprite implements Drawable {
                 playAreas[i] = new PlayArea(this.currentScrren, playAreaWidth, playAreaHeight, (int)halfWidth, 208);
             }
 
-            Log.d("cardhand " + i, "" + cardHands[i].boundingBox.toString());
-            Log.d("playArea " + i, "" + playAreas[i].boundingBox.toString());
+            Log.d("cardhand " + i, "" + cardHands[i].getBoundingBox().toString());
+            Log.d("playArea " + i, "" + playAreas[i].getBoundingBox().toString());
         }
 
         //player 2 - opponent: AI/other player - top half of screen

@@ -51,4 +51,5 @@ public abstract class Menu extends Screen {
     public void setUiElements(ArrayList<UIElement> uiElements) {
         this.uiElements = uiElements;
     }
+
 }
