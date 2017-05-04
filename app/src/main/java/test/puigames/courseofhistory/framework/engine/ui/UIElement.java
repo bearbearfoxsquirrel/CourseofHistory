@@ -17,6 +17,7 @@ import test.puigames.courseofhistory.framework.engine.screen.scaling.Scalable;
  */
 
 public abstract class UIElement implements Drawable, Scalable.ImageScalable, Placeable {
+
     protected Screen currentScreen;
     protected Bitmap image;
     protected float width, halfWidth;
@@ -158,4 +159,5 @@ public abstract class UIElement implements Drawable, Scalable.ImageScalable, Pla
     public void setPaint(Paint paint) {
         this.paint = paint;
     }
+
 }

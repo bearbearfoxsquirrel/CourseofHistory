@@ -14,9 +14,10 @@ import test.puigames.courseofhistory.framework.engine.ui.ImageUIElement;
 public class SplashScreen extends Menu {
 
     private ImageUIElement logo;
-    private float screenDuration = 0.0f, splashScreenDelay = 3.0f;
     private float bgImageWidth = 480.0f, bgImageHeight = 320.0f;
     private float bgImageX = 240.0f, bgImageY = 160.0f;
+
+    private float screenDuration = 0.0f, splashScreenDelay = 3.0f;
 
     public SplashScreen(GameProperties gameProperties) {
         super(gameProperties);

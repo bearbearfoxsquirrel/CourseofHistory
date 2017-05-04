@@ -18,13 +18,18 @@ import test.puigames.courseofhistory.framework.game.levels.TestLevel;
 public class MainMenu extends Menu {
 
     private ImageUIElement backgroundMainMenu, title;
+
     private MenuButton playGame, settings, howToPlay;
-    private float buttonWidth = 75.0f, buttonHeight = 40.0f;
+
     private float bgImageWidth = 480.0f, bgImageHeight = 320.0f;
+
     private float titleImageWidth = 340.0f, titleImageHeight = 100.0f;
-    private float centreX = 240.0f;
+
     private float bgCentreY = 160.0f, titleCentreY = 30.0f, playGameCentreY = 110.0f,
-        howToPlayCentreY = 185.0f, settingsCentreY = 260.0f;
+    howToPlayCentreY = 185.0f, settingsCentreY = 260.0f;
+
+    private float buttonWidth = 75.0f, buttonHeight = 40.0f;
+    private float centreX = 240.0f;
 
     public MainMenu(final GameProperties gameProperties){
         super(gameProperties);

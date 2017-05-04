@@ -18,9 +18,12 @@ import test.puigames.courseofhistory.framework.engine.ui.MenuButton;
 public class SettingsMenu extends Menu {
 
     private ImageUIElement backgroundSettings;
+
     private MenuButton back;
+
     private float bgImageWidth = 480.0f, bgImageHeight = 320.0f;
     private float bgImageX = 240.0f, bgImageY = 160.0f;
+
     private float buttonWidth = 75.0f, buttonHeight = 35.0f;
     private float backCentreX = 40.0f, backCentreY = 300.0f;
 

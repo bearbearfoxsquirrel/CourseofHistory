@@ -19,18 +19,26 @@ import test.puigames.courseofhistory.framework.engine.ui.MenuButton;
 public class HowToPlayMenu extends Menu {
 
     private ImageUIElement backgroundHowToPlay, rulesForward, rulesBackward, howToPlayImage;
+
     private ArrayList<Bitmap> howToPlayTexts;
+
     private MenuButton back;
+
     private float bgImageWidth = 480.0f, bgImageHeight = 320.0f;
     private float bgCentreX = 240.0f, bgCentreY = 160.0f;
+
     private float buttonWidth = 75.0f, buttonHeight = 35.0f;
     private float backCentreX = 40.0f, backCentreY = 300.0f;
-    private float rulesForwardCentreX = 450.0f, rulesForwardCentreY = 295.0f;
-    private float rulesBackwardCentreX = 390.0f, rulesBackwardCentreY = 295.0f;
+
+    private float rulesForwardCentreX = 450.0f, rulesForwardCentreY = 293.0f;
+    private float rulesBackwardCentreX = 390.0f;
+
+    private float rulesBackwardCentreY = 293.0f;
+
     private float rulesWidth = 50.0f, rulesHeight = 50.0f;
     private float howToPlayImageWidth = 440.0f, howToPlayImageHeight = 260.0f;
-    private float howToPlayCentreX = 240.0f, howToPlayCentreY = 135.0f;
 
+    private float howToPlayCentreX = 240.0f, howToPlayCentreY = 135.0f;
     public HowToPlayMenu(final GameProperties gameProperties){
         super(gameProperties);
 
@@ -139,6 +147,198 @@ public class HowToPlayMenu extends Menu {
     @Override
     public void dispose() {
 
+    }
+
+    public ImageUIElement getBackgroundHowToPlay() {
+        return backgroundHowToPlay;
+    }
+
+    public void setBackgroundHowToPlay(ImageUIElement backgroundHowToPlay) {
+        this.backgroundHowToPlay = backgroundHowToPlay;
+    }
+
+    public ImageUIElement getRulesForward() {
+        return rulesForward;
+    }
+
+    public void setRulesForward(ImageUIElement rulesForward) {
+        this.rulesForward = rulesForward;
+    }
+
+    public ImageUIElement getRulesBackward() {
+        return rulesBackward;
+    }
+
+    public void setRulesBackward(ImageUIElement rulesBackward) {
+        this.rulesBackward = rulesBackward;
+    }
+
+    public ImageUIElement getHowToPlayImage() {
+        return howToPlayImage;
+    }
+
+    public void setHowToPlayImage(ImageUIElement howToPlayImage) {
+        this.howToPlayImage = howToPlayImage;
+    }
+
+    public ArrayList<Bitmap> getHowToPlayTexts() {
+        return howToPlayTexts;
+    }
+
+    public void setHowToPlayTexts(ArrayList<Bitmap> howToPlayTexts) {
+        this.howToPlayTexts = howToPlayTexts;
+    }
+
+    public MenuButton getBack() {
+        return back;
+    }
+
+    public void setBack(MenuButton back) {
+        this.back = back;
+    }
+
+    public float getBgImageWidth() {
+        return bgImageWidth;
+    }
+
+    public void setBgImageWidth(float bgImageWidth) {
+        this.bgImageWidth = bgImageWidth;
+    }
+
+    public float getBgImageHeight() {
+        return bgImageHeight;
+    }
+
+    public void setBgImageHeight(float bgImageHeight) {
+        this.bgImageHeight = bgImageHeight;
+    }
+
+    public float getBgCentreX() {
+        return bgCentreX;
+    }
+
+    public void setBgCentreX(float bgCentreX) {
+        this.bgCentreX = bgCentreX;
+    }
+
+    public float getBgCentreY() {
+        return bgCentreY;
+    }
+
+    public void setBgCentreY(float bgCentreY) {
+        this.bgCentreY = bgCentreY;
+    }
+
+    public float getButtonWidth() {
+        return buttonWidth;
+    }
+
+    public void setButtonWidth(float buttonWidth) {
+        this.buttonWidth = buttonWidth;
+    }
+
+    public float getButtonHeight() {
+        return buttonHeight;
+    }
+
+    public void setButtonHeight(float buttonHeight) {
+        this.buttonHeight = buttonHeight;
+    }
+
+    public float getBackCentreX() {
+        return backCentreX;
+    }
+
+    public void setBackCentreX(float backCentreX) {
+        this.backCentreX = backCentreX;
+    }
+
+    public float getBackCentreY() {
+        return backCentreY;
+    }
+
+    public void setBackCentreY(float backCentreY) {
+        this.backCentreY = backCentreY;
+    }
+
+    public float getRulesForwardCentreX() {
+        return rulesForwardCentreX;
+    }
+
+    public void setRulesForwardCentreX(float rulesForwardCentreX) {
+        this.rulesForwardCentreX = rulesForwardCentreX;
+    }
+
+    public float getRulesForwardCentreY() {
+        return rulesForwardCentreY;
+    }
+
+    public void setRulesForwardCentreY(float rulesForwardCentreY) {
+        this.rulesForwardCentreY = rulesForwardCentreY;
+    }
+
+    public float getRulesBackwardCentreX() {
+        return rulesBackwardCentreX;
+    }
+
+    public void setRulesBackwardCentreX(float rulesBackwardCentreX) {
+        this.rulesBackwardCentreX = rulesBackwardCentreX;
+    }
+
+    public float getRulesBackwardCentreY() {
+        return rulesBackwardCentreY;
+    }
+
+    public void setRulesBackwardCentreY(float rulesBackwardCentreY) {
+        this.rulesBackwardCentreY = rulesBackwardCentreY;
+    }
+
+    public float getRulesWidth() {
+        return rulesWidth;
+    }
+
+    public void setRulesWidth(float rulesWidth) {
+        this.rulesWidth = rulesWidth;
+    }
+
+    public float getRulesHeight() {
+        return rulesHeight;
+    }
+
+    public void setRulesHeight(float rulesHeight) {
+        this.rulesHeight = rulesHeight;
+    }
+
+    public float getHowToPlayImageWidth() {
+        return howToPlayImageWidth;
+    }
+
+    public void setHowToPlayImageWidth(float howToPlayImageWidth) {
+        this.howToPlayImageWidth = howToPlayImageWidth;
+    }
+
+    public float getHowToPlayImageHeight() {
+        return howToPlayImageHeight;
+    }
+
+    public void setHowToPlayImageHeight(float howToPlayImageHeight) {
+        this.howToPlayImageHeight = howToPlayImageHeight;
+    }
+
+    public float getHowToPlayCentreX() {
+        return howToPlayCentreX;
+    }
+
+    public void setHowToPlayCentreX(float howToPlayCentreX) {
+        this.howToPlayCentreX = howToPlayCentreX;
+    }
+
+    public float getHowToPlayCentreY() {
+        return howToPlayCentreY;
+    }
+
+    public void setHowToPlayCentreY(float howToPlayCentreY) {
+        this.howToPlayCentreY = howToPlayCentreY;
     }
 
 }
