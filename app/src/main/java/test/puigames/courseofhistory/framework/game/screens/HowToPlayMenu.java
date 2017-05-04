@@ -7,7 +7,6 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
-import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
 import test.puigames.courseofhistory.framework.engine.screen.Menu;
 import test.puigames.courseofhistory.framework.engine.ui.ImageUIElement;
 import test.puigames.courseofhistory.framework.engine.ui.MenuButton;
@@ -29,8 +28,8 @@ public class HowToPlayMenu extends Menu {
     private float rulesForwardCentreX = 450.0f, rulesForwardCentreY = 295.0f;
     private float rulesBackwardCentreX = 390.0f, rulesBackwardCentreY = 295.0f;
     private float rulesWidth = 50.0f, rulesHeight = 50.0f;
-    private float howToPlayImageWidth = 400.0f, howToPlayImageHeight = 260.0f;
-    private float howToPlayCentreX = 240.0f, howToPlayCentreY = 140.0f;
+    private float howToPlayImageWidth = 440.0f, howToPlayImageHeight = 260.0f;
+    private float howToPlayCentreX = 240.0f, howToPlayCentreY = 135.0f;
 
     public HowToPlayMenu(final GameProperties gameProperties){
         super(gameProperties);
@@ -62,10 +61,6 @@ public class HowToPlayMenu extends Menu {
                 swapImageBackward();
             }
         }
-    }
-
-    public boolean isTouched(Input.TouchEvent touchEvent, ImageUIElement imageUIElement){
-        return (imageUIElement.getBoundingBox().isTouchOn(touchEvent) && touchEvent.type == Input.TouchEvent.TOUCH_DOWN);
     }
 
     public void load(){
