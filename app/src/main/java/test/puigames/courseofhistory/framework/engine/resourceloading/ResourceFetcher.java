@@ -7,6 +7,7 @@ import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
+import test.puigames.courseofhistory.framework.game.assets.StatImage;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 
@@ -59,8 +61,8 @@ public class ResourceFetcher implements Fetcher {
     //For now just returns all cards
     //TODO: loadCharacterCards will be used to load a specified set of cards e.g. decks and all cards
     @Override
-    public CharacterCard[] loadCharacterCards(Screen screen, String cardsNames) throws NullPointerException{
-        JSONArray cardJsonArray = jsonBourne.fromJSONStringToJsonArray(getStringFromFile(CARDS_URL), cardsNames);
+    public CharacterCard[] loadCharacterCards(Screen screen, String cardsNames, StatImage[] statImage) throws NullPointerException{
+        JSONArray cardJsonArray = jsonBourne.fromJSONStringToJsonArray(getStringFromFile(TEST_CARDS_URL), cardsNames);
 
         CharacterCard[] characterCards = new CharacterCard[cardJsonArray.length()];
         int index = 0;
@@ -69,7 +71,7 @@ public class ResourceFetcher implements Fetcher {
                 JSONObject jsonCard = cardJsonArray.getJSONObject(index);
                 //creating a new character card with attributes from JSONObject
                 // an arbitrary spawn point is also set until we decide how to spawn cards
-                characterCards[index] = new CharacterCard(screen, getBitmapFromFile(jsonCard.getString("portraitSrc")),
+                characterCards[index] = new CharacterCard(screen, statImage, getBitmapFromFile(jsonCard.getString("portraitSrc")),
                         jsonCard.getString("name"),
                         jsonCard.getString("charDescription"),
                         jsonCard.getInt("mana"),
@@ -84,7 +86,6 @@ public class ResourceFetcher implements Fetcher {
         }
         return characterCards;
     }
-
 
     @Override
     public Bitmap getBitmapFromFile(String url) throws NullPointerException {
