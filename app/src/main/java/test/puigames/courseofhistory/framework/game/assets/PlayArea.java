@@ -20,12 +20,6 @@ public class PlayArea extends CardArea
     }
 
     @Override
-    public void update(float deltaTime)
-    {
-        super.update(deltaTime);
-    }
-
-    @Override
     public void initPlacement(float spawnX, float spawnY, float rotation){
         super.initPlacement(spawnX, spawnY, rotation);
         setUpPositions();

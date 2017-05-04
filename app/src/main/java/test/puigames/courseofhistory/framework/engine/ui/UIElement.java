@@ -27,7 +27,6 @@ public abstract class UIElement implements Drawable, Scalable.ImageScalable, Pla
     public Matrix matrix;
     protected Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-
     public UIElement(Screen screen, Bitmap bitmap, float width, float height){
         this.currentScreen = screen;
     //Constructor - takes in a bitmap image, along with a width and height
@@ -117,7 +116,6 @@ public abstract class UIElement implements Drawable, Scalable.ImageScalable, Pla
         this.rotation = rotation;
     }
 
-
     @Override
     public void place(Screen screen, float placementX, float placementY, float rotation) {
         initPlacement(placementX, placementY, rotation);
@@ -138,8 +136,7 @@ public abstract class UIElement implements Drawable, Scalable.ImageScalable, Pla
 
         this.getMatrix().postScale((this.getWidth() / this.getBitmap().getWidth()) * scaleFactorX,
                 (this.getHeight() / this.getBitmap().getHeight()) * scaleFactorY);
-        this.getMatrix().postRotate(0, scaleFactorX * this.getBitmap().getWidth()/ 2.0f,
-                scaleFactorY * this.getBitmap().getHeight() / 2.0f);
+        this.getMatrix().postRotate(getRotation(), getWidth() / 2 * scaleFactorX, getHeight() / 2 * scaleFactorY);
         this.getMatrix().postTranslate((this.getOrigin().x - this.getWidth() / 2) * scaleFactorX,
                 (this.getOrigin().y - this.getHeight() / 2) * scaleFactorY);
     }

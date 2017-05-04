@@ -43,7 +43,6 @@ public abstract class CardArea extends GameObject
         if(!cardsInArea.contains(card) && cardsInArea.size() <= maxCardsInArea)
         {
             cardsInArea.add(card);
-            Log.d("cardarea", "added card: " + this.toString());
         }
 //        positionCardsInArea();
     }

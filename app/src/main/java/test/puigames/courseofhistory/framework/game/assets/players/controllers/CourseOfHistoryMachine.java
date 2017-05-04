@@ -1,8 +1,8 @@
 package test.puigames.courseofhistory.framework.game.assets.players.controllers;
 
-import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Placeable;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Updateable;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
+import test.puigames.courseofhistory.framework.game.assets.CardHand;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
 import test.puigames.courseofhistory.framework.game.assets.Mana;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
@@ -20,6 +20,7 @@ public class CourseOfHistoryMachine implements Updateable {
     private static float TURN_TIME = 20.f;
     private static final float COIN_TOSS_DELAY = 3.f;
     public static int PLAYER_COUNT = 2;
+
     private float startDelayTimeRemaining;
     private float turnTimeRemaining;
     public Player[] players;
@@ -30,11 +31,10 @@ public class CourseOfHistoryMachine implements Updateable {
     public Board board;
 
     public enum GameState {
-        CREATED, COIN_TOSS, CREATE_STARTING_HAND, GAME_ACTIVE, GAME_PAUSED, GG
+        CREATED, COIN_TOSS, CREATING_STARTING_HANDS, GAME_ACTIVE, GAME_PAUSED, GG
     }
 
     public CourseOfHistoryMachine(Player[] players, Coin coin, Board board) {
-        this.drawScreen = drawScreen;
         this.players = players;
         this.coin = coin;
         this.currentGameState = GameState.CREATED;
@@ -44,56 +44,6 @@ public class CourseOfHistoryMachine implements Updateable {
         this.manaCount = new int[players.length];
         this.manaCount[0] = 0;  this.manaCount[1] = 0;
     }
-
-    private float workOutPlayerRotation(int playerNumber) {
-        return ((playerNumber % 2) * 180) % 360;
-    }
-
-    private void placePlaceableRelativeToAnchorPoint(Screen screen, Placeable placeable, float anchorPosX, float anchorPosY, float offsetX, float offsetY, float rotationAroundAnchor, float placeableRotation) {
-        rotationAroundAnchor = rotationAroundAnchor *  ((float) Math.PI / 180);
-        float sin = (float) Math.sin(rotationAroundAnchor);
-        float cos = (float) Math.cos(rotationAroundAnchor);
-
-        // newX = centerX + ( cosX * (point2X-centerX) + sinX * (point2Y -centerY))
-        // newY = centerY + ( -sinX * (point2X-centerX) + cosX * (point2Y -centerY))
-        //  var rotatedX = Math.cos(angle) * (point.x - center.x) - Math.sin(angle) * (point.y-center.y) + center.x;
-        //  var rotatedY = Math.sin(angle) * (point.x - center.x) + Math.cos(angle) * (point.y - center.y) + center.y;
-
-        float rotatedX = anchorPosX + ((offsetX - anchorPosX) * cos) + ((offsetY - anchorPosY) * sin);
-        float rotatedY = anchorPosY + ((offsetX - anchorPosX) * -sin) + ((offsetY - anchorPosY) * cos);
-
-        placeable.place(screen,  rotatedX, rotatedY, placeableRotation);
-    }
-
-
-  /*  public void setUpGamePiecePositions(Screen screen, float placementX, float placementY) {
-        board.place(screen, placementX, placementY,  0);
-        // gameMachine.board.setUpGamePiecePositions(screen, (placementX), (placementY), 0);
-
-        float anchorX = board.getPosX();
-        float anchorY = board.getPosY();
-        for(int i = 0; i < players.length; i++) {
-            //Find player rotation
-            players[i].setRotation(workOutPlayerRotation(i));
-            Player currentPlayer = players[i];
-
-            placePlaceableRelativeToAnchorPoint(this, currentPlayer.playerDeck, anchorX, anchorY,
-                    anchorX + -50, anchor, currentPlayer.getRotation(), workOutObjectRotation(currentPlayer.getRotation(), PLAYER_DECK_ROTATION));
-
-            placePlaceableRelativeToAnchorPoint(this, currentPlayer.board.playAreas[i], anchorX, anchorY,
-                    BOARD_PLAYER_AREA_OFFSET_X, BOARD_PLAYER_AREA_OFFSET_Y, gameMachine.players[i].getRotation(), workOutObjectRotation(currentPlayer.getRotation(), PLAYER_DECK_ROTATION));
-
-            placePlaceableRelativeToAnchorPoint(this, currentPlayer.board.cardHands[i], placementX, placementY,
-                    PLAYER_HAND_OFFSET_X, PLAYER_HAND_OFFSET_Y, currentPlayer.getRotation(), workOutObjectRotation(currentPlayer.getRotation(), PLAYER_DECK_ROTATION));
-
-            float manaRelOffsetFromLast = 0;
-            for (Mana mana : gameMachine.players[i].mana) {
-                placePlaceableRelativeToAnchorPoint(this, mana, placementX, placementY, MANA_OFFSET_X + manaRelOffsetFromLast, MANA_OFFSET_Y, currentPlayer.getRotation(), workOutObjectRotation(currentPlayer.getRotation(), PLAYER_DECK_ROTATION));
-                manaRelOffsetFromLast += MANA_PADDING;
-            }
-            // players[i].hero.setUpGamePiecePositions(); TODO
-        }
-    }*/
 
     private void startGame() {
         currentGameState = GameState.COIN_TOSS;
@@ -134,40 +84,41 @@ public class CourseOfHistoryMachine implements Updateable {
 
             case COIN_TOSS:
                 tossCoin();
-                currentGameState = GameState.CREATE_STARTING_HAND;//To transition FSM to the game being active so turns are now being made
+                currentGameState = GameState.CREATING_STARTING_HANDS;//To transition FSM to the game being active so turns are now being made
 
                 for (Player player : players)
                     player.playerCurrentState = Player.PlayerState.WAITING_TO_BEGIN_CREATING_HAND;
                 break;
 
-            case CREATE_STARTING_HAND:
-
-                transitionPlayerStatesFromCreatingHandToTurnStates();
-                currentGameState = GameState.GAME_ACTIVE;
-                //TO SKIP THIS STAGE OF THE GAME UNCOMMENT THIS BLOCK
-
-                /*
+            case CREATING_STARTING_HANDS:
+               /* transitionPlayerStatesFromCreatingHandToTurnStates();
+                currentGameState = GameState.GAME_ACTIVE;*/
+                //TO SKIP THIS STAGE OF THE GAME UNCOMMENT THIS BLOCK AND COMMENT REST OF THIS SWITCH CASE
 
                 if (isBothPlayersFinishedCreatingStartHand()) {
                     nextPlayersTurn(); //get back to original players turn
                     //If both players are finished taking their turn it selects the player that won the coin toss and lets them go first
                     transitionPlayerStatesFromCreatingHandToTurnStates();
                     currentGameState = GameState.GAME_ACTIVE;
+
+                } else {
+                    //Handles each player creating their hand and checking if they are finished making their hand
+                    switch (players[turnIndex].playerCurrentState) {
+                        case BEGIN_CREATING_STARTING_HAND:
+                            players[turnIndex].createNewStartingHand();
+                            players[turnIndex].playerCurrentState = Player.PlayerState.STARTING_HAND_CHOOSING_CARDS_TO_TOSS;
+                            break;
+
+                        case WAITING_TO_BEGIN_CREATING_HAND:
+                            players[turnIndex].playerCurrentState = Player.PlayerState.BEGIN_CREATING_STARTING_HAND;
+                            break;
+
+                        case FINISHED_CREATING_START_HAND:
+                            players[turnIndex].confirmSelectedCardsFromStartingHandSelector();
+                            incrementTurnIndex();
+                            break;
+                    }
                 }
-
-                //Handles each player creating their hand and checking if they are finished making their hand
-                switch (players[turnIndex].playerCurrentState) {
-                    case WAITING_FOR_TURN:
-                        players[turnIndex].playerCurrentState = Player.PlayerState.BEGIN_CREATING_STARTING_HAND;
-                    case WAITING_TO_BEGIN_CREATING_HAND:
-                        players[turnIndex].createNewStartingHand();
-                        break;
-
-                    case FINISHED_CREATING_START_HAND:
-                        nextPlayersTurn();
-                        players[turnIndex].playerCurrentState = Player.PlayerState.BEGIN_CREATING_STARTING_HAND;
-                        break;
-                }*/
                 break;
 
             case GAME_ACTIVE:
@@ -285,11 +236,11 @@ public class CourseOfHistoryMachine implements Updateable {
 
     private void updateAndCheckTurnTimeRemaining(float deltaTime) {
         turnTimeRemaining -= deltaTime; //decrements their turn time by the delta time
-        if (isTurnTimeLeft())
-            nextPlayersTurn(); //Checks if the player's turn is over
+        if (isOutOfTurnTime())
+            players[turnIndex].playerCurrentState = Player.PlayerState.TURN_ENDED; //Checks if the player's turn is over
     }
 
-    private boolean isTurnTimeLeft(){
+    private boolean isOutOfTurnTime(){
         return turnTimeRemaining <= 0.f;
     }
 
@@ -309,8 +260,7 @@ public class CourseOfHistoryMachine implements Updateable {
         return (playerIndex + 1) & 2;
     }
 
-    public Player
-    getPlayerWithCurrentTurn() {
+    public Player getPlayerWithCurrentTurn() {
         return players[turnIndex];
     }
 

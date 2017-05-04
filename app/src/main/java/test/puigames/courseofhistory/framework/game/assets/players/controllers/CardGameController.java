@@ -14,6 +14,12 @@ import test.puigames.courseofhistory.framework.game.assets.players.events.Eventa
 public abstract class CardGameController implements Controlling {
     public Player player;
     public ArrayList<Eventable> playerEvents;
+    public Screen screen;
+
+    public CardGameController(Screen screen, Player player) {
+        this.screen = screen;
+        this.player = player;
+    }
 
     @Override
     public abstract void update(float deltaTime);

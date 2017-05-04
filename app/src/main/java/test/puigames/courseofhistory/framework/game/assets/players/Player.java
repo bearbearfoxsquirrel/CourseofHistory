@@ -15,9 +15,8 @@ import test.puigames.courseofhistory.framework.game.assets.players.events.Damage
 
 public class Player {
     //TODO: Add hero
-    private static final int STARTING_HAND_SIZE = 3;
-
     private float rotation;
+   // private Origin playerPlacement;
 
     public int playerNumber;
     public PlayerState playerCurrentState;
@@ -27,6 +26,11 @@ public class Player {
     public Deck playerDeck;
     public Board board;
     public StartingHandSelector startingHandSelector;
+
+    public void confirmSelectedCardsFromStartingHandSelector() {
+        for (CharacterCard card : startingHandSelector.cardsToKeep)
+            board.cardHands[playerNumber].addCardToArea(card);
+    }
 
     public enum PlayerState {
         CREATED, TURN_STARTED, TURN_ACTIVE, WAITING_FOR_TURN, TURN_ENDED, WIN, LOSE,
@@ -47,10 +51,8 @@ public class Player {
     }
 
     public void createNewStartingHand() {
-        playerCurrentState = Player.PlayerState.BEGIN_CREATING_STARTING_HAND;
-
-        CharacterCard[] startingHand = new CharacterCard[STARTING_HAND_SIZE];
-        for (int handIndex = 0; handIndex < STARTING_HAND_SIZE; handIndex++)
+        CharacterCard[] startingHand = new CharacterCard[startingHandSelector.STARTING_HAND_SIZE];
+        for (int handIndex = 0; handIndex < startingHandSelector.STARTING_HAND_SIZE; handIndex++)
             startingHand[handIndex] = drawCardFromDeck(); //Draws the amount of starting cards from the player's deck for each player
         startingHandSelector = new StartingHandSelector(startingHand); //Creates a new instance of starting hand selector for the player to use
     }
@@ -81,7 +83,6 @@ public class Player {
     }
 
     public CharacterCard drawCardFromDeck() {
-      //  ((CharacterCard)playerDeck.peek()).setUpGamePiecePositions(this.spawnScreen, 200, 300); //TODO give proper spawn places
         return (CharacterCard)playerDeck.pop();
     }
 
@@ -123,4 +124,14 @@ public class Player {
     public float getRotation() {
         return this.rotation;
     }
+
+   // public void setPlayerPlacement(Origin origin) {
+        //this.playerPlacement = origin;
+    //}
+
+   // public void setPlayerPlacement(float x, float y) {
+  //      this.playerPlacement = new Origin(x, y);
+   // }
+
+
 }

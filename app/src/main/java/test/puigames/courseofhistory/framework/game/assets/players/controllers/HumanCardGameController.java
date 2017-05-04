@@ -2,6 +2,8 @@ package test.puigames.courseofhistory.framework.game.assets.players.controllers;
 
 import android.graphics.Bitmap;
 
+import java.util.ArrayList;
+
 import test.puigames.courseofhistory.framework.engine.controlling.Inputable;
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
@@ -17,13 +19,19 @@ import test.puigames.courseofhistory.framework.game.assets.players.Player;
 //This class is for allowing the user to interact with a pawn pawn
 public class HumanCardGameController extends CardGameController implements Inputable {
     public InputBuddy inputBuddy;
-    HumanCardGameUIContainer controllerUI;
+    public HumanCardGameUIContainer controllerUI;
 
-    public HumanCardGameController(Screen screen, InputBuddy inputBuddy, Player player, Bitmap startingHandSelectorBackgroundBitmap, Bitmap confirmationButtonBitmap, Bitmap endTurnButtonBitmap) {
+    private float uiPlacementX;
+    private float uiPlacementY;
+
+    public HumanCardGameController(Screen screen, InputBuddy inputBuddy, Player player, Bitmap startingHandSelectorBackgroundBitmap, Bitmap confirmationButtonBitmap, Bitmap endTurnButtonBitmap, Bitmap cardToTossOverlap, float uIPlacementX, float uIPlacementY) {
+        super(screen, player);
         this.inputBuddy = inputBuddy;
-        this.player = player;
-        this.controllerUI= new HumanCardGameUIContainer(screen, this.player, startingHandSelectorBackgroundBitmap, confirmationButtonBitmap, endTurnButtonBitmap);
+        this.controllerUI= new HumanCardGameUIContainer(screen, this.player, startingHandSelectorBackgroundBitmap, confirmationButtonBitmap, endTurnButtonBitmap, cardToTossOverlap);
+        this.uiPlacementX = uIPlacementX;
+        this.uiPlacementY = uIPlacementY;
     }
+
 
     public HumanCardGameController(InputBuddy inputBuddy, Player player) {
         this.inputBuddy = inputBuddy;
@@ -48,12 +56,37 @@ public class HumanCardGameController extends CardGameController implements Input
 
                 break;
             case STARTING_HAND_CHOOSING_CARDS_TO_TOSS:
+                if (controllerUI.startingHandSelectorUI.confirmationButton.checkForInput(inputBuddy))
+                    controllerUI.startingHandSelectorUI.confirmationButton.applyAction();
 
-                break;
-            case FINISHED_CREATING_START_HAND:
+                ArrayList<CharacterCard> cardsToBeSelectedForTossing = new ArrayList<>();
+                ArrayList<CharacterCard> cardsToBeDeselectedForTossing = new ArrayList<>();
 
+                for (Input.TouchEvent touchEvent : inputBuddy.getTouchEvents()) {
+                    //check cards to toss selection
+                    if(touchEvent.type == Input.TouchEvent.TOUCH_UP) {
+                        for (CharacterCard card : player.startingHandSelector.cardsToKeep)
+                            if (card.boundingBox.isTouchOn(touchEvent))
+                                cardsToBeSelectedForTossing.add(card);
+
+                        for (CharacterCard card : cardsToBeSelectedForTossing)
+                            player.startingHandSelector.selectCardToToss(card);
+
+                        //Check cards to keep selection
+                        for (CharacterCard card : player.startingHandSelector.cardsToToss)
+                            if (card.boundingBox.isTouchOn(touchEvent) && !cardsToBeSelectedForTossing.contains(card))
+                                cardsToBeDeselectedForTossing.add(card);
+
+                        for (CharacterCard card : cardsToBeDeselectedForTossing)
+                            player.startingHandSelector.deselectCardToToss(card);
+
+                        cardsToBeSelectedForTossing.clear();
+                        cardsToBeDeselectedForTossing.clear();
+                    }
+                }
                 break;
         }
+
         collisionCheckAndResolve(player.board.playAreas[player.playerNumber]);
         collisionCheckAndResolve(player.board.cardHands[player.playerNumber]);
     }
@@ -70,7 +103,7 @@ public class HumanCardGameController extends CardGameController implements Input
 //                        player.removeCardFromArea(card);
 //                    }
 //                } //else if(card.boundingBox.isOverlapping(player.board.playAreas[player.playerNumber].boundingBox))
-////                    player.addCardToArea(card);
+//                    player.addCardToArea(card);
 //            }
 //            if(card.boundingBox.isOverlapping(player.board.playAreas[player.playerNumber].boundingBox) && inputBuddy.touchEvents.isEmpty())
 //                player.board.playAreas[player.playerNumber].addCardToArea(card);
@@ -127,16 +160,8 @@ public class HumanCardGameController extends CardGameController implements Input
      */
     public void playCard(CharacterCard card)
     {
-        //player.currentAction = Player.PawnAction.PLACE_CARD_ON_BOARD;
-//        if(player.currentMana >= card.mana)
-//        {
-            player.placeCardOnBoard(card);
-//            removeManaFromPlayer(card.mana);
-//        }
-//        else
-//        {
-            //should probably tell the user that they can't do that
-//        }
+
+        player.placeCardOnBoard(card);
     }
 
     /**
@@ -152,6 +177,7 @@ public class HumanCardGameController extends CardGameController implements Input
             player.mana[i].setBitmap(player.mana[i].manaType[1]);
         }
     }
+
     private boolean checkIsTouched(Input.TouchEvent touchEvent, GameObject object) {
         return (object.boundingBox.isTouchOn(touchEvent));
     }
@@ -159,6 +185,15 @@ public class HumanCardGameController extends CardGameController implements Input
     @Override
     public InputBuddy getInput() {
         return inputBuddy;
+    }
+
+    public HumanCardGameUIContainer getControllerUI() {
+        return this.controllerUI;
+    }
+
+    public void placeControllerUI(Screen screen, float placementX, float placementY) {
+        controllerUI.place(screen, placementX, placementY, player.getRotation());
+        //UI is bound to the rotation of the player
     }
 
     @Override
@@ -174,7 +209,8 @@ public class HumanCardGameController extends CardGameController implements Input
     @Override
     public void startTicking(Screen screen) {
         super.startTicking(screen);
-       // controllerUI.setUpGamePiecePositions(screen, 480/2, 320/2 );
+        placeControllerUI(screen, uiPlacementX, uiPlacementY);
+        // controllerUI.setUpGamePiecePositions(screen, 480/2, 320/2 );
     }
 
     @Override

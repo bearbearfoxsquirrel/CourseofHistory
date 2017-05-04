@@ -60,7 +60,7 @@ public abstract class Screen {
         this.updateablesToRemove = new ArrayList<>();
     }
 
-    public abstract void load();
+    protected abstract void load();
 
     public void update(float deltaTime) {
         scaler.scaleTouchInput(gameProperties.getInput());
