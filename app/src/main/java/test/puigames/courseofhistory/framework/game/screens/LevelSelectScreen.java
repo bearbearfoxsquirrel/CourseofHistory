@@ -33,7 +33,7 @@ public class LevelSelectScreen extends Menu {
     private float levelWorldLeadersTextCentreX = 340.0f, levelWorldLeadersTextCentreY = 245.0f;
 
     private float backWidth = 75.0f, backHeight = 35.0f;
-    private float backCentreX = 240.0f, backCentreY = 300.0f;
+    private float backCentreX = 40.0f, backCentreY = 300.0f;
 
     private float duration = 0.0f, delay = 0.05f;
 

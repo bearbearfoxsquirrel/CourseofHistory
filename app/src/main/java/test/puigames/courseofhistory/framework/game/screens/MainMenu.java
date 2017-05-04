@@ -25,8 +25,8 @@ public class MainMenu extends Menu {
 
     private float titleImageWidth = 340.0f, titleImageHeight = 100.0f;
 
-    private float bgCentreY = 160.0f, titleCentreY = 30.0f, playGameCentreY = 90.0f,
-    howToPlayCentreY = 140.0f, settingsCentreY = 190.0f, exitGameY = 240;
+    private float bgCentreY = 160.0f, titleCentreY = 30.0f, playGameCentreY = 100.0f,
+    howToPlayCentreY = 160.0f, settingsCentreY = 220.0f, exitGameY = 280.0f;
 
     private float buttonWidth = 75.0f, buttonHeight = 40.0f;
     private float centreX = 240.0f;

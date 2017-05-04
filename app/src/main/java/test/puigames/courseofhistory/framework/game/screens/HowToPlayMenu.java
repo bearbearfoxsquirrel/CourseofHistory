@@ -39,6 +39,10 @@ public class HowToPlayMenu extends Menu {
     private float howToPlayImageWidth = 440.0f, howToPlayImageHeight = 260.0f;
 
     private float howToPlayCentreX = 240.0f, howToPlayCentreY = 135.0f;
+
+    int currentIndex = 0;
+
+
     public HowToPlayMenu(final GameProperties gameProperties){
         super(gameProperties);
 
@@ -59,15 +63,17 @@ public class HowToPlayMenu extends Menu {
     public void update(float deltaTime) {
         super.update(deltaTime);
 
-        if(back.checkForInput(inputBuddy)){
-            back.applyAction();
-        }
         if(gameProperties.getInput().getTouchEvents().size() > 0) {
-            if(isTouched(inputBuddy.getTouchEvents().get(0), rulesForward))
+            if(isTouched(inputBuddy.getTouchEvents().get(0), rulesForward)) {
                 swapImageForward();
+            }
             if(isTouched(inputBuddy.getTouchEvents().get(0), rulesBackward)) {
                 swapImageBackward();
             }
+        }
+
+        if(back.checkForInput(inputBuddy)){
+            back.applyAction();
         }
     }
 
@@ -113,7 +119,6 @@ public class HowToPlayMenu extends Menu {
     }
 
     private void swapImageForward() {
-        int currentIndex = howToPlayTexts.indexOf(howToPlayImage.getBitmap());
         currentIndex++;
         if(currentIndex < 0)
             currentIndex = howToPlayTexts.size() - 1;
@@ -123,7 +128,6 @@ public class HowToPlayMenu extends Menu {
     }
 
     private void swapImageBackward() {
-        int currentIndex = howToPlayTexts.indexOf(howToPlayImage.getBitmap());
         currentIndex--;
         if(currentIndex < 0)
             currentIndex = howToPlayTexts.size() - 1;
