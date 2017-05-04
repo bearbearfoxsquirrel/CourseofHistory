@@ -270,8 +270,4 @@ public class CharacterCard extends Card implements Damageable.Attackable {
     public void setHealthLocationY(float healthLocationY) {
         this.healthLocationY = healthLocationY;
     }
-
-
-
-
 }

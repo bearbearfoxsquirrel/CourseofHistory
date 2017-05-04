@@ -107,14 +107,6 @@ public abstract class Sprite extends GameObject implements Drawable, Scalable.Im
         this.height = height; this.halfHeight = (this.height/2);
     }
 
-    public BoundingBox getBoundingBox() {
-        return boundingBox;
-    }
-
-    public void setBoundingBox(BoundingBox boundingBox) {
-        this.boundingBox = boundingBox;
-    }
-
     public Origin getOrigin() {
         return origin;
     }

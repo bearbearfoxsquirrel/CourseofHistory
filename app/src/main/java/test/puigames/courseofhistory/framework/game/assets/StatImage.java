@@ -102,8 +102,4 @@ public class StatImage extends Sprite {
     public void draw(Canvas canvas, float deltatime){
         super.draw(canvas, deltatime);
     }
-
-
-
-
 }

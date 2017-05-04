@@ -17,7 +17,7 @@ public abstract class GameObject implements Updateable, Placeable, Scalable {
     protected Screen currentScrren;
     protected float width, halfWidth;
     protected float height, halfHeight;
-    public BoundingBox boundingBox;
+    private BoundingBox boundingBox;
 
 
 
