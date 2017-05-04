@@ -15,7 +15,8 @@ import test.puigames.courseofhistory.framework.game.assets.players.Player;
  */
 
 public class CourseOfHistoryMachine implements Updateable {
-    private static float TURN_TIME = 6.f;
+    private static float TURN_TIME = 60.f;
+    private static final float DEFAULT_TURN_TIME = 12.f;
     //initial turn
     private static final float COIN_TOSS_DELAY = 3.f;
     private static int PLAYER_COUNT = 2;
@@ -119,8 +120,8 @@ public class CourseOfHistoryMachine implements Updateable {
 
             case GAME_ACTIVE:
                 takeTurn(deltaTime);
-//                updateCardsInPlay();
-//                checkWinStatus();
+                updateCardsInPlay();
+                checkWinStatus();
                 break;
 
             case GAME_PAUSED:
@@ -157,11 +158,25 @@ public class CourseOfHistoryMachine implements Updateable {
     private void checkWinStatus() {
         for (int i = 0; i < players.length; i++) {
             if(players[i].getPlayerDeck().size() == 0 && players[i].getPlayerCurrentState() == Player.PlayerState.TURN_STARTED) { //TODO add if hero health is <= 0
-                players[i].setPlayerCurrentState(Player.PlayerState.LOSE);
-                players[findNextPlayer(i)].setPlayerCurrentState(Player.PlayerState.WIN);
-                currentGameState = GameState.GG;
+               if(players[i].getHero().getHealth() < players[findNextPlayer(i)].getHero().getHealth()) {
+                   resolveGame(i);
+               } else if(players[i].getHero().getHealth() == players[findNextPlayer(i)].getHero().getHealth()) {
+                   //tie??
+                   resolveGame(findNextPlayer(i)); //other player wins by default xD xD xD xD :3c
+               } else {
+                   resolveGame(findNextPlayer(i));
+               }
+            }
+            if(players[i].getHero().getHealth() <= 0) {
+                resolveGame(i);
             }
         }
+    }
+
+    private void resolveGame(int loser) {
+        players[loser].setPlayerCurrentState(Player.PlayerState.LOSE);
+        players[findNextPlayer(loser)].setPlayerCurrentState(Player.PlayerState.WIN);
+        currentGameState = GameState.GG;
     }
 
     private void updateCardsInPlay() {
@@ -170,8 +185,7 @@ public class CourseOfHistoryMachine implements Updateable {
                 if (card.isDeaders()) {
                     player.getBoard().getPlayArea(player.getPlayerNumber()).removeCardFromArea(card);
                     card.remove(player.getBoard().getCurrentScreen());
-//                    card.setBoundingBox(null);
-//                    card.setOrigin(null);
+                    Log.wtf("EVENT", "A card on p" + player.getPlayerNumber() + "'s side has died" + "\n" + card.toString());
                     //TODO: possibly need to set all things to null to "delete" it so it doesn't interact with objects in the game
                     //or just remove from all possible lists it could be a part of so we never see it again
                 }

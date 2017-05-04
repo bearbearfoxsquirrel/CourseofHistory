@@ -37,6 +37,7 @@ public class Board extends Sprite implements Drawable {
     public Board(Screen screen, Bitmap bitmap, Hero[] heroes) {
         super(screen, bitmap, 480, 320);
         overlapAllowance = 1.f;
+        this.heroes = heroes;
     }
 
     @Override

@@ -1,6 +1,8 @@
 package test.puigames.courseofhistory.framework.game.assets.players.controllers;
 
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 import test.puigames.courseofhistory.framework.engine.controlling.Inputable;
@@ -8,6 +10,7 @@ import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
+import test.puigames.courseofhistory.framework.game.CourseOfHistory;
 import test.puigames.courseofhistory.framework.game.assets.Hero;
 import test.puigames.courseofhistory.framework.game.assets.Mana;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
@@ -49,10 +52,8 @@ public class HumanCardGameController extends CardGameController implements Input
                 break;
         }
         //Inter card collision checking and handling
-//       if(inputBuddy.getTouchEvents().size() <= 0) {
-           cardCollisionCheckAndResolve(getPlayersCardsInPlayArea());
-           cardCollisionCheckAndResolve(getPlayersCardsInCardHand());
-//       }
+        cardCollisionCheckAndResolve(getPlayersCardsInPlayArea());
+        cardCollisionCheckAndResolve(getPlayersCardsInCardHand());
         //Keep cards on board: don't check hand, causes issues
         keepCardsInBoardBounds(getPlayersCardsInPlayArea());
 
@@ -176,8 +177,9 @@ public class HumanCardGameController extends CardGameController implements Input
     private void updateHero(float deltaTime) {
         if(inputBuddy.getTouchEvents().size() > 0) {
             Input.TouchEvent touchEvent = inputBuddy.getTouchEvents().get(0);
-            if(checkIsTouched(touchEvent, player.getHero())) {
-                //TODO: end turn button show and things
+            if(checkIsTouched(touchEvent, player.getHero()) && touchEvent.type == Input.TouchEvent.TOUCH_DOWN) {
+                Log.d("hero touched", "turn ended");
+                player.setPlayerCurrentState(Player.PlayerState.TURN_ENDED); //TODO: show end turn button - end turn button does this instead
             }
         }
     }
@@ -213,7 +215,23 @@ public class HumanCardGameController extends CardGameController implements Input
      * @return - true if card is touched and touch event type is touch_up, false otherwise
      */
     private boolean youAreTryingToAttackAnotherCard(Input.TouchEvent touchEvent, CharacterCard card) {
-        return (checkIsTouched(touchEvent, card) && touchEvent.type == Input.TouchEvent.TOUCH_UP);
+        return (checkIsTouched(touchEvent, card)
+                && (touchEvent.type == Input.TouchEvent.TOUCH_UP || touchEvent.type == Input.TouchEvent.TOUCH_DOWN));
+    }
+
+    /** Card passed in will attack if there is an opposing card's bounding box overlapping with it's bounding box
+     * Both cards will take damage
+     * @param card - card whose bounding box we are checking for overlaps with opponent's cards
+     */
+    private void attackIfThereIsACardHere(CharacterCard card) {
+        for(CharacterCard opponentCard : player.getBoard().getPlayArea(getOppositePlayerNumber()).getCardsInArea())
+            if(card.getBoundingBox().isOverlapping(opponentCard.getBoundingBox())) {
+                opponentCard.applyDamage(card.getAttack()); //opponent takes damage
+                card.applyDamage(opponentCard.getAttack()); //attacking card also takes damage
+                Log.d("attacker health", "" + card.getHealth());
+                Log.e("recipient health", "" + opponentCard.getHealth());
+                //TODO: add update for stats here man bruh dudeseph
+            }
     }
 
     /**
@@ -223,19 +241,8 @@ public class HumanCardGameController extends CardGameController implements Input
      * @return - true if card is touched and touch event type is touch_up
      */
     private boolean youAreTryingToAttackTheEnemyHero(Input.TouchEvent touchEvent, CharacterCard card, Hero hero) {
-        return (card.getBoundingBox().isOverlapping(hero.getBoundingBox()) && touchEvent.type == Input.TouchEvent.TOUCH_UP);
-    }
-
-    /** Card passed in will attack if there is an opposing card's bounding box overlapping with it's bounding box
-     * @param card - card whose bounding box we are checking for overlaps with opponent's cards
-     */
-    private void attackIfThereIsACardHere(CharacterCard card) {
-        for(CharacterCard opponentCard : player.getBoard().getPlayArea(getOppositePlayerNumber()).getCardsInArea())
-            if(card.getBoundingBox().isOverlapping(opponentCard.getBoundingBox())) {
-                opponentCard.applyDamage(card.getAttack()); //opponent takes damage
-                card.applyDamage(opponentCard.getAttack()); //attacking card also takes damage
-                //TODO: add update for stats here man bruh dudeseph
-            }
+        return (card.getBoundingBox().isOverlapping(hero.getBoundingBox())
+                && (touchEvent.type == Input.TouchEvent.TOUCH_UP || touchEvent.type == Input.TouchEvent.TOUCH_DOWN));
     }
 
     /**
@@ -244,7 +251,7 @@ public class HumanCardGameController extends CardGameController implements Input
      * @param hero - hero that is being attacked
      */
     private void attackTheEnemyHero(CharacterCard card, Hero hero) {
-            hero.applyDamage(card.getAttack());
+        hero.applyDamage(card.getAttack());
     }
 
     /**

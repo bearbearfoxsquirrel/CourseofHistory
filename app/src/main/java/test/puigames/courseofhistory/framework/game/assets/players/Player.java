@@ -37,7 +37,6 @@ public class Player {
         this.playerCurrentState = PlayerState.CREATED;
         this.playerNumber = playerNumber;
         this.board = board;
-        this.board = board;
         this.playerDeck = deck;
         this.currentMana = 0;
         this.hero = hero;
@@ -48,9 +47,9 @@ public class Player {
         this.playerCurrentState = PlayerState.CREATED;
         this.playerNumber = playerNumber;
         this.board = board;
-        this.board = board;
         this.playerDeck = deck;
         this.currentMana = 0;
+        this.hero = board.getHero(playerNumber); //give player hero from board now
         setUpPlayerDeck(playerCards);
     }
 
@@ -89,7 +88,6 @@ public class Player {
     }
 
     public CharacterCard drawCardFromDeck() {
-      //  ((CharacterCard)playerDeck.peek()).place(this.spawnScreen, 200, 300); //TODO give proper spawn places
         return (CharacterCard)playerDeck.pop();
     }
 

@@ -28,7 +28,7 @@ public class TestLevel extends Level {
     private final int COIN_SIZE = 80;
     private final float COIN_POS_X = 300.f;
     private final float COIN_POS_Y = 200.0f;
-    private final int HERO_PORTRAIT_SIZE = 55;
+    private final int HERO_PORTRAIT_SIZE = 60;
     private final float HERO_PLAYER_1_POS_X = 20.f;
     private final float HERO_PLAYER_1_POS_Y = 300.f;
     private final float HERO_PLAYER_2_POS_X = 460.f;
