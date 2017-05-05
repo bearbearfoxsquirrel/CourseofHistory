@@ -29,8 +29,9 @@ public abstract class Screen {
     private ArrayList<Updateable> updateablesToAdd;
     private ArrayList<Updateable> updateablesToRemove;
     protected ArrayList<Scalable> scalables;
-    protected final static float DEFAULT_LEVEL_HEIGHT = 320.f;
-    protected final static float DEFAULT_LEVEL_WIDTH = 480.f;
+
+    public final static float DEFAULT_LEVEL_HEIGHT = 320.f;
+    public final static float DEFAULT_LEVEL_WIDTH = 480.f;
 
     /**
      * Constructor stores passed in GameProperties object
@@ -59,7 +60,7 @@ public abstract class Screen {
         this.updateablesToRemove = new ArrayList<>();
     }
 
-    public abstract void load();
+    protected abstract void load();
 
     public void update(float deltaTime) {
         scaler.scaleTouchInput(gameProperties.getInput());

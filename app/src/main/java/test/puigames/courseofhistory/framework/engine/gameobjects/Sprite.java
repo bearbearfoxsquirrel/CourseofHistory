@@ -117,12 +117,10 @@ public abstract class Sprite extends GameObject implements Drawable, Scalable.Im
 
     @Override
     public void scale(float scaleFactorX, float scaleFactorY) {
-        this.getMatrix().postScale((this.getWidth() / this.getBitmap().getWidth()) * scaleFactorX,
-                (this.getHeight() / this.getBitmap().getHeight()) * scaleFactorY);
-        this.getMatrix().postRotate(0, scaleFactorX * this.getBitmap().getWidth()/ 2.0f,
-                scaleFactorY * this.getBitmap().getHeight() / 2.0f);
-        this.getMatrix().postTranslate((this.getOrigin().getOriginX() - this.getWidth() / 2) * scaleFactorX,
-                (this.getOrigin().getOriginY() - this.getHeight() / 2) * scaleFactorY);
+        getMatrix().reset(); // Resets the matrix for
+        getMatrix().postScale((getWidth() / getBitmap().getWidth()) * scaleFactorX, getHeight() / getBitmap().getHeight() * scaleFactorY); //Scales the object/image ratio by the scale factor
+        getMatrix().postRotate(getRotation(), getHalfWidth() * scaleFactorX, getHalfHeight() * scaleFactorY); //Rotates from the middle of the object on the screen
+        getMatrix().postTranslate((getPosX() - getWidth() / 2.f) * scaleFactorX, (getPosY() - getHeight() / 2.f) * scaleFactorY); //Translates the object by the scale factor
     }
 
     @Override

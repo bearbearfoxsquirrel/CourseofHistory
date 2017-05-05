@@ -7,7 +7,7 @@ import test.puigames.courseofhistory.framework.engine.screen.Screen;
  */
 
 public interface Placeable {
-    void place(Screen screen, float placementX, float placementY);
+    void place(Screen screen, float placementX, float placementY, float rotation);
 
     void remove(Screen screen);
 }

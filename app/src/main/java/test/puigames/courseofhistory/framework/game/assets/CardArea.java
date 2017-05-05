@@ -40,10 +40,9 @@ public abstract class CardArea extends GameObject
      */
     public void addCardToArea(CharacterCard card)
     {
-        if(!cardsInArea.contains(card) && cardsInArea.size() < maxCardsInArea)
+        if(!cardsInArea.contains(card) && cardsInArea.size() <= maxCardsInArea)
         {
             cardsInArea.add(card);
-            Log.d("cardarea", "added card: " + this.toString());
         }
 //        positionCardsInArea();
     }
@@ -59,7 +58,6 @@ public abstract class CardArea extends GameObject
             cardsInArea.remove(card);
             Log.d("cardarea", "removed card: " + this.toString());
         }
-//        positionCardsInArea();
     }
 
     /**
@@ -83,9 +81,9 @@ public abstract class CardArea extends GameObject
      * Initialises the positions array
      * Must be called in classes higher than CardArea!
      */
-    public void setUpPositions()
-    {
+    public void setUpPositions() {
         positions = new Origin[maxCardsInArea];
+
         for(int i = 1; i <= maxCardsInArea; i++)
             positions[i - 1] = new Origin(cardPadding + ((width / maxCardsInArea) * i) / 1.2f, this.origin.getOriginY() + (cardPadding * 2));
     }

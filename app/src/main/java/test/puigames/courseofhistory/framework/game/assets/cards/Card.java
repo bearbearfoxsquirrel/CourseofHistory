@@ -33,6 +33,7 @@ public abstract class Card extends Sprite {
     public void rotateCard(int degreeToRotate){
         this.rotation = degreeToRotate;
     }
+
     public void adjustCardSize(float factor){
         this.setHeight(this.height*factor);
         this.setWidth(this.width*factor);

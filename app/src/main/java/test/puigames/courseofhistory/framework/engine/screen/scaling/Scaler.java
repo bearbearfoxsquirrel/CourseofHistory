@@ -27,7 +27,6 @@ public class Scaler {
     }
 
     public void scaleToScreen(Scalable scalable) {
-        scalable.getMatrix().reset();
         scalable.scale(scaleFactorX, scaleFactorY);
     }
 

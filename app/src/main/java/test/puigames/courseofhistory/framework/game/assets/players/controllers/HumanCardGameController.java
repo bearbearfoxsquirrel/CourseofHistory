@@ -1,10 +1,15 @@
 package test.puigames.courseofhistory.framework.game.assets.players.controllers;
 
+import android.graphics.Bitmap;
+
+import java.util.ArrayList;
+
 import test.puigames.courseofhistory.framework.engine.controlling.Inputable;
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
+import test.puigames.courseofhistory.framework.engine.ui.MenuButton;
 import test.puigames.courseofhistory.framework.game.assets.CardArea;
 import test.puigames.courseofhistory.framework.game.assets.Mana;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
@@ -14,35 +19,71 @@ import test.puigames.courseofhistory.framework.game.assets.players.Player;
 //This class is for allowing the user to interact with a pawn pawn
 public class HumanCardGameController extends CardGameController implements Inputable {
     private InputBuddy inputBuddy;
-    private Screen currentScreen;
+    private HumanCardGameUIContainer controllerUI;
 
+    private float uiPlacementX;
+    private float uiPlacementY;
 
-    public HumanCardGameController(Screen screen, InputBuddy inputBuddy, Player player) {
+    public HumanCardGameController(Screen screen, InputBuddy inputBuddy, Player player, Bitmap startingHandSelectorBackgroundBitmap, Bitmap confirmationButtonBitmap, Bitmap endTurnButtonBitmap, Bitmap cardToTossOverlap, float uIPlacementX, float uIPlacementY) {
+        super(screen, player);
         this.inputBuddy = inputBuddy;
-        this.currentScreen = screen;
-        this.player = player;
+        this.controllerUI= new HumanCardGameUIContainer(screen, this.player, startingHandSelectorBackgroundBitmap, confirmationButtonBitmap, endTurnButtonBitmap, cardToTossOverlap);
+        this.uiPlacementX = uIPlacementX;
+        this.uiPlacementY = uIPlacementY;
     }
 
-    public HumanCardGameController(Screen screen, InputBuddy inputBuddy) {
+
+    public HumanCardGameController(InputBuddy inputBuddy, Player player) {
         this.inputBuddy = inputBuddy;
+        this.player = player;
     }
 
     @Override
     public void update(float deltaTime) {
+        for (MenuButton menuButton : controllerUI.getShownMenuButtons())
+            if (menuButton.checkForInput(inputBuddy))
+                menuButton.applyAction();
+
         switch (player.getPlayerCurrentState()) {
             case TURN_ACTIVE:
                 updateCardsInHand(deltaTime);
                 updateCardsOnBoardPlayArea(deltaTime);
                 break;
+
+            case TURN_ENDED:
+
             case BEGIN_CREATING_STARTING_HAND:
-              //  showStartingHandCreationUI();
-                //player.playerCurrentState = Player.PlayerState.STARTING_HAND_CHOOSING_CARDS_TO_TOSS;
+
                 break;
             case STARTING_HAND_CHOOSING_CARDS_TO_TOSS:
-                //updatePlayersStartingHand();
-                break;
-            case FINISHED_CREATING_START_HAND:
-                //hideStartingHandCreationUI();
+                if (controllerUI.startingHandSelectorUI.confirmationButton.checkForInput(inputBuddy))
+                    controllerUI.startingHandSelectorUI.confirmationButton.applyAction();
+
+                ArrayList<CharacterCard> cardsToBeSelectedForTossing = new ArrayList<>();
+                ArrayList<CharacterCard> cardsToBeDeselectedForTossing = new ArrayList<>();
+
+                for (Input.TouchEvent touchEvent : inputBuddy.getTouchEvents()) {
+                    //check cards to toss selection
+                    if(touchEvent.type == Input.TouchEvent.TOUCH_UP) {
+                        for (CharacterCard card : player.startingHandSelector.cardsToKeep)
+                            if (card.boundingBox.isTouchOn(touchEvent))
+                                cardsToBeSelectedForTossing.add(card);
+
+                        for (CharacterCard card : cardsToBeSelectedForTossing)
+                            player.startingHandSelector.selectCardToToss(card);
+
+                        //Check cards to keep selection
+                        for (CharacterCard card : player.startingHandSelector.cardsToToss)
+                            if (card.boundingBox.isTouchOn(touchEvent) && !cardsToBeSelectedForTossing.contains(card))
+                                cardsToBeDeselectedForTossing.add(card);
+
+                        for (CharacterCard card : cardsToBeDeselectedForTossing)
+                            player.startingHandSelector.deselectCardToToss(card);
+
+                        cardsToBeSelectedForTossing.clear();
+                        cardsToBeDeselectedForTossing.clear();
+                    }
+                }
                 break;
         }
         collisionCheckAndResolve(player.getBoard().getPlayAreas()[player.getPlayerNumber()]);
@@ -68,59 +109,12 @@ public class HumanCardGameController extends CardGameController implements Input
         } else if (player.playerCurrentState == Player.PlayerState.CREATING_START_HAND) {
             updatePlayersStartingHand();
         }*/
+
+        collisionCheckAndResolve(player.board.playAreas[player.playerNumber]);
+        collisionCheckAndResolve(player.board.cardHands[player.playerNumber]);
     }
 
-   /* private void hideStartingHandCreationUI() {
-        startingHandSelectionUI.remove(this.currentScreen);
-    }
 
-    private void showStartingHandCreationUI() {
-        startingHandSelectionUI.place(this.currentScreen ,startingHandSelectionUI.UI_POS_X, startingHandSelectionUI.UI_POS_Y);
-    }
-
-    public void updatePlayersStartingHand() {
-        for (Input.TouchEvent touchEvent : inputBuddy.getTouchEvents()) {
-            for (CharacterCard card : player.board.cardHands[player.playerNumber].cardsInArea) {
-                if (card.boundingBox.isTouchOn(touchEvent) && touchEvent.type == Input.TouchEvent.TOUCH_UP && player.startingHandSelector.cardsToKeep.contains(card)){ //check if card is selected or deselected
-                    player.selectCardToRemove(card);
-                } else if (card.boundingBox.isTouchOn(touchEvent) && touchEvent.type == Input.TouchEvent.TOUCH_UP && player.startingHandSelector.cardsToKeep.contains(card)) {
-                    player.selectCardToKeep(card);
-                }
-            }
-
-            if (startingHandSelectionUI.confirmationButton.boundingBox.isTouchOn(touchEvent)) {
-                startingHandSelectionUI.confirmationButton.applyAction();
-            }
-        }
-    }*/
-//            updateCardsOnBoardPlayArea(deltaTime);
-
-            //For test cards
-//            if (playerEvents.size() == 0) {
-//                for (CharacterCard playerCard : player.board.playAreas[player.playerNumber].cardsInArea)
-//                    for (CharacterCard opponentCard : player.board.playAreas[player.playerNumber].cardsInArea)
-//                        if (playerCard.boundingBox.isOverlapping(opponentCard.boundingBox)) {
-//                            playerEvents.add(player.createAttack(playerCard, opponentCard));
-//                        }
-//            } else {
-//                for (Eventable event : playerEvents)
-//                    event.update(deltaTime);
-//            }
-
-            //For actual thing
-
-//            if (playerEvents.size() == 0) {
-//                for (CharacterCard playerCard : player.board.playAreas[player.playerNumber].cardsInArea)
-//                    for (CharacterCard opponentCard : player.board.playAreas[oppositePlayerNumber].cardsInArea)
-//                        if (playerCard.boundingBox.isOverlapping(opponentCard.boundingBox))
-//                            playerEvents.add(player.createAttack(playerCard, opponentCard));
-//            } else {
-//                for (Eventable event : playerEvents)
-//                    event.update(deltaTime);
-//            }
-//        }
-
-//    }
 
     private void updateCardsOnBoardPlayArea(float deltaTime){
         for(int i = 0; i < player.getBoard().getPlayAreas()[player.getPlayerNumber()].getCardsInArea().size(); i++) {
@@ -190,16 +184,7 @@ public class HumanCardGameController extends CardGameController implements Input
      */
     public void playCard(CharacterCard card)
     {
-        //player.currentAction = Player.PawnAction.PLACE_CARD_ON_BOARD;
-//        if(player.currentMana >= card.mana)
-//        {
-            player.placeCardOnBoard(card);
-//            removeManaFromPlayer(card.mana);
-//        }
-//        else
-//        {
-            //should probably tell the user that they can't do that
-//        }
+        player.placeCardOnBoard(card);
     }
 
     /**
@@ -223,6 +208,15 @@ public class HumanCardGameController extends CardGameController implements Input
     @Override
     public InputBuddy getInput() {
         return inputBuddy;
+    }
+
+    public HumanCardGameUIContainer getControllerUI() {
+        return this.controllerUI;
+    }
+
+    public void placeControllerUI(Screen screen, float placementX, float placementY) {
+        controllerUI.place(screen, placementX, placementY, player.getRotation());
+        //UI is bound to the rotation of the player
     }
 
     @Override
@@ -251,4 +245,17 @@ public class HumanCardGameController extends CardGameController implements Input
         this.currentScreen = currentScreen;
     }
 
+
+    @Override
+    public void startTicking(Screen screen) {
+        super.startTicking(screen);
+        placeControllerUI(screen, uiPlacementX, uiPlacementY);
+        // controllerUI.setUpGamePiecePositions(screen, 480/2, 320/2 );
+    }
+
+    @Override
+    public void stopTicking(Screen screen) {
+       super.stopTicking(screen);
+        controllerUI.stopTicking(screen);
+    }
 }

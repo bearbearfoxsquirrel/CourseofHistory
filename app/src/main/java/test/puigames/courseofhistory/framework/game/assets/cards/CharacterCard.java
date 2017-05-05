@@ -110,7 +110,7 @@ public class CharacterCard extends Card implements Damageable.Attackable {
     @Override
     public void draw(Canvas canvas, float deltatime){
         super.draw(canvas, deltatime);
-        //drawCardStats(canvas);
+        drawCardStats(canvas);
     }
 
 
@@ -128,6 +128,7 @@ public class CharacterCard extends Card implements Damageable.Attackable {
 
     @Override
     public void scale(float scaleFactorX, float scaleFactorY) {
+        super.scale(scaleFactorX, scaleFactorY);
         //TODO Matthew pls intement
     }
 

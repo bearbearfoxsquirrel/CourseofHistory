@@ -25,6 +25,16 @@ public class Player {
     private Deck playerDeck;
     private Board board;
     private StartingHandSelector startingHandSelector;
+    private float rotation;
+
+
+
+    public void confirmSelectedCardsFromStartingHandSelector() {
+        for (CharacterCard card : startingHandSelector.cardsToKeep)
+            board.cardHands[playerNumber].addCardToArea(card);
+    }
+
+
 
     public enum PlayerState {
         CREATED, TURN_STARTED, TURN_ACTIVE, WAITING_FOR_TURN, TURN_ENDED, WIN, LOSE,
@@ -39,16 +49,14 @@ public class Player {
         this.board = board;
         this.playerDeck = deck;
         this.currentMana = 0;
+        this.rotation = 0;
 
         setUpPlayerDeck(playerCards);
-
     }
 
     public void createNewStartingHand() {
-        playerCurrentState = Player.PlayerState.BEGIN_CREATING_STARTING_HAND;
-
-        CharacterCard[] startingHand = new CharacterCard[STARTING_HAND_SIZE];
-        for (int handIndex = 0; handIndex < STARTING_HAND_SIZE; handIndex++)
+        CharacterCard[] startingHand = new CharacterCard[startingHandSelector.STARTING_HAND_SIZE];
+        for (int handIndex = 0; handIndex < startingHandSelector.STARTING_HAND_SIZE; handIndex++)
             startingHand[handIndex] = drawCardFromDeck(); //Draws the amount of starting cards from the player's deck for each player
         startingHandSelector = new StartingHandSelector(startingHand); //Creates a new instance of starting hand selector for the player to use
     }
@@ -79,7 +87,6 @@ public class Player {
     }
 
     public CharacterCard drawCardFromDeck() {
-      //  ((CharacterCard)playerDeck.peek()).place(this.spawnScreen, 200, 300); //TODO give proper spawn places
         return (CharacterCard)playerDeck.pop();
     }
 
@@ -185,5 +192,13 @@ public class Player {
 
     public void setStartingHandSelector(StartingHandSelector startingHandSelector) {
         this.startingHandSelector = startingHandSelector;
+    }
+
+    public void setRotation(float rotation) {
+        this.rotation = rotation;
+    }
+
+    public float getRotation() {
+        return this.rotation;
     }
 }
