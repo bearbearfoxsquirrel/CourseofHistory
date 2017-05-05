@@ -2,6 +2,8 @@ package test.puigames.courseofhistory.framework.game.assets.players.controllers;
 
 import android.util.Log;
 
+import java.util.Iterator;
+
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Updateable;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
@@ -16,7 +18,6 @@ import test.puigames.courseofhistory.framework.game.assets.players.Player;
 
 public class CourseOfHistoryMachine implements Updateable {
     private static float TURN_TIME = 60.f;
-    private static final float DEFAULT_TURN_TIME = 12.f;
     //initial turn
     private static final float COIN_TOSS_DELAY = 3.f;
     private static int PLAYER_COUNT = 2;
@@ -130,6 +131,7 @@ public class CourseOfHistoryMachine implements Updateable {
 
             case GG:
                 //Handle endgame
+                Log.v("VICTORY!", "player " + (turnIndex + 1) + " wins!! :D :D :D :D");
                 //TODO check who wins
                 break;
         }
@@ -181,14 +183,15 @@ public class CourseOfHistoryMachine implements Updateable {
 
     private void updateCardsInPlay() {
         for (Player player: players)
-            for (CharacterCard card : player.getBoard().getPlayArea(player.getPlayerNumber()).getCardsInArea())
+            for (Iterator<CharacterCard> iterator = players[turnIndex].getBoard().getPlayArea(players[turnIndex].getPlayerNumber()).getCardsInArea().iterator(); iterator.hasNext();) {
+                CharacterCard card = iterator.next();
                 if (card.isDeaders()) {
                     player.getBoard().getPlayArea(player.getPlayerNumber()).removeCardFromArea(card);
                     card.remove(player.getBoard().getCurrentScreen());
-                    Log.wtf("EVENT", "A card on p" + player.getPlayerNumber() + "'s side has died" + "\n" + card.toString());
+                    Log.wtf("EVENT", "A card on p" + (player.getPlayerNumber() + 1) + "'s side has died" + "\n" + card.toString());
                     //TODO: possibly need to set all things to null to "delete" it so it doesn't interact with objects in the game
-                    //or just remove from all possible lists it could be a part of so we never see it again
                 }
+            }
         //Testing purposes only!
          /*  for (Player player: players)
             for (CharacterCard card : player.testCards)
@@ -213,6 +216,7 @@ public class CourseOfHistoryMachine implements Updateable {
                 break;
 
             case TURN_ENDED:
+                repositionCards();
                 nextPlayersTurn(); //Changes turn index to the next player
                 break;
         }
@@ -229,7 +233,7 @@ public class CourseOfHistoryMachine implements Updateable {
             manaCount[turnIndex]++;
             giveManaToPlayer();
         }
-        Log.wtf("currentPlayerMana " + turnIndex, "" + players[turnIndex].getCurrentMana());
+        Log.i("Player " + (turnIndex + 1), "" + players[turnIndex].getCurrentMana() + " mana");
 
         for (CharacterCard card : players[turnIndex].getBoard().getPlayAreas()[turnIndex].getCardsInArea()) {
             card.setCurrentAttackEnergy(card.getMaxAttackEnergy());
@@ -255,17 +259,17 @@ public class CourseOfHistoryMachine implements Updateable {
 
     private void updateAndCheckTurnTimeRemaining(float deltaTime) {
         turnTimeRemaining -= deltaTime; //decrements their turn time by the delta time
-        if (isTurnTimeLeft())
+        if (isOutOfTime())
             nextPlayersTurn(); //Checks if the player's turn is over
     }
 
-    private boolean isTurnTimeLeft() {
+    private boolean isOutOfTime() {
         return turnTimeRemaining <= 0.f;
     }
 
     private void nextPlayersTurn() {
-        players[turnIndex].setPlayerCurrentState(Player.PlayerState.WAITING_FOR_TURN);
         repositionCards();
+        players[turnIndex].setPlayerCurrentState(Player.PlayerState.WAITING_FOR_TURN);
         incrementTurnIndex();
         coin.setBitmap(coin.getCoinSides()[turnIndex]); //Just to test turns are working :)
         players[turnIndex].setPlayerCurrentState(Player.PlayerState.TURN_STARTED);
