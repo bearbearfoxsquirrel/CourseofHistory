@@ -32,7 +32,7 @@ public class Player {
 
     public void confirmSelectedCardsFromStartingHandSelector() {
         for (CharacterCard card : startingHandSelector.getCardsToKeep())
-            board.getCardHands()[playerNumber].addCardToArea(card);
+            board.getCardHand(playerNumber).addCardToArea(card);
     }
 
 

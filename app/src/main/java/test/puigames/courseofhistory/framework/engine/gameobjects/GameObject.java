@@ -116,10 +116,6 @@ public abstract class GameObject implements Updateable, Placeable, Scalable {
         return rotation;
     }
 
-    public float getHalfHeight() {return halfHeight;}
-
-    public float getHalfWidth() {return halfWidth;}
-
     public Screen getCurrentScreen() {
         return currentScreen;
     }

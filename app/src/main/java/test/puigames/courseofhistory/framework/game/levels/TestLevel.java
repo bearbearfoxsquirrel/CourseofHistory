@@ -7,6 +7,7 @@ import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.controlling.Controlling;
 import test.puigames.courseofhistory.framework.engine.screen.Level;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
+import test.puigames.courseofhistory.framework.game.CourseOfHistory;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
 import test.puigames.courseofhistory.framework.game.assets.Deck;
 import test.puigames.courseofhistory.framework.game.assets.Hero;
@@ -56,12 +57,18 @@ public class TestLevel extends Level {
     private final int COIN_SIZE = 80;
     private final float COIN_POS_X = 300.f;
     private final float COIN_POS_Y = 200.0f;
+
+
     private final int HERO_PORTRAIT_SIZE = 60;
-    private final float HERO_PLAYER_1_POS_X = 20.f;
-    private final float HERO_PLAYER_1_POS_Y = 300.f;
-    private final float HERO_PLAYER_2_POS_X = 460.f;
-    private final float HERO_PLAYER_2_POS_Y = 20.f;
-    private final int TOP_PLAYER_ROTATION = 180;
+//    private final float HERO_PLAYER_1_POS_X = 20.f;
+//    private final float HERO_PLAYER_1_POS_Y = 300.f;
+//    private final float HERO_PLAYER_2_POS_X = 460.f;
+//    private final float HERO_PLAYER_2_POS_Y = 20.f;
+//    private final int TOP_PLAYER_ROTATION = 180;
+    private final float HERO_OFFSET_X = 80.f;
+    private final float HERO_OFFSET_Y = 60.f;
+
+
     private final float PLAYER_DECK_POS_X = 300;
     private final float PLAYER_DECK_POS_Y = 50;
 
@@ -75,14 +82,24 @@ public class TestLevel extends Level {
     @Override
     protected void load() {
        try {
+            //Load hero bitmaps
+            Bitmap[] heroBitmaps = {
+                resourceFetcher.getBitmapFromFile("images/heroes/great-minds-hero.png"),
+                resourceFetcher.getBitmapFromFile("images/heroes/evil-leaders-hero.png")};
 
-           Bitmap[] heroBitmaps = {
-                   resourceFetcher.getBitmapFromFile("images/heroes/great-minds-hero.png"),
-                   resourceFetcher.getBitmapFromFile("images/heroes/evil-leaders-hero.png")};
+
+           Hero[] heroes = new Hero[CourseOfHistoryMachine.PLAYER_COUNT];
+           for(int i = 0; i < CourseOfHistoryMachine.PLAYER_COUNT; i++)
+               heroes[i] = new Hero(this, heroBitmaps[i], HERO_PORTRAIT_SIZE, HERO_PORTRAIT_SIZE); //create heroes
+
+
+           //Setting up the board and spawning it
+           Board board = resourceFetcher.loadBoard(this, "testBoard", heroes);
 
 //           //Setting up the board and spawning it
 //           Board board = resourceFetcher.loadBoard(this, "testBoard");
 //           board.place(this, viewport.getCenterX(), viewport.getCenterY());
+
 
            //Setting up the coin and spawning it
            Bitmap[] coinSides = {
@@ -90,28 +107,27 @@ public class TestLevel extends Level {
                    resourceFetcher.getBitmapFromFile("images/coins/coin-tails.png")};
            Coin coin = new Coin(this, coinSides, COIN_SIZE, COIN_SIZE);
 
-           Player[] players = new Player[CourseOfHistoryMachine.PLAYER_COUNT];
-           Hero[] heroes = new Hero[CourseOfHistoryMachine.getPlayerCount()];
-           for(int i = 0; i < players.length; i++)
-               heroes[i] = new Hero(this, heroBitmaps[i], HERO_PORTRAIT_SIZE, HERO_PORTRAIT_SIZE); //create heroes
 
-           //Setting up the board and spawning it
-           Board board = resourceFetcher.loadBoard(this, "testBoard", heroes);
+           //Create players
+           Player[] players = new Player[CourseOfHistoryMachine.PLAYER_COUNT];
+
 
            //Load mana images
            Bitmap[] manaTypes = {
                    resourceFetcher.getBitmapFromFile("images/mana/mana.png"),
                    resourceFetcher.getBitmapFromFile("images/mana/mana-used.png")};
 
+
+           //Load stat images
            final int numSize = 10;
            Bitmap numImages[] = new Bitmap[numSize];
-           for(int i = 0; i < numSize; i++) {
-
+           for(int i = 0; i < numSize; i++)
                numImages[i] = resourceFetcher.getBitmapFromFile("images/numbers/" +Integer.toString(i)+".png");
-           }
 
-           StatImage[] statImage = { new StatImage(this, numImages,6, 7), new StatImage(this, numImages,5, 6), new StatImage(this, numImages,5, 6)};
-
+           StatImage[] statImage = {
+                   new StatImage(this, numImages,6, 7),
+                   new StatImage(this, numImages,5, 6),
+                   new StatImage(this, numImages,5, 6)}; //load stat images
 
 
            //Creates a controller and a player for each participant
@@ -120,7 +136,7 @@ public class TestLevel extends Level {
                //TODO give proper deck image!!!
 
                for (int j = 0; j < players[i].getMAX_MANA(); j++)
-                   players[i].getMana()[j] = new Mana(this, manaTypes);
+                   players[i].getMana()[j] = new Mana(this, manaTypes); //create mana
            }
 //           heroes[0].place(this, HERO_PLAYER_1_POS_X, HERO_PLAYER_1_POS_Y); //player 1 - bottom left
 //           heroes[1].setRotation(TOP_PLAYER_ROTATION); //set rotation for opposite side of screen
@@ -134,10 +150,11 @@ public class TestLevel extends Level {
            //Giving the controllers possession of the corresponding player in the game machine
            for (int i = 0; i < controllers.length; i++) {
                //UI is placed at the center of Viewport
-               controllers[i] = new HumanCardGameController(this, inputBuddy, gameMachine.getPlayers()[i], resourceFetcher.getBitmapFromFile("images/backgrounds/starting_hand_selection_ui_background.png"), resourceFetcher.getBitmapFromFile("images/buttons/confirmation_button.png"), resourceFetcher.getBitmapFromFile("images/buttons/confirmation_button.png"), resourceFetcher.getBitmapFromFile("images/buttons/end_turn_button.png"), viewport.getCenterX(), viewport.getCenterY() );
+               controllers[i] = new HumanCardGameController(this, inputBuddy, gameMachine.getPlayers()[i], resourceFetcher.getBitmapFromFile("images/backgrounds/starting_hand_selection_ui_background.png"),
+                       resourceFetcher.getBitmapFromFile("images/buttons/confirmation_button.png"), resourceFetcher.getBitmapFromFile("images/buttons/confirmation_button.png"),
+                       resourceFetcher.getBitmapFromFile("images/buttons/end_turn_button.png"), viewport.getCenterX(), viewport.getCenterY() );
            }
-
-           gameMachine.startTicking(this);
+           gameMachine.startTicking(this); //starts game machine - IT LIVES
 
            for (Controlling controller : controllers)
                controller.startTicking(this);
@@ -162,16 +179,16 @@ public class TestLevel extends Level {
 
         for(int i = 0; i < gameMachine.getPlayers().length; i++) {
             //Find player rotation
-            Player currentPlayer = gameMachine.getPlayers()[i];
+            Player currentPlayer = gameMachine.getPlayer(i);
             currentPlayer.setRotation(workOutPlayerRotation(i));
 
             peterPiperPickedAPlacer.placePlaceableRelativeToAnchorPoint(currentPlayer.getPlayerDeck(), anchorX, anchorY,
                     PLAYER_DECK_PLACEMENT_X, PLAYER_DECK_PLACEMENT_Y, currentPlayer.getRotation(), peterPiperPickedAPlacer.workOutObjectRotation(currentPlayer.getRotation(), PLAYER_DECK_ROTATION));
 
-            peterPiperPickedAPlacer.placePlaceableRelativeToAnchorPoint(currentPlayer.getBoard().getPlayAreas()[i], anchorX, anchorY,
+            peterPiperPickedAPlacer.placePlaceableRelativeToAnchorPoint(currentPlayer.getBoard().getPlayArea(i), anchorX, anchorY,
                     BOARD_PLAYER_AREA_OFFSET_X, BOARD_PLAYER_AREA_OFFSET_Y, currentPlayer.getRotation(), peterPiperPickedAPlacer.workOutObjectRotation(currentPlayer.getRotation(), PLAYER_DECK_ROTATION));
 
-            peterPiperPickedAPlacer.placePlaceableRelativeToAnchorPoint(currentPlayer.getBoard().getCardHands()[i], placementX, placementY,
+            peterPiperPickedAPlacer.placePlaceableRelativeToAnchorPoint(currentPlayer.getBoard().getCardHand(i), placementX, placementY,
                     PLAYER_HAND_OFFSET_X, PLAYER_HAND_OFFSET_Y, currentPlayer.getRotation(), peterPiperPickedAPlacer.workOutObjectRotation(currentPlayer.getRotation(), PLAYER_DECK_ROTATION));
 
             float manaRelOffsetFromLast = 0;
@@ -179,7 +196,9 @@ public class TestLevel extends Level {
                 peterPiperPickedAPlacer.placePlaceableRelativeToAnchorPoint(mana, placementX, placementY, MANA_OFFSET_X + manaRelOffsetFromLast, MANA_OFFSET_Y, currentPlayer.getRotation(), peterPiperPickedAPlacer.workOutObjectRotation(currentPlayer.getRotation(), PLAYER_DECK_ROTATION));
                 manaRelOffsetFromLast += MANA_PADDING;
             }
-            // players[i].hero.setUpGamePiecePositions(); TODO
+
+            peterPiperPickedAPlacer.placePlaceableRelativeToAnchorPoint(currentPlayer.getHero(), anchorX, anchorY,
+                    HERO_OFFSET_X, HERO_OFFSET_Y, currentPlayer.getRotation(), peterPiperPickedAPlacer.workOutObjectRotation(currentPlayer.getRotation(), PLAYER_DECK_ROTATION));
         }
 
     }

@@ -1,6 +1,7 @@
 package test.puigames.courseofhistory.framework.game.assets.players.controllers;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -44,7 +45,8 @@ public class HumanCardGameController extends CardGameController implements Input
             if (menuButton.checkForInput(inputBuddy))
                 menuButton.applyAction();
 
-        switch (player.getPlayerCurrentState()) {
+        switch (player.getPlayerCurrentState())
+        {
             case TURN_ACTIVE:
                 updateCardsInHand(deltaTime);
                 updateCardsOnBoardPlayArea(deltaTime);
@@ -63,9 +65,11 @@ public class HumanCardGameController extends CardGameController implements Input
                 ArrayList<CharacterCard> cardsToBeSelectedForTossing = new ArrayList<>();
                 ArrayList<CharacterCard> cardsToBeDeselectedForTossing = new ArrayList<>();
 
-                for (Input.TouchEvent touchEvent : inputBuddy.getTouchEvents()) {
+                for (Input.TouchEvent touchEvent : inputBuddy.getTouchEvents())
+                {
                     //check cards to toss selection
-                    if(touchEvent.type == Input.TouchEvent.TOUCH_UP) {
+                    if (touchEvent.type == Input.TouchEvent.TOUCH_UP)
+                    {
                         for (CharacterCard card : player.getStartingHandSelector().getCardsToKeep())
                             if (card.getBoundingBox().isTouchOn(touchEvent))
                                 cardsToBeSelectedForTossing.add(card);
@@ -92,6 +96,7 @@ public class HumanCardGameController extends CardGameController implements Input
         cardCollisionCheckAndResolve(getPlayersCardsInCardHand());
         //Keep cards on board: don't check hand, causes issues
         keepCardsInBoardBounds(getPlayersCardsInPlayArea());
+    }
 
 //       if (player.playerCurrentState == Player.PlayerState.TURN_ACTIVE) {
             //For actual thing
@@ -113,14 +118,14 @@ public class HumanCardGameController extends CardGameController implements Input
 
    /* private void hideStartingHandCreationUI() {
         startingHandSelectionUI.remove(this.currentScreen);
-    }
+    }*/
 
 
 
     /**
      * Handles updating cards on the board: allows cards to attack if player indicates so/dragging cards around the board.
      * @param deltaTime - would be used for animations, should we have those
-     */
+    */
     private void updateCardsOnBoardPlayArea(float deltaTime) {
         if(inputBuddy.getTouchEvents().size() > 0) {
             Input.TouchEvent touchEvent = inputBuddy.getTouchEvents().get(0);
@@ -171,7 +176,7 @@ public class HumanCardGameController extends CardGameController implements Input
     private void updateHero(float deltaTime) {
         if (inputBuddy.getTouchEvents().size() > 0) {
             Input.TouchEvent touchEvent = inputBuddy.getTouchEvents().get(0);
-            if (checkIsTouched(touchEvent, player.getHero()) && touchEvent.type == Input.TouchEvent.TOUCH_DOWN) {
+            if (checkIsTouched(touchEvent, player.getHero()) && touchEvent.type == Input.TouchEvent.TOUCH_UP) {
                 Log.d("hero touched", "turn ended");
                 player.setPlayerCurrentState(Player.PlayerState.TURN_ENDED); //TODO: show end turn button - end turn button does this instead
             }

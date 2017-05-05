@@ -37,8 +37,7 @@ public class Scaler {
         }
     }
 
-    public void setScaleFactor(float viewportWidth, float viewportHeight)
-    {
+    private void setScaleFactor(float viewportWidth, float viewportHeight) {
         float scaleFactorX;
         float scaleFactorY;
         //For calculating scalefactor x

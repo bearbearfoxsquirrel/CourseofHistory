@@ -47,13 +47,10 @@ public class Board extends Sprite implements Drawable {
         super.initPlacement(spawnX, spawnY, rotation);
         for (int i = 0; i < cardHands.length; i++) {
             cardHands[i] = new CardHand(this.currentScreen);
-            playAreas[i] = new PlayArea(this.currentScreen, playAreaWidth, playAreaHeight);
             if(i == 0) {               //PLAYER 1 - bottom half of screen
-                cardHands[i] = new CardHand(this.currentScreen, halfWidth, CARD_HAND_POS_Y_PLAYER_1);
-                playAreas[i] = new PlayArea(this.currentScreen, PLAY_AREA_WIDTH, PLAY_AREA_HEIGHT, halfWidth, PLAY_AREA_POS_Y_PLAYER1);
+                playAreas[i] = new PlayArea(this.currentScreen, PLAY_AREA_WIDTH, PLAY_AREA_HEIGHT); //placed at 240
             } else {                  //PLAYER 2 - top half of screen
-                cardHands[i] = new CardHand(this.currentScreen, halfWidth, CARD_HAND_POS_Y_PLAYER_2);
-                playAreas[i] = new PlayArea(this.currentScreen, PLAY_AREA_WIDTH, PLAY_AREA_HEIGHT, halfWidth, PLAY_AREA_POS_Y_PLAYER2);
+                playAreas[i] = new PlayArea(this.currentScreen, PLAY_AREA_WIDTH, PLAY_AREA_HEIGHT);
             }
         }
     }

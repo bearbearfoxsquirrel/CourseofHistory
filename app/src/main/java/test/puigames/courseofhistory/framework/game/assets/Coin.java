@@ -11,7 +11,8 @@ import test.puigames.courseofhistory.framework.engine.screen.Screen;
  * Created by Jordan on 01/03/2017.
  */
 
-public class Coin extends Sprite {
+public class Coin extends Sprite
+{
     private Random rand; //for generating random number for flipping
     private Result faceUp = null;
     private Bitmap coinSides[]; //Note 0 is heads and 1 is tails
@@ -21,7 +22,8 @@ public class Coin extends Sprite {
         HEADS, TAILS
     }
 
-    public Coin(Screen screen, Bitmap[] coinSides, int width, int height) {
+    public Coin(Screen screen, Bitmap[] coinSides, int width, int height)
+    {
         super(screen, coinSides[0], width, height);
         this.coinSides = coinSides;
         this.rand = new Random();

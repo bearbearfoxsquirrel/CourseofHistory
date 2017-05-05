@@ -3,9 +3,11 @@ package test.puigames.courseofhistory.framework.game.assets;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Drawable;
+import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Origin;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.engine.screen.scaling.Scalable;
 import test.puigames.courseofhistory.framework.game.assets.players.events.Damageable;
@@ -28,12 +30,6 @@ public class Hero extends Sprite implements Drawable, Scalable.ImageScalable, Da
         this.currentHealth = MAX_HEALTH;
         paint.setColor(Color.rgb(255, 255, 255));
         paint.setTextSize(12);
-    }
-
-    @Override
-    public void place(Screen screen, float placementX, float placementY)
-    {
-        super.place(screen, placementX, placementY);
     }
 
     @Override

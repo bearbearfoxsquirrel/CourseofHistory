@@ -15,19 +15,25 @@ public class PlayArea extends CardArea
 {
     private static final float CARD_SCALE_FACTOR = 1.11f;
 
-    public PlayArea(Screen screen, int width, int height, float spawnX, float spawnY)
+    public PlayArea(Screen screen, int width, int height)
     {
-    public PlayArea(Screen screen, int width, int height) {
         super(screen, width, height);
         maxCardsInArea = 5; //number of cards you can have in play area
     }
 
     @Override
-    public void initPlacement(float spawnX, float spawnY, float rotation){
+    public void initPlacement(float spawnX, float spawnY, float rotation)
+    {
         super.initPlacement(spawnX, spawnY, rotation);
         setUpPositions();
     }
 
+    @Override
+    public void place(Screen screen, float placementX, float placementY, float rotation)
+    {
+        super.place(screen, placementX, placementY, rotation);
+        setUpPositions();
+    }
 
     @Override
     public void addCardToArea(CharacterCard card)
@@ -35,5 +41,6 @@ public class PlayArea extends CardArea
         if (!cardsInArea.contains(card))
             card.adjustCardSize(CARD_SCALE_FACTOR);
         super.addCardToArea(card);
+        positionCardsInArea();
     }
 }
