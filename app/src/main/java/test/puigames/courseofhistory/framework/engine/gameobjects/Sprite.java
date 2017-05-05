@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 
-import test.puigames.courseofhistory.framework.engine.gameobjects.properties.BoundingBox;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Drawable;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Origin;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Vector;
@@ -107,10 +106,6 @@ public abstract class Sprite extends GameObject implements Drawable, Scalable.Im
         this.height = height; this.halfHeight = (this.height/2);
     }
 
-    public Origin getOrigin() {
-        return origin;
-    }
-
     public void setOrigin(Origin origin) {
         this.origin = origin;
     }
@@ -124,8 +119,8 @@ public abstract class Sprite extends GameObject implements Drawable, Scalable.Im
     }
 
     @Override
-    public void place(Screen screen, float placementX, float placementY){
-        super.place(screen, placementX, placementY);
+    public void place(Screen screen, float placementX, float placementY, float rotation){
+        super.place(screen, placementX, placementY, rotation);
         if (!screen.getDrawables().contains(this))
             screen.getDrawables().add(this);
     }

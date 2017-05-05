@@ -14,6 +14,7 @@ import test.puigames.courseofhistory.framework.game.assets.players.events.Damage
  */
 
 public class CharacterCard extends Card implements Damageable.Attackable {
+    private static final float UI_ROTATION = 0.f;
     //variables
     private String name;
     private String description;
@@ -52,9 +53,9 @@ public class CharacterCard extends Card implements Damageable.Attackable {
         CheckStat(health, this.statImages[1]);
         CheckStat(attack, this.statImages[2]);
         UpdateCardStats();
-        statImages[0].place(screen, manaLocationX, manaLocationY);
-        statImages[1].place(screen, attackLocationX, attackLocationY);
-        statImages[2].place(screen, healthLocationX, healthLocationY);
+        statImages[0].place(screen, manaLocationX, manaLocationY, UI_ROTATION);
+        statImages[1].place(screen, attackLocationX, attackLocationY, UI_ROTATION);
+        statImages[2].place(screen, healthLocationX, healthLocationY, UI_ROTATION);
 
         paint.setColor(Color.rgb(255,255, 255));
         paint.setTextSize(12);
@@ -114,12 +115,12 @@ public class CharacterCard extends Card implements Damageable.Attackable {
     }
 
 
-    /*public void drawCardStats(Canvas canvas) {
+    public void drawCardStats(Canvas canvas) {
         //To update it
         canvas.drawText(Integer.toString(mana), (getOrigin().getOriginX())+manaLocationX, (getOrigin().getOriginX())+manaLocationY, paint);
         canvas.drawText(Integer.toString(attack), (getOrigin().getOriginX())+attackLocationX, (getOrigin().getOriginY())+attackLocationY, paint);
         canvas.drawText(Integer.toString(health), (getOrigin().getOriginX())+healthLocationX, (getOrigin().getOriginY())+healthLocationY, paint);
-    }*/
+    }
 
     public void attack(Damageable recipientOfThyFatalBlow) {
         recipientOfThyFatalBlow.applyDamage(this.attack);

@@ -5,7 +5,7 @@ import android.util.Log;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.screen.Menu;
-import test.puigames.courseofhistory.framework.engine.ui.ImageUIElement;
+import test.puigames.courseofhistory.framework.engine.ui.UIElement;
 import test.puigames.courseofhistory.framework.game.levels.TestLevel;
 
 /**
@@ -14,7 +14,8 @@ import test.puigames.courseofhistory.framework.game.levels.TestLevel;
 
 public class LoadingScreen extends Menu {
 
-    private ImageUIElement bgImage, logo;
+    private static final float UI_ROTATION = 0.f;
+    private UIElement bgImage, logo;
 
     private float bgImageWidth = 480.0f, bgImageHeight = 320.0f;
     private float bgImageCentreX = 240.0f, bgImageCentreY = 160.0f;
@@ -42,17 +43,17 @@ public class LoadingScreen extends Menu {
     public void load(){
         bgImage = null;
         try{
-            bgImage = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/backgrounds/loading_screen_background.png"),
+            bgImage = new UIElement(this, resourceFetcher.getBitmapFromFile("images/backgrounds/loading_screen_background.png"),
                     bgImageWidth, bgImageHeight);
-            logo = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/title/logo_base.png"),
+            logo = new UIElement(this, resourceFetcher.getBitmapFromFile("images/title/logo_base.png"),
                     logoWidth, logoHeight);
         }
         catch(NullPointerException e){
             Log.d("Error", "UI Element loading has failed");
         }
 
-        bgImage.place(this, bgImageCentreX, bgImageCentreY);
-        logo.place(this, logoCentreX, logoCentreY);
+        bgImage.place(this, bgImageCentreX, bgImageCentreY, UI_ROTATION);
+        logo.place(this, logoCentreX, logoCentreY, UI_ROTATION);
 
         uiElements.add(bgImage);
         uiElements.add(logo);
@@ -79,19 +80,19 @@ public class LoadingScreen extends Menu {
 
     }
 
-    public ImageUIElement getBgImage() {
+    public UIElement getBgImage() {
         return bgImage;
     }
 
-    public void setBgImage(ImageUIElement bgImage) {
+    public void setBgImage(UIElement bgImage) {
         this.bgImage = bgImage;
     }
 
-    public ImageUIElement getLogo() {
+    public UIElement getLogo() {
         return logo;
     }
 
-    public void setLogo(ImageUIElement logo) {
+    public void setLogo(UIElement logo) {
         this.logo = logo;
     }
 

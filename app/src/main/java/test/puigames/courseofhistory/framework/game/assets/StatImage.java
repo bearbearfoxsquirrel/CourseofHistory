@@ -3,7 +3,6 @@ package test.puigames.courseofhistory.framework.game.assets;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
-import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
 
@@ -26,18 +25,13 @@ public class StatImage extends Sprite {
     }
 
     @Override
-    public void setRotation(int rotation) {
+    public void setRotation(float rotation) {
         super.setRotation(rotation);
     }
 
     public enum Number
     {
         ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, UNASSIGNED
-    }
-
-    @Override
-    public void place(Screen screen, float placementX, float placementY) {
-        super.place(screen, placementX, placementY);
     }
 
     public void UpdateStats(){

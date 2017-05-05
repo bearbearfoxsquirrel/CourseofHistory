@@ -16,7 +16,7 @@ import test.puigames.courseofhistory.framework.engine.screen.scaling.Scalable;
  * Created by Christopher on 13/03/2017.
  */
 
-public abstract class UIElement implements Drawable, Scalable.ImageScalable, Placeable {
+public class UIElement implements Drawable, Scalable.ImageScalable, Placeable {
 
     protected Screen currentScreen;
     protected Bitmap image;
@@ -55,8 +55,8 @@ public abstract class UIElement implements Drawable, Scalable.ImageScalable, Pla
 
 
     @Override
-    public void place(Screen screen, float placementX, float placementY) {
-        initPlacement(placementX, placementY);
+    public void place(Screen screen, float placementX, float placementY, float rotation) {
+        initPlacement(placementX, placementY, rotation);
         screen.getScalables().add(this);
         screen.getDrawables().add(this);
     }
@@ -70,13 +70,21 @@ public abstract class UIElement implements Drawable, Scalable.ImageScalable, Pla
 
     @Override
     public void scale(float scaleFactorX, float scaleFactorY) {
-        this.getMatrix().postScale((this.getWidth() / this.getBitmap().getWidth()) * scaleFactorX,
-                (this.getHeight() / this.getBitmap().getHeight()) * scaleFactorY);
-        this.getMatrix().postRotate(0, scaleFactorX * this.getBitmap().getWidth()/ 2.0f,
-                scaleFactorY * this.getBitmap().getHeight() / 2.0f);
-        this.getMatrix().postTranslate((this.getOrigin().getOriginX() - this.getWidth() / 2) * scaleFactorX,
-                (this.getOrigin().getOriginY() - this.getHeight() / 2) * scaleFactorY);
+        getMatrix().reset(); // Resets the matrix for
+        getMatrix().postScale((getWidth() / getBitmap().getWidth()) * scaleFactorX, getHeight() / getBitmap().getHeight() * scaleFactorY); //Scales the object/image ratio by the scale factor
+        getMatrix().postRotate(getRotation(), getHalfWidth() * scaleFactorX, getHalfHeight() * scaleFactorY); //Rotates from the middle of the object on the screen
+        getMatrix().postTranslate((getPosX() - getWidth() / 2.f) * scaleFactorX, (getPosY() - getHeight() / 2.f) * scaleFactorY); //Translates the object by the scale factor
     }
+
+    //Method to setUpGamePiecePositions the UI Element on screen based on the middle of the object
+    //takes in a position and calculated with the origin
+    public void initPlacement(float spawnX, float spawnY, float rotation) {
+        this.origin = new Origin(spawnX, spawnY);
+        this.boundingBox = new BoundingBox(width, height, origin);
+        this.matrix = new Matrix();
+        this.rotation = rotation;
+    }
+
 
     //Getters and Setters
     Bitmap getImage() { return image; }
@@ -112,12 +120,12 @@ public abstract class UIElement implements Drawable, Scalable.ImageScalable, Pla
 
     @Override
     public float getPosX() {
-        return this.origin.x;
+        return this.origin.getOriginX();
     }
 
     @Override
     public float getPosY() {
-        return this.origin.y;
+        return this.origin.getOriginY();
     }
 
     @Override
@@ -145,13 +153,6 @@ public abstract class UIElement implements Drawable, Scalable.ImageScalable, Pla
         this.origin = origin;
     }
 
-    //Method to setUpGamePiecePositions the UI Element on screen based on the middle of the object
-    //takes in a position and calculated with the origin
-    public void initPlacement(float spawnX, float spawnY, float rotation) {
-        this.origin = new Origin(spawnX, spawnY);
-        this.boundingBox = new BoundingBox(width, height, origin);
-        this.matrix = new Matrix();
-        this.rotation = rotation;
     public Screen getCurrentScreen() {
         return currentScreen;
     }
@@ -168,17 +169,6 @@ public abstract class UIElement implements Drawable, Scalable.ImageScalable, Pla
         this.halfWidth = halfWidth;
     }
 
-    @Override
-    public void scale(float scaleFactorX, float scaleFactorY) {
-        this.getMatrix().reset();
-
-        this.getMatrix().postScale((this.getWidth() / this.getBitmap().getWidth()) * scaleFactorX,
-                (this.getHeight() / this.getBitmap().getHeight()) * scaleFactorY);
-        this.getMatrix().postRotate(getRotation(), getWidth() / 2 * scaleFactorX, getHeight() / 2 * scaleFactorY);
-        this.getMatrix().postTranslate((this.getOrigin().x - this.getWidth() / 2) * scaleFactorX,
-                (this.getOrigin().y - this.getHeight() / 2) * scaleFactorY);
-    }
-
     public void setHalfHeight(float halfHeight) {
         this.halfHeight = halfHeight;
     }
@@ -191,4 +181,7 @@ public abstract class UIElement implements Drawable, Scalable.ImageScalable, Pla
         this.paint = paint;
     }
 
+    public float getHalfHeight() {
+        return halfHeight;
+    }
 }

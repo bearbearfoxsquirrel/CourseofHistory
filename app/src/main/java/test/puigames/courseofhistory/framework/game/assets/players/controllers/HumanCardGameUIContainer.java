@@ -12,7 +12,6 @@ import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Pla
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Updateable;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.engine.screen.scaling.Scalable;
-import test.puigames.courseofhistory.framework.engine.ui.ImageUIElement;
 import test.puigames.courseofhistory.framework.engine.ui.MenuButton;
 import test.puigames.courseofhistory.framework.engine.ui.UIElement;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
@@ -83,7 +82,7 @@ public class HumanCardGameUIContainer implements Updateable, Placeable, Drawable
         this.endTurnButton = new MenuButton(currentScreen, endTurnButtonBitmap, END_TURN_BUTTON_WIDTH, END_TURN_BUTTON_HEIGHT) {
             @Override
             public void applyAction() {
-                player.playerCurrentState = Player.PlayerState.TURN_ENDED;
+                player.setPlayerCurrentState(Player.PlayerState.TURN_ENDED);
             }
         };
     }
@@ -92,21 +91,21 @@ public class HumanCardGameUIContainer implements Updateable, Placeable, Drawable
         this.origin = new Origin(spawnX, spawnY);
         this.matrix = new Matrix();
         this.rotation = rotation;
-        this.patrickPlacer = new Placer(this.currentScreen, origin.x, origin.y);
+        this.patrickPlacer = new Placer(this.currentScreen, getPosX(), getPosY());
     }
 
     @Override
     public void place(Screen screen, float placementX, float placementY, float rotation) {
         initPlacement(placementX, placementY, rotation);
         startTicking(screen);
-        if (!screen.scalables.contains(this))
-            screen.scalables.add(this);
+        if (!screen.getScalables().contains(this))
+            screen.getScalables().add(this);
     }
 
     @Override
     public void remove(Screen screen) {
-        if (screen.scalables.contains(this))
-            screen.scalables.remove(this);
+        if (screen.getScalables().contains(this))
+            screen.getScalables().remove(this);
 
         for (UIElement uiElement : uiElementsShown)
             uiElement.remove(screen);
@@ -128,10 +127,10 @@ public class HumanCardGameUIContainer implements Updateable, Placeable, Drawable
     }
 
     @Override
-    public float getPosX() { return this.origin.x; }
+    public float getPosX() { return this.origin.getOriginX(); }
 
     @Override
-    public float getPosY() { return this.origin.y; }
+    public float getPosY() { return this.origin.getOriginY(); }
 
     @Override
     public float getRotation() { return this.rotation; }
@@ -185,7 +184,7 @@ public class HumanCardGameUIContainer implements Updateable, Placeable, Drawable
     //TO CONTROL WHEN UI ELEMENTS ARE SHOWN USE THIS UPDATE METHOD
     @Override
     public void update(float deltaTime) {
-        switch (this.player.playerCurrentState) {
+        switch (this.player.getPlayerCurrentState()) {
             case TURN_ACTIVE:
                showMenuButton(endTurnButton, END_TURN_BUTTON_OFFSET_X, END_TURN_BUTTON_OFFSET_Y, 0);
                 break;
@@ -198,11 +197,11 @@ public class HumanCardGameUIContainer implements Updateable, Placeable, Drawable
                 if (!uiElementsShown.contains(startingHandSelectorUI))
                     showUIElement(startingHandSelectorUI, STARTING_HAND_SELECTOR_OFFSET_X, STARTING_HAND_SELECTOR_OFFSET_Y, 0);
 
-                for (ImageUIElement cardToTossOverlay : this.startingHandSelectorUI.getCardToTossOverlays())
+                for (UIElement cardToTossOverlay : this.startingHandSelectorUI.getCardToTossOverlays())
                     cardToTossOverlay.remove(currentScreen);
 
                 int overlayIndex = 0;
-                for (CharacterCard card : player.startingHandSelector.cardsToToss) {
+                for (CharacterCard card : player.getStartingHandSelector().getCardsToToss()) {
                     startingHandSelectorUI.getCardToTossOverlays()[overlayIndex].place(currentScreen, card.getPosX() + startingHandSelectorUI.CARD_SELECTED_OVERLAY_OFFSET_X, card.getPosY() + startingHandSelectorUI.CARD_SELECTED_OVERLAY_OFFSET_Y, startingHandSelectorUI.getAbsoluteRotation(0));
                     overlayIndex++;
                 }

@@ -2,7 +2,6 @@ package test.puigames.courseofhistory.framework.game.assets.players.controllers;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Updateable;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
-import test.puigames.courseofhistory.framework.game.assets.CardHand;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
 import test.puigames.courseofhistory.framework.game.assets.Mana;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
@@ -42,7 +41,8 @@ public class CourseOfHistoryMachine implements Updateable {
         this.turnTimeRemaining = TURN_TIME;
         this.board = board;
         this.manaCount = new int[players.length];
-        this.manaCount[0] = 0;  this.manaCount[1] = 0;
+        for (int i = 0; i < manaCount.length; i++)
+            manaCount[i] = 0;
     }
 
     private void startGame() {
@@ -103,14 +103,14 @@ public class CourseOfHistoryMachine implements Updateable {
 
                 } else {
                     //Handles each player creating their hand and checking if they are finished making their hand
-                    switch (players[turnIndex].playerCurrentState) {
+                    switch (players[turnIndex].getPlayerCurrentState()) {
                         case BEGIN_CREATING_STARTING_HAND:
                             players[turnIndex].createNewStartingHand();
-                            players[turnIndex].playerCurrentState = Player.PlayerState.STARTING_HAND_CHOOSING_CARDS_TO_TOSS;
+                            players[turnIndex].setPlayerCurrentState(Player.PlayerState.STARTING_HAND_CHOOSING_CARDS_TO_TOSS);
                             break;
 
                         case WAITING_TO_BEGIN_CREATING_HAND:
-                            players[turnIndex].playerCurrentState = Player.PlayerState.BEGIN_CREATING_STARTING_HAND;
+                            players[turnIndex].setPlayerCurrentState(Player.PlayerState.BEGIN_CREATING_STARTING_HAND);
                             break;
 
                         case FINISHED_CREATING_START_HAND:
@@ -206,7 +206,7 @@ public class CourseOfHistoryMachine implements Updateable {
         turnTimeRemaining = TURN_TIME;
         if (players[turnIndex].getPlayerDeck().size() != 0) {
             players[turnIndex].startTurn();
-            players[turnIndex].getBoard().getCardHands()[turnIndex].addToHand(players[turnIndex].drawCardFromDeck());
+            players[turnIndex].getBoard().getCardHands()[turnIndex].addCardToArea(players[turnIndex].drawCardFromDeck());
         }
 
         for (CharacterCard card : players[turnIndex].getBoard().getPlayAreas()[turnIndex].getCardsInArea()) {
@@ -237,7 +237,7 @@ public class CourseOfHistoryMachine implements Updateable {
     private void updateAndCheckTurnTimeRemaining(float deltaTime) {
         turnTimeRemaining -= deltaTime; //decrements their turn time by the delta time
         if (isOutOfTurnTime())
-            players[turnIndex].playerCurrentState = Player.PlayerState.TURN_ENDED; //Checks if the player's turn is over
+            players[turnIndex].setPlayerCurrentState( Player.PlayerState.TURN_ENDED); //Checks if the player's turn is over
     }
 
     private boolean isOutOfTurnTime(){

@@ -19,7 +19,7 @@ public abstract class MenuButton extends UIElement implements Drawable, UIAction
     @Override
     public boolean checkForInput(InputBuddy inputBuddy) {
         for (Input.TouchEvent touchEvent : inputBuddy.getTouchEvents())
-            if (this.boundingBox.isTouchOn(touchEvent))
+            if (this.boundingBox.isTouchOn(touchEvent) && touchEvent.type == Input.TouchEvent.TOUCH_UP)
                 return true;
         return false;
     }

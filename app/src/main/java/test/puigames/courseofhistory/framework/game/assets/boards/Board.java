@@ -1,7 +1,6 @@
 package test.puigames.courseofhistory.framework.game.assets.boards;
 
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Drawable;
@@ -35,8 +34,8 @@ public class Board extends Sprite implements Drawable {
     public void initPlacement(float spawnX, float spawnY, float rotation) {
         super.initPlacement(spawnX, spawnY, rotation);
         for (int i = 0; i < cardHands.length; i++) {
-            cardHands[i] = new CardHand(this.currentScrren);
-            playAreas[i] = new PlayArea(this.currentScrren, playAreaWidth, playAreaHeight);
+            cardHands[i] = new CardHand(this.currentScreen);
+            playAreas[i] = new PlayArea(this.currentScreen, playAreaWidth, playAreaHeight);
         }
     }
 

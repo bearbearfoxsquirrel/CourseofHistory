@@ -65,20 +65,20 @@ public class HumanCardGameController extends CardGameController implements Input
                 for (Input.TouchEvent touchEvent : inputBuddy.getTouchEvents()) {
                     //check cards to toss selection
                     if(touchEvent.type == Input.TouchEvent.TOUCH_UP) {
-                        for (CharacterCard card : player.startingHandSelector.cardsToKeep)
-                            if (card.boundingBox.isTouchOn(touchEvent))
+                        for (CharacterCard card : player.getStartingHandSelector().getCardsToKeep())
+                            if (card.getBoundingBox().isTouchOn(touchEvent))
                                 cardsToBeSelectedForTossing.add(card);
 
                         for (CharacterCard card : cardsToBeSelectedForTossing)
-                            player.startingHandSelector.selectCardToToss(card);
+                            player.getStartingHandSelector().selectCardToToss(card);
 
                         //Check cards to keep selection
-                        for (CharacterCard card : player.startingHandSelector.cardsToToss)
-                            if (card.boundingBox.isTouchOn(touchEvent) && !cardsToBeSelectedForTossing.contains(card))
+                        for (CharacterCard card : player.getStartingHandSelector().getCardsToToss())
+                            if (card.getBoundingBox().isTouchOn(touchEvent) && !cardsToBeSelectedForTossing.contains(card))
                                 cardsToBeDeselectedForTossing.add(card);
 
                         for (CharacterCard card : cardsToBeDeselectedForTossing)
-                            player.startingHandSelector.deselectCardToToss(card);
+                            player.getStartingHandSelector().deselectCardToToss(card);
 
                         cardsToBeSelectedForTossing.clear();
                         cardsToBeDeselectedForTossing.clear();
@@ -110,8 +110,8 @@ public class HumanCardGameController extends CardGameController implements Input
             updatePlayersStartingHand();
         }*/
 
-        collisionCheckAndResolve(player.board.playAreas[player.playerNumber]);
-        collisionCheckAndResolve(player.board.cardHands[player.playerNumber]);
+        collisionCheckAndResolve(player.getBoard().getPlayAreas()[player.getPlayerNumber()]);
+        collisionCheckAndResolve(player.getBoard().getCardHands()[player.getPlayerNumber()]);
     }
 
 
@@ -236,15 +236,6 @@ public class HumanCardGameController extends CardGameController implements Input
     public void setInputBuddy(InputBuddy inputBuddy) {
         this.inputBuddy = inputBuddy;
     }
-
-    public Screen getCurrentScreen() {
-        return currentScreen;
-    }
-
-    public void setCurrentScreen(Screen currentScreen) {
-        this.currentScreen = currentScreen;
-    }
-
 
     @Override
     public void startTicking(Screen screen) {

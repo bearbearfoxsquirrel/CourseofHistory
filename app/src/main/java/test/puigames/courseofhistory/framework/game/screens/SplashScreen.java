@@ -5,7 +5,7 @@ import android.util.Log;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.screen.Menu;
-import test.puigames.courseofhistory.framework.engine.ui.ImageUIElement;
+import test.puigames.courseofhistory.framework.engine.ui.UIElement;
 
 /**
  * Created by Christopher on 24/11/2016.
@@ -13,7 +13,9 @@ import test.puigames.courseofhistory.framework.engine.ui.ImageUIElement;
 
 public class SplashScreen extends Menu {
 
-    private ImageUIElement logo;
+    private static final float UI_ROTATION = 0.f;
+
+    private UIElement logo;
     private float bgImageWidth = 480.0f, bgImageHeight = 320.0f;
     private float bgImageX = 240.0f, bgImageY = 160.0f;
 
@@ -27,7 +29,7 @@ public class SplashScreen extends Menu {
     @Override
     public void load() {
         try {
-            logo = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png"),
+            logo = new UIElement(this, resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png"),
                     bgImageWidth, bgImageHeight);
         }
         catch(NullPointerException e) {
@@ -35,7 +37,7 @@ public class SplashScreen extends Menu {
             this.gameProperties.setScreen(new SplashScreen(this.gameProperties));
         }
 
-        logo.place(this, bgImageX, bgImageY);
+        logo.place(this, bgImageX, bgImageY, UI_ROTATION);
 
         uiElements.add(logo);
     }
@@ -72,11 +74,11 @@ public class SplashScreen extends Menu {
     }
 
     //Getters and Setters
-    public ImageUIElement getLogo() {
+    public UIElement getLogo() {
         return logo;
     }
 
-    public void setLogo(ImageUIElement logo) {
+    public void setLogo(UIElement logo) {
         this.logo = logo;
     }
 

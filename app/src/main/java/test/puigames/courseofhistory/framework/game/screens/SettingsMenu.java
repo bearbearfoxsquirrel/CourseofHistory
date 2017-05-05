@@ -5,7 +5,7 @@ import android.graphics.Canvas;
 import android.util.Log;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
-import test.puigames.courseofhistory.framework.engine.ui.ImageUIElement;
+import test.puigames.courseofhistory.framework.engine.ui.UIElement;
 import test.puigames.courseofhistory.framework.engine.screen.Menu;
 import test.puigames.courseofhistory.framework.engine.ui.MenuButton;
 
@@ -17,7 +17,9 @@ import test.puigames.courseofhistory.framework.engine.ui.MenuButton;
 
 public class SettingsMenu extends Menu {
 
-    private ImageUIElement backgroundSettings;
+    private static final float UI_ROTATION = 0.f;
+
+    private UIElement backgroundSettings;
 
     private MenuButton back;
 
@@ -52,15 +54,15 @@ public class SettingsMenu extends Menu {
 
     public void load(){
         try {
-            backgroundSettings = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/backgrounds/settings_background.png"),
+            backgroundSettings = new UIElement(this, resourceFetcher.getBitmapFromFile("images/backgrounds/settings_background.png"),
                     bgImageWidth, bgImageHeight);
         }
         catch(NullPointerException e){
             Log.d("Error", "UI Element loading has failed");
         }
 
-        backgroundSettings.place(this, bgImageX, bgImageY);
-        back.place(this, backCentreX, backCentreY);
+        backgroundSettings.place(this, bgImageX, bgImageY, UI_ROTATION);
+        back.place(this, backCentreX, backCentreY, UI_ROTATION);
 
         uiElements.add(backgroundSettings);
         uiElements.add(back);
@@ -86,11 +88,11 @@ public class SettingsMenu extends Menu {
 
     }
 
-    public ImageUIElement getBackgroundSettings() {
+    public UIElement getBackgroundSettings() {
         return backgroundSettings;
     }
 
-    public void setBackgroundSettings(ImageUIElement backgroundSettings) { this.backgroundSettings = backgroundSettings; }
+    public void setBackgroundSettings(UIElement backgroundSettings) { this.backgroundSettings = backgroundSettings; }
 
     public MenuButton getBack() {
         return back;

@@ -19,7 +19,7 @@ public class Player {
     private int playerNumber;
     private PlayerState playerCurrentState;
     private CharacterCard[] testCards;
-    private final int MAX_MANA = 10;
+    public final int MAX_MANA = 10;
     private Mana[] mana = new Mana[MAX_MANA];
     private int currentMana;
     private Deck playerDeck;
@@ -30,8 +30,8 @@ public class Player {
 
 
     public void confirmSelectedCardsFromStartingHandSelector() {
-        for (CharacterCard card : startingHandSelector.cardsToKeep)
-            board.cardHands[playerNumber].addCardToArea(card);
+        for (CharacterCard card : startingHandSelector.getCardsToKeep())
+            board.getCardHands()[playerNumber].addCardToArea(card);
     }
 
 

@@ -3,7 +3,6 @@ package test.puigames.courseofhistory.framework.game.assets.players.controllers;
 import android.graphics.Bitmap;
 
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
-import test.puigames.courseofhistory.framework.engine.ui.ImageUIElement;
 import test.puigames.courseofhistory.framework.engine.ui.MenuButton;
 import test.puigames.courseofhistory.framework.engine.ui.TextUIElement;
 import test.puigames.courseofhistory.framework.engine.ui.UIElement;
@@ -44,7 +43,7 @@ public class StartingHandSelectionUI extends UIElement {
     public MenuButton confirmationButton;
     private Placer placer;
 
-    private ImageUIElement[] cardToTossOverlays;
+    private UIElement[] cardToTossOverlays;
 
     public Player player;
     //TODO add highlight bitmap
@@ -53,17 +52,17 @@ public class StartingHandSelectionUI extends UIElement {
         super(screen, uIBackground, STARTING_HAND_SELECTOR_WIDTH, STARTING_HAND_SELECTOR_HEIGHT);
         this.player = player;
 
-        this.title = new TextUIElement(screen, "Player " + (player.playerNumber + 1) + "select your cards to toss", TITLE_TEXT_SIZE);
+        this.title = new TextUIElement(screen, "Player " + (player.getPlayerNumber() + 1) + "select your cards to toss", TITLE_TEXT_SIZE);
 
         //Setting up the array of overlays to be placed
-        this.cardToTossOverlays = new ImageUIElement[player.startingHandSelector.STARTING_HAND_SIZE];
+        this.cardToTossOverlays = new UIElement[player.getStartingHandSelector().STARTING_HAND_SIZE];
         for (int i = 0; i < cardToTossOverlays.length; i++)
-            cardToTossOverlays[i] = new ImageUIElement(currentScreen, selectedCardToTossOverlay, 30, 30);
+            cardToTossOverlays[i] = new UIElement(currentScreen, selectedCardToTossOverlay, 30, 30);
 
         this.confirmationButton = new PlayerButton(this.currentScreen, this.player, confirmationButtonBitmap, CONFIRMATION_BUTTON_WIDTH, CONFIRMATION_BUTTON_HEIGHT) {
             @Override
             public void applyAction() {
-                player.playerCurrentState = Player.PlayerState.FINISHED_CREATING_START_HAND;
+                player.setPlayerCurrentState(Player.PlayerState.FINISHED_CREATING_START_HAND);
             }
         };
     }
@@ -77,16 +76,17 @@ public class StartingHandSelectionUI extends UIElement {
 
             @Override
             public void applyAction() {
-                player.playerCurrentState = Player.PlayerState.FINISHED_CREATING_START_HAND;
+                player.setPlayerCurrentState(Player.PlayerState.FINISHED_CREATING_START_HAND);
             }
         };
     }
 
+
     private void resizeAllCardsInSelector(StartingHandSelector startingHandSelector) {
-        for(CharacterCard card : startingHandSelector.cardsToKeep)
+        for(CharacterCard card : startingHandSelector.getCardsToKeep())
             adjustCardSize(card);
 
-        for(CharacterCard card : startingHandSelector.cardsToToss)
+        for(CharacterCard card : startingHandSelector.getCardsToToss())
             adjustCardSize(card);
     }
 
@@ -99,10 +99,10 @@ public class StartingHandSelectionUI extends UIElement {
     public void remove(Screen screen) {
         super.remove(screen);
 
-        for (CharacterCard card : player.startingHandSelector.cardsToKeep)
+        for (CharacterCard card : player.getStartingHandSelector().getCardsToKeep())
             card.remove(screen);
 
-        for (CharacterCard card : player.startingHandSelector.cardsToToss)
+        for (CharacterCard card : player.getStartingHandSelector().getCardsToToss())
             card.remove(screen);
 
         confirmationButton.remove(screen);
@@ -124,11 +124,11 @@ public class StartingHandSelectionUI extends UIElement {
         placer.placePlaceableRelativeToAnchorPoint(confirmationButton, CONFIRMATION_BUTTON_OFFSET_X, CONFIRMATION_BUTTON_OFFSET_Y, this.rotation, getAbsoluteRotation(CONFIRMATION_BUTTON_ROTATION));
 
         float currentCardPaddingX = 0;
-        for (CharacterCard card : player.startingHandSelector.cardsToKeep) {
+        for (CharacterCard card : player.getStartingHandSelector().getCardsToKeep()) {
             placer.placePlaceableRelativeToAnchorPoint(card, FIRST_CARD_OFFSET_X + currentCardPaddingX, FIRST_CARD_OFFSET_Y, this.rotation, getAbsoluteRotation(CARD_ROTATION));
             currentCardPaddingX += card.getWidth() + CARD_PADDING_X;
         }
-        resizeAllCardsInSelector(player.startingHandSelector);
+        resizeAllCardsInSelector(player.getStartingHandSelector());
         placer.placePlaceableRelativeToAnchorPoint(title, 0.f, -50.f, this.rotation, getAbsoluteRotation(0));
     }
 
@@ -140,7 +140,7 @@ public class StartingHandSelectionUI extends UIElement {
         return getPosY() + offsetY;
     }
 
-    public ImageUIElement[] getCardToTossOverlays() {
+    public UIElement[] getCardToTossOverlays() {
         return cardToTossOverlays;
     }
 }

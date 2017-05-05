@@ -25,8 +25,6 @@ public class Deck extends Stack implements Placeable, Scalable.ImageScalable, Dr
     private Screen currentScreen;
     private Matrix matrix;
     private Origin origin;
-    private float width;
-    private float height;
 
     private float rotation;
 
@@ -126,12 +124,12 @@ public class Deck extends Stack implements Placeable, Scalable.ImageScalable, Dr
 
     @Override
     public float getPosX() {
-        return origin.x;
+        return origin.getOriginX();
     }
 
     @Override
     public float getPosY() {
-        return origin.y;
+        return origin.getOriginY();
     }
 
     @Override

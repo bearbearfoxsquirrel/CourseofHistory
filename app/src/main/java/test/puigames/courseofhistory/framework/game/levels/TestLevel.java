@@ -10,7 +10,6 @@ import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
 import test.puigames.courseofhistory.framework.game.assets.Deck;
 import test.puigames.courseofhistory.framework.game.assets.Mana;
-import test.puigames.courseofhistory.framework.game.assets.StartingHandSelectionUI;
 import test.puigames.courseofhistory.framework.game.assets.StatImage;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
@@ -98,13 +97,13 @@ public class TestLevel extends Level {
 
            //creating the game machine for processing the game
            gameMachine = new CourseOfHistoryMachine(players, coin, board);
-           setUpGamePiecePositions(this, viewport.centerX, viewport.centerY);
+           setUpGamePiecePositions(this, viewport.getCenterX(), viewport.getCenterY());
 
            Controlling[] controllers = new HumanCardGameController[CourseOfHistoryMachine.PLAYER_COUNT];
            //Giving the controllers possession of the corresponding player in the game machine
            for (int i = 0; i < controllers.length; i++) {
                //UI is placed at the center of Viewport
-               controllers[i] = new HumanCardGameController(this, inputBuddy, gameMachine.players[i], resourceFetcher.getBitmapFromFile("images/backgrounds/starting_hand_selection_ui_background.png"), resourceFetcher.getBitmapFromFile("images/buttons/confirmation_button.png"), resourceFetcher.getBitmapFromFile("images/buttons/confirmation_button.png"), resourceFetcher.getBitmapFromFile("images/buttons/end_turn_button.png"), viewport.centerX, viewport.centerY );
+               controllers[i] = new HumanCardGameController(this, inputBuddy, gameMachine.getPlayers()[i], resourceFetcher.getBitmapFromFile("images/backgrounds/starting_hand_selection_ui_background.png"), resourceFetcher.getBitmapFromFile("images/buttons/confirmation_button.png"), resourceFetcher.getBitmapFromFile("images/buttons/confirmation_button.png"), resourceFetcher.getBitmapFromFile("images/buttons/end_turn_button.png"), viewport.getCenterX(), viewport.getCenterY() );
            }
 
            gameMachine.startTicking(this);
@@ -126,27 +125,27 @@ public class TestLevel extends Level {
     }
 
     private void setUpGamePiecePositions(Screen screen, float placementX, float placementY) {
-        gameMachine.board.place(screen, peterPiperPickedAPlacer.findAbsolutePosition(placementX, BOARD_OFFSET_X), peterPiperPickedAPlacer.findAbsolutePosition(placementY, BOARD_OFFSET_Y), 0);
+        gameMachine.getBoard().place(screen, peterPiperPickedAPlacer.findAbsolutePosition(placementX, BOARD_OFFSET_X), peterPiperPickedAPlacer.findAbsolutePosition(placementY, BOARD_OFFSET_Y), 0);
 
-        float anchorX = gameMachine.board.getPosX();
-        float anchorY = gameMachine.board.getPosY();
+        float anchorX = gameMachine.getBoard().getPosX();
+        float anchorY = gameMachine.getBoard().getPosY();
 
-        for(int i = 0; i < gameMachine.players.length; i++) {
+        for(int i = 0; i < gameMachine.getPlayers().length; i++) {
             //Find player rotation
-            Player currentPlayer = gameMachine.players[i];
+            Player currentPlayer = gameMachine.getPlayers()[i];
             currentPlayer.setRotation(workOutPlayerRotation(i));
 
-            peterPiperPickedAPlacer.placePlaceableRelativeToAnchorPoint(currentPlayer.playerDeck, anchorX, anchorY,
+            peterPiperPickedAPlacer.placePlaceableRelativeToAnchorPoint(currentPlayer.getPlayerDeck(), anchorX, anchorY,
                     PLAYER_DECK_PLACEMENT_X, PLAYER_DECK_PLACEMENT_Y, currentPlayer.getRotation(), peterPiperPickedAPlacer.workOutObjectRotation(currentPlayer.getRotation(), PLAYER_DECK_ROTATION));
 
-            peterPiperPickedAPlacer.placePlaceableRelativeToAnchorPoint(currentPlayer.board.playAreas[i], anchorX, anchorY,
+            peterPiperPickedAPlacer.placePlaceableRelativeToAnchorPoint(currentPlayer.getBoard().getPlayAreas()[i], anchorX, anchorY,
                     BOARD_PLAYER_AREA_OFFSET_X, BOARD_PLAYER_AREA_OFFSET_Y, currentPlayer.getRotation(), peterPiperPickedAPlacer.workOutObjectRotation(currentPlayer.getRotation(), PLAYER_DECK_ROTATION));
 
-            peterPiperPickedAPlacer.placePlaceableRelativeToAnchorPoint(currentPlayer.board.cardHands[i], placementX, placementY,
+            peterPiperPickedAPlacer.placePlaceableRelativeToAnchorPoint(currentPlayer.getBoard().getCardHands()[i], placementX, placementY,
                     PLAYER_HAND_OFFSET_X, PLAYER_HAND_OFFSET_Y, currentPlayer.getRotation(), peterPiperPickedAPlacer.workOutObjectRotation(currentPlayer.getRotation(), PLAYER_DECK_ROTATION));
 
             float manaRelOffsetFromLast = 0;
-            for (Mana mana : currentPlayer.mana) {
+            for (Mana mana : currentPlayer.getMana()) {
                 peterPiperPickedAPlacer.placePlaceableRelativeToAnchorPoint(mana, placementX, placementY, MANA_OFFSET_X + manaRelOffsetFromLast, MANA_OFFSET_Y, currentPlayer.getRotation(), peterPiperPickedAPlacer.workOutObjectRotation(currentPlayer.getRotation(), PLAYER_DECK_ROTATION));
                 manaRelOffsetFromLast += MANA_PADDING;
             }

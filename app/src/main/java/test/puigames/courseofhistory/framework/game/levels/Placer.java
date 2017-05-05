@@ -27,13 +27,13 @@ public class Placer {
     public void placePlaceableRelativeToAnchorPoint(Placeable placeable, float anchorPosX, float anchorPosY, float offsetX, float offsetY, float rotationAroundAnchor, float placeableRotation) {
         //Placing the object where it should be
         Origin rotatedPlacement = findObsolutePositionRelativeToAnchor(anchorPosX, anchorPosY, offsetX, offsetY, rotationAroundAnchor);
-        placeable.place(screenToPlaceTo, rotatedPlacement.x, rotatedPlacement.y, placeableRotation);
+        placeable.place(screenToPlaceTo, rotatedPlacement.getOriginX(), rotatedPlacement.getOriginY(), placeableRotation);
     }
 
     public void placePlaceableRelativeToAnchorPoint(Placeable placeable, float offsetX, float offsetY, float rotationAroundAnchor, float placeableRotation) {
         //Placing the object where it should be
         Origin rotatedPlacement = findObsolutePositionRelativeToAnchor(this.anchorPosX, this.anchorPosY, offsetX, offsetY, rotationAroundAnchor);
-        placeable.place(screenToPlaceTo, rotatedPlacement.x, rotatedPlacement.y, placeableRotation);
+        placeable.place(screenToPlaceTo, rotatedPlacement.getOriginX(), rotatedPlacement.getOriginY(), placeableRotation);
     }
 
 

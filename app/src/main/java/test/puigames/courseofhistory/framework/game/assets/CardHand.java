@@ -32,7 +32,7 @@ public class CardHand extends CardArea {
         if(cardsInArea.size() < maxCardsInArea) {
             characterCard.adjustCardSize(CARD_SCALE_FACTOR);
             super.addCardToArea(characterCard);
-            characterCard.place(this.currentScrren, positions[cardsInArea.size() - 1].x, positions[cardsInArea.size() - 1].y, this.rotation);
+            characterCard.place(this.currentScreen, positions[cardsInArea.size() - 1].getOriginX(), positions[cardsInArea.size() - 1].getOriginY(), this.rotation);
             positionCardsInArea();
         }
 
@@ -66,13 +66,5 @@ public class CardHand extends CardArea {
 
     public void setPositionPadding(float positionPadding) {
         this.positionPadding = positionPadding;
-    }
-
-    public boolean isAi() {
-        return isAi;
-    }
-
-    public void setAi(boolean ai) {
-        isAi = ai;
     }
 }

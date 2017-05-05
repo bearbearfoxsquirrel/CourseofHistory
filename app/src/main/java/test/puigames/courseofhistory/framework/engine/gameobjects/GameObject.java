@@ -14,7 +14,7 @@ import test.puigames.courseofhistory.framework.engine.screen.scaling.Scalable;
  */
 
 public abstract class GameObject implements Updateable, Placeable, Scalable {
-    protected Screen currentScrren;
+    protected Screen currentScreen;
     protected float width, halfWidth;
     protected float height, halfHeight;
     private BoundingBox boundingBox;
@@ -23,7 +23,7 @@ public abstract class GameObject implements Updateable, Placeable, Scalable {
     protected float overlapAllowance; //default overlap allowance
     protected final float MAX_OVERLAP_ALLOWANCE = 1.0f;
     protected final float MIN_OVERLAP_ALLOWANCE = 0.0f;
-    protected int rotation = 0;
+    protected float rotation = 0;
 
 
     public GameObject(Screen screen, int width, int height) {
@@ -32,7 +32,7 @@ public abstract class GameObject implements Updateable, Placeable, Scalable {
         this.height = height;
         this.halfHeight = (height / 2);
         this.overlapAllowance = MIN_OVERLAP_ALLOWANCE;
-        this.currentScrren = screen;
+        this.currentScreen = screen;
     }
 
     protected void initPlacement(float spawnX, float spawnY, float rotation) {
@@ -61,11 +61,6 @@ public abstract class GameObject implements Updateable, Placeable, Scalable {
     @Override
     public Matrix getMatrix() {
         return this.matrix;
-    }
-
-    @Override
-    public Origin getOrigin() {
-        return this.origin;
     }
 
     @Override
@@ -110,13 +105,11 @@ public abstract class GameObject implements Updateable, Placeable, Scalable {
 
     @Override
     public float getPosX() {
-        return origin.x;
+        return origin.getOriginX();
     }
 
     @Override
-    public float getPosY() {
-        return origin.y;
-    }
+    public float getPosY() {return origin.getOriginY();}
 
     @Override
     public float getRotation() {
@@ -127,20 +120,16 @@ public abstract class GameObject implements Updateable, Placeable, Scalable {
 
     public float getHalfWidth() {return halfWidth;}
 
-    public Screen getCurrentScrren() {
-        return currentScrren;
+    public Screen getCurrentScreen() {
+        return currentScreen;
     }
 
-    public void setCurrentScrren(Screen currentScrren) {
-        this.currentScrren = currentScrren;
+    public void setCurrentScreen(Screen currentScreen) {
+        this.currentScreen = currentScreen;
     }
 
     public void setWidth(float width) {
         this.width = width;
-    }
-
-    public float getHalfWidth() {
-        return halfWidth;
     }
 
     public void setHalfWidth(float halfWidth) {
@@ -149,10 +138,6 @@ public abstract class GameObject implements Updateable, Placeable, Scalable {
 
     public void setHeight(float height) {
         this.height = height;
-    }
-
-    public float getHalfHeight() {
-        return halfHeight;
     }
 
     public void setHalfHeight(float halfHeight) {
@@ -179,9 +164,7 @@ public abstract class GameObject implements Updateable, Placeable, Scalable {
         return overlapAllowance;
     }
 
-    public void setOverlapAllowance(float overlapAllowance) {
-        this.overlapAllowance = overlapAllowance;
-    }
+    public void setOverlapAllowance(float overlapAllowance) {this.overlapAllowance = overlapAllowance;}
 
     public float getMAX_OVERLAP_ALLOWANCE() {
         return MAX_OVERLAP_ALLOWANCE;
@@ -191,11 +174,11 @@ public abstract class GameObject implements Updateable, Placeable, Scalable {
         return MIN_OVERLAP_ALLOWANCE;
     }
 
-    public int getRotation() {
-        return rotation;
+    public void setRotation(float rotation) {
+        this.rotation = rotation;
     }
 
-    public void setRotation(int rotation) {
-        this.rotation = rotation;
+    public Origin getOrigin() {
+        return origin;
     }
 }
