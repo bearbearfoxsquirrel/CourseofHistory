@@ -42,7 +42,6 @@ public class StartingHandSelectionUI extends UIElement {
     private static final int TITLE_TEXT_SIZE = 10;
 
     public MenuButton confirmationButton;
-    private Bitmap confirmationButtonBitmap;
     private Placer placer;
 
     private ImageUIElement[] cardToTossOverlays;
@@ -53,7 +52,6 @@ public class StartingHandSelectionUI extends UIElement {
     public StartingHandSelectionUI(Screen screen, Player player, Bitmap uIBackground, Bitmap confirmationButtonBitmap,  Bitmap selectedCardToTossOverlay) {
         super(screen, uIBackground, STARTING_HAND_SELECTOR_WIDTH, STARTING_HAND_SELECTOR_HEIGHT);
         this.player = player;
-        this.confirmationButtonBitmap = confirmationButtonBitmap;
 
         this.title = new TextUIElement(screen, "Player " + (player.playerNumber + 1) + "select your cards to toss", TITLE_TEXT_SIZE);
 
@@ -73,7 +71,6 @@ public class StartingHandSelectionUI extends UIElement {
     public StartingHandSelectionUI(Screen screen, Placer placer, Player player, Bitmap uIBackground, Bitmap confirmationButtonBitmap) {
         super(screen, uIBackground, STARTING_HAND_SELECTOR_WIDTH, STARTING_HAND_SELECTOR_HEIGHT);
         this.player = player;
-        this.confirmationButtonBitmap = confirmationButtonBitmap;
         this.placer = placer;
 
         this.confirmationButton = new PlayerButton(this.currentScreen, this.player, confirmationButtonBitmap, CONFIRMATION_BUTTON_WIDTH, CONFIRMATION_BUTTON_HEIGHT) {
