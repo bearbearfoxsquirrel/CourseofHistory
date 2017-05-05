@@ -2,19 +2,18 @@ package test.puigames.courseofhistory.framework.game.assets.cards;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.game.assets.StatImage;
 import test.puigames.courseofhistory.framework.game.assets.players.events.Damageable;
+import test.puigames.courseofhistory.framework.game.levels.Placer;
 
 /**
  * Created by Tommy on 23/11/2016.
  */
 
 public class CharacterCard extends Card implements Damageable.Attackable {
-    private static final float UI_ROTATION = 0.f;
     //variables
     private String name;
     private String description;
@@ -31,6 +30,12 @@ public class CharacterCard extends Card implements Damageable.Attackable {
     private float attackLocationY = 60f;
     private float healthLocationX = 40f;
     private float healthLocationY = 60f;
+
+    private Placer perryPlacablePlacer;
+
+    private float[] statLocationsX = {-10, 5, 5};
+    private float[] statLocationsY = {-25, 20, 20};
+
     private StatImage [] statImages = new StatImage[3];
 
 
@@ -38,6 +43,9 @@ public class CharacterCard extends Card implements Damageable.Attackable {
         super(screen, cardImage);
         this.name = name;
         this.description = description;
+
+        this.perryPlacablePlacer = new Placer(screen);
+
         this.mana = mana;
         this.attack = attack;
         this.health = health;
@@ -45,27 +53,21 @@ public class CharacterCard extends Card implements Damageable.Attackable {
         this.currentAttackEnergy = 1;
         this.maxAttackEnergy = 1;
 
-        for(int i = 0; i < statImages.length; i++){
-            this.statImages[i] = statImages[i];
-        }
 
-        CheckStat(mana,this.statImages[0]);
+        for(int i = 0; i < statImages.length; i++)
+            this.statImages[i] = statImages[i];
+
+        CheckStat(mana, this.statImages[0]);
         CheckStat(health, this.statImages[1]);
         CheckStat(attack, this.statImages[2]);
-        UpdateCardStats();
-        statImages[0].place(screen, manaLocationX, manaLocationY, UI_ROTATION);
-        statImages[1].place(screen, attackLocationX, attackLocationY, UI_ROTATION);
-        statImages[2].place(screen, healthLocationX, healthLocationY, UI_ROTATION);
-
-        paint.setColor(Color.rgb(255,255, 255));
-        paint.setTextSize(12);
     }
 
     public void UpdateCardStats(){
         for(int i = 0; i < statImages.length; i++){
-            statImages[i].UpdateStats();
-            statImages[i].setRotation(rotation);
-
+            perryPlacablePlacer.placePlaceableRelativeToAnchorPoint(statImages[i], getPosX(), getPosY(), statLocationsX[i], statLocationsY[i], this.rotation, this.rotation);
+            //    statImages[i].updateStats();
+        //    statImages[i].setRotation(rotation);
+         //   statImages[i].getOrigin().setOrigin(getPosX() + statLocationsX[i], getPosY() + statLocationsY[i]);
         }
     }
 
@@ -109,17 +111,35 @@ public class CharacterCard extends Card implements Damageable.Attackable {
     }
 
     @Override
-    public void draw(Canvas canvas, float deltatime){
-        super.draw(canvas, deltatime);
-        drawCardStats(canvas);
+    public void place(Screen screen, float placementX, float placementY, float rotation){
+        super.place(screen, placementX, placementY, rotation);
+
+        for(int i = 0; i < statImages.length; i++){
+            perryPlacablePlacer.placePlaceableRelativeToAnchorPoint(statImages[i], getPosX(), getPosY(), statLocationsX[i], statLocationsY[i], this.rotation, this.rotation);
+            //statImages[i].place(screen, statLocationsX[i] + getPosX(), getPosY() + statLocationsY[i], rotation);
+        }
+        UpdateCardStats();
+    }
+
+    @Override
+    public void draw(Canvas canvas, float deltaTime){
+        super.draw(canvas, deltaTime);
+        drawCardStats(canvas, deltaTime);
+    }
+
+    @Override
+    public void update(float deltaTime) {
+        super.update(deltaTime);
+        UpdateCardStats();
     }
 
 
-    public void drawCardStats(Canvas canvas) {
-        //To update it
-        canvas.drawText(Integer.toString(mana), (getOrigin().getOriginX())+manaLocationX, (getOrigin().getOriginX())+manaLocationY, paint);
-        canvas.drawText(Integer.toString(attack), (getOrigin().getOriginX())+attackLocationX, (getOrigin().getOriginY())+attackLocationY, paint);
-        canvas.drawText(Integer.toString(health), (getOrigin().getOriginX())+healthLocationX, (getOrigin().getOriginY())+healthLocationY, paint);
+    private void drawCardStats(Canvas canvas, float deltaTime) {
+        for (StatImage statImage : statImages)
+            statImage.draw(canvas, deltaTime);
+        //canvas.drawText(Integer.toString(mana), (getOrigin().getOriginX())+manaLocationX, (getOrigin().getOriginX())+manaLocationY, paint);
+        //canvas.drawText(Integer.toString(attack), (getOrigin().getOriginX())+attackLocationX, (getOrigin().getOriginY())+attackLocationY, paint);
+        //canvas.drawText(Integer.toString(health), (getOrigin().getOriginX())+healthLocationX, (getOrigin().getOriginY())+healthLocationY, paint);
     }
 
     public void attack(Damageable recipientOfThyFatalBlow) {
@@ -130,6 +150,9 @@ public class CharacterCard extends Card implements Damageable.Attackable {
     @Override
     public void scale(float scaleFactorX, float scaleFactorY) {
         super.scale(scaleFactorX, scaleFactorY);
+
+        for (StatImage statImage : statImages)
+            statImage.scale(scaleFactorX, scaleFactorY);
         //TODO Matthew pls intement
     }
 

@@ -206,7 +206,7 @@ public class CourseOfHistoryMachine implements Updateable {
         turnTimeRemaining = TURN_TIME;
         if (players[turnIndex].getPlayerDeck().size() != 0) {
             players[turnIndex].startTurn();
-            players[turnIndex].getBoard().getCardHands()[turnIndex].addCardToArea(players[turnIndex].drawCardFromDeck());
+            players[turnIndex].getHand().addCardToArea(players[turnIndex].drawCardFromDeck());
         }
 
         for (CharacterCard card : players[turnIndex].getBoard().getPlayAreas()[turnIndex].getCardsInArea()) {

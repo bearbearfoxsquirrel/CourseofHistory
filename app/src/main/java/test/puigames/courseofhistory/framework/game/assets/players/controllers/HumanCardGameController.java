@@ -87,7 +87,7 @@ public class HumanCardGameController extends CardGameController implements Input
                 break;
         }
         collisionCheckAndResolve(player.getBoard().getPlayAreas()[player.getPlayerNumber()]);
-        collisionCheckAndResolve(player.getBoard().getCardHands()[player.getPlayerNumber()]);
+        collisionCheckAndResolve(player.getHand());
 
 
        /* if (player.playerCurrentState == Player.PlayerState.TURN_ACTIVE) {
@@ -111,7 +111,7 @@ public class HumanCardGameController extends CardGameController implements Input
         }*/
 
         collisionCheckAndResolve(player.getBoard().getPlayAreas()[player.getPlayerNumber()]);
-        collisionCheckAndResolve(player.getBoard().getCardHands()[player.getPlayerNumber()]);
+        collisionCheckAndResolve(player.getHand());
     }
 
 
@@ -136,8 +136,8 @@ public class HumanCardGameController extends CardGameController implements Input
     }
 
     private void updateCardsInHand(float deltaTime) {
-        for(int i = 0; i < player.getBoard().getCardHands()[player.getPlayerNumber()].getCardsInArea().size(); i++) {
-            CharacterCard card = player.getBoard().getCardHands()[player.getPlayerNumber()].getCardsInArea().get(i);
+        for(int i = 0; i < player.getHand().getCardsInArea().size(); i++) {
+            CharacterCard card = player.getHand().getCardsInArea().get(i);
             if(inputBuddy.getTouchEvents().size() > 0) {
                 Input.TouchEvent touchEvent = inputBuddy.getTouchEvents().get(0);
                 if(checkIsTouched(touchEvent, card)) {

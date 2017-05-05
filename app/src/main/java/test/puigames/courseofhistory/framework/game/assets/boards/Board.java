@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Drawable;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
-import test.puigames.courseofhistory.framework.game.assets.CardHand;
 import test.puigames.courseofhistory.framework.game.assets.PlayArea;
 
 /**
@@ -15,7 +14,7 @@ import test.puigames.courseofhistory.framework.game.assets.PlayArea;
 
 public class Board extends Sprite implements Drawable {
     private PlayArea[] playAreas = new PlayArea[2];
-    private CardHand[] cardHands = new CardHand[2];
+   // private CardHand[] cardHands = new CardHand[2];
     private int playAreaWidth = 460;
     private int playAreaHeight = 90;
 
@@ -33,8 +32,7 @@ public class Board extends Sprite implements Drawable {
     @Override
     public void initPlacement(float spawnX, float spawnY, float rotation) {
         super.initPlacement(spawnX, spawnY, rotation);
-        for (int i = 0; i < cardHands.length; i++) {
-            cardHands[i] = new CardHand(this.currentScreen);
+        for (int i = 0; i < playAreas.length; i++) {
             playAreas[i] = new PlayArea(this.currentScreen, playAreaWidth, playAreaHeight);
         }
     }
@@ -45,14 +43,6 @@ public class Board extends Sprite implements Drawable {
 
     public void setPlayAreas(PlayArea[] playAreas) {
         this.playAreas = playAreas;
-    }
-
-    public CardHand[] getCardHands() {
-        return cardHands;
-    }
-
-    public void setCardHands(CardHand[] cardHands) {
-        this.cardHands = cardHands;
     }
 
     public int getPlayAreaWidth() {

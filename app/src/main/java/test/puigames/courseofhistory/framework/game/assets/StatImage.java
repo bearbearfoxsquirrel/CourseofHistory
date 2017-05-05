@@ -1,7 +1,6 @@
 package test.puigames.courseofhistory.framework.game.assets;
 
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
@@ -18,10 +17,10 @@ public class StatImage extends Sprite {
     public StatImage(Screen screen, Bitmap[] numImages, int width, int height){
         super(screen, numImages[0], width, height);
 
-        for(int i= 0; i < numImages.length; i++){
+        for(int i= 0; i < numImages.length; i++)
             numberImages[i] = numImages[i];
-        }
-        UpdateStats();
+
+        updateStats();
     }
 
     @Override
@@ -34,7 +33,7 @@ public class StatImage extends Sprite {
         ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, UNASSIGNED
     }
 
-    public void UpdateStats(){
+    public void updateStats(){
         switch(state)
         {
             case ZERO:
@@ -70,10 +69,14 @@ public class StatImage extends Sprite {
             default:
                 bitmap = numberImages[0];
                 break;
-
         }
     }
 
+    @Override
+    public void scale(float scaleFactorX, float scaleFactorY) {
+        super.scale(scaleFactorX, scaleFactorY);
+
+    }
 
 
     public Number getState() {
@@ -90,10 +93,5 @@ public class StatImage extends Sprite {
 
     public void setNumberImages(Bitmap[] numberImages) {
         this.numberImages = numberImages;
-    }
-
-    @Override
-    public void draw(Canvas canvas, float deltatime){
-        super.draw(canvas, deltatime);
     }
 }
