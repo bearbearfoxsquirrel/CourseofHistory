@@ -20,6 +20,7 @@ public class CardHand extends CardArea {
 
        cardsInArea.addAll(Arrays.asList(startCards));
         maxCardsInArea = 7;
+        setUpPositions();
     }
 
     public CardHand(Screen screen){

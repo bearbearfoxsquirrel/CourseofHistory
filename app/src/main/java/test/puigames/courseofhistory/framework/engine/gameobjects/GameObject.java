@@ -132,12 +132,20 @@ public abstract class GameObject implements Updateable, Placeable, Scalable {
         this.width = width;
     }
 
+    public float getHalfWidth() {
+        return halfWidth;
+    }
+
     public void setHalfWidth(float halfWidth) {
         this.halfWidth = halfWidth;
     }
 
     public void setHeight(float height) {
         this.height = height;
+    }
+
+    public float getHalfHeight() {
+        return halfHeight;
     }
 
     public void setHalfHeight(float halfHeight) {
@@ -156,6 +164,11 @@ public abstract class GameObject implements Updateable, Placeable, Scalable {
         this.origin = origin;
     }
 
+    public void setOrigin(float x, float y) {
+        this.origin.setOriginX(x);
+        this.origin.setOriginY(y);
+    }
+
     public void setMatrix(Matrix matrix) {
         this.matrix = matrix;
     }
@@ -164,7 +177,9 @@ public abstract class GameObject implements Updateable, Placeable, Scalable {
         return overlapAllowance;
     }
 
-    public void setOverlapAllowance(float overlapAllowance) {this.overlapAllowance = overlapAllowance;}
+    public void setOverlapAllowance(float overlapAllowance) {
+        this.overlapAllowance = overlapAllowance;
+    }
 
     public float getMAX_OVERLAP_ALLOWANCE() {
         return MAX_OVERLAP_ALLOWANCE;

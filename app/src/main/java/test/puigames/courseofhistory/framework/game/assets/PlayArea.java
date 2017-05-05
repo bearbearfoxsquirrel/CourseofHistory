@@ -11,9 +11,12 @@ import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
  * Play area a player can use to play their cards in (their area)
  * Can have a max of 5 cards on board at once
  */
-
 public class PlayArea extends CardArea
 {
+    private static final float CARD_SCALE_FACTOR = 1.11f;
+
+    public PlayArea(Screen screen, int width, int height, float spawnX, float spawnY)
+    {
     public PlayArea(Screen screen, int width, int height) {
         super(screen, width, height);
         maxCardsInArea = 5; //number of cards you can have in play area
@@ -29,9 +32,8 @@ public class PlayArea extends CardArea
     @Override
     public void addCardToArea(CharacterCard card)
     {
-        if (!cardsInArea.contains(card)) {
-            card.adjustCardSize(1.25f);
-            super.addCardToArea(card);
-        }
+        if (!cardsInArea.contains(card))
+            card.adjustCardSize(CARD_SCALE_FACTOR);
+        super.addCardToArea(card);
     }
 }

@@ -16,6 +16,7 @@ import java.io.InputStreamReader;
 
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.game.assets.StatImage;
+import test.puigames.courseofhistory.framework.game.assets.Hero;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 
@@ -51,6 +52,23 @@ public class ResourceFetcher implements Fetcher {
             JSONObject jsonBoard = jsonBourne.searchJSONArray(boardJsonArray, "boardName", boardName);
             board = new Board(screen, getBitmapFromFile(jsonBoard.getString("url"))); //where board
             // is created
+        } catch (JSONException e) {
+            Log.d("Loading Resource: ", "Cannot find board of name: " + boardName);
+            throw new NullPointerException();
+        }
+        return board;
+    }
+
+    public Board loadBoard(Screen screen, String boardName, Hero[] heroes) throws NullPointerException {
+        //Takes a boards name as an input and returns the corresponding board object.
+        //If a board is not found a null pointer is returned
+        JSONArray boardJsonArray = jsonBourne.fromJSONStringToJsonArray(getStringFromFile(BOARDS_URL), BOARDS_ARRAY_NAME);
+
+        //Assume that JSON file is sorted!!!!
+        Board board = null;
+        try {
+            JSONObject jsonBoard = jsonBourne.searchJSONArray(boardJsonArray, "boardName", boardName);
+            board = new Board(screen, getBitmapFromFile(jsonBoard.getString("url")), heroes); //where board is created
         } catch (JSONException e) {
             Log.d("Loading Resource: ", "Cannot find board of name: " + boardName);
             throw new NullPointerException();

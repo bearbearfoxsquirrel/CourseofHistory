@@ -1,6 +1,7 @@
 package test.puigames.courseofhistory.framework.game.assets.players;
 
 import test.puigames.courseofhistory.framework.game.assets.Deck;
+import test.puigames.courseofhistory.framework.game.assets.Hero;
 import test.puigames.courseofhistory.framework.game.assets.Mana;
 import test.puigames.courseofhistory.framework.game.assets.StartingHandSelector;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
@@ -14,7 +15,6 @@ import test.puigames.courseofhistory.framework.game.assets.players.events.Damage
  */
 
 public class Player {
-    //TODO: Add hero
     private static final int STARTING_HAND_SIZE = 3;
     private int playerNumber;
     private PlayerState playerCurrentState;
@@ -25,6 +25,7 @@ public class Player {
     private Deck playerDeck;
     private Board board;
     private StartingHandSelector startingHandSelector;
+    private Hero hero;
     private float rotation;
 
 
@@ -42,15 +43,25 @@ public class Player {
         //PLAY_ACTIVE refers to when the player is allowed to take active decision in their turn
     }
 
-    public Player(CharacterCard[] playerCards, Board board, Deck deck, int playerNumber) {
+    public Player(CharacterCard[] playerCards, Board board, Deck deck, Hero hero, int playerNumber) {
         this.playerCurrentState = PlayerState.CREATED;
         this.playerNumber = playerNumber;
         this.board = board;
+        this.playerDeck = deck;
+        this.currentMana = 0;
+        this.hero = hero;
+        setUpPlayerDeck(playerCards);
+    }
+
+    public Player(CharacterCard[] playerCards, Board board, Deck deck, int playerNumber) {
+        this.playerCurrentState = PlayerState.CREATED;
+        this.playerNumber = playerNumber;
         this.board = board;
         this.playerDeck = deck;
         this.currentMana = 0;
         this.rotation = 0;
 
+        this.hero = board.getHero(playerNumber); //give player hero from board now
         setUpPlayerDeck(playerCards);
     }
 
@@ -95,16 +106,16 @@ public class Player {
     }
 
     public void placeCardOnBoard(CharacterCard card) {
-        board.getPlayAreas()[playerNumber].addCardToArea(card);
-//        board.cardHands[playerNumber].removeCardFromArea(card);
+        board.getPlayArea(playerNumber).addCardToArea(card);
+        board.getCardHand(playerNumber).removeCardFromArea(card);
     }
 
     public void addCardToArea(CharacterCard card) {
-        board.getPlayAreas()[playerNumber].addCardToArea(card);
+        board.getPlayArea(playerNumber).addCardToArea(card);
     }
 
     public void removeCardFromArea(CharacterCard card) {
-        board.getPlayAreas()[playerNumber].removeCardFromArea(card);
+        board.getPlayArea(playerNumber).removeCardFromArea(card);
     }
 
     public void selectCardToKeep(CharacterCard card) {
@@ -200,5 +211,13 @@ public class Player {
 
     public float getRotation() {
         return this.rotation;
+    }
+
+    public Hero getHero() {
+        return hero;
+    }
+
+    public void setHero(Hero hero) {
+        this.hero = hero;
     }
 }

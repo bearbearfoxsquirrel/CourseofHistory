@@ -9,6 +9,7 @@ import test.puigames.courseofhistory.framework.engine.screen.Level;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
 import test.puigames.courseofhistory.framework.game.assets.Deck;
+import test.puigames.courseofhistory.framework.game.assets.Hero;
 import test.puigames.courseofhistory.framework.game.assets.Mana;
 import test.puigames.courseofhistory.framework.game.assets.StatImage;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
@@ -52,6 +53,18 @@ public class TestLevel extends Level {
     private final String[] TEST_CARD_NAMES = {"cards1", "cards2"};
     private final Placer peterPiperPickedAPlacer = new Placer(this);
 
+    private final int COIN_SIZE = 80;
+    private final float COIN_POS_X = 300.f;
+    private final float COIN_POS_Y = 200.0f;
+    private final int HERO_PORTRAIT_SIZE = 60;
+    private final float HERO_PLAYER_1_POS_X = 20.f;
+    private final float HERO_PLAYER_1_POS_Y = 300.f;
+    private final float HERO_PLAYER_2_POS_X = 460.f;
+    private final float HERO_PLAYER_2_POS_Y = 20.f;
+    private final int TOP_PLAYER_ROTATION = 180;
+    private final float PLAYER_DECK_POS_X = 300;
+    private final float PLAYER_DECK_POS_Y = 50;
+
     CourseOfHistoryMachine gameMachine;
 
     public TestLevel(GameProperties gameProperties) {
@@ -62,17 +75,32 @@ public class TestLevel extends Level {
     @Override
     protected void load() {
        try {
-           //Setting up the board and spawning it
-           Board board = resourceFetcher.loadBoard(this, "testBoard");
+
+           Bitmap[] heroBitmaps = {
+                   resourceFetcher.getBitmapFromFile("images/heroes/great-minds-hero.png"),
+                   resourceFetcher.getBitmapFromFile("images/heroes/evil-leaders-hero.png")};
+
+//           //Setting up the board and spawning it
+//           Board board = resourceFetcher.loadBoard(this, "testBoard");
+//           board.place(this, viewport.getCenterX(), viewport.getCenterY());
 
            //Setting up the coin and spawning it
-           Bitmap coinSides[] = {resourceFetcher.getBitmapFromFile("images/coins/coin-heads.png"), resourceFetcher.getBitmapFromFile("images/coins/coin-tails.png")};
-           Coin coin = new Coin(this, coinSides, 80, 80);
+           Bitmap[] coinSides = {
+                   resourceFetcher.getBitmapFromFile("images/coins/coin-heads.png"),
+                   resourceFetcher.getBitmapFromFile("images/coins/coin-tails.png")};
+           Coin coin = new Coin(this, coinSides, COIN_SIZE, COIN_SIZE);
 
            Player[] players = new Player[CourseOfHistoryMachine.PLAYER_COUNT];
+           Hero[] heroes = new Hero[CourseOfHistoryMachine.getPlayerCount()];
+           for(int i = 0; i < players.length; i++)
+               heroes[i] = new Hero(this, heroBitmaps[i], HERO_PORTRAIT_SIZE, HERO_PORTRAIT_SIZE); //create heroes
+
+           //Setting up the board and spawning it
+           Board board = resourceFetcher.loadBoard(this, "testBoard", heroes);
 
            //Load mana images
-           Bitmap manaTypes[] = {resourceFetcher.getBitmapFromFile("images/mana/mana.png"),
+           Bitmap[] manaTypes = {
+                   resourceFetcher.getBitmapFromFile("images/mana/mana.png"),
                    resourceFetcher.getBitmapFromFile("images/mana/mana-used.png")};
 
            final int numSize = 10;
@@ -94,6 +122,9 @@ public class TestLevel extends Level {
                for (int j = 0; j < players[i].getMAX_MANA(); j++)
                    players[i].getMana()[j] = new Mana(this, manaTypes);
            }
+//           heroes[0].place(this, HERO_PLAYER_1_POS_X, HERO_PLAYER_1_POS_Y); //player 1 - bottom left
+//           heroes[1].setRotation(TOP_PLAYER_ROTATION); //set rotation for opposite side of screen
+//           heroes[1].place(this, HERO_PLAYER_2_POS_X, HERO_PLAYER_2_POS_Y); //player 2 - top right
 
            //creating the game machine for processing the game
            gameMachine = new CourseOfHistoryMachine(players, coin, board);
@@ -112,7 +143,6 @@ public class TestLevel extends Level {
                controller.startTicking(this);
 
        } catch(NullPointerException e) {
-//           Log.d("Loading Error:", "Error fetching resources, returning to menu");
            Log.e("ERROR", e.getMessage() + "\n" + e.getCause());
            //TODO do properly
            //Failed loading the gameProperties - won't cause crash if resources set up wrong!
@@ -151,6 +181,7 @@ public class TestLevel extends Level {
             }
             // players[i].hero.setUpGamePiecePositions(); TODO
         }
+
     }
 
     @Override

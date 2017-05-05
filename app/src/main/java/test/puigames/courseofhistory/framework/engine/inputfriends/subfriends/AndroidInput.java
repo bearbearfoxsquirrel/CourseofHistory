@@ -18,16 +18,12 @@ public class AndroidInput implements Input
 {
     private AccelerometerHandler accelHandler;
     private KeyboardHandler keyHandler;
-
     private TouchHandler touchHandler;
-//    MultiTouchHandler multiTouchHandler;
-
 
     public AndroidInput(Context context, View view, float scaleX,float scaleY)
     {
         accelHandler = new AccelerometerHandler(context);
         keyHandler = new KeyboardHandler(view);
-//        multiTouchHandler = new MultiTouchHandler(view, scaleX, scaleY);
         if(VERSION.SDK_INT< 5)
             touchHandler = new SingleTouchHandler(view, scaleX, scaleY);
         else

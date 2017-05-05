@@ -12,21 +12,21 @@ import test.puigames.courseofhistory.framework.engine.screen.Screen;
  */
 
 public interface GameProperties {
-    public InputBuddy getInput();
+    InputBuddy getInput();
 
-    public ResourceFetcher getResourceFetcher();
+    ResourceFetcher getResourceFetcher();
 
-    public Audio getAudio();
+    Audio getAudio();
 
-    public void setScreen(Screen screen) throws IllegalArgumentException;
+    void setScreen(Screen screen) throws IllegalArgumentException;
 
-    public Screen getCurrentScreen();
+    Screen getCurrentScreen();
 
-    public Screen getStartScreen();
+    Screen getStartScreen();
 
-    public void calculateScreenSize();
+    void calculateScreenSize();
 
-    public int getScreenWidth();
+    int getScreenWidth();
 
-    public int getScreenHeight();
+    int getScreenHeight();
 }

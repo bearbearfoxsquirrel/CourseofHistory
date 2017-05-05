@@ -57,8 +57,8 @@ public abstract class Sprite extends GameObject implements Drawable, Scalable.Im
         }
 
         //update position using velocity
-        origin.setOriginX(origin.getOriginX()+ (velocity.getVectorX() * deltaTime));
-        origin.setOriginY(origin.getOriginY()+ (velocity.getVectorY() * deltaTime));
+        origin.setOriginX(origin.getOriginX() + (velocity.getVectorX() * deltaTime));
+        origin.setOriginY(origin.getOriginY() + (velocity.getVectorY() * deltaTime));
     }
 
 

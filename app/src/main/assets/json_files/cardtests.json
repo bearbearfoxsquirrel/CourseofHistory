@@ -47,7 +47,7 @@
     {
       "ID":"alanTuring",
       "name": "Alan Turing",
-      "charDescription":"Machines take me by suprise with great frequency",
+      "charDescription":"Machines take me by surprise with great frequency",
       "mana": 5,
       "health": 5,
       "attack": 2,
