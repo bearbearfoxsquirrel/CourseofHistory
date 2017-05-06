@@ -1,7 +1,5 @@
 package test.puigames.courseofhistory.framework.game.assets;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
@@ -52,7 +50,7 @@ public abstract class CardArea extends GameObject
     {
         if(cardsInArea.contains(card) && cardsInArea.size() > 0)
             cardsInArea.remove(card);
-        positionCardsInArea();
+       // positionCardsInArea();
     }
 
     /**

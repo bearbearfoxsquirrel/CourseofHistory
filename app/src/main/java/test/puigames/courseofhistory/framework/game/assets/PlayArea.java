@@ -41,6 +41,6 @@ public class PlayArea extends CardArea
         if (!cardsInArea.contains(card))
             card.adjustCardSize(CARD_SCALE_FACTOR);
         super.addCardToArea(card);
-        positionCardsInArea();
+        //positionCardsInArea();
     }
 }

@@ -25,7 +25,6 @@ import test.puigames.courseofhistory.framework.game.screens.SplashScreen;
  */
 
 public class TestLevel extends Level {
-
     private static float PLAYER_DECK_ROTATION = 0.f;
     private static float PLAYER_DECK_PLACEMENT_X = 175.f;
     private static float PLAYER_DECK_PLACEMENT_Y = 85.f;
@@ -48,15 +47,15 @@ public class TestLevel extends Level {
     private static float MANA_PADDING = 10.f;
 
     private final int HERO_PORTRAIT_SIZE = 60;
-    private final float HERO_OFFSET_X = 80.f;
-    private final float HERO_OFFSET_Y = 60.f;
+    private final float HERO_OFFSET_X = -200.f;
+    private final float HERO_OFFSET_Y = 115.f;
 
 
     private final String[] DECK_NAMES = {"greatMindsCards", "evilLeaderCards"};
     private final String[] TEST_CARD_NAMES = {"cards1", "cards2"};
     private final Placer peterPiperPickedAPlacer = new Placer(this);
 
-    CourseOfHistoryMachine gameMachine;
+    private CourseOfHistoryMachine gameMachine;
 
     public TestLevel(GameProperties gameProperties) {
         super(gameProperties);
@@ -68,8 +67,8 @@ public class TestLevel extends Level {
        try {
             //Load hero bitmaps
             Bitmap[] heroBitmaps = {
-                resourceFetcher.getBitmapFromFile("images/heroes/great-minds-hero.png"),
-                resourceFetcher.getBitmapFromFile("images/heroes/evil-leaders-hero.png")};
+                resourceFetcher.getBitmapFromFile("images/heroes/great-minds-hero.jpg"),
+                resourceFetcher.getBitmapFromFile("images/heroes/evil-leaders-hero.jpg")};
 
            Hero[] heroes = new Hero[CourseOfHistoryMachine.PLAYER_COUNT];
            for(int i = 0; i < CourseOfHistoryMachine.PLAYER_COUNT; i++)

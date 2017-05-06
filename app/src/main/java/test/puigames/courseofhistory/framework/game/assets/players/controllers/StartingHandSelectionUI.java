@@ -130,7 +130,7 @@ public class StartingHandSelectionUI extends UIElement {
             currentCardPaddingX += card.getWidth() + CARD_PADDING_X;
         }
         resizeAllCardsInSelector(player.getStartingHandSelector());
-        placer.placePlaceableRelativeToAnchorPoint(title, 0.f, -50.f, this.rotation, getAbsoluteRotation(0));
+        placer.placePlaceableRelativeToAnchorPoint(title, 0.f, -50.f, this.rotation, getAbsoluteRotation(this.rotation + CARD_ROTATION));
     }
 
     private float findXPositionInRelationToContainer(float offsetX) {

@@ -28,29 +28,35 @@ public class HumanCardGameUIContainer implements Updateable, Placeable, Drawable
     public final static float PAUSE_BUTTON_WIDTH = 50.f;
     public final static float PAUSE_BUTTON_HEIGHT = 20.f;
 
-    public final static float END_TURN_BUTTON_OFFSET_X = 175.f;
-    public final static float END_TURN_BUTTON_OFFSET_Y = 30.f;
+    public final static float END_TURN_BUTTON_OFFSET_X = -200.f;
+    public final static float END_TURN_BUTTON_OFFSET_Y = 60.f;
 
     public final static float END_TURN_BUTTON_WIDTH = 50.f;
     public final static float END_TURN_BUTTON_HEIGHT = 20.f;
 
     public final static float STARTING_HAND_SELECTOR_OFFSET_X = 0.f;
     public final static float STARTING_HAND_SELECTOR_OFFSET_Y = 0.f;
+    public static final int ROTATION = 0;
 
-    Screen currentScreen;
-    Matrix matrix;
-    Origin origin;
-    float rotation;
-    float width;
-    float height;
+    public static final float END_TURN_BUTTON_COOLDOWN_TIME = 5.f;
+
+    private Screen currentScreen;
+    private Matrix matrix;
+    private Origin origin;
+    private float rotation;
+    private float width;
+    private float height;
     private LinkedList<MenuButton> menuButtonsShown;
     private LinkedList<UIElement> uiElementsShown;
     private Player player;
     private Placer patrickPlacer;
+    private StartingHandSelectionUI startingHandSelectorUI;
+    private MenuButton pauseButton;
 
-    StartingHandSelectionUI startingHandSelectorUI;
-    MenuButton pauseButton;
-    MenuButton endTurnButton;
+
+    private float endTurnButtonCoolDown = END_TURN_BUTTON_COOLDOWN_TIME;
+
+    private MenuButton endTurnButton;
 
     //Will have a pause button
     //Starting hand selector ui
@@ -139,7 +145,7 @@ public class HumanCardGameUIContainer implements Updateable, Placeable, Drawable
         return this.rotation + uiElementRotation;
     }
 
-    private void showUIElement(UIElement uiElement, float offsetFromAnchorX, float offsetFromAnchorY, float uiElementRotation) {
+    public void showUIElement(UIElement uiElement, float offsetFromAnchorX, float offsetFromAnchorY, float uiElementRotation) {
         if (!uiElementsShown.contains(uiElement)) {
             //Places the uielement in the offset from the middle of the screen and places it relative to the playerS
             patrickPlacer.placePlaceableRelativeToAnchorPoint(uiElement,offsetFromAnchorX, offsetFromAnchorY, this.rotation, getAbsoluteRotationOfUIElement(uiElementRotation));
@@ -148,7 +154,7 @@ public class HumanCardGameUIContainer implements Updateable, Placeable, Drawable
         }
     }
 
-    private void showMenuButton(MenuButton menuButton, float offsetFromAnchorX, float offsetFromAnchorY, float rotation) {
+    public void showMenuButton(MenuButton menuButton, float offsetFromAnchorX, float offsetFromAnchorY, float rotation) {
         if (!menuButtonsShown.contains(menuButton)) {
             showUIElement(menuButton, offsetFromAnchorX, offsetFromAnchorY, rotation);
             menuButtonsShown.add(menuButton);
@@ -186,7 +192,11 @@ public class HumanCardGameUIContainer implements Updateable, Placeable, Drawable
     public void update(float deltaTime) {
         switch (this.player.getPlayerCurrentState()) {
             case TURN_ACTIVE:
-               showMenuButton(endTurnButton, END_TURN_BUTTON_OFFSET_X, END_TURN_BUTTON_OFFSET_Y, 0);
+                //Works out how long the end turn button should appear after it is set to active and then hides it again after cooldown runs out
+                if (getShownUIElements().contains(getEndTurnButton()))
+                    endTurnButtonCoolDown -= deltaTime;
+                if (endTurnButtonCoolDown <= 0)
+                    hideMenuButton(endTurnButton);
                 break;
 
             case TURN_ENDED:
@@ -195,14 +205,14 @@ public class HumanCardGameUIContainer implements Updateable, Placeable, Drawable
 
             case STARTING_HAND_CHOOSING_CARDS_TO_TOSS:
                 if (!uiElementsShown.contains(startingHandSelectorUI))
-                    showUIElement(startingHandSelectorUI, STARTING_HAND_SELECTOR_OFFSET_X, STARTING_HAND_SELECTOR_OFFSET_Y, 0);
+                    showUIElement(startingHandSelectorUI, STARTING_HAND_SELECTOR_OFFSET_X, STARTING_HAND_SELECTOR_OFFSET_Y, ROTATION);
 
                 for (UIElement cardToTossOverlay : this.startingHandSelectorUI.getCardToTossOverlays())
                     cardToTossOverlay.remove(currentScreen);
 
                 int overlayIndex = 0;
                 for (CharacterCard card : player.getStartingHandSelector().getCardsToToss()) {
-                    startingHandSelectorUI.getCardToTossOverlays()[overlayIndex].place(currentScreen, card.getPosX() + startingHandSelectorUI.CARD_SELECTED_OVERLAY_OFFSET_X, card.getPosY() + startingHandSelectorUI.CARD_SELECTED_OVERLAY_OFFSET_Y, startingHandSelectorUI.getAbsoluteRotation(0));
+                    startingHandSelectorUI.getCardToTossOverlays()[overlayIndex].place(currentScreen, card.getPosX() + startingHandSelectorUI.CARD_SELECTED_OVERLAY_OFFSET_X, card.getPosY() + startingHandSelectorUI.CARD_SELECTED_OVERLAY_OFFSET_Y, startingHandSelectorUI.getAbsoluteRotation(ROTATION));
                     overlayIndex++;
                 }
                 break;
@@ -231,23 +241,39 @@ public class HumanCardGameUIContainer implements Updateable, Placeable, Drawable
     @Override
     public void scale(float scaleFactorX, float scaleFactorY) {
         this.getMatrix().reset();
-
-        this.getMatrix().postScale((this.getWidth() / this.getWidth()) * scaleFactorX,
-                (this.getHeight() / this.getHeight()) * scaleFactorY);
-        this.getMatrix().postRotate(this.getRotation(), scaleFactorX * this.getWidth()/ 2.0f,
-                scaleFactorY * this.getHeight() / 2.0f);
-        this.getMatrix().postTranslate((this.getPosX() - this.getWidth() / 2) * scaleFactorX,
-                (this.getPosY() - this.getHeight() / 2) * scaleFactorY);
+        this.getMatrix().postScale((this.getWidth() / this.getWidth()) * scaleFactorX, (this.getHeight() / this.getHeight()) * scaleFactorY);
+        this.getMatrix().postRotate(this.getRotation(), scaleFactorX * this.getWidth()/ 2.0f, scaleFactorY * this.getHeight() / 2.0f);
+        this.getMatrix().postTranslate((this.getPosX() - this.getWidth() / 2) * scaleFactorX, (this.getPosY() - this.getHeight() / 2) * scaleFactorY);
 
         for (UIElement uiElement : uiElementsShown)
             uiElement.scale(scaleFactorX, scaleFactorY);
     }
 
-    public UIElement[] getShownUIElements() {
+    public LinkedList<UIElement> getShownUIElements() {
+        return uiElementsShown;
+    }
+
+    public UIElement[] getShownUIElementsAsArray() {
         return uiElementsShown.toArray(new UIElement[uiElementsShown.size()]);
     }
 
-    public MenuButton[] getShownMenuButtons() {
+    public MenuButton[] getShownMenuButtonsAsArray() {
         return menuButtonsShown.toArray(new MenuButton[menuButtonsShown.size()]);
+    }
+
+    public StartingHandSelectionUI getStartingHandSelectorUI() {
+        return startingHandSelectorUI;
+    }
+
+    public MenuButton getEndTurnButton() {
+        return endTurnButton;
+    }
+
+    public void setEndTurnButtonCoolDown(float endTurnButtonCoolDown) {
+        this.endTurnButtonCoolDown = endTurnButtonCoolDown;
+    }
+
+    public float getEndTurnButtonCoolDown() {
+        return endTurnButtonCoolDown;
     }
 }

@@ -44,7 +44,6 @@ public class Player {
         this.playerDeck = deck;
         this.currentMana = 0;
         this.rotation = 0;
-        this.hero = hero;
         this.hand = cardHand;
 
         this.hero = board.getHero(playerNumber); //give player hero from board now
@@ -109,21 +108,6 @@ public class Player {
 
     public void removeCardFromArea(CharacterCard card) {
         board.getPlayArea(playerNumber).removeCardFromArea(card);
-    }
-
-    public void selectCardToKeep(CharacterCard card) {
-        //Adds card to keep set, and removes it from to toss set if it is in there
-        if (startingHandSelector.getCardsToToss().contains(card))
-            startingHandSelector.getCardsToToss().remove(card);
-        startingHandSelector.getCardsToKeep().add(card);
-    }
-
-
-    public void selectCardToRemove(CharacterCard card) {
-        //Adds card to toss set, and removes it from to keep set if it is there
-        if (startingHandSelector.getCardsToKeep().contains(card))
-            startingHandSelector.getCardsToKeep().remove(card);
-        startingHandSelector.getCardsToToss().add(card);
     }
 
     public static int getStartingHandSize() {

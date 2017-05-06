@@ -40,7 +40,7 @@ public class HumanCardGameController extends CardGameController implements Input
 
     @Override
     public void update(float deltaTime) {
-        for (MenuButton menuButton : controllerUI.getShownMenuButtons())
+        for (MenuButton menuButton : controllerUI.getShownMenuButtonsAsArray())
             if (menuButton.checkForInput(inputBuddy))
                 menuButton.applyAction();
 
@@ -57,8 +57,8 @@ public class HumanCardGameController extends CardGameController implements Input
 
                 break;
             case STARTING_HAND_CHOOSING_CARDS_TO_TOSS:
-                if (controllerUI.startingHandSelectorUI.confirmationButton.checkForInput(inputBuddy))
-                    controllerUI.startingHandSelectorUI.confirmationButton.applyAction();
+                if (controllerUI.getStartingHandSelectorUI().confirmationButton.checkForInput(inputBuddy))
+                    controllerUI.getStartingHandSelectorUI().confirmationButton.applyAction();
 
                 ArrayList<CharacterCard> cardsToBeSelectedForTossing = new ArrayList<>();
                 ArrayList<CharacterCard> cardsToBeDeselectedForTossing = new ArrayList<>();
@@ -93,30 +93,6 @@ public class HumanCardGameController extends CardGameController implements Input
         //Keep cards on board: don't check hand, causes issues
         keepCardsInBoardBounds(getPlayersCardsInPlayArea());
     }
-
-//       if (player.playerCurrentState == Player.PlayerState.TURN_ACTIVE) {
-            //For actual thing
-
-            /*if (playerEvents.size() == 0) {
-                for (CharacterCard playerCard : player.board.playAreas[player.playerNumber].cardsInArea)
-                    for (CharacterCard opponentCard : player.board.playAreas[oppositePlayerNumber].cardsInArea)
-                        if (playerCard.boundingBox.isOverlapping(opponentCard.boundingBox))
-                            playerEvents.add(player.createAttack(playerCard, opponentCard));
-                            playerCard.updateCardStats();
-                            opponentCard.updateCardStats();
-            } else {
-                for (Eventable event : playerEvents)
-                    event.update(deltaTime);
-
-        } else if (player.playerCurrentState == Player.PlayerState.CREATING_START_HAND) {
-            updatePlayersStartingHand();
-        }*/
-
-     //   collisionCheckAndResolve(player.getBoard().getPlayAreas()[player.getPlayerNumber()]);
-      //  collisionCheckAndResolve(player.getHand());
-    //}
-
-
 
     /**
      * Handles updating cards on the board: allows cards to attack if player indicates so/dragging cards around the board.
@@ -173,8 +149,8 @@ public class HumanCardGameController extends CardGameController implements Input
         if (inputBuddy.getTouchEvents().size() > 0) {
             Input.TouchEvent touchEvent = inputBuddy.getTouchEvents().get(0);
             if (checkIsTouched(touchEvent, player.getHero()) && touchEvent.type == Input.TouchEvent.TOUCH_UP) {
-                Log.d("hero touched", "turn ended");
-                player.setPlayerCurrentState(Player.PlayerState.TURN_ENDED); //TODO: show end turn button - end turn button does this instead
+                controllerUI.showMenuButton(controllerUI.getEndTurnButton(), controllerUI.END_TURN_BUTTON_OFFSET_X, controllerUI.END_TURN_BUTTON_OFFSET_Y, controllerUI.getAbsoluteRotationOfUIElement(controllerUI.getRotation()));
+                controllerUI.setEndTurnButtonCoolDown(controllerUI.END_TURN_BUTTON_COOLDOWN_TIME);
             }
         }
     }

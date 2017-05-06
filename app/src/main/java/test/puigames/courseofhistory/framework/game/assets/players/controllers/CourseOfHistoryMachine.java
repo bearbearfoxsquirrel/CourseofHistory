@@ -104,6 +104,8 @@ public class CourseOfHistoryMachine implements Updateable {
                     //If both players are finished taking their turn it selects the player that won the coin toss and lets them go first
                     transitionPlayerStatesFromCreatingHandToTurnStates();
                     currentGameState = GameState.GAME_ACTIVE;
+                    workOutPlayersManaForTurn();
+                    refreshCardsInPlayEnergy();
 
                 } else {
                     //Handles each player creating their hand and checking if they are finished making their hand
@@ -146,7 +148,7 @@ public class CourseOfHistoryMachine implements Updateable {
     private void transitionPlayerStatesFromCreatingHandToTurnStates() {
         for (int i = 0; i < players.length; i++) {
             if (i == turnIndex)
-                players[i].setPlayerCurrentState(Player.PlayerState.TURN_STARTED);
+                players[i].setPlayerCurrentState(Player.PlayerState.TURN_ACTIVE); //Made to turn
             else
                 players[i].setPlayerCurrentState(Player.PlayerState.WAITING_FOR_TURN);
         }
@@ -233,23 +235,30 @@ public class CourseOfHistoryMachine implements Updateable {
         if (players[turnIndex].getPlayerDeck().size() != 0) {
             players[turnIndex].startTurn();
             players[turnIndex].addCardToArea(players[turnIndex].drawCardFromDeck());
-          //  players[turnIndex].getHand().addCardToArea(players[turnIndex].drawCardFromDeck());
         }
 
-        if (manaCount[turnIndex] < players[turnIndex].getMAX_MANA()) { //don't want it going over 10 - max
-            manaCount[turnIndex]++;
-            giveManaToPlayer();
-        }
-        Log.i("Player " + (turnIndex + 1), "" + players[turnIndex].getCurrentMana() + " mana");
+        workOutPlayersManaForTurn();
+        refreshCardsInPlayEnergy();
+    }
 
+
+    private void refreshCardsInPlayEnergy() {
         for (CharacterCard card : players[turnIndex].getBoard().getPlayAreas()[turnIndex].getCardsInArea()) {
             card.setCurrentAttackEnergy(card.getMaxAttackEnergy());
         }
     }
 
+    private void workOutPlayersManaForTurn() {
+        if (manaCount[turnIndex] < players[turnIndex].getMAX_MANA()) { //don't want it going over 10 - max
+            manaCount[turnIndex]++;
+            giveManaToPlayer();
+        }
+        Log.i("Player " + (turnIndex + 1), "" + players[turnIndex].getCurrentMana() + " mana");
+    }
+
     private void repositionCards() {
-        players[turnIndex].getBoard().getPlayArea(players[turnIndex].getPlayerNumber()).positionCardsInArea();
-        players[turnIndex].getHand().positionCardsInArea();
+       // players[turnIndex].getBoard().getPlayArea(players[turnIndex].getPlayerNumber()).positionCardsInArea();
+       // players[turnIndex].getHand().positionCardsInArea();
     }
 
     /**
