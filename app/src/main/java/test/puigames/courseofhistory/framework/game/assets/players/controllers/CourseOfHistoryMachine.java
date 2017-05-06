@@ -100,7 +100,7 @@ public class CourseOfHistoryMachine implements Updateable {
                 //TO SKIP THIS STAGE OF THE GAME UNCOMMENT THIS BLOCK AND COMMENT REST OF THIS SWITCH CASE
 
                 if (isBothPlayersFinishedCreatingStartHand()) {
-                    nextPlayersTurn(); //get back to original players turn
+                    incrementTurnIndex(); //get back to original players turn
                     //If both players are finished taking their turn it selects the player that won the coin toss and lets them go first
                     transitionPlayerStatesFromCreatingHandToTurnStates();
                     currentGameState = GameState.GAME_ACTIVE;
