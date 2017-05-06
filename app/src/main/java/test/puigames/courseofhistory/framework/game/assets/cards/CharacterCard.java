@@ -4,10 +4,9 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-import test.puigames.courseofhistory.framework.engine.screen.Screen;
-import test.puigames.courseofhistory.framework.game.assets.StatImage;
-import test.puigames.courseofhistory.framework.game.assets.players.events.Damageable;
 import test.puigames.courseofhistory.framework.engine.screen.Placer;
+import test.puigames.courseofhistory.framework.engine.screen.Screen;
+import test.puigames.courseofhistory.framework.game.assets.players.events.Damageable;
 
 /**
  * Created by Tommy on 23/11/2016.
@@ -37,8 +36,8 @@ public class CharacterCard extends Card implements Damageable.Attackable {
 
     private Placer perryPlacablePlacer;
 
-    private float[] statLocationsX = {-25, 25, -25};
-    private float[] statLocationsY = {-35, 35, 35};
+    private float[] statLocationsX = {-20, 20, -20};
+    private float[] statLocationsY = {-30, 30, 30};
 
     private StatImage [] statImages;
 
@@ -72,9 +71,8 @@ public class CharacterCard extends Card implements Damageable.Attackable {
         CheckStat(health, this.statImages[1]);
         CheckStat(attack, this.statImages[2]);
 
-        for (int i = 0; i < statImages.length; i++) {
-            perryPlacablePlacer.placePlaceableRelativeToAnchorPoint(statImages[i], getPosX(), getPosY(), statLocationsX[i], statLocationsY[i], this.rotation, this.rotation);
-        }
+        for (int i = 0; i < statImages.length; i++)
+            statImages[i].setOrigin(perryPlacablePlacer.findAbsolutePositionRelativeToAnchor(getPosX(), getPosY(), statLocationsX[i], statLocationsY[i], statImages[i].getRotation()));
     }
 
     public void CheckStat(int statToCheck, StatImage statImage){
@@ -126,8 +124,8 @@ public class CharacterCard extends Card implements Damageable.Attackable {
     @Override
     public void remove(Screen screen){
         super.remove(screen);
-        for (StatImage statImage : statImages)
-            statImage.remove(screen);
+        for (int i = 0; i < statImages.length; i++)
+            statImages[i].remove(screen);
     }
 
     @Override

@@ -13,7 +13,7 @@ import test.puigames.courseofhistory.framework.game.assets.Coin;
 import test.puigames.courseofhistory.framework.game.assets.Deck;
 import test.puigames.courseofhistory.framework.game.assets.Hero;
 import test.puigames.courseofhistory.framework.game.assets.Mana;
-import test.puigames.courseofhistory.framework.game.assets.StatImage;
+import test.puigames.courseofhistory.framework.game.assets.cards.StatImage;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
 import test.puigames.courseofhistory.framework.game.assets.players.controllers.CourseOfHistoryMachine;
@@ -95,7 +95,7 @@ public class TestLevel extends Level {
            final int numSize = 10;
            Bitmap numImages[] = new Bitmap[numSize];
            for(int i = 0; i < numSize; i++)
-               numImages[i] = resourceFetcher.getBitmapFromFile("images/numbers/" +Integer.toString(i)+".png");
+               numImages[i] = resourceFetcher.getBitmapFromFile("images/numbers/" + Integer.toString(i)+".png");
 
            StatImage[] statImage = {
                    new StatImage(this, numImages,6, 7),

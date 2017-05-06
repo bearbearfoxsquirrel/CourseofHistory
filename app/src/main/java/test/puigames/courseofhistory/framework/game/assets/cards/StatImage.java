@@ -1,4 +1,4 @@
-package test.puigames.courseofhistory.framework.game.assets;
+package test.puigames.courseofhistory.framework.game.assets.cards;
 
 import android.graphics.Bitmap;
 

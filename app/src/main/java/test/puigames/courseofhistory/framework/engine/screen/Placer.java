@@ -3,6 +3,7 @@ package test.puigames.courseofhistory.framework.engine.screen;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Origin;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Placeable;
 
+//Would rather have this class implemented though the transformable interface
 public class Placer {
     Screen screenToPlaceTo;
     float anchorPosX;
@@ -25,18 +26,18 @@ public class Placer {
 
     public void placePlaceableRelativeToAnchorPoint(Placeable placeable, float anchorPosX, float anchorPosY, float offsetX, float offsetY, float rotationAroundAnchor, float placeableRotation) {
         //Placing the object where it should be
-        Origin rotatedPlacement = findObsolutePositionRelativeToAnchor(anchorPosX, anchorPosY, offsetX, offsetY, rotationAroundAnchor);
+        Origin rotatedPlacement = findAbsolutePositionRelativeToAnchor(anchorPosX, anchorPosY, offsetX, offsetY, rotationAroundAnchor);
         placeable.place(screenToPlaceTo, rotatedPlacement.getOriginX(), rotatedPlacement.getOriginY(), placeableRotation);
     }
 
     public void placePlaceableRelativeToAnchorPoint(Placeable placeable, float offsetX, float offsetY, float rotationAroundAnchor, float placeableRotation) {
         //Placing the object where it should be
-        Origin rotatedPlacement = findObsolutePositionRelativeToAnchor(this.anchorPosX, this.anchorPosY, offsetX, offsetY, rotationAroundAnchor);
+        Origin rotatedPlacement = findAbsolutePositionRelativeToAnchor(this.anchorPosX, this.anchorPosY, offsetX, offsetY, rotationAroundAnchor);
         placeable.place(screenToPlaceTo, rotatedPlacement.getOriginX(), rotatedPlacement.getOriginY(), placeableRotation);
     }
 
 
-    public Origin findObsolutePositionRelativeToAnchor(float anchorPosX, float anchorPosY, float offsetX, float offsetY, float rotationAroundAnchor) {
+    public Origin findAbsolutePositionRelativeToAnchor(float anchorPosX, float anchorPosY, float offsetX, float offsetY, float rotationAroundAnchor) {
         rotationAroundAnchor = rotationAroundAnchor * ((float) Math.PI / 180); //Convert degrees to radians
         float sin = (float) Math.sin(rotationAroundAnchor);
         float cos = (float) Math.cos(rotationAroundAnchor);
