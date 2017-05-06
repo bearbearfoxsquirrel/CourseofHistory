@@ -6,6 +6,7 @@ import android.graphics.Paint;
 
 import test.puigames.courseofhistory.framework.engine.screen.Placer;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
+import test.puigames.courseofhistory.framework.game.assets.StatImage;
 import test.puigames.courseofhistory.framework.game.assets.players.events.Damageable;
 
 /**
@@ -38,7 +39,7 @@ public class CharacterCard extends Card implements Damageable.Attackable {
     private float[] statLocationsX = {-20, 20, -20};
     private float[] statLocationsY = {-30, 30, 30};
 
-    private StatImage [] statImages;
+    private StatImage[] statImages;
 
 
     public CharacterCard(Screen screen, StatImage[] statImages, Bitmap cardImage, String name, String description, int mana, int attack, int health, String abilityDescription) {

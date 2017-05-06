@@ -1,4 +1,4 @@
-package test.puigames.courseofhistory.framework.game.assets.cards;
+package test.puigames.courseofhistory.framework.game.assets;
 
 import android.graphics.Bitmap;
 
@@ -21,11 +21,6 @@ public class StatImage extends Sprite {
             numberImages[i] = numImages[i];
 
         updateStats();
-    }
-
-    @Override
-    public void setRotation(float rotation) {
-        super.setRotation(rotation);
     }
 
     public enum Number
@@ -76,6 +71,37 @@ public class StatImage extends Sprite {
                 bitmap = numberImages[0];
                 break;
         }
+    }
+
+    public Number fromIntToStatState(int number){
+        switch(number) {
+            case 0:
+                return Number.ZERO;
+            case 1:
+                return Number.ONE;
+            case 2:
+                return Number.TWO;
+            case 3:
+                return Number.THREE;
+            case 4:
+                return Number.FOUR;
+            case 5:
+                return Number.FIVE;
+            case 6:
+                return Number.SIX;
+            case 7:
+                return Number.SEVEN;
+            case 8:
+                return Number.EIGHT;
+            case 9:
+                return Number.NINE;
+            default:
+                return Number.ZERO;
+        }
+    }
+    @Override
+    public void setRotation(float rotation) {
+        super.setRotation(rotation);
     }
 
     public Number getState() {

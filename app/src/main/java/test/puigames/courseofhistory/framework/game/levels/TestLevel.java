@@ -13,7 +13,7 @@ import test.puigames.courseofhistory.framework.game.assets.Coin;
 import test.puigames.courseofhistory.framework.game.assets.Deck;
 import test.puigames.courseofhistory.framework.game.assets.Hero;
 import test.puigames.courseofhistory.framework.game.assets.Mana;
-import test.puigames.courseofhistory.framework.game.assets.cards.StatImage;
+import test.puigames.courseofhistory.framework.game.assets.StatImage;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
 import test.puigames.courseofhistory.framework.game.CourseOfHistoryMachine;
@@ -65,18 +65,6 @@ public class TestLevel extends Level {
     @Override
     protected void load() {
        try {
-            //Load hero bitmaps
-            Bitmap[] heroBitmaps = {
-                resourceFetcher.getBitmapFromFile("images/heroes/great-minds-hero.jpg"),
-                resourceFetcher.getBitmapFromFile("images/heroes/evil-leaders-hero.jpg")};
-
-           Hero[] heroes = new Hero[CourseOfHistoryMachine.PLAYER_COUNT];
-           for(int i = 0; i < CourseOfHistoryMachine.PLAYER_COUNT; i++)
-               heroes[i] = new Hero(this, heroBitmaps[i], HERO_PORTRAIT_SIZE, HERO_PORTRAIT_SIZE); //create heroes
-
-           //Setting up the board and spawning it
-           Board board = resourceFetcher.loadBoard(this, "testBoard", heroes);
-
            //Setting up the coin and spawning it
            Bitmap[] coinSides = {
                    resourceFetcher.getBitmapFromFile("images/coins/coin-heads.png"),
@@ -91,11 +79,24 @@ public class TestLevel extends Level {
                    resourceFetcher.getBitmapFromFile("images/mana/mana.png"),
                    resourceFetcher.getBitmapFromFile("images/mana/mana-used.png")};
 
+
            //Load stat images
            final int numSize = 10;
            Bitmap numImages[] = new Bitmap[numSize];
            for(int i = 0; i < numSize; i++)
                numImages[i] = resourceFetcher.getBitmapFromFile("images/numbers/" + Integer.toString(i)+".png");
+
+           //Load hero bitmaps
+           Bitmap[] heroBitmaps = {
+                   resourceFetcher.getBitmapFromFile("images/heroes/great-minds-hero.jpg"),
+                   resourceFetcher.getBitmapFromFile("images/heroes/evil-leaders-hero.jpg")};
+           //Setting up the board and spawning it
+
+           Hero[] heroes = new Hero[CourseOfHistoryMachine.PLAYER_COUNT];
+           for(int i = 0; i < CourseOfHistoryMachine.PLAYER_COUNT; i++)
+               heroes[i] = new Hero(this, heroBitmaps[i], numImages, HERO_PORTRAIT_SIZE, HERO_PORTRAIT_SIZE); //create heroes
+
+           Board board = resourceFetcher.loadBoard(this, "testBoard", heroes);
 
            StatImage[] statImage = {
                    new StatImage(this, numImages,6, 7),
@@ -135,7 +136,7 @@ public class TestLevel extends Level {
            //Failed loading the gameProperties - won't cause crash if resources set up wrong!
            gameProperties.setScreen(new SplashScreen(this.gameProperties));
        }
-    }
+     }
 
     private float workOutPlayerRotation(int playerNumber) {
         return ((playerNumber % 2) * 180) % 360;

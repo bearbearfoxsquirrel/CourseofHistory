@@ -31,8 +31,8 @@ public class HumanCardGameUIContainer implements Updateable, Placeable, Drawable
     public final static float END_TURN_BUTTON_OFFSET_X = -200.f;
     public final static float END_TURN_BUTTON_OFFSET_Y = 60.f;
 
-    public final static float END_TURN_BUTTON_WIDTH = 20.f;
-    public final static float END_TURN_BUTTON_HEIGHT = 10.f;
+    public final static float END_TURN_BUTTON_WIDTH = 50.f;
+    public final static float END_TURN_BUTTON_HEIGHT = 30.f;
 
     public final static float STARTING_HAND_SELECTOR_OFFSET_X = 0.f;
     public final static float STARTING_HAND_SELECTOR_OFFSET_Y = 0.f;
