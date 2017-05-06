@@ -7,7 +7,6 @@ import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.controlling.Controlling;
 import test.puigames.courseofhistory.framework.engine.screen.Level;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
-import test.puigames.courseofhistory.framework.game.CourseOfHistory;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
 import test.puigames.courseofhistory.framework.game.assets.Deck;
 import test.puigames.courseofhistory.framework.game.assets.Hero;
@@ -60,11 +59,6 @@ public class TestLevel extends Level {
 
 
     private final int HERO_PORTRAIT_SIZE = 60;
-//    private final float HERO_PLAYER_1_POS_X = 20.f;
-//    private final float HERO_PLAYER_1_POS_Y = 300.f;
-//    private final float HERO_PLAYER_2_POS_X = 460.f;
-//    private final float HERO_PLAYER_2_POS_Y = 20.f;
-//    private final int TOP_PLAYER_ROTATION = 180;
     private final float HERO_OFFSET_X = 80.f;
     private final float HERO_OFFSET_Y = 60.f;
 
@@ -87,19 +81,12 @@ public class TestLevel extends Level {
                 resourceFetcher.getBitmapFromFile("images/heroes/great-minds-hero.png"),
                 resourceFetcher.getBitmapFromFile("images/heroes/evil-leaders-hero.png")};
 
-
            Hero[] heroes = new Hero[CourseOfHistoryMachine.PLAYER_COUNT];
            for(int i = 0; i < CourseOfHistoryMachine.PLAYER_COUNT; i++)
                heroes[i] = new Hero(this, heroBitmaps[i], HERO_PORTRAIT_SIZE, HERO_PORTRAIT_SIZE); //create heroes
 
-
            //Setting up the board and spawning it
            Board board = resourceFetcher.loadBoard(this, "testBoard", heroes);
-
-//           //Setting up the board and spawning it
-//           Board board = resourceFetcher.loadBoard(this, "testBoard");
-//           board.place(this, viewport.getCenterX(), viewport.getCenterY());
-
 
            //Setting up the coin and spawning it
            Bitmap[] coinSides = {
@@ -107,16 +94,13 @@ public class TestLevel extends Level {
                    resourceFetcher.getBitmapFromFile("images/coins/coin-tails.png")};
            Coin coin = new Coin(this, coinSides, COIN_SIZE, COIN_SIZE);
 
-
            //Create players
            Player[] players = new Player[CourseOfHistoryMachine.PLAYER_COUNT];
-
 
            //Load mana images
            Bitmap[] manaTypes = {
                    resourceFetcher.getBitmapFromFile("images/mana/mana.png"),
                    resourceFetcher.getBitmapFromFile("images/mana/mana-used.png")};
-
 
            //Load stat images
            final int numSize = 10;
@@ -129,7 +113,6 @@ public class TestLevel extends Level {
                    new StatImage(this, numImages,5, 6),
                    new StatImage(this, numImages,5, 6)}; //load stat images
 
-
            //Creates a controller and a player for each participant
            for(int i = 0; i < players.length; i++) {
                players[i] = new Player(resourceFetcher.loadCharacterCards(this, DECK_NAMES[i], statImage), board, new Deck(this, resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png")), i); //Creating a new player pawn for each controller
@@ -138,9 +121,6 @@ public class TestLevel extends Level {
                for (int j = 0; j < players[i].getMAX_MANA(); j++)
                    players[i].getMana()[j] = new Mana(this, manaTypes); //create mana
            }
-//           heroes[0].place(this, HERO_PLAYER_1_POS_X, HERO_PLAYER_1_POS_Y); //player 1 - bottom left
-//           heroes[1].setRotation(TOP_PLAYER_ROTATION); //set rotation for opposite side of screen
-//           heroes[1].place(this, HERO_PLAYER_2_POS_X, HERO_PLAYER_2_POS_Y); //player 2 - top right
 
            //creating the game machine for processing the game
            gameMachine = new CourseOfHistoryMachine(players, coin, board);

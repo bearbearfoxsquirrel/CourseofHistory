@@ -205,8 +205,6 @@ public class HumanCardGameUIContainer implements Updateable, Placeable, Drawable
                     startingHandSelectorUI.getCardToTossOverlays()[overlayIndex].place(currentScreen, card.getPosX() + startingHandSelectorUI.CARD_SELECTED_OVERLAY_OFFSET_X, card.getPosY() + startingHandSelectorUI.CARD_SELECTED_OVERLAY_OFFSET_Y, startingHandSelectorUI.getAbsoluteRotation(0));
                     overlayIndex++;
                 }
-
-
                 break;
 
             case FINISHED_CREATING_START_HAND:
