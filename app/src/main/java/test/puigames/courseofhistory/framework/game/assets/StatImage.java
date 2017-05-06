@@ -33,6 +33,12 @@ public class StatImage extends Sprite {
         ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, UNASSIGNED
     }
 
+    @Override
+    public void update(float deltaTime) {
+        super.update(deltaTime);
+        updateStats();
+    }
+
     public void updateStats(){
         switch(state)
         {
@@ -75,7 +81,6 @@ public class StatImage extends Sprite {
     @Override
     public void scale(float scaleFactorX, float scaleFactorY) {
         super.scale(scaleFactorX, scaleFactorY);
-
     }
 
 

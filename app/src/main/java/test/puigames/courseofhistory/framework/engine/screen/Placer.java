@@ -1,8 +1,7 @@
-package test.puigames.courseofhistory.framework.game.levels;
+package test.puigames.courseofhistory.framework.engine.screen;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Origin;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Placeable;
-import test.puigames.courseofhistory.framework.engine.screen.Screen;
 
 public class Placer {
     Screen screenToPlaceTo;
@@ -20,7 +19,7 @@ public class Placer {
         this.anchorPosY = anchorY;
     }
 
-    float workOutObjectRotation(float playerRotation, float objectRotation) {
+    public float workOutObjectRotation(float playerRotation, float objectRotation) {
         return playerRotation + objectRotation;
     }//finds a position either x or y rotated around a point
 
@@ -51,7 +50,7 @@ public class Placer {
         return new Origin(rotatedX, rotatedY);
     }
 
-    float findAbsolutePosition(float anchor, float offset) {
+    public float findAbsolutePosition(float anchor, float offset) {
         return anchor + offset;
     }
 }

@@ -6,12 +6,12 @@ import android.util.Log;
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.controlling.Controlling;
 import test.puigames.courseofhistory.framework.engine.screen.Level;
+import test.puigames.courseofhistory.framework.engine.screen.Placer;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.game.assets.CardHand;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
 import test.puigames.courseofhistory.framework.game.assets.Deck;
 import test.puigames.courseofhistory.framework.game.assets.Mana;
-import test.puigames.courseofhistory.framework.game.assets.StatImage;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
 import test.puigames.courseofhistory.framework.game.assets.players.controllers.CourseOfHistoryMachine;
@@ -23,8 +23,6 @@ import test.puigames.courseofhistory.framework.game.screens.SplashScreen;
  */
 
 public class TestLevel extends Level {
-    private static float PLAYER_OFFSET_X = 240;
-
 
     private static float PLAYER_DECK_ROTATION = 0.f;
     private static float PLAYER_DECK_PLACEMENT_X = 175.f;
@@ -76,17 +74,9 @@ public class TestLevel extends Level {
            Bitmap manaTypes[] = {resourceFetcher.getBitmapFromFile("images/mana/mana.png"),
                    resourceFetcher.getBitmapFromFile("images/mana/mana-used.png")};
 
-           final int numSize = 10;
-           Bitmap numImages[] = new Bitmap[numSize];
-           for(int i = 0; i < numSize; i++)
-               numImages[i] = resourceFetcher.getBitmapFromFile("images/numbers/" +Integer.toString(i)+".png");
-
-
-           StatImage[] statImage = { new StatImage(this, numImages,6, 7), new StatImage(this, numImages,5, 6), new StatImage(this, numImages,5, 6)};
-
            //Creates a controller and a player for each participant
            for(int i = 0; i < players.length; i++) {
-               players[i] = new Player(resourceFetcher.loadCharacterCards(this, DECK_NAMES[i], statImage), board, new Deck(this, resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png")), new CardHand(this), i); //Creating a new player pawn for each controller
+               players[i] = new Player(resourceFetcher.loadCharacterCards(this, DECK_NAMES[i]), board, new Deck(this, resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png")), new CardHand(this), i); //Creating a new player pawn for each controller
                //TODO give proper deck image!!!
 
                for (int j = 0; j < players[i].getMAX_MANA(); j++)
@@ -110,7 +100,7 @@ public class TestLevel extends Level {
                controller.startTicking(this);
 
        } catch(NullPointerException e) {
-//           Log.d("Loading Error:", "Error fetching resources, returning to menu");
+//         Log.d("Loading Error:", "Error fetching resources, returning to menu");
            Log.e("ERROR", e.getMessage() + "\n" + e.getCause());
            //TODO do properly
            //Failed loading the gameProperties - won't cause crash if resources set up wrong!

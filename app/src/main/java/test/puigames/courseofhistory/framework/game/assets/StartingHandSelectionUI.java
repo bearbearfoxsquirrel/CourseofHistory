@@ -9,7 +9,7 @@ import test.puigames.courseofhistory.framework.engine.ui.UIElement;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
 import test.puigames.courseofhistory.framework.game.assets.players.controllers.PlayerButton;
-import test.puigames.courseofhistory.framework.game.levels.Placer;
+import test.puigames.courseofhistory.framework.engine.screen.Placer;
 
 /**
  * Created by Michael on 11/04/2017.
@@ -52,7 +52,7 @@ public class StartingHandSelectionUI extends UIElement {
         super(screen, uIBackground, STARTING_HAND_SELECTOR_WIDTH, STARTING_HAND_SELECTOR_HEIGHT);
         this.player = player;
 
-        this.title = new TextUIElement(screen, "Player " + (player.getPlayerNumber() + 1) + "select your cards to toss", TITLE_TEXT_SIZE);
+        this.title = new TextUIElement(screen, "Player " + (player.getPlayerNumber() + 1) + " select your cards to toss", TITLE_TEXT_SIZE);
 
         //Setting up the array of overlays to be placed
         this.cardToTossOverlays = new UIElement[player.getStartingHandSelector().STARTING_HAND_SIZE];
@@ -76,7 +76,6 @@ public class StartingHandSelectionUI extends UIElement {
 
             @Override
             public void applyAction() {
-
                 player.setPlayerCurrentState(Player.PlayerState.FINISHED_CREATING_START_HAND);
             }
         };

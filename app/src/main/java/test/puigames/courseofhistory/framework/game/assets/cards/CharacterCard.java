@@ -7,7 +7,7 @@ import android.graphics.Paint;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.game.assets.StatImage;
 import test.puigames.courseofhistory.framework.game.assets.players.events.Damageable;
-import test.puigames.courseofhistory.framework.game.levels.Placer;
+import test.puigames.courseofhistory.framework.engine.screen.Placer;
 
 /**
  * Created by Tommy on 23/11/2016.
@@ -33,10 +33,10 @@ public class CharacterCard extends Card implements Damageable.Attackable {
 
     private Placer perryPlacablePlacer;
 
-    private float[] statLocationsX = {-10, 5, 5};
-    private float[] statLocationsY = {-25, 20, 20};
+    private float[] statLocationsX = {-25, 25, -25};
+    private float[] statLocationsY = {-35, 35, 35};
 
-    private StatImage [] statImages = new StatImage[3];
+    private StatImage [] statImages;
 
 
     public CharacterCard(Screen screen, StatImage[] statImages, Bitmap cardImage, String name, String description, int mana, int attack, int health, String abilityDescription) {
@@ -53,16 +53,21 @@ public class CharacterCard extends Card implements Damageable.Attackable {
         this.currentAttackEnergy = 1;
         this.maxAttackEnergy = 1;
 
+        this.statImages = statImages;
 
-        for(int i = 0; i < statImages.length; i++)
-            this.statImages[i] = statImages[i];
+     //   for(int i = 0; i < statImages.length; i++)
+        //    this.statImages[i] = statImages[i];
 
         CheckStat(mana, this.statImages[0]);
         CheckStat(health, this.statImages[1]);
         CheckStat(attack, this.statImages[2]);
     }
 
-    public void UpdateCardStats(){
+    public void updateCardStats(){
+        CheckStat(mana, this.statImages[0]);
+        CheckStat(health, this.statImages[1]);
+        CheckStat(attack, this.statImages[2]);
+
         for(int i = 0; i < statImages.length; i++){
             perryPlacablePlacer.placePlaceableRelativeToAnchorPoint(statImages[i], getPosX(), getPosY(), statLocationsX[i], statLocationsY[i], this.rotation, this.rotation);
             //    statImages[i].updateStats();
@@ -113,12 +118,16 @@ public class CharacterCard extends Card implements Damageable.Attackable {
     @Override
     public void place(Screen screen, float placementX, float placementY, float rotation){
         super.place(screen, placementX, placementY, rotation);
-
         for(int i = 0; i < statImages.length; i++){
             perryPlacablePlacer.placePlaceableRelativeToAnchorPoint(statImages[i], getPosX(), getPosY(), statLocationsX[i], statLocationsY[i], this.rotation, this.rotation);
-            //statImages[i].place(screen, statLocationsX[i] + getPosX(), getPosY() + statLocationsY[i], rotation);
         }
-        UpdateCardStats();
+    }
+
+    @Override
+    public void remove(Screen screen){
+        super.remove(screen);
+        for (StatImage statImage : statImages)
+            statImage.remove(screen);
     }
 
     @Override
@@ -130,7 +139,7 @@ public class CharacterCard extends Card implements Damageable.Attackable {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
-        UpdateCardStats();
+        updateCardStats();
     }
 
 
