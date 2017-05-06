@@ -233,6 +233,7 @@ public class CourseOfHistoryMachine implements Updateable {
         if (players[turnIndex].getPlayerDeck().size() != 0) {
             players[turnIndex].startTurn();
             players[turnIndex].getBoard().getCardHand(turnIndex).addCardToArea(players[turnIndex].drawCardFromDeck());
+          //  players[turnIndex].getHand().addCardToArea(players[turnIndex].drawCardFromDeck());
         }
 
         if (manaCount[turnIndex] < players[turnIndex].getMAX_MANA()) { //don't want it going over 10 - max

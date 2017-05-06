@@ -1,5 +1,6 @@
 package test.puigames.courseofhistory.framework.game.assets.players;
 
+import test.puigames.courseofhistory.framework.game.assets.CardHand;
 import test.puigames.courseofhistory.framework.game.assets.Deck;
 import test.puigames.courseofhistory.framework.game.assets.Hero;
 import test.puigames.courseofhistory.framework.game.assets.Mana;
@@ -15,6 +16,7 @@ import test.puigames.courseofhistory.framework.game.assets.players.events.Damage
  */
 
 public class Player {
+
     private static final int STARTING_HAND_SIZE = 3;
     private int playerNumber;
     private PlayerState playerCurrentState;
@@ -27,15 +29,7 @@ public class Player {
     private StartingHandSelector startingHandSelector;
     private Hero hero;
     private float rotation;
-
-
-
-    public void confirmSelectedCardsFromStartingHandSelector() {
-        for (CharacterCard card : startingHandSelector.getCardsToKeep())
-            board.getCardHand(playerNumber).addCardToArea(card);
-    }
-
-
+    private CardHand hand;
 
     public enum PlayerState {
         CREATED, TURN_STARTED, TURN_ACTIVE, WAITING_FOR_TURN, TURN_ENDED, WIN, LOSE,
@@ -43,27 +37,26 @@ public class Player {
         //PLAY_ACTIVE refers to when the player is allowed to take active decision in their turn
     }
 
-    public Player(CharacterCard[] playerCards, Board board, Deck deck, Hero hero, int playerNumber) {
-        this.playerCurrentState = PlayerState.CREATED;
-        this.playerNumber = playerNumber;
-        this.board = board;
-        this.playerDeck = deck;
-        this.currentMana = 0;
-        this.hero = hero;
-        setUpPlayerDeck(playerCards);
-    }
-
-    public Player(CharacterCard[] playerCards, Board board, Deck deck, int playerNumber) {
+    public Player(CharacterCard[] playerCards, Board board, Deck deck, CardHand cardHand, Hero hero, int playerNumber) {
         this.playerCurrentState = PlayerState.CREATED;
         this.playerNumber = playerNumber;
         this.board = board;
         this.playerDeck = deck;
         this.currentMana = 0;
         this.rotation = 0;
+        this.hero = hero;
+        this.hand = cardHand;
 
-        this.hero = board.getHero(playerNumber); //give player hero from board now
+      //  this.hero = board.getHero(playerNumber); //give player hero from board now
         setUpPlayerDeck(playerCards);
     }
+
+    public void confirmSelectedCardsFromStartingHandSelector() {
+        for (CharacterCard card : startingHandSelector.getCardsToKeep())
+            hand.addCardToArea(card);
+    }
+
+
 
     public void createNewStartingHand() {
         CharacterCard[] startingHand = new CharacterCard[startingHandSelector.STARTING_HAND_SIZE];
@@ -220,4 +213,9 @@ public class Player {
     public void setHero(Hero hero) {
         this.hero = hero;
     }
+
+    public CardHand getHand() {
+        return hand;
+    }
+
 }

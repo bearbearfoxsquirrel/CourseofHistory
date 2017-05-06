@@ -9,7 +9,7 @@ import test.puigames.courseofhistory.framework.engine.ui.UIElement;
 import test.puigames.courseofhistory.framework.game.assets.StartingHandSelector;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
-import test.puigames.courseofhistory.framework.game.levels.Placer;
+import test.puigames.courseofhistory.framework.engine.screen.Placer;
 
 /**
  * Created by Michael on 11/04/2017.
@@ -93,6 +93,7 @@ public class StartingHandSelectionUI extends UIElement {
     private void adjustCardSize(CharacterCard card){
         card.setWidth(ADJUSTED_CARD_WIDTH);
         card.setHeight(ADJUSTED_CARD_HEIGHT);
+
     }
 
     @Override

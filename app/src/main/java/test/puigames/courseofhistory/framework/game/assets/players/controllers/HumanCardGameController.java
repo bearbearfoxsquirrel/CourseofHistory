@@ -45,8 +45,7 @@ public class HumanCardGameController extends CardGameController implements Input
             if (menuButton.checkForInput(inputBuddy))
                 menuButton.applyAction();
 
-        switch (player.getPlayerCurrentState())
-        {
+        switch (player.getPlayerCurrentState()) {
             case TURN_ACTIVE:
                 updateCardsInHand(deltaTime);
                 updateCardsOnBoardPlayArea(deltaTime);
@@ -65,11 +64,9 @@ public class HumanCardGameController extends CardGameController implements Input
                 ArrayList<CharacterCard> cardsToBeSelectedForTossing = new ArrayList<>();
                 ArrayList<CharacterCard> cardsToBeDeselectedForTossing = new ArrayList<>();
 
-                for (Input.TouchEvent touchEvent : inputBuddy.getTouchEvents())
-                {
+                for (Input.TouchEvent touchEvent : inputBuddy.getTouchEvents()) {
                     //check cards to toss selection
-                    if (touchEvent.type == Input.TouchEvent.TOUCH_UP)
-                    {
+                    if(touchEvent.type == Input.TouchEvent.TOUCH_UP) {
                         for (CharacterCard card : player.getStartingHandSelector().getCardsToKeep())
                             if (card.getBoundingBox().isTouchOn(touchEvent))
                                 cardsToBeSelectedForTossing.add(card);
@@ -106,8 +103,8 @@ public class HumanCardGameController extends CardGameController implements Input
                     for (CharacterCard opponentCard : player.board.playAreas[oppositePlayerNumber].cardsInArea)
                         if (playerCard.boundingBox.isOverlapping(opponentCard.boundingBox))
                             playerEvents.add(player.createAttack(playerCard, opponentCard));
-                            playerCard.UpdateCardStats();
-                            opponentCard.UpdateCardStats();
+                            playerCard.updateCardStats();
+                            opponentCard.updateCardStats();
             } else {
                 for (Eventable event : playerEvents)
                     event.update(deltaTime);
@@ -116,9 +113,9 @@ public class HumanCardGameController extends CardGameController implements Input
             updatePlayersStartingHand();
         }*/
 
-   /* private void hideStartingHandCreationUI() {
-        startingHandSelectionUI.remove(this.currentScreen);
-    }*/
+     //   collisionCheckAndResolve(player.getBoard().getPlayAreas()[player.getPlayerNumber()]);
+      //  collisionCheckAndResolve(player.getHand());
+    //}
 
 
 

@@ -7,7 +7,6 @@ import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -79,17 +78,26 @@ public class ResourceFetcher implements Fetcher {
     //For now just returns all cards
     //TODO: loadCharacterCards will be used to load a specified set of cards e.g. decks and all cards
     @Override
-    public CharacterCard[] loadCharacterCards(Screen screen, String cardsNames, StatImage[] statImage) throws NullPointerException{
+    public CharacterCard[] loadCharacterCards(Screen screen, String cardsNames) throws NullPointerException{
         JSONArray cardJsonArray = jsonBourne.fromJSONStringToJsonArray(getStringFromFile(TEST_CARDS_URL), cardsNames);
 
         CharacterCard[] characterCards = new CharacterCard[cardJsonArray.length()];
         int index = 0;
         try {
             while (index < cardJsonArray.length()) {
+
+                final int numSize = 10;
+                Bitmap numImages[] = new Bitmap[numSize];
+                for(int i = 0; i < numSize; i++)
+                    numImages[i] = getBitmapFromFile("images/numbers/" +Integer.toString(i)+".png");
+
+
+                StatImage[] statImages = { new StatImage(screen, numImages,6, 7), new StatImage(screen, numImages,5, 6), new StatImage(screen, numImages,5, 6)};
+
                 JSONObject jsonCard = cardJsonArray.getJSONObject(index);
                 //creating a new character card with attributes from JSONObject
                 // an arbitrary spawn point is also set until we decide how to spawn cards
-                characterCards[index] = new CharacterCard(screen, statImage, getBitmapFromFile(jsonCard.getString("portraitSrc")),
+                characterCards[index] = new CharacterCard(screen, statImages, getBitmapFromFile(jsonCard.getString("portraitSrc")),
                         jsonCard.getString("name"),
                         jsonCard.getString("charDescription"),
                         jsonCard.getInt("mana"),

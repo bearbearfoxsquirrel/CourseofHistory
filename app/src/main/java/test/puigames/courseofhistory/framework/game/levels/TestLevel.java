@@ -6,12 +6,13 @@ import android.util.Log;
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.controlling.Controlling;
 import test.puigames.courseofhistory.framework.engine.screen.Level;
+import test.puigames.courseofhistory.framework.engine.screen.Placer;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
+import test.puigames.courseofhistory.framework.game.assets.CardHand;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
 import test.puigames.courseofhistory.framework.game.assets.Deck;
 import test.puigames.courseofhistory.framework.game.assets.Hero;
 import test.puigames.courseofhistory.framework.game.assets.Mana;
-import test.puigames.courseofhistory.framework.game.assets.StatImage;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
 import test.puigames.courseofhistory.framework.game.assets.players.controllers.CourseOfHistoryMachine;
@@ -23,8 +24,6 @@ import test.puigames.courseofhistory.framework.game.screens.SplashScreen;
  */
 
 public class TestLevel extends Level {
-    private static float PLAYER_OFFSET_X = 240;
-
 
     private static float PLAYER_DECK_ROTATION = 0.f;
     private static float PLAYER_DECK_PLACEMENT_X = 175.f;
@@ -47,24 +46,14 @@ public class TestLevel extends Level {
     private static float MANA_OFFSET_Y = 70.f;
     private static float MANA_PADDING = 10.f;
 
-
-
-    private final String[] DECK_NAMES = {"greatMindsCards", "evilLeaderCards"};
-    private final String[] TEST_CARD_NAMES = {"cards1", "cards2"};
-    private final Placer peterPiperPickedAPlacer = new Placer(this);
-
-    private final int COIN_SIZE = 80;
-    private final float COIN_POS_X = 300.f;
-    private final float COIN_POS_Y = 200.0f;
-
-
     private final int HERO_PORTRAIT_SIZE = 60;
     private final float HERO_OFFSET_X = 80.f;
     private final float HERO_OFFSET_Y = 60.f;
 
 
-    private final float PLAYER_DECK_POS_X = 300;
-    private final float PLAYER_DECK_POS_Y = 50;
+    private final String[] DECK_NAMES = {"greatMindsCards", "evilLeaderCards"};
+    private final String[] TEST_CARD_NAMES = {"cards1", "cards2"};
+    private final Placer peterPiperPickedAPlacer = new Placer(this);
 
     CourseOfHistoryMachine gameMachine;
 
@@ -115,7 +104,7 @@ public class TestLevel extends Level {
 
            //Creates a controller and a player for each participant
            for(int i = 0; i < players.length; i++) {
-               players[i] = new Player(resourceFetcher.loadCharacterCards(this, DECK_NAMES[i], statImage), board, new Deck(this, resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png")), i); //Creating a new player pawn for each controller
+               players[i] = new Player(resourceFetcher.loadCharacterCards(this, DECK_NAMES[i]), board, new Deck(this, resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png")), new CardHand(this), i); //Creating a new player pawn for each controller
                //TODO give proper deck image!!!
 
                for (int j = 0; j < players[i].getMAX_MANA(); j++)
@@ -140,6 +129,7 @@ public class TestLevel extends Level {
                controller.startTicking(this);
 
        } catch(NullPointerException e) {
+//         Log.d("Loading Error:", "Error fetching resources, returning to menu");
            Log.e("ERROR", e.getMessage() + "\n" + e.getCause());
            //TODO do properly
            //Failed loading the gameProperties - won't cause crash if resources set up wrong!
@@ -165,22 +155,21 @@ public class TestLevel extends Level {
             peterPiperPickedAPlacer.placePlaceableRelativeToAnchorPoint(currentPlayer.getPlayerDeck(), anchorX, anchorY,
                     PLAYER_DECK_PLACEMENT_X, PLAYER_DECK_PLACEMENT_Y, currentPlayer.getRotation(), peterPiperPickedAPlacer.workOutObjectRotation(currentPlayer.getRotation(), PLAYER_DECK_ROTATION));
 
-            peterPiperPickedAPlacer.placePlaceableRelativeToAnchorPoint(currentPlayer.getBoard().getPlayArea(i), anchorX, anchorY,
-                    BOARD_PLAYER_AREA_OFFSET_X, BOARD_PLAYER_AREA_OFFSET_Y, currentPlayer.getRotation(), peterPiperPickedAPlacer.workOutObjectRotation(currentPlayer.getRotation(), PLAYER_DECK_ROTATION));
+            peterPiperPickedAPlacer.placePlaceableRelativeToAnchorPoint(currentPlayer.getBoard().getPlayAreas()[i], anchorX, anchorY,
+                    BOARD_PLAYER_AREA_OFFSET_X, BOARD_PLAYER_AREA_OFFSET_Y, currentPlayer.getRotation(), peterPiperPickedAPlacer.workOutObjectRotation(currentPlayer.getRotation(), BOARD_ROTATION));
 
-            peterPiperPickedAPlacer.placePlaceableRelativeToAnchorPoint(currentPlayer.getBoard().getCardHand(i), placementX, placementY,
-                    PLAYER_HAND_OFFSET_X, PLAYER_HAND_OFFSET_Y, currentPlayer.getRotation(), peterPiperPickedAPlacer.workOutObjectRotation(currentPlayer.getRotation(), PLAYER_DECK_ROTATION));
+            peterPiperPickedAPlacer.placePlaceableRelativeToAnchorPoint(currentPlayer.getHand(), placementX, placementY,
+                    PLAYER_HAND_OFFSET_X, PLAYER_HAND_OFFSET_Y, currentPlayer.getRotation(), peterPiperPickedAPlacer.workOutObjectRotation(currentPlayer.getRotation(), PLAYER_HAND_ROTATION));
 
             float manaRelOffsetFromLast = 0;
             for (Mana mana : currentPlayer.getMana()) {
-                peterPiperPickedAPlacer.placePlaceableRelativeToAnchorPoint(mana, placementX, placementY, MANA_OFFSET_X + manaRelOffsetFromLast, MANA_OFFSET_Y, currentPlayer.getRotation(), peterPiperPickedAPlacer.workOutObjectRotation(currentPlayer.getRotation(), PLAYER_DECK_ROTATION));
+                peterPiperPickedAPlacer.placePlaceableRelativeToAnchorPoint(mana, placementX, placementY, MANA_OFFSET_X + manaRelOffsetFromLast, MANA_OFFSET_Y, currentPlayer.getRotation(), peterPiperPickedAPlacer.workOutObjectRotation(currentPlayer.getRotation(), MANA_ROTATION));
                 manaRelOffsetFromLast += MANA_PADDING;
             }
 
             peterPiperPickedAPlacer.placePlaceableRelativeToAnchorPoint(currentPlayer.getHero(), anchorX, anchorY,
                     HERO_OFFSET_X, HERO_OFFSET_Y, currentPlayer.getRotation(), peterPiperPickedAPlacer.workOutObjectRotation(currentPlayer.getRotation(), PLAYER_DECK_ROTATION));
         }
-
     }
 
     @Override

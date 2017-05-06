@@ -15,22 +15,11 @@ import test.puigames.courseofhistory.framework.game.assets.PlayArea;
 
 
 public class Board extends Sprite implements Drawable {
-
-    private final int MAX_PLAYERS_ON_BOARD = 2;
-    private PlayArea[] playAreas = new PlayArea[MAX_PLAYERS_ON_BOARD];
-    private CardHand[] cardHands = new CardHand[MAX_PLAYERS_ON_BOARD];
+    private PlayArea[] playAreas = new PlayArea[2];
     private Hero[] heroes = new Hero[MAX_PLAYERS_ON_BOARD];
-    private final int PLAY_AREA_WIDTH = 460;
-    private final int PLAY_AREA_HEIGHT = 85;
-    private final float PLAY_AREA_POS_Y_PLAYER1 = 208.f;
-    private final float PLAY_AREA_POS_Y_PLAYER2 = 88.f;
-    private final float CARD_HAND_POS_Y_PLAYER_1 = 288.f;
-    private final float CARD_HAND_POS_Y_PLAYER_2 = 10.f;
 
-    public Board(Screen screen, Bitmap bitmap){
-        super(screen, bitmap, 480, 320);
-        overlapAllowance = 1.f;
-    }
+    private int playAreaWidth = 460;
+    private int playAreaHeight = 90;
 
     public Board(Screen screen, Bitmap bitmap, Hero[] heroes) {
         super(screen, bitmap, 480, 320);
@@ -40,18 +29,15 @@ public class Board extends Sprite implements Drawable {
 
     public void update(float deltaTime) {
         super.update(deltaTime);
+        for (PlayArea playArea : playAreas)
+            playArea.update(deltaTime); //update play areas
     }
 
     @Override
     public void initPlacement(float spawnX, float spawnY, float rotation) {
         super.initPlacement(spawnX, spawnY, rotation);
-        for (int i = 0; i < cardHands.length; i++) {
-            cardHands[i] = new CardHand(this.currentScreen);
-            if(i == 0) {               //PLAYER 1 - bottom half of screen
-                playAreas[i] = new PlayArea(this.currentScreen, PLAY_AREA_WIDTH, PLAY_AREA_HEIGHT); //placed at 240
-            } else {                  //PLAYER 2 - top half of screen
-                playAreas[i] = new PlayArea(this.currentScreen, PLAY_AREA_WIDTH, PLAY_AREA_HEIGHT);
-            }
+        for (int i = 0; i < playAreas.length; i++) {
+            playAreas[i] = new PlayArea(this.currentScreen, playAreaWidth, playAreaHeight);
         }
     }
 
@@ -81,6 +67,8 @@ public class Board extends Sprite implements Drawable {
 
     public CardHand getCardHand(int i) {
         return cardHands[i];
+    public int getPlayAreaWidth() {
+        return playAreaWidth;
     }
 
     public void setCardHand(CardHand cardHand, int i) {
