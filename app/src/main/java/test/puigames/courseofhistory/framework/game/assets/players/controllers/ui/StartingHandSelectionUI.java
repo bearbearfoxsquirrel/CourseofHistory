@@ -17,7 +17,7 @@ import test.puigames.courseofhistory.framework.engine.screen.Placer;
 
 public class StartingHandSelectionUI extends UIElement {
     private static final float STARTING_HAND_SELECTOR_WIDTH = 400.f;
-    private static final float STARTING_HAND_SELECTOR_HEIGHT = 300.f;
+    private static final float STARTING_HAND_SELECTOR_HEIGHT = 270.f;
 
     //Created for the human controller
     private final float ADJUSTED_CARD_WIDTH = 72.f;
@@ -33,8 +33,8 @@ public class StartingHandSelectionUI extends UIElement {
 
     private final float CONFIRMATION_BUTTON_OFFSET_X = 0.f;
     private final float CONFIRMATION_BUTTON_OFFSET_Y = 55.f;
-    private final float CONFIRMATION_BUTTON_WIDTH = 50;
-    private final float CONFIRMATION_BUTTON_HEIGHT = 40;
+    private final float CONFIRMATION_BUTTON_WIDTH = 50.f;
+    private final float CONFIRMATION_BUTTON_HEIGHT = 40.f;
     private static final float CONFIRMATION_BUTTON_ROTATION = 0.f;
 
     private TextUIElement title;
@@ -132,8 +132,7 @@ public class StartingHandSelectionUI extends UIElement {
 
         resizeAllCardsInSelector(player.getStartingHandSelector());
         //TODO get actual values and rotate properly
-        //TODO also give proper fonts :O
-        placer.placePlaceableRelativeToAnchorPoint(title, 70.f, -20.f, this.rotation, getAbsoluteRotation(this.rotation));
+        placer.placePlaceableRelativeToAnchorPoint(title, -70.f, -20.f, this.rotation, this.rotation);
     }
 
     private float findXPositionInRelationToContainer(float offsetX) {

@@ -45,20 +45,14 @@ public class UIElement implements Drawable, Scalable.ImageScalable, Placeable {
         canvas.drawBitmap(image, matrix, paint);
     }
 
-    //Method to place the UI Element on screen based on the middle of the object
-    //takes in a position and calculated with the origin
-    public void initPlacement(float spawnX, float spawnY) {
-        this.origin = new Origin(spawnX, spawnY);
-        this.boundingBox = new BoundingBox(width, height, origin);
-        this.matrix = new Matrix();
-    }
-
-
     @Override
     public void place(Screen screen, float placementX, float placementY, float rotation) {
+        this.currentScreen = screen;
         initPlacement(placementX, placementY, rotation);
-        screen.getScalables().add(this);
-        screen.getDrawables().add(this);
+        if (!screen.getScalables().contains(this))
+             screen.getScalables().add(this);
+        if (!screen.getDrawables().contains(this))
+            screen.getDrawables().add(this);
     }
 
     @Override
@@ -71,9 +65,9 @@ public class UIElement implements Drawable, Scalable.ImageScalable, Placeable {
     @Override
     public void scale(float scaleFactorX, float scaleFactorY) {
         getMatrix().reset(); // Resets the matrix for
-        getMatrix().postScale((getWidth() / getBitmap().getWidth()) * scaleFactorX, getHeight() / getBitmap().getHeight() * scaleFactorY); //Scales the object/image ratio by the scale factor
-        getMatrix().postRotate(getRotation(), getHalfWidth() * scaleFactorX, getHalfHeight() * scaleFactorY); //Rotates from the middle of the object on the screen
-        getMatrix().postTranslate((getPosX() - getWidth() / 2.f) * scaleFactorX, (getPosY() - getHeight() / 2.f) * scaleFactorY); //Translates the object by the scale factor
+        getMatrix().postScale((width / getBitmap().getWidth()) * scaleFactorX, height / getBitmap().getHeight() * scaleFactorY); //Scales the object/image ratio by the scale factor
+        getMatrix().postRotate(rotation, getHalfWidth() * scaleFactorX, halfHeight * scaleFactorY); //Rotates from the middle of the object on the screen
+        getMatrix().postTranslate((getPosX() - halfWidth) * scaleFactorX, (getPosY() - halfHeight) * scaleFactorY); //Translates the object by the scale factor
     }
 
     //Method to setUpGamePiecePositions the UI Element on screen based on the middle of the object
@@ -87,8 +81,6 @@ public class UIElement implements Drawable, Scalable.ImageScalable, Placeable {
 
 
     //Getters and Setters
-    Bitmap getImage() { return image; }
-
     public void setImage(Bitmap image) {
         this.image = image;
     }
@@ -106,18 +98,6 @@ public class UIElement implements Drawable, Scalable.ImageScalable, Placeable {
         this.matrix = matrix;
     }
 
-    public float getWidth() {
-        return width;
-    }
-
-    public void setWidth(float width) {
-        this.width = width;
-    }
-
-    public float getHeight() {
-        return height;
-    }
-
     @Override
     public float getPosX() {
         return this.origin.getOriginX();
@@ -133,8 +113,22 @@ public class UIElement implements Drawable, Scalable.ImageScalable, Placeable {
         return this.rotation;
     }
 
+    public float getWidth() {
+        return width;
+    }
+
+    public void setWidth(float width) {
+        this.width = width;
+        this.halfWidth = width / 2;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
     public void setHeight(float height) {
         this.height = height;
+        this.halfHeight = height / 2;
     }
 
     public BoundingBox getBoundingBox() {
@@ -163,14 +157,6 @@ public class UIElement implements Drawable, Scalable.ImageScalable, Placeable {
 
     public float getHalfWidth() {
         return halfWidth;
-    }
-
-    public void setHalfWidth(float halfWidth) {
-        this.halfWidth = halfWidth;
-    }
-
-    public void setHalfHeight(float halfHeight) {
-        this.halfHeight = halfHeight;
     }
 
     public Paint getPaint() {
