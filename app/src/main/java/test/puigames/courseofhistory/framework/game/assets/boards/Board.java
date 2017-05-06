@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Drawable;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
-import test.puigames.courseofhistory.framework.game.assets.CardHand;
 import test.puigames.courseofhistory.framework.game.assets.Hero;
 import test.puigames.courseofhistory.framework.game.assets.PlayArea;
 
@@ -15,8 +14,9 @@ import test.puigames.courseofhistory.framework.game.assets.PlayArea;
 
 
 public class Board extends Sprite implements Drawable {
-    private PlayArea[] playAreas = new PlayArea[2];
-    private Hero[] heroes = new Hero[MAX_PLAYERS_ON_BOARD];
+    public static final int MAX_PLAYERS = 2;
+    private PlayArea[] playAreas = new PlayArea[MAX_PLAYERS];
+    private Hero[] heroes = new Hero[MAX_PLAYERS];
 
     private int playAreaWidth = 460;
     private int playAreaHeight = 90;
@@ -57,50 +57,8 @@ public class Board extends Sprite implements Drawable {
         this.playAreas[i] = playArea;
     }
 
-    public CardHand[] getCardHands() {
-        return cardHands;
-    }
-
-    public void setCardHands(CardHand[] cardHands) {
-        this.cardHands = cardHands;
-    }
-
-    public CardHand getCardHand(int i) {
-        return cardHands[i];
     public int getPlayAreaWidth() {
         return playAreaWidth;
-    }
-
-    public void setCardHand(CardHand cardHand, int i) {
-        this.cardHands[i] = cardHand;
-    }
-
-    public int getPLAY_AREA_WIDTH() {
-        return PLAY_AREA_WIDTH;
-    }
-
-    public int getPLAY_AREA_HEIGHT() {
-        return PLAY_AREA_HEIGHT;
-    }
-
-    public float getPLAY_AREA_POS_Y_PLAYER1() {
-        return PLAY_AREA_POS_Y_PLAYER1;
-    }
-
-    public float getPLAY_AREA_POS_Y_PLAYER2() {
-        return PLAY_AREA_POS_Y_PLAYER2;
-    }
-
-    public float getCARD_HAND_POS_Y_PLAYER_1() {
-        return CARD_HAND_POS_Y_PLAYER_1;
-    }
-
-    public float getCARD_HAND_POS_Y_PLAYER_2() {
-        return CARD_HAND_POS_Y_PLAYER_2;
-    }
-
-    public int getMAX_PLAYERS_ON_BOARD() {
-        return MAX_PLAYERS_ON_BOARD;
     }
 
     public Hero[] getHeroes() {

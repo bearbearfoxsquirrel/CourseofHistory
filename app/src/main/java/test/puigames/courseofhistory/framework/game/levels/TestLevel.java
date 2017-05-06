@@ -13,6 +13,7 @@ import test.puigames.courseofhistory.framework.game.assets.Coin;
 import test.puigames.courseofhistory.framework.game.assets.Deck;
 import test.puigames.courseofhistory.framework.game.assets.Hero;
 import test.puigames.courseofhistory.framework.game.assets.Mana;
+import test.puigames.courseofhistory.framework.game.assets.StatImage;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
 import test.puigames.courseofhistory.framework.game.assets.players.controllers.CourseOfHistoryMachine;
@@ -81,7 +82,7 @@ public class TestLevel extends Level {
            Bitmap[] coinSides = {
                    resourceFetcher.getBitmapFromFile("images/coins/coin-heads.png"),
                    resourceFetcher.getBitmapFromFile("images/coins/coin-tails.png")};
-           Coin coin = new Coin(this, coinSides, COIN_SIZE, COIN_SIZE);
+           Coin coin = new Coin(this, coinSides);
 
            //Create players
            Player[] players = new Player[CourseOfHistoryMachine.PLAYER_COUNT];
@@ -104,7 +105,7 @@ public class TestLevel extends Level {
 
            //Creates a controller and a player for each participant
            for(int i = 0; i < players.length; i++) {
-               players[i] = new Player(resourceFetcher.loadCharacterCards(this, DECK_NAMES[i]), board, new Deck(this, resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png")), new CardHand(this), i); //Creating a new player pawn for each controller
+               players[i] = new Player(resourceFetcher.loadCharacterCards(this, DECK_NAMES[i]), board, new Deck(this, resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png")), new CardHand(this) ,i); //Creating a new player pawn for each controller
                //TODO give proper deck image!!!
 
                for (int j = 0; j < players[i].getMAX_MANA(); j++)

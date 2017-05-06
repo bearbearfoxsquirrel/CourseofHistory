@@ -19,7 +19,10 @@ public class CharacterCard extends Card implements Damageable.Attackable {
     private String description;
     private int mana;
     private int attack;
+
     private int maxAttack;
+    private int maxHealth;
+
     private int health;
     private String abilityDescription;
     private int currentAttackEnergy;
@@ -64,13 +67,14 @@ public class CharacterCard extends Card implements Damageable.Attackable {
         CheckStat(attack, this.statImages[2]);
     }
 
-    public void updateCardStats(){
+    public void updateCardStats() {
         CheckStat(mana, this.statImages[0]);
         CheckStat(health, this.statImages[1]);
         CheckStat(attack, this.statImages[2]);
 
-        for(int i = 0; i < statImages.length; i++){
+        for (int i = 0; i < statImages.length; i++) {
             perryPlacablePlacer.placePlaceableRelativeToAnchorPoint(statImages[i], getPosX(), getPosY(), statLocationsX[i], statLocationsY[i], this.rotation, this.rotation);
+        }
     }
 
     public void CheckStat(int statToCheck, StatImage statImage){
@@ -109,7 +113,6 @@ public class CharacterCard extends Card implements Damageable.Attackable {
                 statImage.setState(StatImage.Number.UNASSIGNED);
                 break;
         }
-
     }
 
     @Override

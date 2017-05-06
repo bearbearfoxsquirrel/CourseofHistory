@@ -40,24 +40,6 @@ public class ResourceFetcher implements Fetcher {
     }
 
     @Override
-    public Board loadBoard(Screen screen, String boardName) throws NullPointerException {
-        //Takes a boards name as an input and returns the corresponding board object.
-        //If a board is not found a null pointer is returned
-        JSONArray boardJsonArray = jsonBourne.fromJSONStringToJsonArray(getStringFromFile(BOARDS_URL), BOARDS_ARRAY_NAME);
-
-        //Assume that JSON file is sorted!!!!
-        Board board = null;
-        try {
-            JSONObject jsonBoard = jsonBourne.searchJSONArray(boardJsonArray, "boardName", boardName);
-            board = new Board(screen, getBitmapFromFile(jsonBoard.getString("url"))); //where board
-            // is created
-        } catch (JSONException e) {
-            Log.d("Loading Resource: ", "Cannot find board of name: " + boardName);
-            throw new NullPointerException();
-        }
-        return board;
-    }
-
     public Board loadBoard(Screen screen, String boardName, Hero[] heroes) throws NullPointerException {
         //Takes a boards name as an input and returns the corresponding board object.
         //If a board is not found a null pointer is returned
@@ -67,7 +49,8 @@ public class ResourceFetcher implements Fetcher {
         Board board = null;
         try {
             JSONObject jsonBoard = jsonBourne.searchJSONArray(boardJsonArray, "boardName", boardName);
-            board = new Board(screen, getBitmapFromFile(jsonBoard.getString("url")), heroes); //where board is created
+            board = new Board(screen, getBitmapFromFile(jsonBoard.getString("url")), heroes); //where board
+            // is created
         } catch (JSONException e) {
             Log.d("Loading Resource: ", "Cannot find board of name: " + boardName);
             throw new NullPointerException();
@@ -78,7 +61,7 @@ public class ResourceFetcher implements Fetcher {
     //For now just returns all cards
     //TODO: loadCharacterCards will be used to load a specified set of cards e.g. decks and all cards
     @Override
-    public CharacterCard[] loadCharacterCards(Screen screen, String cardsNames) throws NullPointerException{
+    public CharacterCard[] loadCharacterCards(Screen screen, String cardsNames) throws NullPointerException {
         JSONArray cardJsonArray = jsonBourne.fromJSONStringToJsonArray(getStringFromFile(TEST_CARDS_URL), cardsNames);
 
         CharacterCard[] characterCards = new CharacterCard[cardJsonArray.length()];
@@ -123,6 +106,7 @@ public class ResourceFetcher implements Fetcher {
         }
         throw new NullPointerException();
     }
+
 
     public String getStringFromFile(String url) {
         //gets a string from a specified file url, handles errors within itself

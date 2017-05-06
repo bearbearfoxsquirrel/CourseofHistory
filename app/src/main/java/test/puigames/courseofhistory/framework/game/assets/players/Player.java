@@ -37,7 +37,7 @@ public class Player {
         //PLAY_ACTIVE refers to when the player is allowed to take active decision in their turn
     }
 
-    public Player(CharacterCard[] playerCards, Board board, Deck deck, CardHand cardHand, Hero hero, int playerNumber) {
+    public Player(CharacterCard[] playerCards, Board board, Deck deck, CardHand cardHand, int playerNumber) {
         this.playerCurrentState = PlayerState.CREATED;
         this.playerNumber = playerNumber;
         this.board = board;
@@ -47,7 +47,7 @@ public class Player {
         this.hero = hero;
         this.hand = cardHand;
 
-      //  this.hero = board.getHero(playerNumber); //give player hero from board now
+        this.hero = board.getHero(playerNumber); //give player hero from board now
         setUpPlayerDeck(playerCards);
     }
 
@@ -100,7 +100,7 @@ public class Player {
 
     public void placeCardOnBoard(CharacterCard card) {
         board.getPlayArea(playerNumber).addCardToArea(card);
-        board.getCardHand(playerNumber).removeCardFromArea(card);
+        removeCardFromArea(card);
     }
 
     public void addCardToArea(CharacterCard card) {

@@ -10,9 +10,8 @@ import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
-import test.puigames.courseofhistory.framework.game.CourseOfHistory;
-import test.puigames.courseofhistory.framework.game.assets.Hero;
 import test.puigames.courseofhistory.framework.engine.ui.MenuButton;
+import test.puigames.courseofhistory.framework.game.assets.Hero;
 import test.puigames.courseofhistory.framework.game.assets.Mana;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
@@ -139,7 +138,7 @@ public class HumanCardGameController extends CardGameController implements Input
                     }
                     break;
                 } else if (releasedCard(touchEvent, card))
-                    player.getBoard().getCardHand(player.getPlayerNumber()).positionCardsInArea();
+                    player.getHand().positionCardsInArea();
             }
         }
     }
@@ -161,7 +160,7 @@ public class HumanCardGameController extends CardGameController implements Input
                     preventGoddamnCardOriginOverlappingHopefullySuperAwesomeFunMethod(getPlayersCardsInCardHand());
                     break;
                 } else if (releasedCard(touchEvent, card))
-                    player.getBoard().getCardHand(player.getPlayerNumber()).positionCardsInArea();
+                    player.getHand().positionCardsInArea();
             }
         }
     }
@@ -310,7 +309,7 @@ public class HumanCardGameController extends CardGameController implements Input
      * @return this player's cards in their hand
      */
     private ArrayList<CharacterCard> getPlayersCardsInCardHand() {
-        return player.getBoard().getCardHand(player.getPlayerNumber()).getCardsInArea();
+        return player.getHand().getCardsInArea();
     }
 
     /**
