@@ -150,7 +150,7 @@ public class CourseOfHistoryMachine implements Updateable {
             if (i == turnIndex)
                 players[i].setPlayerCurrentState(Player.PlayerState.TURN_ACTIVE); //Made to turn
             else
-                players[i].setPlayerCurrentState(Player.PlayerState.WAITING_FOR_TURN);
+                players[i].setPlayerCurrentState(Player.PlayerState.WAITING_FOR_FIRST_TURN);
         }
     }
 
@@ -213,6 +213,9 @@ public class CourseOfHistoryMachine implements Updateable {
             case CREATED:
                 players[turnIndex].setPlayerCurrentState(Player.PlayerState.TURN_STARTED);
                 break;
+
+            case WAITING_FOR_FIRST_TURN:
+                players[turnIndex].setPlayerCurrentState(Player.PlayerState.TURN_ACTIVE);
 
             case TURN_STARTED:
                 startTurn();

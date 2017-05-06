@@ -74,7 +74,7 @@ public class HumanCardGameUIContainer implements Updateable, Placeable, Drawable
         //ADD STARTING HAND SELECTOR UI
         startingHandSelectorUI = new StartingHandSelectionUI(currentScreen,this.player, startingHandSelectorBackgroundBitmap, confirmationButtonBitmap,selectedCardToTossOverlay);
 
-        //Add PAUSE GAME BUTTON
+        //ADD PAUSE GAME BUTTON
         this.pauseButton = new MenuButton(currentScreen, confirmationButtonBitmap, PAUSE_BUTTON_WIDTH, PAUSE_BUTTON_HEIGHT) {
             @Override
             public void applyAction() {
@@ -88,7 +88,7 @@ public class HumanCardGameUIContainer implements Updateable, Placeable, Drawable
         this.endTurnButton = new MenuButton(currentScreen, endTurnButtonBitmap, END_TURN_BUTTON_WIDTH, END_TURN_BUTTON_HEIGHT) {
             @Override
             public void applyAction() {
-                player.setPlayerCurrentState(Player.PlayerState.TURN_ENDED);
+                player.endTurn();
             }
         };
     }

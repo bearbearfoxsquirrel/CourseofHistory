@@ -61,8 +61,10 @@ public class Deck extends Stack implements Placeable, Scalable.ImageScalable, Dr
     }
 
     @Override
-    public synchronized Object pop() {
-        return super.pop();
+    //Object pop to popping a character card
+    public synchronized CharacterCard pop() {
+        return (CharacterCard) super.pop();
+
     }
 
     private void initPlacement(float placementX, float placementY, float rotation) {

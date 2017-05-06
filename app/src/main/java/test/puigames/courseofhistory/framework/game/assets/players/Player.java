@@ -32,7 +32,7 @@ public class Player {
     private CardHand hand;
 
     public enum PlayerState {
-        CREATED, TURN_STARTED, TURN_ACTIVE, WAITING_FOR_TURN, TURN_ENDED, WIN, LOSE,
+        CREATED, TURN_STARTED, WAITING_FOR_FIRST_TURN, TURN_ACTIVE, WAITING_FOR_TURN, TURN_ENDED, WIN, LOSE,
         WAITING_TO_BEGIN_CREATING_HAND, BEGIN_CREATING_STARTING_HAND, STARTING_HAND_CHOOSING_CARDS_TO_TOSS, FINISHED_CREATING_START_HAND
         //PLAY_ACTIVE refers to when the player is allowed to take active decision in their turn
     }
@@ -50,22 +50,31 @@ public class Player {
         setUpPlayerDeck(playerCards);
     }
 
-    public void confirmSelectedCardsFromStartingHandSelector() {
-        for (CharacterCard card : startingHandSelector.getCardsToKeep())
-            hand.addCardToArea(card);
+    public void setUpPlayerDeck(CharacterCard[] playerCards){
+        playerDeck.setUpDeck(playerCards);
     }
 
+    public void confirmSelectedCardsFromStartingHandSelector() {
+        //Cards choosen to keep are added to hand
+        for (CharacterCard card : startingHandSelector.getCardsToKeep())
+            hand.addCardToArea(card);
 
+        //Drawing cards from the deck till the player has the right amount of cards
+        //Used if player chooses to toss cards
+        while (hand.getCardsInArea().size() < startingHandSelector.STARTING_HAND_SIZE)
+            hand.addCardToArea(playerDeck.pop());
+
+        //Placing cards chosen to toss back in the deck at random areas (shuffling kinda)˚
+        for (CharacterCard card : startingHandSelector.getCardsToToss())
+            playerDeck.add( (int) Math.random() % playerDeck.size(), card );
+
+    }
 
     public void createNewStartingHand() {
         CharacterCard[] startingHand = new CharacterCard[startingHandSelector.STARTING_HAND_SIZE];
         for (int handIndex = 0; handIndex < startingHandSelector.STARTING_HAND_SIZE; handIndex++)
             startingHand[handIndex] = drawCardFromDeck(); //Draws the amount of starting cards from the player's deck for each player
         startingHandSelector = new StartingHandSelector(startingHand); //Creates a new instance of starting hand selector for the player to use
-    }
-
-    public void setUpPlayerDeck(CharacterCard[] playerCards){
-        playerDeck.setUpDeck(playerCards);
     }
 
     public void moveCard(Card card, float posX, float posY) {
@@ -77,6 +86,7 @@ public class Player {
         return new CardAttack(theAttacker, recipientOfMyFatalBlow, 5, null);
     }
 
+    //TODO make
     private void attackHero() {
 
     }
