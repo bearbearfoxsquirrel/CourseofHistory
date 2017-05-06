@@ -13,7 +13,6 @@ import test.puigames.courseofhistory.framework.game.assets.players.events.Damage
  */
 
 public class CharacterCard extends Card implements Damageable.Attackable {
-    //variables
     private String name;
     private String description;
     private int mana;
@@ -64,6 +63,11 @@ public class CharacterCard extends Card implements Damageable.Attackable {
         CheckStat(mana, this.statImages[0]);
         CheckStat(health, this.statImages[1]);
         CheckStat(attack, this.statImages[2]);
+    }
+
+    public void translateCard(float updatedX, float updatedY){
+        super.translateCard(updatedX, updatedY);
+        updateCardStats();
     }
 
     public void updateCardStats() {

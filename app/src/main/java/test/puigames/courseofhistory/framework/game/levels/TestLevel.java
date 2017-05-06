@@ -16,7 +16,7 @@ import test.puigames.courseofhistory.framework.game.assets.Mana;
 import test.puigames.courseofhistory.framework.game.assets.cards.StatImage;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
-import test.puigames.courseofhistory.framework.game.assets.players.controllers.CourseOfHistoryMachine;
+import test.puigames.courseofhistory.framework.game.CourseOfHistoryMachine;
 import test.puigames.courseofhistory.framework.game.assets.players.controllers.HumanCardGameController;
 import test.puigames.courseofhistory.framework.game.screens.SplashScreen;
 

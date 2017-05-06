@@ -53,9 +53,9 @@ public abstract class GameObject implements Updateable, Placeable, Scalable {
     @Override
     public void scale(float scaleFactorX, float scaleFactorY) {
         getMatrix().reset(); // Resets the matrix for
-        getMatrix().postScale(getWidth() * scaleFactorX, getHeight() * scaleFactorY); //Scales the object size by the scale factor
-        getMatrix().postRotate(getRotation(), getHalfWidth() * scaleFactorX, getHalfHeight() * scaleFactorY); //Rotates from the middle of the object on the screen
-        getMatrix().postTranslate((getPosX() - getWidth() / 2.f) * scaleFactorX, (getPosY() - getHeight() / 2.f) * scaleFactorY); //Translates the object by the scale factor
+        getMatrix().postScale(width * scaleFactorX, height * scaleFactorY); //Scales the object size by the scale factor
+        getMatrix().postRotate(rotation, getHalfWidth() * scaleFactorX, getHalfHeight() * scaleFactorY); //Rotates from the middle of the object on the screen
+        getMatrix().postTranslate((getPosX() - halfWidth) * scaleFactorX, (getPosY() - halfHeight) * scaleFactorY); //Translates the object by the scale factor
     }
 
     @Override

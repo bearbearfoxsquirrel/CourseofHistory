@@ -78,12 +78,6 @@ public class StatImage extends Sprite {
         }
     }
 
-    @Override
-    public void scale(float scaleFactorX, float scaleFactorY) {
-        super.scale(scaleFactorX, scaleFactorY);
-    }
-
-
     public Number getState() {
         return state;
     }

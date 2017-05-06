@@ -15,6 +15,7 @@ import test.puigames.courseofhistory.framework.game.assets.Hero;
 import test.puigames.courseofhistory.framework.game.assets.Mana;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
+import test.puigames.courseofhistory.framework.game.assets.players.controllers.ui.HumanCardGameUIContainer;
 
 
 //This class is for allowing the user to interact with a pawn pawn
@@ -57,34 +58,7 @@ public class HumanCardGameController extends CardGameController implements Input
 
                 break;
             case STARTING_HAND_CHOOSING_CARDS_TO_TOSS:
-                if (controllerUI.getStartingHandSelectorUI().confirmationButton.checkForInput(inputBuddy))
-                    controllerUI.getStartingHandSelectorUI().confirmationButton.applyAction();
-
-                ArrayList<CharacterCard> cardsToBeSelectedForTossing = new ArrayList<>();
-                ArrayList<CharacterCard> cardsToBeDeselectedForTossing = new ArrayList<>();
-
-                for (Input.TouchEvent touchEvent : inputBuddy.getTouchEvents()) {
-                    //check cards to toss selection
-                    if(touchEvent.type == Input.TouchEvent.TOUCH_UP) {
-                        for (CharacterCard card : player.getStartingHandSelector().getCardsToKeep())
-                            if (card.getBoundingBox().isTouchOn(touchEvent))
-                                cardsToBeSelectedForTossing.add(card);
-
-                        for (CharacterCard card : cardsToBeSelectedForTossing)
-                            player.getStartingHandSelector().selectCardToToss(card);
-
-                        //Check cards to keep selection
-                        for (CharacterCard card : player.getStartingHandSelector().getCardsToToss())
-                            if (card.getBoundingBox().isTouchOn(touchEvent) && !cardsToBeSelectedForTossing.contains(card))
-                                cardsToBeDeselectedForTossing.add(card);
-
-                        for (CharacterCard card : cardsToBeDeselectedForTossing)
-                            player.getStartingHandSelector().deselectCardToToss(card);
-
-                        cardsToBeSelectedForTossing.clear();
-                        cardsToBeDeselectedForTossing.clear();
-                    }
-                }
+                handleCreatingStartingHand();
                 break;
         }
         //Inter card collision checking and handling
@@ -92,6 +66,41 @@ public class HumanCardGameController extends CardGameController implements Input
         cardCollisionCheckAndResolve(getPlayersCardsInCardHand());
         //Keep cards on board: don't check hand, causes issues
         keepCardsInBoardBounds(getPlayersCardsInPlayArea());
+    }
+
+    private void handleCreatingStartingHand() {
+        if (controllerUI.getStartingHandSelectorUI().confirmationButton.checkForInput(inputBuddy))
+            controllerUI.getStartingHandSelectorUI().confirmationButton.applyAction();
+
+        ArrayList<CharacterCard> cardsToBeSelectedForTossing = new ArrayList<>();
+        ArrayList<CharacterCard> cardsToBeDeselectedForTossing = new ArrayList<>();
+        //Array lists set up outside and cleared every iteration of touch events to avoid needlessly redeclaring the arraylists
+        for (Input.TouchEvent touchEvent : inputBuddy.getTouchEvents()) {
+            //check cards to toss selection
+            if(touchEvent.type == Input.TouchEvent.TOUCH_UP) {
+                updateCardsBeingSelectedInStartingHandSelectorUI(touchEvent, cardsToBeSelectedForTossing, cardsToBeDeselectedForTossing);
+                cardsToBeSelectedForTossing.clear();
+                cardsToBeDeselectedForTossing.clear();
+            }
+        }
+    }
+
+    private void updateCardsBeingSelectedInStartingHandSelectorUI(Input.TouchEvent touchEvent, ArrayList<CharacterCard> cardsToBeSelectedForTossing, ArrayList<CharacterCard> cardsToBeDeselectedForTossing) {
+        //Check cards to keep selection
+        for (CharacterCard card : player.getStartingHandSelector().getCardsToKeep())
+            if (card.getBoundingBox().isTouchOn(touchEvent))
+                cardsToBeSelectedForTossing.add(card);
+
+        for (CharacterCard card : cardsToBeSelectedForTossing)
+            player.getStartingHandSelector().selectCardToToss(card);
+
+        //Check cards to toss selection
+        for (CharacterCard card : player.getStartingHandSelector().getCardsToToss())
+            if (card.getBoundingBox().isTouchOn(touchEvent) && !cardsToBeSelectedForTossing.contains(card))
+                cardsToBeDeselectedForTossing.add(card);
+
+        for (CharacterCard card : cardsToBeDeselectedForTossing)
+            player.getStartingHandSelector().deselectCardToToss(card);
     }
 
     /**

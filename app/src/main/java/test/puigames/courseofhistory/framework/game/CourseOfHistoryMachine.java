@@ -1,4 +1,4 @@
-package test.puigames.courseofhistory.framework.game.assets.players.controllers;
+package test.puigames.courseofhistory.framework.game;
 
 import android.util.Log;
 

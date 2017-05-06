@@ -1,4 +1,4 @@
-package test.puigames.courseofhistory.framework.game.assets.players.controllers;
+package test.puigames.courseofhistory.framework.game.assets.players.controllers.ui;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
