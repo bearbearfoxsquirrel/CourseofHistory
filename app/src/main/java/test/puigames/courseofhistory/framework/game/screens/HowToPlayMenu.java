@@ -107,12 +107,15 @@ public class HowToPlayMenu extends Menu {
             Log.d("Error", "UI Element loading has failed");
         }
 
+        //uiElements are given a location to be placed on the screen based on the centre of their image
+        //
         backgroundHowToPlay.place(this, bgCentreX, bgCentreY, UI_ROTATION);
         back.place(this, backCentreX, backCentreY, UI_ROTATION);
         rulesForward.place(this, rulesForwardCentreX, rulesForwardCentreY, UI_ROTATION);
         rulesBackward.place(this, rulesBackwardCentreX, rulesBackwardCentreY, UI_ROTATION);
         howToPlayImage.place(this, howToPlayCentreX, howToPlayCentreY, UI_ROTATION);
 
+        //Added to the uiElements ArrayList to be scaled and drawn to the screen
         uiElements.add(backgroundHowToPlay);
         uiElements.add(back);
         uiElements.add(rulesForward);
@@ -125,6 +128,10 @@ public class HowToPlayMenu extends Menu {
         super.draw(canvas, deltaTime);
     }
 
+    //Method to swap the image being displayed on the screen.
+    //The current index is incremented and the how to play image variable is set to be the
+    //bitmap at the current index in the Array List containing another part of the guide.
+    //The new bitmap is then drawn to the screen in place of the previous.
     private void swapImageForward() {
         currentIndex++;
         if (currentIndex < 0)
@@ -134,6 +141,10 @@ public class HowToPlayMenu extends Menu {
         howToPlayImage.setImage(howToPlayTexts.get(currentIndex));
     }
 
+    //Method to swap the image being displayed on the screen.
+    //The current index is decremented and the how to play image variable is set to be the
+    //bitmap at the current index in the Array List containing another part of the guide.
+    //The new bitmap is then drawn to the screen in place of the previous.
     private void swapImageBackward() {
         currentIndex--;
         if (currentIndex < 0)
@@ -158,29 +169,23 @@ public class HowToPlayMenu extends Menu {
 
     }
 
-    public UIElement getBackgroundHowToPlay() {
-        return backgroundHowToPlay;
-    }
+    //Getters and Setters - How To Play
 
-    public void setBackgroundHowToPlay(UIElement backgroundHowToPlay) {
-        this.backgroundHowToPlay = backgroundHowToPlay;
-    }
+    public UIElement getBackgroundHowToPlay() { return backgroundHowToPlay; }
+
+    public void setBackgroundHowToPlay(UIElement backgroundHowToPlay) { this.backgroundHowToPlay = backgroundHowToPlay; }
 
     public UIElement getHowToPlayImage() {
         return howToPlayImage;
     }
 
-    public void setHowToPlayImage(UIElement howToPlayImage) {
-        this.howToPlayImage = howToPlayImage;
-    }
+    public void setHowToPlayImage(UIElement howToPlayImage) { this.howToPlayImage = howToPlayImage; }
 
     public ArrayList<Bitmap> getHowToPlayTexts() {
         return howToPlayTexts;
     }
 
-    public void setHowToPlayTexts(ArrayList<Bitmap> howToPlayTexts) {
-        this.howToPlayTexts = howToPlayTexts;
-    }
+    public void setHowToPlayTexts(ArrayList<Bitmap> howToPlayTexts) { this.howToPlayTexts = howToPlayTexts; }
 
     public MenuButton getBack() {
         return back;
@@ -361,4 +366,5 @@ public class HowToPlayMenu extends Menu {
     public void setCurrentIndex(int currentIndex) {
         this.currentIndex = currentIndex;
     }
+
 }

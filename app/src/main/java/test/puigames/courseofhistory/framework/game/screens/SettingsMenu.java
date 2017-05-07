@@ -48,7 +48,7 @@ public class SettingsMenu extends Menu {
             }
         };
 
-        this.volumeOn = new MenuButton(this, resourceFetcher.getBitmapFromFile("images/buttons/button_volume_on.png"),
+        this.volumeOn = new MenuButton(this, resourceFetcher.getBitmapFromFile("images/buttons/button_volume_increase.png"),
                 volumeWidth, volumeHeight){
             @Override
             public void applyAction(){
@@ -56,7 +56,7 @@ public class SettingsMenu extends Menu {
             }
         };
 
-        this.volumeOff= new MenuButton(this, resourceFetcher.getBitmapFromFile("images/buttons/button_volume_off.png"),
+        this.volumeOff= new MenuButton(this, resourceFetcher.getBitmapFromFile("images/buttons/button_volume_decrease.png"),
                 volumeWidth, volumeHeight) {
             @Override
             public void applyAction() {

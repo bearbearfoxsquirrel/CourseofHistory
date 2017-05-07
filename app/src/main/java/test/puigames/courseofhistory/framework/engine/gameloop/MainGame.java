@@ -14,7 +14,11 @@ import android.view.WindowManager;
 import test.puigames.courseofhistory.R;
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.audio.AndroidAudio;
+import test.puigames.courseofhistory.framework.engine.audio.AndroidMusic;
+import test.puigames.courseofhistory.framework.engine.audio.AndroidSound;
 import test.puigames.courseofhistory.framework.engine.audio.Audio;
+import test.puigames.courseofhistory.framework.engine.audio.Music;
+import test.puigames.courseofhistory.framework.engine.audio.Sound;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.resourceloading.ResourceFetcher;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
@@ -105,7 +109,7 @@ public class MainGame extends Activity implements GameProperties, Runnable
         wakeLock.acquire();
         screen.resume();
         renderView.resume();
-//        mySound.start();
+        //mySound.start();
 
         running = true;
         renderThread = new Thread(this);
@@ -119,7 +123,7 @@ public class MainGame extends Activity implements GameProperties, Runnable
         wakeLock.release();
         renderView.pause();
         screen.pause();
-//        mySound.pause();
+        //mySound.pause();
         boolean joined = false;
         while (!joined) {
             try {
@@ -220,7 +224,7 @@ public class MainGame extends Activity implements GameProperties, Runnable
 //    public MediaPlayer getMySound() {
 //        return mySound;
 //    }
-
+//
 //    public void setMySound(MediaPlayer mySound) {
 //        this.mySound = mySound;
 //    }
