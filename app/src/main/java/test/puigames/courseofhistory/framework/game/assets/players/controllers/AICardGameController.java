@@ -53,10 +53,14 @@ public class AICardGameController extends CardGameController {
         // Choose cards with low mana, so they can be played soon
         // Especially cards with one mana!
         // Apart from that have a preference for cards with a high attack or high health
-        //Set<CharacterCard> cardsToLikelyChooseToToss = new HashSet<>();
+        ArrayList<CharacterCard> cardsToTossAfterProcessing = new ArrayList<>();
         for (CharacterCard card : player.getStartingHandSelector().getCardsToKeep())
-            if (card.getMana() > MAX_MANA_ALLOWED && getCardRating(card.getMana(), card.getAttack(), card.getHealth()) < MIN_RATING_IF_CARD_IS_OVER_MAX_MANA)
-                 player.getStartingHandSelector().selectCardToToss(card);
+            if (card.getMana() > MAX_MANA_ALLOWED || getCardRating(card.getMana(), card.getAttack(), card.getHealth()) < MIN_RATING_IF_CARD_IS_OVER_MAX_MANA)
+                 cardsToTossAfterProcessing.add(card);
+
+        for (CharacterCard card : cardsToTossAfterProcessing)
+            player.getStartingHandSelector().selectCardToToss(card);
+
         player.confirmSelectedCardsFromStartingHandSelector();
     }
 
@@ -72,6 +76,7 @@ public class AICardGameController extends CardGameController {
             handleEnemyThreat();
         else
             haveARelaxingTurn();
+        player.endTurn();
 
         // Check cards in your hand, find the best cards to draw that you are able to and then draw them
         // If there no good cards to draw then just move on to cards in play
@@ -180,7 +185,7 @@ public class AICardGameController extends CardGameController {
     }
 
     private int getEnemyPlayerNumber() {
-        return player.getPlayerNumber() + 1 % 2;
+        return (player.getPlayerNumber() + 1) % 2;
     }
 
     private int getEnemyAttackPotential() {

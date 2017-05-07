@@ -76,6 +76,7 @@ public class Player {
         for (CharacterCard card : startingHandSelector.getCardsToToss())
             playerDeck.add( (int) Math.random() % playerDeck.size(), card );
 
+        playerCurrentState = PlayerState.FINISHED_CREATING_START_HAND;
     }
 
     public void createNewStartingHand() {
@@ -108,7 +109,9 @@ public class Player {
     }
 
     public void startTurn() {
-        playerCurrentState = PlayerState.TURN_STARTED;
+        if (playerDeck.size() > 0) {
+            hand.addCardToArea(drawCardFromDeck());
+        }
     }
 
     public void startActivePartOfTurn() {
@@ -117,7 +120,7 @@ public class Player {
     }
 
     public CharacterCard drawCardFromDeck() {
-        return (CharacterCard)playerDeck.pop();
+        return (CharacterCard) playerDeck.pop();
     }
 
     public void finishedCreatingStartHand() {
@@ -144,7 +147,7 @@ public class Player {
      * @return - true if card is touched, the touch event type is dragged, and card has attack energy, false otherwise
      */
     public boolean canCardBePlacedOnPlayArea(CharacterCard card) {
-        return (currentMana > card.getMana());
+        return (currentMana >= card.getMana());
     }
 
     /**
