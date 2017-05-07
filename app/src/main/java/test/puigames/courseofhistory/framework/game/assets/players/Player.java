@@ -131,6 +131,16 @@ public class Player {
         removeCardFromHand(card);
     }
 
+    public void removeCardFromBoardPlayArea(CharacterCard card) {
+        if (board.getPlayArea(playerNumber).getCardsInArea().contains(card)) {
+            board.getPlayArea(playerNumber).removeCardFromArea(card);
+        }
+    }
+
+    public void addCardToArea(CharacterCard card) {
+        board.getPlayArea(playerNumber).addCardToArea(card);
+    }
+
     public void removeCardFromHand(CharacterCard card) {
         hand.removeCardFromArea(card);
     }

@@ -11,9 +11,14 @@ import test.puigames.courseofhistory.framework.game.assets.players.Player;
  */
 
 public class AICardGameController extends CardGameController {
+    private final float TIME_BETWEEN_EACH_DECISION = 3.f;
+
+    private float currentTimeBetweenDecision;
+    boolean noMoreMovesCanBeMade;
 
     public AICardGameController(Screen screen, Player player) {
         super(screen, player);
+        currentTimeBetweenDecision = TIME_BETWEEN_EACH_DECISION;
     }
 
     /*public enum PlayerState {
@@ -24,13 +29,17 @@ public class AICardGameController extends CardGameController {
 
     @Override
     public void update(float deltaTime) {
-        switch (player.getPlayerCurrentState()) {
-            case STARTING_HAND_CHOOSING_CARDS_TO_TOSS:
-                handleCreatingStartingHand();
-                break;
-            case TURN_ACTIVE:
-                updateMakingTurn();
-                break;
+        currentTimeBetweenDecision -= deltaTime;
+        if (currentTimeBetweenDecision <= 0) {
+            switch (player.getPlayerCurrentState()) {
+                case STARTING_HAND_CHOOSING_CARDS_TO_TOSS:
+                    handleCreatingStartingHand();
+                    break;
+                case TURN_ACTIVE:
+                    updateMakingTurn();
+                    break;
+            }
+            currentTimeBetweenDecision = TIME_BETWEEN_EACH_DECISION;
         }
     }
 
@@ -66,6 +75,7 @@ public class AICardGameController extends CardGameController {
 
     //In future should use player events so there can be a queue of events for the ai to over a period of time rather than all at once
     private void updateMakingTurn() {
+        noMoreMovesCanBeMade = false;
         // First check for threats to self, so see if the enemy player can kill your hero with cards they have
         // If they can then see if you have enough to kill the threat
         // if cards in play area can get rid of enemy threat then just use those cards
@@ -76,7 +86,10 @@ public class AICardGameController extends CardGameController {
             handleEnemyThreat();
         else
             haveARelaxingTurn();
-        player.endTurn();
+
+        if (noMoreMovesCanBeMade)
+            player.endTurn();
+
 
         // Check cards in your hand, find the best cards to draw that you are able to and then draw them
         // If there no good cards to draw then just move on to cards in play
@@ -88,14 +101,26 @@ public class AICardGameController extends CardGameController {
     }
 
     private void haveARelaxingTurn() {
-        while (player.isThereACardThatCanBePlacedOnBoard())
+        if (player.isThereACardThatCanBePlacedOnBoard()) {
             player.placeCardOnBoard(getCardWIthBestRatingThatCanBePlayedFromHand());
+            noMoreMovesCanBeMade = false;
+        } else
+            noMoreMovesCanBeMade = true;
 
-        while (getCardsWithEnergy(player.getBoard().getPlayArea(player.getPlayerNumber()).getCardsInArea()).size() > 0 && player.canPlayerAttackEnemyHero())
+        if (getCardsWithEnergy(player.getBoard().getPlayArea(player.getPlayerNumber()).getCardsInArea()).size() > 0 && player.canPlayerAttackEnemyHero()) {
             player.attackEnemyHero(getCardWithHighestAttackThatHasEnergy(player.getBoard().getPlayArea(player.getPlayerNumber()).getCardsInArea()));
+            noMoreMovesCanBeMade = false;
+        } else
+            noMoreMovesCanBeMade = true;
 
-        while (getCardsWithEnergy(player.getBoard().getPlayArea(player.getPlayerNumber()).getCardsInArea()).size() > 0)
-            player.attackCard(getCardWithHighestAttackThatHasEnergy(player.getBoard().getPlayArea(player.getPlayerNumber()).getCardsInArea()), getWeakestEnemyCardToAttack());
+        if (getCardsWithEnergy(player.getBoard().getPlayArea(player.getPlayerNumber()).getCardsInArea()).size() > 0) {
+            CharacterCard cardToAttack = getWeakestEnemyCardToAttack();
+            if (cardToAttack.getHealth() > 0)
+                player.attackCard(getCardWithHighestAttackThatHasEnergy(player.getBoard().getPlayArea(player.getPlayerNumber()).getCardsInArea()), cardToAttack);
+            noMoreMovesCanBeMade = false;
+        } else {
+            noMoreMovesCanBeMade = true;
+        }
 
     }
 

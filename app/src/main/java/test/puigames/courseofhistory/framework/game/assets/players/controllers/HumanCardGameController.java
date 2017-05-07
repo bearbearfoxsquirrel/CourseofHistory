@@ -153,6 +153,8 @@ public class HumanCardGameController extends CardGameController implements Input
                     player.getHand().positionCardsInArea();
                 }
             }
+
+            //TODO add queue
         }
     }
 

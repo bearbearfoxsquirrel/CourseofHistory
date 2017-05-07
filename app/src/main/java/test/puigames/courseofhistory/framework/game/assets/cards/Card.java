@@ -31,7 +31,7 @@ public abstract class Card extends Sprite {
     }
 
     public void adjustCardSize(float factor){
-        this.setHeight(this.height*factor);
-        this.setWidth(this.width*factor);
+        this.setHeight(CARD_HEIGHT * factor);
+        this.setWidth(CARD_WIDTH * factor);
     }
 }

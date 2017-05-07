@@ -31,11 +31,12 @@ public class AITestLevel extends Level {
 
     private static float BOARD_PLAYER_AREA_ROTATION = 0.f;
     private static float BOARD_PLAYER_AREA_OFFSET_X = 0.f;
-    private static float BOARD_PLAYER_AREA_OFFSET_Y = 50.f;
+    private static float BOARD_PLAYER_AREA_OFFSET_Y = 48.f;
 
     private static float PLAYER_HAND_ROTATION = 0.f;
     private static float PLAYER_HAND_OFFSET_X = 0.f;
-    private static float PLAYER_HAND_OFFSET_Y = 140.f;
+    private static float PLAYER_HAND_OFFSET_Y = 130.f;
+
     private static int PLAYER_HAND_WIDTH = 340;
     private static int PLAYER_HAND_HEIGHT = 65;
 

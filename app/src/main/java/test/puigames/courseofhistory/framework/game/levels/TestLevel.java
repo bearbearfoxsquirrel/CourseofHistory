@@ -8,15 +8,14 @@ import test.puigames.courseofhistory.framework.engine.controlling.Controlling;
 import test.puigames.courseofhistory.framework.engine.screen.Level;
 import test.puigames.courseofhistory.framework.engine.screen.Placer;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
+import test.puigames.courseofhistory.framework.game.CourseOfHistoryMachine;
 import test.puigames.courseofhistory.framework.game.assets.CardHand;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
 import test.puigames.courseofhistory.framework.game.assets.Deck;
 import test.puigames.courseofhistory.framework.game.assets.Hero;
 import test.puigames.courseofhistory.framework.game.assets.Mana;
-import test.puigames.courseofhistory.framework.game.assets.StatImage;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
-import test.puigames.courseofhistory.framework.game.CourseOfHistoryMachine;
 import test.puigames.courseofhistory.framework.game.assets.players.controllers.HumanCardGameController;
 import test.puigames.courseofhistory.framework.game.screens.SplashScreen;
 
@@ -31,11 +30,12 @@ public class TestLevel extends Level {
 
     private static float BOARD_PLAYER_AREA_ROTATION = 0.f;
     private static float BOARD_PLAYER_AREA_OFFSET_X = 0.f;
-    private static float BOARD_PLAYER_AREA_OFFSET_Y = 50.f;
+    private static float BOARD_PLAYER_AREA_OFFSET_Y = 48.f;
 
     private static float PLAYER_HAND_ROTATION = 0.f;
     private static float PLAYER_HAND_OFFSET_X = 0.f;
-    private static float PLAYER_HAND_OFFSET_Y = 140.f;
+    private static float PLAYER_HAND_OFFSET_Y = 130.f;
+
     private static int PLAYER_HAND_WIDTH = 340;
     private static int PLAYER_HAND_HEIGHT = 65;
 

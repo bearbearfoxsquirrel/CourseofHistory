@@ -15,7 +15,7 @@ import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
  */
 public class PlayArea extends CardArea
 {
-    private static final float CARD_SCALE_FACTOR = 1.11f;
+    private static final float CARD_SCALE_FACTOR = 0.9f;
 
     public PlayArea(Screen screen, Bitmap bitmap, int width, int height)
     {
