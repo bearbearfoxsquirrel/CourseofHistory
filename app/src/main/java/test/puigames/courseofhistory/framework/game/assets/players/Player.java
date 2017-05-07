@@ -129,15 +129,15 @@ public class Player {
 
     public void placeCardOnBoard(CharacterCard card) {
         board.getPlayArea(playerNumber).addCardToArea(card);
-        removeCardFromArea(card);
+        removeCardFromHand(card);
     }
 
     public void addCardToArea(CharacterCard card) {
         board.getPlayArea(playerNumber).addCardToArea(card);
     }
 
-    public void removeCardFromArea(CharacterCard card) {
-        board.getPlayArea(playerNumber).removeCardFromArea(card);
+    public void removeCardFromHand(CharacterCard card) {
+        hand.removeCardFromArea(card);
     }
 
     /**

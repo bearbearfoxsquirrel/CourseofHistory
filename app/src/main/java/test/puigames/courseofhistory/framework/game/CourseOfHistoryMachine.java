@@ -2,8 +2,6 @@ package test.puigames.courseofhistory.framework.game;
 
 import android.util.Log;
 
-import java.util.Iterator;
-
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Updateable;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
@@ -192,8 +190,8 @@ public class CourseOfHistoryMachine implements Updateable {
 
     private void updateCardsInPlay() {
         for (Player player: players)
-            for (Iterator<CharacterCard> iterator = players[turnIndex].getBoard().getPlayArea(players[turnIndex].getPlayerNumber()).getCardsInArea().iterator(); iterator.hasNext();) {
-                CharacterCard card = iterator.next();
+            for (CharacterCard card : player.getBoard().getPlayArea(player.getPlayerNumber()).getCardsInArea()) {
+//                CharacterCard card = iterator.next();
                 if (card.isDeaders()) {
                     player.getBoard().getPlayArea(player.getPlayerNumber()).removeCardFromArea(card);
                     card.remove(player.getBoard().getCurrentScreen());
