@@ -22,6 +22,10 @@ public class SettingsMenu extends Menu {
     private UIElement backgroundSettings;
 
     private MenuButton back, volumeOn, volumeOff;
+    private static final float VOLUME_STEP = 0.2f;
+    private static final float MAX_VOLUME = 1.f;
+    private static final float MIN_VOLUME = 0.f;
+    private float currentVolume;
 
     private float bgImageWidth = 480.0f, bgImageHeight = 320.0f;
     private float bgImageX = 240.0f, bgImageY = 160.0f;
@@ -39,6 +43,7 @@ public class SettingsMenu extends Menu {
 
     public SettingsMenu(final GameProperties gameProperties) {
         super(gameProperties);
+        currentVolume = 1.f;
 
         this.back = new MenuButton(this, resourceFetcher.getBitmapFromFile("images/buttons/button_back.png"),
                 buttonWidth, buttonHeight) {
@@ -52,7 +57,10 @@ public class SettingsMenu extends Menu {
                 volumeWidth, volumeHeight){
             @Override
             public void applyAction(){
-
+                if(currentVolume < MAX_VOLUME) {
+                    currentVolume += VOLUME_STEP;
+                    gameProperties.getMediaPlayer().setVolume(currentVolume, currentVolume); //change to increment up
+                }
             }
         };
 
@@ -60,7 +68,10 @@ public class SettingsMenu extends Menu {
                 volumeWidth, volumeHeight) {
             @Override
             public void applyAction() {
-
+                if(currentVolume > MIN_VOLUME) {
+                    currentVolume -= VOLUME_STEP;
+                    gameProperties.getMediaPlayer().setVolume(currentVolume, currentVolume); //change to increment up
+                }
             }
         };
 

@@ -2,6 +2,8 @@ package test.puigames.courseofhistory.framework.engine;
 
 
 
+import android.media.MediaPlayer;
+
 import test.puigames.courseofhistory.framework.engine.audio.Audio;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.resourceloading.ResourceFetcher;
@@ -29,4 +31,8 @@ public interface GameProperties {
     int getScreenWidth();
 
     int getScreenHeight();
+
+    MediaPlayer getMediaPlayer();
+
+    void setMediaPlayer(MediaPlayer mediaPlayer);
 }

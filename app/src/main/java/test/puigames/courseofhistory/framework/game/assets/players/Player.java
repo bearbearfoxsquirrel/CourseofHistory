@@ -24,7 +24,6 @@ public class Player {
 
     private int playerNumber;
     private PlayerState playerCurrentState;
-    private CharacterCard[] testCards;
     public final int MAX_MANA = 10;
     private Mana[] mana = new Mana[MAX_MANA];
     private int currentMana;
@@ -241,14 +240,6 @@ public class Player {
 
     public void setPlayerCurrentState(PlayerState playerCurrentState) {
         this.playerCurrentState = playerCurrentState;
-    }
-
-    public CharacterCard[] getTestCards() {
-        return testCards;
-    }
-
-    public void setTestCards(CharacterCard[] testCards) {
-        this.testCards = testCards;
     }
 
     public int getMAX_MANA() {
