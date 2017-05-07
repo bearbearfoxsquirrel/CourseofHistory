@@ -23,13 +23,17 @@ public class MainMenu extends Menu {
 
     private float bgImageWidth = 480.0f, bgImageHeight = 320.0f;
 
-    private float titleImageWidth = 340.0f, titleImageHeight = 100.0f;
+    private float titleImageWidth = 360.0f, titleImageHeight = 100.0f;
+
+    private float centreX = 240.0f;
 
     private float bgCentreY = 160.0f, titleCentreY = 30.0f, playGameCentreY = 100.0f,
     howToPlayCentreY = 160.0f, settingsCentreY = 220.0f, exitGameY = 280.0f;
 
     private float buttonWidth = 75.0f, buttonHeight = 40.0f;
-    private float centreX = 240.0f;
+
+    private float duration = 0.0f, delay = 0.0025f;
+
 
     public MainMenu(final GameProperties gameProperties){
         super(gameProperties);
@@ -73,18 +77,18 @@ public class MainMenu extends Menu {
     public void update(float deltaTime) {
         super.update(deltaTime);
 
-     if(playGame.checkForInput(inputBuddy)){
-         playGame.applyAction();
-     }
-     else if(howToPlay.checkForInput(inputBuddy)){
-         howToPlay.applyAction();
-     }
-     else if(settings.checkForInput(inputBuddy)){
-            settings.applyAction();
+        if(duration > delay) {
+            if (playGame.checkForInput(inputBuddy))
+                playGame.applyAction();
+            if (howToPlay.checkForInput(inputBuddy))
+                howToPlay.applyAction();
+            if (settings.checkForInput(inputBuddy))
+                settings.applyAction();
+            if (exitGame.checkForInput(inputBuddy))
+                exitGame.applyAction();
         }
-     else if(exitGame.checkForInput(inputBuddy)){
-         exitGame.applyAction();
-     }
+
+        duration += deltaTime;
     }
 
     public void load(){

@@ -20,8 +20,8 @@ public class LoadingScreen extends Menu {
     private float bgImageWidth = 480.0f, bgImageHeight = 320.0f;
     private float bgImageCentreX = 240.0f, bgImageCentreY = 160.0f;
 
-    private float logoWidth = 100.0f, logoHeight = 100.0f;
-    private float logoCentreX = 44.0f, logoCentreY = 100;
+    private float logoWidth = 225.0f, logoHeight = 200.0f;
+    private float logoCentreX = 360.0f, logoCentreY = 80.0f;
 
     private float duration = 0.0f, delay = 5.0f;
 

@@ -37,6 +37,7 @@ public class ResourceFetcher implements Fetcher {
         this.androidFileIO = new AndroidFileIO(context);
         this.jsonBourne = new JSONBourne();
         this.graphicsIO = new GraphicsIO(context);
+
     }
 
     @Override

@@ -21,7 +21,7 @@ public class SplashScreen extends Menu {
 
     private float screenDuration = 0.0f, splashScreenDelay = 3.0f;
 
-    public SplashScreen(GameProperties gameProperties) {
+    public SplashScreen(final GameProperties gameProperties) {
         super(gameProperties);
         load();
     }
@@ -48,7 +48,7 @@ public class SplashScreen extends Menu {
         super.update(deltaTime);
 
         if(screenDuration > splashScreenDelay)
-                this.gameProperties.setScreen(new MainMenu(this.gameProperties));
+                this.gameProperties.setScreen(new StartScreen(this.gameProperties));
 
         screenDuration += deltaTime;
     }

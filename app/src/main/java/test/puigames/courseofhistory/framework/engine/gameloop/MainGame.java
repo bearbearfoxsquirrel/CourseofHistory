@@ -31,7 +31,7 @@ public class MainGame extends Activity implements GameProperties, Runnable
     private Screen screen;
     private WakeLock wakeLock;
     private Thread renderThread = null;
-    private MediaPlayer mySound;
+//    private MediaPlayer mySound;
 
     private volatile boolean running = false;
     private volatile boolean drawNeeded = false;
@@ -75,8 +75,8 @@ public class MainGame extends Activity implements GameProperties, Runnable
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "CourseOfHistory");
 
         //MediaPlayer intro
-        mySound = MediaPlayer.create(this, R.raw.intro_theme);
-        mySound.start();
+//        mySound = MediaPlayer.create(this, R.raw.intro_theme);
+//        mySound.start();
     }
 
     //GameProperties Loop
@@ -105,7 +105,7 @@ public class MainGame extends Activity implements GameProperties, Runnable
         wakeLock.acquire();
         screen.resume();
         renderView.resume();
-        mySound.start();
+//        mySound.start();
 
         running = true;
         renderThread = new Thread(this);
@@ -119,7 +119,7 @@ public class MainGame extends Activity implements GameProperties, Runnable
         wakeLock.release();
         renderView.pause();
         screen.pause();
-        mySound.pause();
+//        mySound.pause();
         boolean joined = false;
         while (!joined) {
             try {
@@ -217,13 +217,13 @@ public class MainGame extends Activity implements GameProperties, Runnable
         this.renderThread = renderThread;
     }
 
-    public MediaPlayer getMySound() {
-        return mySound;
-    }
+//    public MediaPlayer getMySound() {
+//        return mySound;
+//    }
 
-    public void setMySound(MediaPlayer mySound) {
-        this.mySound = mySound;
-    }
+//    public void setMySound(MediaPlayer mySound) {
+//        this.mySound = mySound;
+//    }
 
     public boolean isRunning() {
         return running;
