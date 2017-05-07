@@ -107,6 +107,7 @@ public class CourseOfHistoryMachine implements Updateable {
                     //If both players are finished taking their turn it selects the player that won the coin toss and lets them go first
                     transitionPlayerStatesFromCreatingHandToTurnStates();
                     currentGameState = GameState.GAME_ACTIVE;
+                    workOutPlayersManaForTurn();
 
                 } else {
                     //Handles each player creating their hand and checking if they are finished making their hand
