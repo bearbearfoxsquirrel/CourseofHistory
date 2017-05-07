@@ -4,10 +4,10 @@ import android.graphics.Canvas;
 import android.util.Log;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
+import test.puigames.courseofhistory.framework.engine.gameloop.MainGame;
 import test.puigames.courseofhistory.framework.engine.screen.Menu;
 import test.puigames.courseofhistory.framework.engine.ui.ImageUIElement;
 import test.puigames.courseofhistory.framework.engine.ui.MenuButton;
-import test.puigames.courseofhistory.framework.game.levels.TestLevel;
 
 /**
  * Created by Christopher on 08/02/2017.
@@ -17,19 +17,23 @@ import test.puigames.courseofhistory.framework.game.levels.TestLevel;
 
 public class MainMenu extends Menu {
 
-    private ImageUIElement backgroundMainMenu, title;
+    private ImageUIElement backgroundMainMenu, gameTitle;
 
     private MenuButton playGame, settings, howToPlay, exitGame;
 
     private float bgImageWidth = 480.0f, bgImageHeight = 320.0f;
 
-    private float titleImageWidth = 340.0f, titleImageHeight = 100.0f;
+    private float titleImageWidth = 360.0f, titleImageHeight = 100.0f;
+
+    private float centreX = 240.0f;
 
     private float bgCentreY = 160.0f, titleCentreY = 30.0f, playGameCentreY = 100.0f,
     howToPlayCentreY = 160.0f, settingsCentreY = 220.0f, exitGameY = 280.0f;
 
     private float buttonWidth = 75.0f, buttonHeight = 40.0f;
-    private float centreX = 240.0f;
+
+    private float duration = 0.0f, delay = 0.0025f;
+
 
     public MainMenu(final GameProperties gameProperties){
         super(gameProperties);
@@ -73,28 +77,28 @@ public class MainMenu extends Menu {
     public void update(float deltaTime) {
         super.update(deltaTime);
 
-     if(playGame.checkForInput(inputBuddy)){
-         playGame.applyAction();
-     }
-     else if(howToPlay.checkForInput(inputBuddy)){
-         howToPlay.applyAction();
-     }
-     else if(settings.checkForInput(inputBuddy)){
-            settings.applyAction();
+        if(duration > delay) {
+            if (playGame.checkForInput(inputBuddy))
+                playGame.applyAction();
+            if (howToPlay.checkForInput(inputBuddy))
+                howToPlay.applyAction();
+            if (settings.checkForInput(inputBuddy))
+                settings.applyAction();
+            if (exitGame.checkForInput(inputBuddy))
+                exitGame.applyAction();
         }
-     else if(exitGame.checkForInput(inputBuddy)){
-         exitGame.applyAction();
-     }
+
+        duration += deltaTime;
     }
 
     public void load(){
 
         backgroundMainMenu = null;
-        title = null;
+        gameTitle = null;
         try{
            backgroundMainMenu = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/backgrounds/main_menu_background.png"),
                   bgImageWidth, bgImageHeight);
-            title = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/title/coh_title.png"),
+            gameTitle = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/title/coh_title.png"),
                     titleImageWidth, titleImageHeight);
         }
         catch(NullPointerException e){
@@ -102,14 +106,14 @@ public class MainMenu extends Menu {
         }
 
         backgroundMainMenu.place(this, centreX, bgCentreY);
-        title.place(this, centreX, titleCentreY);
+        gameTitle.place(this, centreX, titleCentreY);
         playGame.place(this, centreX, playGameCentreY);
         howToPlay.place(this, centreX, howToPlayCentreY);
         settings.place(this, centreX, settingsCentreY);
         exitGame.place(this, centreX, exitGameY);
 
         uiElements.add(backgroundMainMenu);
-        uiElements.add(title);
+        uiElements.add(gameTitle);
         uiElements.add(playGame);
         uiElements.add(howToPlay);
         uiElements.add(settings);
@@ -144,12 +148,12 @@ public class MainMenu extends Menu {
         this.backgroundMainMenu = backgroundMainMenu;
     }
 
-    public ImageUIElement getTitle() {
-        return title;
+    public ImageUIElement getGameTitle() {
+        return gameTitle;
     }
 
-    public void setTitle(ImageUIElement title) {
-        this.title = title;
+    public void setGameTitle(ImageUIElement gameTitle) {
+        this.gameTitle = gameTitle;
     }
 
     public MenuButton getPlayGame() {

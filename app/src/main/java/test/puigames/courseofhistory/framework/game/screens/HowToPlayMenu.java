@@ -18,7 +18,7 @@ import test.puigames.courseofhistory.framework.engine.ui.MenuButton;
 
 public class HowToPlayMenu extends Menu {
 
-    private ImageUIElement backgroundHowToPlay, rulesForward, rulesBackward, howToPlayImage;
+    private ImageUIElement backgroundHowToPlay, howToPlayImage, rulesForward, rulesBackward;
 
     private ArrayList<Bitmap> howToPlayTexts;
 
@@ -56,6 +56,7 @@ public class HowToPlayMenu extends Menu {
             }
         };
 
+
         load();
     }
 
@@ -64,16 +65,12 @@ public class HowToPlayMenu extends Menu {
         super.update(deltaTime);
 
         if(gameProperties.getInput().getTouchEvents().size() > 0) {
-            if(isTouched(inputBuddy.getTouchEvents().get(0), rulesForward)) {
+            if(back.checkForInput(inputBuddy))
+                back.applyAction();
+            if(isTouched(inputBuddy.getTouchEvents().get(0), rulesForward))
                 swapImageForward();
-            }
-            if(isTouched(inputBuddy.getTouchEvents().get(0), rulesBackward)) {
+            if(isTouched(inputBuddy.getTouchEvents().get(0), rulesBackward))
                 swapImageBackward();
-            }
-        }
-
-        if(back.checkForInput(inputBuddy)){
-            back.applyAction();
         }
     }
 
@@ -173,6 +170,14 @@ public class HowToPlayMenu extends Menu {
 
     public void setRulesBackward(ImageUIElement rulesBackward) {
         this.rulesBackward = rulesBackward;
+    }
+
+    public int getCurrentIndex() {
+        return currentIndex;
+    }
+
+    public void setCurrentIndex(int currentIndex) {
+        this.currentIndex = currentIndex;
     }
 
     public ImageUIElement getHowToPlayImage() {

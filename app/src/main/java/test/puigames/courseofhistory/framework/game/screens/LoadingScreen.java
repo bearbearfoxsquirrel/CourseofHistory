@@ -14,15 +14,16 @@ import test.puigames.courseofhistory.framework.game.levels.TestLevel;
 
 public class LoadingScreen extends Menu {
 
-    private ImageUIElement bgImage, logo;
+    private ImageUIElement backgroundLoadingScreen, gameTitle;
 
     private float bgImageWidth = 480.0f, bgImageHeight = 320.0f;
     private float bgImageCentreX = 240.0f, bgImageCentreY = 160.0f;
 
-    private float logoWidth = 100.0f, logoHeight = 100.0f;
-    private float logoCentreX = 44.0f, logoCentreY = 100;
+    private float logoWidth = 225.0f, logoHeight = 200.0f;
+    private float logoCentreX = 360.0f, logoCentreY = 80.0f;
 
     private float duration = 0.0f, delay = 5.0f;
+
 
     public LoadingScreen(final GameProperties gameProperties){
         super(gameProperties);
@@ -40,22 +41,22 @@ public class LoadingScreen extends Menu {
     }
 
     public void load(){
-        bgImage = null;
+        backgroundLoadingScreen = null;
         try{
-            bgImage = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/backgrounds/loading_screen_background.png"),
+            backgroundLoadingScreen = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/backgrounds/loading_screen_background.png"),
                     bgImageWidth, bgImageHeight);
-            logo = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/title/logo_base.png"),
+            gameTitle = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/title/logo_base.png"),
                     logoWidth, logoHeight);
         }
         catch(NullPointerException e){
             Log.d("Error", "UI Element loading has failed");
         }
 
-        bgImage.place(this, bgImageCentreX, bgImageCentreY);
-        logo.place(this, logoCentreX, logoCentreY);
+        backgroundLoadingScreen.place(this, bgImageCentreX, bgImageCentreY);
+        gameTitle.place(this, logoCentreX, logoCentreY);
 
-        uiElements.add(bgImage);
-        uiElements.add(logo);
+        uiElements.add(backgroundLoadingScreen);
+        uiElements.add(gameTitle);
 
     }
 
@@ -79,20 +80,20 @@ public class LoadingScreen extends Menu {
 
     }
 
-    public ImageUIElement getBgImage() {
-        return bgImage;
+    public ImageUIElement getBackgroundLoadingScreen() {
+        return backgroundLoadingScreen;
     }
 
-    public void setBgImage(ImageUIElement bgImage) {
-        this.bgImage = bgImage;
+    public void setBackgroundLoadingScreen(ImageUIElement backgroundLoadingScreen) {
+        this.backgroundLoadingScreen = backgroundLoadingScreen;
     }
 
-    public ImageUIElement getLogo() {
-        return logo;
+    public ImageUIElement getGameTitle() {
+        return gameTitle;
     }
 
-    public void setLogo(ImageUIElement logo) {
-        this.logo = logo;
+    public void setGameTitle(ImageUIElement gameTitle) {
+        this.gameTitle = gameTitle;
     }
 
     public float getBgImageWidth() {

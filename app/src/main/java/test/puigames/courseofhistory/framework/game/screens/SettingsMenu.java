@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.util.Log;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
+import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
 import test.puigames.courseofhistory.framework.engine.ui.ImageUIElement;
 import test.puigames.courseofhistory.framework.engine.screen.Menu;
 import test.puigames.courseofhistory.framework.engine.ui.MenuButton;
@@ -19,13 +20,21 @@ public class SettingsMenu extends Menu {
 
     private ImageUIElement backgroundSettings;
 
-    private MenuButton back;
+    private MenuButton back, volumeOn, volumeOff;
 
     private float bgImageWidth = 480.0f, bgImageHeight = 320.0f;
     private float bgImageX = 240.0f, bgImageY = 160.0f;
 
     private float buttonWidth = 75.0f, buttonHeight = 35.0f;
     private float backCentreX = 40.0f, backCentreY = 300.0f;
+
+    private float volumeWidth = 100.0f, volumeHeight= 75.0f;
+
+    private float volumeOnCentreX = 160.0f, volumeOnCentreY = 120.0f;
+
+    private float volumeOffCentreX = 320.0f, volumeOffCentreY = 120.0f;
+
+
 
     public SettingsMenu(final GameProperties gameProperties) {
         super(gameProperties);
@@ -38,6 +47,22 @@ public class SettingsMenu extends Menu {
             }
         };
 
+        this.volumeOn = new MenuButton(this, resourceFetcher.getBitmapFromFile("images/buttons/button_volume_on.png"),
+                volumeWidth, volumeHeight){
+            @Override
+            public void applyAction(){
+
+            }
+        };
+
+        this.volumeOff= new MenuButton(this, resourceFetcher.getBitmapFromFile("images/buttons/button_volume_off.png"),
+                volumeWidth, volumeHeight) {
+            @Override
+            public void applyAction() {
+
+            }
+        };
+
         load();
     }
 
@@ -47,7 +72,10 @@ public class SettingsMenu extends Menu {
 
         if(back.checkForInput(inputBuddy))
             back.applyAction();
-
+        if(volumeOn.checkForInput(inputBuddy))
+            volumeOn.applyAction();
+        if(volumeOff.checkForInput(inputBuddy))
+            volumeOff.applyAction();
     }
 
     public void load(){
@@ -61,9 +89,13 @@ public class SettingsMenu extends Menu {
 
         backgroundSettings.place(this, bgImageX, bgImageY);
         back.place(this, backCentreX, backCentreY);
+        volumeOn.place(this, volumeOnCentreX, volumeOnCentreY);
+        volumeOff.place(this, volumeOffCentreX, volumeOffCentreY);
 
         uiElements.add(backgroundSettings);
         uiElements.add(back);
+        uiElements.add(volumeOn);
+        uiElements.add(volumeOff);
     }
 
     @Override

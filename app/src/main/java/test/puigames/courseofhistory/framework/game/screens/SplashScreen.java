@@ -1,6 +1,7 @@
 package test.puigames.courseofhistory.framework.game.screens;
 
 import android.graphics.Canvas;
+import android.media.MediaPlayer;
 import android.util.Log;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
@@ -14,12 +15,12 @@ import test.puigames.courseofhistory.framework.engine.ui.ImageUIElement;
 public class SplashScreen extends Menu {
 
     private ImageUIElement logo;
-    private float bgImageWidth = 480.0f, bgImageHeight = 320.0f;
-    private float bgImageX = 240.0f, bgImageY = 160.0f;
+    private float logoImageWidth = 480.0f, logoImageHeight = 320.0f;
+    private float logoImageCentreX = 240.0f, logoImageCentreY = 160.0f;
 
     private float screenDuration = 0.0f, splashScreenDelay = 3.0f;
 
-    public SplashScreen(GameProperties gameProperties) {
+    public SplashScreen(final GameProperties gameProperties) {
         super(gameProperties);
         load();
     }
@@ -28,14 +29,14 @@ public class SplashScreen extends Menu {
     public void load() {
         try {
             logo = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png"),
-                    bgImageWidth, bgImageHeight);
+                    logoImageWidth, logoImageHeight);
         }
         catch(NullPointerException e) {
             Log.d("Error", "Can't load UI elements");
             this.gameProperties.setScreen(new SplashScreen(this.gameProperties));
         }
 
-        logo.place(this, bgImageX, bgImageY);
+        logo.place(this, logoImageCentreX, logoImageCentreY);
 
         uiElements.add(logo);
     }
@@ -46,7 +47,7 @@ public class SplashScreen extends Menu {
         super.update(deltaTime);
 
         if(screenDuration > splashScreenDelay)
-                this.gameProperties.setScreen(new MainMenu(this.gameProperties));
+                this.gameProperties.setScreen(new StartScreen(this.gameProperties));
 
         screenDuration += deltaTime;
     }
@@ -96,36 +97,36 @@ public class SplashScreen extends Menu {
         this.splashScreenDelay = splashScreenDelay;
     }
 
-    public float getBgImageWidth() {
-        return bgImageWidth;
+    public float getLogoImageWidth() {
+        return logoImageWidth;
     }
 
-    public void setBgImageWidth(float bgImageWidth) {
-        this.bgImageWidth = bgImageWidth;
+    public void setLogoImageWidth(float logoImageWidth) {
+        this.logoImageWidth = logoImageWidth;
     }
 
-    public float getBgImageHeight() {
-        return bgImageHeight;
+    public float getLogoImageHeight() {
+        return logoImageHeight;
     }
 
-    public void setBgImageHeight(float bgImageHeight) {
-        this.bgImageHeight = bgImageHeight;
+    public void setLogoImageHeight(float logoImageHeight) {
+        this.logoImageHeight = logoImageHeight;
     }
 
-    public float getBgImageX() {
-        return bgImageX;
+    public float getLogoImageCentreX() {
+        return logoImageCentreX;
     }
 
-    public void setBgImageX(float bgImageX) {
-        this.bgImageX = bgImageX;
+    public void setLogoImageCentreX(float logoImageCentreX) {
+        this.logoImageCentreX = logoImageCentreX;
     }
 
-    public float getBgImageY() {
-        return bgImageY;
+    public float getLogoImageCentreY() {
+        return logoImageCentreY;
     }
 
-    public void setBgImageY(float bgImageY) {
-        this.bgImageY = bgImageY;
+    public void setLogoImageCentreY(float logoImageCentreY) {
+        this.logoImageCentreY = logoImageCentreY;
     }
 
 }

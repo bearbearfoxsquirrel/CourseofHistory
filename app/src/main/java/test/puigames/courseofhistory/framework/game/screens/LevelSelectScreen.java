@@ -7,7 +7,6 @@ import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.screen.Menu;
 import test.puigames.courseofhistory.framework.engine.ui.ImageUIElement;
 import test.puigames.courseofhistory.framework.engine.ui.MenuButton;
-import test.puigames.courseofhistory.framework.game.levels.TestLevel;
 
 /**
  * Created by Christopher on 28/04/2017.
@@ -35,7 +34,8 @@ public class LevelSelectScreen extends Menu {
     private float backWidth = 75.0f, backHeight = 35.0f;
     private float backCentreX = 40.0f, backCentreY = 300.0f;
 
-    private float duration = 0.0f, delay = 0.05f;
+    private float duration = 0.0f, delay = 0.025f;
+
 
     public LevelSelectScreen(final GameProperties gameProperties){
         super(gameProperties);
