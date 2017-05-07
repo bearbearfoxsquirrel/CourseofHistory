@@ -11,7 +11,7 @@ import org.json.JSONObject;
  */
 
 public class JSONBourne {
-    //Class used to parse, serialise and deserialise JSON
+    //Class USED to parse, serialise and deserialise JSON
     public JSONBourne() {
     }
 

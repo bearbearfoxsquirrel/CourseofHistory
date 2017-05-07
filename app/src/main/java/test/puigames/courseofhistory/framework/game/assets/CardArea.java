@@ -52,7 +52,7 @@ public abstract class CardArea extends Sprite
     {
         if(cardsInArea.contains(card) && cardsInArea.size() > 0)
             cardsInArea.remove(card);
-       // positionCardsInArea();
+       positionCardsInArea();
     }
 
     /**
@@ -61,13 +61,12 @@ public abstract class CardArea extends Sprite
      */
     public void positionCardsInArea()
     {
-        if(cardsInArea.size() == 0)
-            return;
-
-        for (int i = cardsInArea.size() - 1; i >= 0; i--)
-            for(int j = 0; j < cardsInArea.size(); j++)
-                if(!cardsInArea.get(i).getOrigin().equals(positions[j]) && !cardsInArea.get(i).getOrigin().equals(positions[i]))
-                    cardsInArea.get(i).getOrigin().setOrigin(new Origin(positions[i]));
+        if(cardsInArea.size() > 0 ) {
+            for (int i = cardsInArea.size() - 1; i >= 0; i--)
+                for (int j = 0; j < cardsInArea.size(); j++)
+                    if (!cardsInArea.get(i).getOrigin().equals(positions[j]) && !cardsInArea.get(i).getOrigin().equals(positions[i]))
+                        cardsInArea.get(i).getOrigin().setOrigin(new Origin(positions[i]));
+        }
     }
 
     /**

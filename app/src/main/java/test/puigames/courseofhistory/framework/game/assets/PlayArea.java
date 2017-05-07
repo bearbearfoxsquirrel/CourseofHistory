@@ -15,7 +15,7 @@ import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
  */
 public class PlayArea extends CardArea
 {
-    private static final float CARD_SCALE_FACTOR = 1.11f;
+    private static final float CARD_SCALE_FACTOR = 0.9f;
 
     public PlayArea(Screen screen, Bitmap bitmap, int width, int height)
     {
@@ -43,6 +43,13 @@ public class PlayArea extends CardArea
         if (!cardsInArea.contains(card))
             card.adjustCardSize(CARD_SCALE_FACTOR);
         super.addCardToArea(card);
+        positionCardsInArea();
+    }
+
+    @Override
+    public void removeCardFromArea(CharacterCard card)
+    {
+        super.removeCardFromArea(card);
         positionCardsInArea();
     }
 }

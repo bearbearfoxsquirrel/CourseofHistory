@@ -14,6 +14,7 @@ import test.puigames.courseofhistory.framework.engine.screen.Screen;
 public class Coin extends Sprite
 {
     public static final int COIN_SIZE = 50;
+    public static final float COIN_FLIP_TIME = 4.f;
 
     private Random rand; //for generating random number for flipping
     private Result faceUp = null;
@@ -41,8 +42,9 @@ public class Coin extends Sprite
 
     public void flipCoin()
     {
-        int randomNumber = rand.nextInt(2); //rando number between 0 and 1
+        place(currentScreen, currentScreen.getViewport().getCenterX(),  currentScreen.getViewport().getCenterX(), this.rotation);
 
+        int randomNumber = rand.nextInt(2); //rando number between 0 and 1
         switch(randomNumber)
         {
             case 0:

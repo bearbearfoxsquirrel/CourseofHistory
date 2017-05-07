@@ -24,7 +24,6 @@ public class Player {
 
     private int playerNumber;
     private PlayerState playerCurrentState;
-    private CharacterCard[] testCards;
     public final int MAX_MANA = 10;
     private Mana[] mana = new Mana[MAX_MANA];
     private int currentMana;
@@ -120,7 +119,7 @@ public class Player {
     }
 
     public CharacterCard drawCardFromDeck() {
-        return (CharacterCard) playerDeck.pop();
+        return playerDeck.pop();
     }
 
     public void finishedCreatingStartHand() {
@@ -129,15 +128,21 @@ public class Player {
 
     public void placeCardOnBoard(CharacterCard card) {
         board.getPlayArea(playerNumber).addCardToArea(card);
-        removeCardFromArea(card);
+        removeCardFromHand(card);
+    }
+
+    public void removeCardFromBoardPlayArea(CharacterCard card) {
+        if (board.getPlayArea(playerNumber).getCardsInArea().contains(card)) {
+            board.getPlayArea(playerNumber).removeCardFromArea(card);
+        }
     }
 
     public void addCardToArea(CharacterCard card) {
         board.getPlayArea(playerNumber).addCardToArea(card);
     }
 
-    public void removeCardFromArea(CharacterCard card) {
-        board.getPlayArea(playerNumber).removeCardFromArea(card);
+    public void removeCardFromHand(CharacterCard card) {
+        hand.removeCardFromArea(card);
     }
 
     /**
@@ -159,10 +164,9 @@ public class Player {
      */
     public void playCard(CharacterCard card) {
         //player.currentAction = Player.PawnAction.PLACE_CARD_ON_BOARD;
-        if(getCurrentMana() >= card.getMana()) {
             placeCardOnBoard(card);
             removeManaFromPlayer(card.getMana());
-        } //else {
+        //else {
         //should probably tell the user that they can't do that
         //}
     }
@@ -188,20 +192,28 @@ public class Player {
      * @param manaCost - amount of mana used by playing card/switched to used state
      */
     private void removeManaFromPlayer(int manaCost) {
-        int remainingMana = (getCurrentMana() - manaCost) > 0 ? (getCurrentMana() - manaCost) : 0;
-        setCurrentMana(remainingMana);
-        for (int i = (getMAX_MANA() - 1); i >= (getCurrentMana()); i--) {
-            getMana()[i].setManaState(Mana.ManaState.used);
+        int remainingMana = (currentMana - manaCost) > 0 ? (currentMana - manaCost) : 0;
+        currentMana = remainingMana;
+        for (int i = (getMAX_MANA() - 1); i >= (currentMana); i--) {
+            getMana()[i].setManaState(Mana.ManaState.USED);
             getMana()[i].setBitmap(getMana()[i].getManaType()[1]);
         }
     }
 
     public void attackCard(CharacterCard cardUsedToAttack, CharacterCard cardToAttack) {
-        cardToAttack.applyDamage(cardUsedToAttack.getAttack()); //opponent takes damage
-        cardUsedToAttack.applyDamage(cardToAttack.getAttack()); //attacking card also takes damage
-        cardUsedToAttack.setCurrentAttackEnergy(cardUsedToAttack.getCurrentAttackEnergy() - 1); //set energy to zero for the rest of the turn
+        cardUsedToAttack.attack(cardToAttack); //this was already implemented in CharacterCard
+
+//        cardToAttack.applyDamage(cardUsedToAttack.getAttack()); //opponent takes damage
+//        cardUsedToAttack.applyDamage(cardToAttack.getAttack()); //attacking card also takes damage
+//        cardUsedToAttack.setCurrentAttackEnergy(cardUsedToAttack.getCurrentAttackEnergy() - 1); //set energy to zero for the rest of the turn
     }
 
+    /**
+     * Checks to see if there is a card that can be played from hand
+     *
+     * @return - true if card's mana cost is less than or equal to player's current mana,
+     *          false otherwise
+     */
     public boolean isThereACardThatCanBePlacedOnBoard() {
         for (CharacterCard card : hand.getCardsInArea())
             if (card.getMana() <= currentMana)
@@ -238,14 +250,6 @@ public class Player {
 
     public void setPlayerCurrentState(PlayerState playerCurrentState) {
         this.playerCurrentState = playerCurrentState;
-    }
-
-    public CharacterCard[] getTestCards() {
-        return testCards;
-    }
-
-    public void setTestCards(CharacterCard[] testCards) {
-        this.testCards = testCards;
     }
 
     public int getMAX_MANA() {

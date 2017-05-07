@@ -36,10 +36,22 @@ public class CharacterCard extends Card implements Damageable.Attackable {
 
     private Placer perryPlacablePlacer;
 
-    private float[] statLocationsX = {-20, 20, -20};
-    private float[] statLocationsY = {-30, 30, 30};
+    private final float[] DEFAULT_STAT_LOCATION_OFFSET_X = {-18.f, 18.f, -18.f};
+    private final float[] DEFAULT_STAT_LOCATION_OFFSET_Y = {-34.f, 34.f, 34.f};
+
+    private float[] statLocationsX = {-18.f, 18.f, -18.f};
+    private float[] statLocationsY = {-34.f, 34.f, 34.f};
 
     private StatImage[] statImages;
+
+    public void adjustCardSize(float scaleFactor) {
+        super.adjustCardSize(scaleFactor);
+        for (int i = 0; i < statImages.length; i++) {
+            statLocationsX[i] =  DEFAULT_STAT_LOCATION_OFFSET_X[i] * scaleFactor;
+            statLocationsY[i] =  DEFAULT_STAT_LOCATION_OFFSET_Y[i] * scaleFactor;
+
+        }
+    }
 
 
     public CharacterCard(Screen screen, StatImage[] statImages, Bitmap cardImage, String name, String description, int mana, int attack, int health, String abilityDescription) {
@@ -77,7 +89,7 @@ public class CharacterCard extends Card implements Damageable.Attackable {
         CheckStat(attack, this.statImages[2]);
 
         for (int i = 0; i < statImages.length; i++)
-            statImages[i].setOrigin(perryPlacablePlacer.findAbsolutePositionRelativeToAnchor(getPosX(), getPosY(), statLocationsX[i], statLocationsY[i], statImages[i].getRotation()));
+            statImages[i].setOrigin(perryPlacablePlacer.findAbsolutePositionRelativeToAnchor(getPosX(), getPosY(), DEFAULT_STAT_LOCATION_OFFSET_X[i], statLocationsY[i], statImages[i].getRotation()));
     }
 
     public void CheckStat(int statToCheck, StatImage statImage){
@@ -122,7 +134,7 @@ public class CharacterCard extends Card implements Damageable.Attackable {
     public void place(Screen screen, float placementX, float placementY, float rotation){
         super.place(screen, placementX, placementY, rotation);
         for(int i = 0; i < statImages.length; i++){
-            perryPlacablePlacer.placePlaceableRelativeToAnchorPoint(statImages[i], getPosX(), getPosY(), statLocationsX[i], statLocationsY[i], this.rotation, this.rotation);
+            perryPlacablePlacer.placePlaceableRelativeToAnchorPoint(statImages[i], getPosX(), getPosY(), DEFAULT_STAT_LOCATION_OFFSET_X[i], statLocationsY[i], this.rotation, this.rotation);
         }
     }
 

@@ -2,7 +2,7 @@ package test.puigames.courseofhistory.framework.game;
 
 import android.util.Log;
 
-import java.util.Iterator;
+import java.util.ArrayList;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Updateable;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
@@ -17,11 +17,8 @@ import test.puigames.courseofhistory.framework.game.assets.players.Player;
  */
 
 public class CourseOfHistoryMachine implements Updateable {
-
-    private Screen drawScreen;
-
     private static float TURN_TIME = 20.f;
-    private static final float COIN_TOSS_DELAY = 3.f;
+    private static final float COIN_TOSS_DELAY = 1.f;
     public static int PLAYER_COUNT = 2;
 
     private float startDelayTimeRemaining;
@@ -33,8 +30,11 @@ public class CourseOfHistoryMachine implements Updateable {
     private Coin coin;
     private Board board;
 
+    private boolean hasCoinBeenFlipped;
+    private float timeLeftForCoinFlip;
+
     public enum GameState {
-        CREATED, COIN_TOSS, CREATING_STARTING_HANDS, GAME_ACTIVE, GAME_PAUSED, GG
+        CREATED, COIN_TOSS, FINISHED_TOSSING_COIN, CREATING_STARTING_HANDS, GAME_ACTIVE, GAME_PAUSED, GG
     }
 
     public CourseOfHistoryMachine(Player[] players, Coin coin, Board board) {
@@ -44,6 +44,7 @@ public class CourseOfHistoryMachine implements Updateable {
         this.startDelayTimeRemaining = COIN_TOSS_DELAY;
         this.turnTimeRemaining = TURN_TIME;
         this.board = board;
+        this.hasCoinBeenFlipped = false;
         this.manaCount = new int[players.length];
         for (int i = 0; i < manaCount.length; i++)
             manaCount[i] = 0;
@@ -87,18 +88,25 @@ public class CourseOfHistoryMachine implements Updateable {
                 break;
 
             case COIN_TOSS:
-                tossCoin();
-                currentGameState = GameState.CREATING_STARTING_HANDS;//To transition FSM to the game being active so turns are now being made
+                if (!hasCoinBeenFlipped) {
+                    tossCoin();
+                    hasCoinBeenFlipped = true;
+                    timeLeftForCoinFlip = coin.COIN_FLIP_TIME;
+                } else {
+                    timeLeftForCoinFlip -= deltaTime;
+                    if (timeLeftForCoinFlip <= 0) {
+                        currentGameState = GameState.FINISHED_TOSSING_COIN;
+                     }
+                }
+                break;
 
+            case FINISHED_TOSSING_COIN:
                 for (Player player : players)
                     player.setPlayerCurrentState(Player.PlayerState.WAITING_TO_BEGIN_CREATING_HAND);
+                currentGameState = GameState.CREATING_STARTING_HANDS;//To transition FSM to the game being active so turns are now being made
                 break;
 
             case CREATING_STARTING_HANDS:
-               /* transitionPlayerStatesFromCreatingHandToTurnStates();
-                currentGameState = GameState.GAME_ACTIVE;*/
-                //TO SKIP THIS STAGE OF THE GAME UNCOMMENT THIS BLOCK AND COMMENT REST OF THIS SWITCH CASE
-
                 if (isBothPlayersFinishedCreatingStartHand()) {
                     for (Player player : players)
                         player.confirmSelectedCardsFromStartingHandSelector(); //gives each player the cards that they choose
@@ -191,16 +199,19 @@ public class CourseOfHistoryMachine implements Updateable {
     }
 
     private void updateCardsInPlay() {
-        for (Player player: players)
-            for (Iterator<CharacterCard> iterator = players[turnIndex].getBoard().getPlayArea(players[turnIndex].getPlayerNumber()).getCardsInArea().iterator(); iterator.hasNext();) {
-                CharacterCard card = iterator.next();
+        ArrayList<CharacterCard> cardsThatAreNowDeaders = new ArrayList<>();
+        for (Player player : players) {
+            for (CharacterCard card : player.getBoard().getPlayArea(player.getPlayerNumber()).getCardsInArea()) {
                 if (card.isDeaders()) {
-                    player.getBoard().getPlayArea(player.getPlayerNumber()).removeCardFromArea(card);
-                    card.remove(player.getBoard().getCurrentScreen());
-                    Log.wtf("EVENT", "A card on p" + (player.getPlayerNumber() + 1) + "'s side has died" + "\n" + card.toString());
-                    //TODO: possibly need to set all things to null to "delete" it so it doesn't interact with objects in the game
+                    cardsThatAreNowDeaders.add(card);
+                    Log.wtf("EVENT", "A card on player " + (player.getPlayerNumber() + 1) + "'s side has died" + "\n" + card.toString());
                 }
             }
+            for (CharacterCard deadCard : cardsThatAreNowDeaders)
+                player.removeCardFromBoardPlayArea(deadCard);
+            cardsThatAreNowDeaders.clear();
+        }
+
         //Testing purposes only!
          /*  for (Player player: players)
             for (CharacterCard card : player.testCards)
@@ -262,17 +273,13 @@ public class CourseOfHistoryMachine implements Updateable {
     }
 
     /**
-     * At the start of every turn, give player +1 available mana than last turn
+     * At the start of every turn, give player +1 AVAILABLE mana than last turn
      * Change mana bitmaps to reflect that
      */
     private void giveManaToPlayer() {
-        players[turnIndex].setCurrentMana(manaCount[turnIndex] + 1);
-        for(int i = 0; i < players[turnIndex].getMAX_MANA(); i++) {
-            if (players[turnIndex].getCurrentMana() > i)
-                players[turnIndex].getMana()[i].setManaState(Mana.ManaState.available);
-            else
-                players[turnIndex].getMana()[i].setManaState(Mana.ManaState.used);
-        }
+        players[turnIndex].setCurrentMana(manaCount[turnIndex]);
+        for(int i = 0; i < manaCount[turnIndex]; i++)
+            players[turnIndex].getMana()[i].setManaState(Mana.ManaState.AVAILABLE);
     }
 
     private void updateAndCheckTurnTimeRemaining(float deltaTime) {

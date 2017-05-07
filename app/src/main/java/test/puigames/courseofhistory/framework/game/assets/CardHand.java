@@ -25,8 +25,8 @@ public class CardHand extends CardArea {
         setUpPositions();
     }
 
-    public CardHand(Screen screen, Bitmap bitmap){
-        super(screen, bitmap, 340, 65);
+    public CardHand(Screen screen, Bitmap bitmap, int width, int height){
+        super(screen, bitmap, width, height);
         maxCardsInArea = 7;
     }
 
@@ -39,6 +39,12 @@ public class CardHand extends CardArea {
             positionCardsInArea();
         }
 
+    }
+
+    @Override
+    public void removeCardFromArea(CharacterCard characterCard) {
+        super.removeCardFromArea(characterCard);
+        positionCardsInArea();
     }
 
     @Override
