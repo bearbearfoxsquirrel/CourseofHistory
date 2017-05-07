@@ -10,6 +10,7 @@ import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.screen.Menu;
 import test.puigames.courseofhistory.framework.engine.ui.ImageUIElement;
 import test.puigames.courseofhistory.framework.engine.ui.MenuButton;
+import test.puigames.courseofhistory.framework.engine.ui.UIElement;
 
 /**
  * Created by Christopher on 02/03/2017.
@@ -18,7 +19,7 @@ import test.puigames.courseofhistory.framework.engine.ui.MenuButton;
 
 public class HowToPlayMenu extends Menu {
 
-    private ImageUIElement backgroundHowToPlay, howToPlayImage, rulesForward, rulesBackward;
+    private UIElement backgroundHowToPlay, rulesForward, rulesBackward, howToPlayImage;
 
     private ArrayList<Bitmap> howToPlayTexts;
 
@@ -34,6 +35,7 @@ public class HowToPlayMenu extends Menu {
     private float rulesBackwardCentreX = 390.0f;
 
     private float rulesBackwardCentreY = 293.0f;
+    private final static float UI_ROTATION = 0;
 
     private float rulesWidth = 50.0f, rulesHeight = 50.0f;
     private float howToPlayImageWidth = 440.0f, howToPlayImageHeight = 260.0f;
@@ -56,7 +58,6 @@ public class HowToPlayMenu extends Menu {
             }
         };
 
-
         load();
     }
 
@@ -65,12 +66,16 @@ public class HowToPlayMenu extends Menu {
         super.update(deltaTime);
 
         if(gameProperties.getInput().getTouchEvents().size() > 0) {
-            if(back.checkForInput(inputBuddy))
-                back.applyAction();
-            if(isTouched(inputBuddy.getTouchEvents().get(0), rulesForward))
+            if(isTouched(inputBuddy.getTouchEvents().get(0), rulesForward)) {
                 swapImageForward();
-            if(isTouched(inputBuddy.getTouchEvents().get(0), rulesBackward))
+            }
+            if(isTouched(inputBuddy.getTouchEvents().get(0), rulesBackward)) {
                 swapImageBackward();
+            }
+        }
+
+        if(back.checkForInput(inputBuddy)){
+            back.applyAction();
         }
     }
 
@@ -80,13 +85,13 @@ public class HowToPlayMenu extends Menu {
         rulesBackward = null;
         howToPlayImage = null;
         try{
-            backgroundHowToPlay = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/backgrounds/how_to_play_background.png"),
+            backgroundHowToPlay = new UIElement(this, resourceFetcher.getBitmapFromFile("images/backgrounds/how_to_play_background.png"),
                     bgImageWidth, bgImageHeight);
-            rulesForward = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/buttons/button_forward.png"),
+            rulesForward = new UIElement(this, resourceFetcher.getBitmapFromFile("images/buttons/button_forward.png"),
                     rulesWidth, rulesHeight);
-            rulesBackward = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/buttons/button_backward.png"),
+            rulesBackward = new UIElement(this, resourceFetcher.getBitmapFromFile("images/buttons/button_backward.png"),
                     rulesWidth, rulesHeight);
-            howToPlayImage = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/how_to_play/Rules1Transparent.png"),
+            howToPlayImage = new UIElement(this, resourceFetcher.getBitmapFromFile("images/how_to_play/Rules1Transparent.png"),
                     howToPlayImageWidth, howToPlayImageHeight);
             howToPlayTexts.add(resourceFetcher.getBitmapFromFile("images/how_to_play/Rules1Transparent.png"));
             howToPlayTexts.add(resourceFetcher.getBitmapFromFile("images/how_to_play/Rules2Transparent.png"));
@@ -97,11 +102,11 @@ public class HowToPlayMenu extends Menu {
             Log.d("Error", "UI Element loading has failed");
         }
 
-        backgroundHowToPlay.place(this, bgCentreX, bgCentreY);
-        back.place(this, backCentreX, backCentreY);
-        rulesForward.place(this, rulesForwardCentreX, rulesForwardCentreY);
-        rulesBackward.place(this, rulesBackwardCentreX, rulesBackwardCentreY);
-        howToPlayImage.place(this, howToPlayCentreX, howToPlayCentreY);
+        backgroundHowToPlay.place(this, bgCentreX, bgCentreY, UI_ROTATION);
+        back.place(this, backCentreX, backCentreY, UI_ROTATION);
+        rulesForward.place(this, rulesForwardCentreX, rulesForwardCentreY, UI_ROTATION);
+        rulesBackward.place(this, rulesBackwardCentreX, rulesBackwardCentreY, UI_ROTATION);
+        howToPlayImage.place(this, howToPlayCentreX, howToPlayCentreY, UI_ROTATION);
 
         uiElements.add(backgroundHowToPlay);
         uiElements.add(back);
@@ -148,29 +153,31 @@ public class HowToPlayMenu extends Menu {
 
     }
 
-    public ImageUIElement getBackgroundHowToPlay() {
+    public UIElement getBackgroundHowToPlay() {
         return backgroundHowToPlay;
     }
 
-    public void setBackgroundHowToPlay(ImageUIElement backgroundHowToPlay) {
+    public void setBackgroundHowToPlay(UIElement backgroundHowToPlay) {
         this.backgroundHowToPlay = backgroundHowToPlay;
     }
 
-    public ImageUIElement getRulesForward() {
+    public UIElement getRulesForward() {
         return rulesForward;
     }
 
-    public void setRulesForward(ImageUIElement rulesForward) {
+    public void setRulesForward(UIElement rulesForward) {
         this.rulesForward = rulesForward;
     }
 
-    public ImageUIElement getRulesBackward() {
+    public UIElement getRulesBackward() {
         return rulesBackward;
     }
 
-    public void setRulesBackward(ImageUIElement rulesBackward) {
+    public void setRulesBackward(UIElement rulesBackward) {
         this.rulesBackward = rulesBackward;
     }
+
+    public UIElement getHowToPlayImage() {
 
     public int getCurrentIndex() {
         return currentIndex;
@@ -184,7 +191,7 @@ public class HowToPlayMenu extends Menu {
         return howToPlayImage;
     }
 
-    public void setHowToPlayImage(ImageUIElement howToPlayImage) {
+    public void setHowToPlayImage(UIElement howToPlayImage) {
         this.howToPlayImage = howToPlayImage;
     }
 

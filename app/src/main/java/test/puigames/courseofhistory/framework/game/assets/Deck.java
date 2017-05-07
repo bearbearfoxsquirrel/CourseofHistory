@@ -25,16 +25,20 @@ public class Deck extends Stack implements Placeable, Scalable.ImageScalable, Dr
     private Screen currentScreen;
     private Matrix matrix;
     private Origin origin;
-    private float width;
-    private float height;
+
+    private float rotation;
+
+    private float width, halfWidth;
+    private float height, halfHeight;
 
     public Deck(Screen screen, Bitmap bitmap) {
         this.currentScreen = screen;
         this.bitmap = bitmap;
         this.paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        this.rotation = 0;
 
-        this.height = CharacterCard.getCardHeight();
-        this.width = CharacterCard.getCardWidth();
+        this.height = CharacterCard.CARD_HEIGHT; this.halfHeight = height / 2;
+        this.width = CharacterCard.CARD_WIDTH; this.halfWidth  = width / 2;
     }
 
     public void shuffle(CharacterCard[] characterCards) {
@@ -57,8 +61,16 @@ public class Deck extends Stack implements Placeable, Scalable.ImageScalable, Dr
     }
 
     @Override
-    public synchronized Object pop() {
-        return super.pop();
+    //Object pop to popping a character card
+    public synchronized CharacterCard pop() {
+        return (CharacterCard) super.pop();
+
+    }
+
+    private void initPlacement(float placementX, float placementY, float rotation) {
+        this.origin = new Origin(placementX, placementY);
+        this.matrix = new Matrix();
+        this.rotation = rotation;
     }
 
     @Override
@@ -67,9 +79,8 @@ public class Deck extends Stack implements Placeable, Scalable.ImageScalable, Dr
     }
 
     @Override
-    public void place(Screen screen, float placementX, float placementY) {
-        this.origin = new Origin(placementX, placementY);
-        this.matrix = new Matrix();
+    public void place(Screen screen, float placementX, float placementY, float rotation) {
+        initPlacement(placementX, placementY, rotation);
         //Checks if the deck is in the list of things to be drawn and scaled
         //And removes them if they are not
         if (!screen.getDrawables().contains(this))
@@ -92,22 +103,15 @@ public class Deck extends Stack implements Placeable, Scalable.ImageScalable, Dr
 
     @Override
     public void scale(float scaleFactorX, float scaleFactorY) {
-        this.getMatrix().postScale((this.getWidth() / this.getBitmap().getWidth()) * scaleFactorX,
-                (this.getHeight() / this.getBitmap().getHeight()) * scaleFactorY);
-        this.getMatrix().postRotate(0, scaleFactorX * this.getBitmap().getWidth()/ 2.0f,
-                scaleFactorY * this.getBitmap().getHeight() / 2.0f);
-        this.getMatrix().postTranslate((this.getOrigin().getOriginX() - this.getWidth() / 2) * scaleFactorX,
-                (this.getOrigin().getOriginY() - this.getHeight() / 2) * scaleFactorY);
+        getMatrix().reset(); // Resets the matrix for
+        getMatrix().postScale((getWidth() / getBitmap().getWidth()) * scaleFactorX, getHeight() / getBitmap().getHeight() * scaleFactorY); //Scales the object/image ratio by the scale factor
+        getMatrix().postRotate(getRotation(), getHalfWidth() * scaleFactorX, getHalfHeight() * scaleFactorY); //Rotates from the middle of the object on the screen
+        getMatrix().postTranslate((getPosX() - getWidth() / 2.f) * scaleFactorX, (getPosY() - getHeight() / 2.f) * scaleFactorY); //Translates the object by the scale factor
     }
 
     @Override
     public Matrix getMatrix() {
         return this.matrix;
-    }
-
-    @Override
-    public Origin getOrigin() {
-        return this.origin;
     }
 
     @Override
@@ -118,6 +122,21 @@ public class Deck extends Stack implements Placeable, Scalable.ImageScalable, Dr
     @Override
     public float getHeight() {
         return this.height;
+    }
+
+    @Override
+    public float getPosX() {
+        return origin.getOriginX();
+    }
+
+    @Override
+    public float getPosY() {
+        return origin.getOriginY();
+    }
+
+    @Override
+    public float getRotation() {
+        return this.rotation;
     }
 
     @Override
@@ -159,6 +178,14 @@ public class Deck extends Stack implements Placeable, Scalable.ImageScalable, Dr
 
     public void setHeight(float height) {
         this.height = height;
+    }
+
+    public float getHalfHeight() {
+        return halfHeight;
+    }
+
+    public float getHalfWidth() {
+        return halfWidth;
     }
 }
 

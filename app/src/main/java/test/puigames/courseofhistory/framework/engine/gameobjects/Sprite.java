@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 
-import test.puigames.courseofhistory.framework.engine.gameobjects.properties.BoundingBox;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Drawable;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Origin;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Vector;
@@ -58,8 +57,8 @@ public abstract class Sprite extends GameObject implements Drawable, Scalable.Im
         }
 
         //update position using velocity
-        origin.setOriginX(origin.getOriginX()+ (velocity.getVectorX() * deltaTime));
-        origin.setOriginY(origin.getOriginY()+ (velocity.getVectorY() * deltaTime));
+        origin.setOriginX(origin.getOriginX() + (velocity.getVectorX() * deltaTime));
+        origin.setOriginY(origin.getOriginY() + (velocity.getVectorY() * deltaTime));
     }
 
 
@@ -107,27 +106,21 @@ public abstract class Sprite extends GameObject implements Drawable, Scalable.Im
         this.height = height; this.halfHeight = (this.height/2);
     }
 
-    public Origin getOrigin() {
-        return origin;
-    }
-
     public void setOrigin(Origin origin) {
         this.origin = origin;
     }
 
     @Override
     public void scale(float scaleFactorX, float scaleFactorY) {
-        this.getMatrix().postScale((this.getWidth() / this.getBitmap().getWidth()) * scaleFactorX,
-                (this.getHeight() / this.getBitmap().getHeight()) * scaleFactorY);
-        this.getMatrix().postRotate(0, scaleFactorX * this.getBitmap().getWidth()/ 2.0f,
-                scaleFactorY * this.getBitmap().getHeight() / 2.0f);
-        this.getMatrix().postTranslate((this.getOrigin().getOriginX() - this.getWidth() / 2) * scaleFactorX,
-                (this.getOrigin().getOriginY() - this.getHeight() / 2) * scaleFactorY);
+        getMatrix().reset(); // Resets the matrix for
+        getMatrix().postScale((width / getBitmap().getWidth()) * scaleFactorX, height / getBitmap().getHeight() * scaleFactorY); //Scales the object/image ratio by the scale factor
+        getMatrix().postRotate(rotation, halfWidth * scaleFactorX, halfHeight * scaleFactorY); //Rotates from the middle of the object on the screen
+        getMatrix().postTranslate((getPosX() - halfWidth) * scaleFactorX, (getPosY() - halfHeight) * scaleFactorY); //Translates the object by the scale factor
     }
 
     @Override
-    public void place(Screen screen, float placementX, float placementY){
-        super.place(screen, placementX, placementY);
+    public void place(Screen screen, float placementX, float placementY, float rotation){
+        super.place(screen, placementX, placementY, rotation);
         if (!screen.getDrawables().contains(this))
             screen.getDrawables().add(this);
     }

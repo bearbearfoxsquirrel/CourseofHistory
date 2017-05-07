@@ -11,6 +11,5 @@ public interface Updateable {
 
     void stopTicking(Screen screen);
 
-
     void update(float deltaTime);
 }

@@ -1,13 +1,11 @@
 package test.puigames.courseofhistory.framework.game.assets.boards;
 
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.util.Log;
 
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Drawable;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
-import test.puigames.courseofhistory.framework.game.assets.CardHand;
+import test.puigames.courseofhistory.framework.game.assets.Hero;
 import test.puigames.courseofhistory.framework.game.assets.PlayArea;
 
 /**
@@ -16,68 +14,30 @@ import test.puigames.courseofhistory.framework.game.assets.PlayArea;
 
 
 public class Board extends Sprite implements Drawable {
-    private PlayArea[] playAreas = new PlayArea[2];
-    private CardHand[] cardHands = new CardHand[2];
+    public static final int MAX_PLAYERS = 2;
+    private PlayArea[] playAreas = new PlayArea[MAX_PLAYERS];
+    private Hero[] heroes = new Hero[MAX_PLAYERS];
+
     private int playAreaWidth = 460;
     private int playAreaHeight = 90;
 
-    //spawnX = 480/2, spawnY = 320/2
-    public Board(Screen screen, Bitmap bitmap){
+    public Board(Screen screen, Bitmap bitmap, Bitmap playAreaBitmap, Hero[] heroes) {
         super(screen, bitmap, 480, 320);
-        overlapAllowance = 1.0f;
-    }
+        overlapAllowance = 1.f;
+        this.heroes = heroes;
 
-    @Override
-    public void draw(Canvas canvas, float lastFrameTime) {
-        super.draw(canvas, lastFrameTime);
+        for (int i = 0; i < playAreas.length; i++) {
+            playAreas[i] = new PlayArea(this.currentScreen, playAreaBitmap, playAreaWidth, playAreaHeight);
+        }
     }
+/*
 
     public void update(float deltaTime) {
         super.update(deltaTime);
-        for(PlayArea playArea : playAreas)
+        for (PlayArea playArea : playAreas)
             playArea.update(deltaTime); //update play areas
     }
-
-    @Override
-    public void place(Screen screen, float placementX, float placementY) {
-        super.place(screen, placementX, placementY);
-        //update hands
-    //    for (int i = 0; i < playAreas.length; i++) {
-        //    playAreas[i].place(screen, );
-      //  }
-    }
-
-    @Override
-    public void initPlacement(float spawnX, float spawnY){
-        super.initPlacement(spawnX, spawnY);
-        //player 1 - human: player one - bottom half of screen
-        //spawnX = boundingBox.left + areaPaddingX
-        //spawnY = halfWidth + areaPaddingY
-        //width = 460, height = 140
-        for (int i = 0; i < cardHands.length; i++) {
-            if(i == 0) {
-                cardHands[i] = new CardHand(this.currentScrren, 240f, 288f);
-                playAreas[i] = new PlayArea(this.currentScrren, playAreaWidth, playAreaHeight, (int)halfWidth, 114);
-            }else{
-                cardHands[i] = new CardHand(this.currentScrren, 240f, 65f);
-                playAreas[i] = new PlayArea(this.currentScrren, playAreaWidth, playAreaHeight, (int)halfWidth, 208);
-            }
-
-            Log.d("cardhand " + i, "" + cardHands[i].getBoundingBox().toString());
-            Log.d("playArea " + i, "" + playAreas[i].getBoundingBox().toString());
-        }
-
-        //player 2 - opponent: AI/other player - top half of screen
-        //spawnX = boundingBox.left + areaPaddingX
-        //spawnY = boundingBox.top
-        //width = 460, height = 140
-        //playAreas[1] = new PlayArea(460, 140);
-
-
-//
-//        playAreas[1] = new PlayArea(playAreaWidth, playAreaHeight, (int)halfWidth, (int)
-//                (halfHeight * 0.75));
-    }
+*/
 
     public PlayArea[] getPlayAreas() {
         return playAreas;
@@ -87,28 +47,32 @@ public class Board extends Sprite implements Drawable {
         this.playAreas = playAreas;
     }
 
-    public CardHand[] getCardHands() {
-        return cardHands;
+    public PlayArea getPlayArea(int i) {
+        return playAreas[i];
     }
 
-    public void setCardHands(CardHand[] cardHands) {
-        this.cardHands = cardHands;
+    public void setPlayArea(PlayArea playArea, int i) {
+        this.playAreas[i] = playArea;
     }
 
     public int getPlayAreaWidth() {
         return playAreaWidth;
     }
 
-    public void setPlayAreaWidth(int playAreaWidth) {
-        this.playAreaWidth = playAreaWidth;
+    public Hero[] getHeroes() {
+        return heroes;
     }
 
-    public int getPlayAreaHeight() {
-        return playAreaHeight;
+    public Hero getHero(int i) {
+        return heroes[i];
     }
 
-    public void setPlayAreaHeight(int playAreaHeight) {
-        this.playAreaHeight = playAreaHeight;
+    public void setHeroes(Hero[] heroes) {
+        this.heroes = heroes;
+    }
+
+    public void setHero(Hero hero, int i) {
+        this.heroes[i] = hero;
     }
 }
 

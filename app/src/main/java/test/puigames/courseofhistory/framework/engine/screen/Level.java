@@ -10,7 +10,4 @@ public abstract class Level extends Screen {
     public Level(GameProperties gameProperties) {
         super(gameProperties);
     }
-
-    public abstract void load();
-
 }

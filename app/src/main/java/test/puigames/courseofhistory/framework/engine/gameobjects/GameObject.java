@@ -14,19 +14,16 @@ import test.puigames.courseofhistory.framework.engine.screen.scaling.Scalable;
  */
 
 public abstract class GameObject implements Updateable, Placeable, Scalable {
-    protected Screen currentScrren;
+    protected Screen currentScreen;
     protected float width, halfWidth;
     protected float height, halfHeight;
     private BoundingBox boundingBox;
-
-
-
     protected Origin origin;
     protected Matrix matrix;
     protected float overlapAllowance; //default overlap allowance
     protected final float MAX_OVERLAP_ALLOWANCE = 1.0f;
     protected final float MIN_OVERLAP_ALLOWANCE = 0.0f;
-    protected int rotation = 0;
+    protected float rotation = 0;
 
 
     public GameObject(Screen screen, int width, int height) {
@@ -35,13 +32,14 @@ public abstract class GameObject implements Updateable, Placeable, Scalable {
         this.height = height;
         this.halfHeight = (height / 2);
         this.overlapAllowance = MIN_OVERLAP_ALLOWANCE;
-        this.currentScrren = screen;
+        this.currentScreen = screen;
     }
 
-    protected void initPlacement(float spawnX, float spawnY) {
+    protected void initPlacement(float spawnX, float spawnY, float rotation) {
         this.origin = new Origin(spawnX, spawnY);
         this.boundingBox = new BoundingBox(width, height, origin);
         this.matrix = new Matrix();
+        this.rotation = rotation;
     }
 
     @Override
@@ -54,22 +52,15 @@ public abstract class GameObject implements Updateable, Placeable, Scalable {
 
     @Override
     public void scale(float scaleFactorX, float scaleFactorY) {
-        this.getMatrix().postScale((this.getWidth() / this.getWidth()) * scaleFactorX,
-                (this.getHeight() / this.getHeight()) * scaleFactorY);
-        this.getMatrix().postRotate(0, scaleFactorX * this.getWidth()/ 2.0f,
-                scaleFactorY * this.getHeight() / 2.0f);
-        this.getMatrix().postTranslate((this.getOrigin().getOriginX() - this.getWidth() / 2) * scaleFactorX,
-                (this.getOrigin().getOriginY() - this.getHeight() / 2) * scaleFactorY);
+        getMatrix().reset(); // Resets the matrix for
+        getMatrix().postScale(width * scaleFactorX, height * scaleFactorY); //Scales the object size by the scale factor
+        getMatrix().postRotate(rotation, getHalfWidth() * scaleFactorX, getHalfHeight() * scaleFactorY); //Rotates from the middle of the object on the screen
+        getMatrix().postTranslate((getPosX() - halfWidth) * scaleFactorX, (getPosY() - halfHeight) * scaleFactorY); //Translates the object by the scale factor
     }
 
     @Override
     public Matrix getMatrix() {
         return this.matrix;
-    }
-
-    @Override
-    public Origin getOrigin() {
-        return this.origin;
     }
 
     @Override
@@ -89,8 +80,8 @@ public abstract class GameObject implements Updateable, Placeable, Scalable {
     }
 
     @Override
-    public void place(Screen screen, float placementX, float placementY) {
-        this.initPlacement(placementX, placementY);
+    public void place(Screen screen, float placementX, float placementY, float rotation) {
+        this.initPlacement(placementX, placementY, rotation);
         //Checks if the object does not already exist on the screen and then places them if it is not
         startTicking(screen);
 
@@ -112,12 +103,25 @@ public abstract class GameObject implements Updateable, Placeable, Scalable {
         stopTicking(screen);
     }
 
-    public Screen getCurrentScrren() {
-        return currentScrren;
+    @Override
+    public float getPosX() {
+        return origin.getOriginX();
     }
 
-    public void setCurrentScrren(Screen currentScrren) {
-        this.currentScrren = currentScrren;
+    @Override
+    public float getPosY() {return origin.getOriginY();}
+
+    @Override
+    public float getRotation() {
+        return rotation;
+    }
+
+    public Screen getCurrentScreen() {
+        return currentScreen;
+    }
+
+    public void setCurrentScreen(Screen currentScreen) {
+        this.currentScreen = currentScreen;
     }
 
     public void setWidth(float width) {
@@ -156,6 +160,11 @@ public abstract class GameObject implements Updateable, Placeable, Scalable {
         this.origin = origin;
     }
 
+    public void setOrigin(float x, float y) {
+        this.origin.setOriginX(x);
+        this.origin.setOriginY(y);
+    }
+
     public void setMatrix(Matrix matrix) {
         this.matrix = matrix;
     }
@@ -176,11 +185,11 @@ public abstract class GameObject implements Updateable, Placeable, Scalable {
         return MIN_OVERLAP_ALLOWANCE;
     }
 
-    public int getRotation() {
-        return rotation;
+    public void setRotation(float rotation) {
+        this.rotation = rotation;
     }
 
-    public void setRotation(int rotation) {
-        this.rotation = rotation;
+    public Origin getOrigin() {
+        return origin;
     }
 }

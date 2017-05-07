@@ -5,7 +5,7 @@ import android.util.Log;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.screen.Menu;
-import test.puigames.courseofhistory.framework.engine.ui.ImageUIElement;
+import test.puigames.courseofhistory.framework.engine.ui.UIElement;
 import test.puigames.courseofhistory.framework.game.levels.TestLevel;
 
 /**
@@ -14,7 +14,8 @@ import test.puigames.courseofhistory.framework.game.levels.TestLevel;
 
 public class LoadingScreen extends Menu {
 
-    private ImageUIElement backgroundLoadingScreen, gameTitle;
+    private static final float UI_ROTATION = 0.f;
+    private UIElement bgImage, logo;
 
     private float bgImageWidth = 480.0f, bgImageHeight = 320.0f;
     private float bgImageCentreX = 240.0f, bgImageCentreY = 160.0f;
@@ -23,7 +24,6 @@ public class LoadingScreen extends Menu {
     private float logoCentreX = 360.0f, logoCentreY = 80.0f;
 
     private float duration = 0.0f, delay = 5.0f;
-
 
     public LoadingScreen(final GameProperties gameProperties){
         super(gameProperties);
@@ -43,20 +43,20 @@ public class LoadingScreen extends Menu {
     public void load(){
         backgroundLoadingScreen = null;
         try{
-            backgroundLoadingScreen = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/backgrounds/loading_screen_background.png"),
+            bgImage = new UIElement(this, resourceFetcher.getBitmapFromFile("images/backgrounds/loading_screen_background.png"),
                     bgImageWidth, bgImageHeight);
-            gameTitle = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/title/logo_base.png"),
+            logo = new UIElement(this, resourceFetcher.getBitmapFromFile("images/title/logo_base.png"),
                     logoWidth, logoHeight);
         }
         catch(NullPointerException e){
             Log.d("Error", "UI Element loading has failed");
         }
 
-        backgroundLoadingScreen.place(this, bgImageCentreX, bgImageCentreY);
-        gameTitle.place(this, logoCentreX, logoCentreY);
+        bgImage.place(this, bgImageCentreX, bgImageCentreY, UI_ROTATION);
+        logo.place(this, logoCentreX, logoCentreY, UI_ROTATION);
 
-        uiElements.add(backgroundLoadingScreen);
-        uiElements.add(gameTitle);
+        uiElements.add(bgImage);
+        uiElements.add(logo);
 
     }
 
@@ -80,20 +80,20 @@ public class LoadingScreen extends Menu {
 
     }
 
-    public ImageUIElement getBackgroundLoadingScreen() {
-        return backgroundLoadingScreen;
+    public UIElement getBgImage() {
+        return bgImage;
     }
 
-    public void setBackgroundLoadingScreen(ImageUIElement backgroundLoadingScreen) {
-        this.backgroundLoadingScreen = backgroundLoadingScreen;
+    public void setBgImage(UIElement bgImage) {
+        this.bgImage = bgImage;
     }
 
-    public ImageUIElement getGameTitle() {
-        return gameTitle;
+    public UIElement getLogo() {
+        return logo;
     }
 
-    public void setGameTitle(ImageUIElement gameTitle) {
-        this.gameTitle = gameTitle;
+    public void setLogo(UIElement logo) {
+        this.logo = logo;
     }
 
     public float getBgImageWidth() {

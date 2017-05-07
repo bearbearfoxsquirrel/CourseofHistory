@@ -7,7 +7,6 @@ import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,6 +15,7 @@ import java.io.InputStreamReader;
 
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.game.assets.StatImage;
+import test.puigames.courseofhistory.framework.game.assets.Hero;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 
@@ -41,7 +41,7 @@ public class ResourceFetcher implements Fetcher {
     }
 
     @Override
-    public Board loadBoard(Screen screen, String boardName) throws NullPointerException {
+    public Board loadBoard(Screen screen, String boardName, Hero[] heroes) throws NullPointerException {
         //Takes a boards name as an input and returns the corresponding board object.
         //If a board is not found a null pointer is returned
         JSONArray boardJsonArray = jsonBourne.fromJSONStringToJsonArray(getStringFromFile(BOARDS_URL), BOARDS_ARRAY_NAME);
@@ -50,7 +50,7 @@ public class ResourceFetcher implements Fetcher {
         Board board = null;
         try {
             JSONObject jsonBoard = jsonBourne.searchJSONArray(boardJsonArray, "boardName", boardName);
-            board = new Board(screen, getBitmapFromFile(jsonBoard.getString("url"))); //where board
+            board = new Board(screen, getBitmapFromFile(jsonBoard.getString("url")), getBitmapFromFile(jsonBoard.getString("playAreaImageUrl")), heroes); //where board
             // is created
         } catch (JSONException e) {
             Log.d("Loading Resource: ", "Cannot find board of name: " + boardName);
@@ -62,17 +62,26 @@ public class ResourceFetcher implements Fetcher {
     //For now just returns all cards
     //TODO: loadCharacterCards will be used to load a specified set of cards e.g. decks and all cards
     @Override
-    public CharacterCard[] loadCharacterCards(Screen screen, String cardsNames, StatImage[] statImage) throws NullPointerException{
+    public CharacterCard[] loadCharacterCards(Screen screen, String cardsNames) throws NullPointerException {
         JSONArray cardJsonArray = jsonBourne.fromJSONStringToJsonArray(getStringFromFile(TEST_CARDS_URL), cardsNames);
 
         CharacterCard[] characterCards = new CharacterCard[cardJsonArray.length()];
         int index = 0;
         try {
             while (index < cardJsonArray.length()) {
+
+                final int numSize = 10;
+                Bitmap numImages[] = new Bitmap[numSize];
+                for(int i = 0; i < numSize; i++)
+                    numImages[i] = getBitmapFromFile("images/numbers/" +Integer.toString(i)+".png");
+
+
+                StatImage[] statImages = { new StatImage(screen, numImages,6, 7), new StatImage(screen, numImages,5, 6), new StatImage(screen, numImages,5, 6)};
+
                 JSONObject jsonCard = cardJsonArray.getJSONObject(index);
                 //creating a new character card with attributes from JSONObject
                 // an arbitrary spawn point is also set until we decide how to spawn cards
-                characterCards[index] = new CharacterCard(screen, statImage, getBitmapFromFile(jsonCard.getString("portraitSrc")),
+                characterCards[index] = new CharacterCard(screen, statImages, getBitmapFromFile(jsonCard.getString("portraitSrc")),
                         jsonCard.getString("name"),
                         jsonCard.getString("charDescription"),
                         jsonCard.getInt("mana"),
@@ -99,6 +108,7 @@ public class ResourceFetcher implements Fetcher {
         throw new NullPointerException();
     }
 
+
     public String getStringFromFile(String url) {
         //gets a string from a specified file url, handles errors within itself
         String outputString = null;
@@ -121,7 +131,7 @@ public class ResourceFetcher implements Fetcher {
         StringBuilder stringBuilder = new StringBuilder();
         String line = null;
         while ((line = reader.readLine()) != null) {
-            stringBuilder.append(line + "\n");
+            stringBuilder.append(line);
         }
         inputStream.close();
         return stringBuilder.toString();

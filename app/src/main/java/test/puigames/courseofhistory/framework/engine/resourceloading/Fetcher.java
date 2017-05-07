@@ -3,7 +3,7 @@ package test.puigames.courseofhistory.framework.engine.resourceloading;
 import android.graphics.Bitmap;
 
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
-import test.puigames.courseofhistory.framework.game.assets.StatImage;
+import test.puigames.courseofhistory.framework.game.assets.Hero;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 
@@ -12,11 +12,9 @@ import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
  */
 
 public interface Fetcher {
-    //public JSONArray getJSONArrayFromJSONFile(String url);
-
     Bitmap getBitmapFromFile(String url);
 
-    Board loadBoard(Screen screen, String boardName);
+    Board loadBoard(Screen screen, String boardName, Hero[] heroes);
 
-    CharacterCard[] loadCharacterCards(Screen screen, String deckName, StatImage[] statImages);
+    CharacterCard[] loadCharacterCards(Screen screen, String deckName);
 }

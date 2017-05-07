@@ -6,14 +6,17 @@ import android.util.Log;
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.controlling.Controlling;
 import test.puigames.courseofhistory.framework.engine.screen.Level;
+import test.puigames.courseofhistory.framework.engine.screen.Placer;
+import test.puigames.courseofhistory.framework.engine.screen.Screen;
+import test.puigames.courseofhistory.framework.game.assets.CardHand;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
 import test.puigames.courseofhistory.framework.game.assets.Deck;
+import test.puigames.courseofhistory.framework.game.assets.Hero;
 import test.puigames.courseofhistory.framework.game.assets.Mana;
-import test.puigames.courseofhistory.framework.game.assets.StartingHandSelectionUI;
 import test.puigames.courseofhistory.framework.game.assets.StatImage;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
-import test.puigames.courseofhistory.framework.game.assets.players.controllers.CourseOfHistoryMachine;
+import test.puigames.courseofhistory.framework.game.CourseOfHistoryMachine;
 import test.puigames.courseofhistory.framework.game.assets.players.controllers.HumanCardGameController;
 import test.puigames.courseofhistory.framework.game.screens.SplashScreen;
 
@@ -22,12 +25,37 @@ import test.puigames.courseofhistory.framework.game.screens.SplashScreen;
  */
 
 public class TestLevel extends Level {
+    private static float PLAYER_DECK_ROTATION = 0.f;
+    private static float PLAYER_DECK_PLACEMENT_X = 190.f;
+    private static float PLAYER_DECK_PLACEMENT_Y = 105.f;
+
+    private static float BOARD_PLAYER_AREA_ROTATION = 0.f;
+    private static float BOARD_PLAYER_AREA_OFFSET_X = 0.f;
+    private static float BOARD_PLAYER_AREA_OFFSET_Y = 50.f;
+
+    private static float PLAYER_HAND_ROTATION = 0.f;
+    private static float PLAYER_HAND_OFFSET_X = 0.f;
+    private static float PLAYER_HAND_OFFSET_Y = 140.f;
+
+    private static float BOARD_ROTATION = 0.f;
+    private static float BOARD_OFFSET_X = 0.f;
+    private static float BOARD_OFFSET_Y = 0.f;
+
+    private static float MANA_ROTATION = 0.f;
+    private static float MANA_OFFSET_X = -210.f;
+    private static float MANA_OFFSET_Y = 70.f;
+    private static float MANA_PADDING = 10.f;
+
+    private final int HERO_PORTRAIT_SIZE = 60;
+    private final float HERO_OFFSET_X = -210.f;
+    private final float HERO_OFFSET_Y = 115.f;
+
+
     private final String[] DECK_NAMES = {"greatMindsCards", "evilLeaderCards"};
+    private final String[] TEST_CARD_NAMES = {"cards1", "cards2"};
+    private final Placer peterPiperPickedAPlacer = new Placer(this);
 
-
-    StartingHandSelectionUI startingHandSelectionUI;
-
-    CourseOfHistoryMachine gameMachine;
+    private CourseOfHistoryMachine gameMachine;
 
     public TestLevel(GameProperties gameProperties) {
         super(gameProperties);
@@ -35,143 +63,118 @@ public class TestLevel extends Level {
     }
 
     @Override
-    public void load() {
+    protected void load() {
        try {
-           //Setting up the board and spawning it
-           Board board = resourceFetcher.loadBoard(this, "testBoard");
-           board.place(this, 480/2, 320/2);
-
            //Setting up the coin and spawning it
-           Bitmap coinSides[] = {resourceFetcher.getBitmapFromFile("images/coins/coin-heads.png"), resourceFetcher.getBitmapFromFile("images/coins/coin-tails.png")};
-           Coin coin = new Coin(this, coinSides, 80, 80);
-           coin.place(this, 300, 200);
+           Bitmap[] coinSides = {
+                   resourceFetcher.getBitmapFromFile("images/coins/coin-heads.png"),
+                   resourceFetcher.getBitmapFromFile("images/coins/coin-tails.png")};
+           Coin coin = new Coin(this, coinSides);
 
-           Player[] players = new Player[CourseOfHistoryMachine.getPlayerCount()];
+           //Create players
+           Player[] players = new Player[CourseOfHistoryMachine.PLAYER_COUNT];
 
            //Load mana images
-           Bitmap manaTypes[] = {resourceFetcher.getBitmapFromFile("images/mana/mana.png"),
+           Bitmap[] manaTypes = {
+                   resourceFetcher.getBitmapFromFile("images/mana/mana.png"),
                    resourceFetcher.getBitmapFromFile("images/mana/mana-used.png")};
 
+           //Load stat images
            final int numSize = 10;
            Bitmap numImages[] = new Bitmap[numSize];
-           for(int i = 0; i < numSize; i++) {
+           for(int i = 0; i < numSize; i++)
+               numImages[i] = resourceFetcher.getBitmapFromFile("images/numbers/" + Integer.toString(i)+".png");
 
-               numImages[i] = resourceFetcher.getBitmapFromFile("images/numbers/" +Integer.toString(i)+".png");
-           }
+           //Load hero bitmaps
+           Bitmap[] heroBitmaps = {
+                   resourceFetcher.getBitmapFromFile("images/heroes/great-minds-hero.jpg"),
+                   resourceFetcher.getBitmapFromFile("images/heroes/evil-leaders-hero.jpg")};
 
-           StatImage[] statImage = { new StatImage(this, numImages,6, 7), new StatImage(this, numImages,5, 6), new StatImage(this, numImages,5, 6)};
+           Hero[] heroes = new Hero[CourseOfHistoryMachine.PLAYER_COUNT];
+           for(int i = 0; i < CourseOfHistoryMachine.PLAYER_COUNT; i++)
+               heroes[i] = new Hero(this, heroBitmaps[i], numImages, HERO_PORTRAIT_SIZE, HERO_PORTRAIT_SIZE); //create heroes
 
+           //Setting up the board and spawning it
+           Board board = resourceFetcher.loadBoard(this, "testBoard", heroes);
 
+           StatImage[] statImage = {
+                   new StatImage(this, numImages,6, 7),
+                   new StatImage(this, numImages,5, 6),
+                   new StatImage(this, numImages,5, 6)}; //load stat images
 
            //Creates a controller and a player for each participant
            for(int i = 0; i < players.length; i++) {
-               players[i] = new Player(resourceFetcher.loadCharacterCards(this, DECK_NAMES[i], statImage), board, new Deck(this, resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png")), i); //Creating a new player pawn for each controller
-               players[i].getPlayerDeck().place(this, 300, 50);
+               players[i] = new Player(
+                       resourceFetcher.loadCharacterCards(this, DECK_NAMES[i]),
+                       board, new Deck(this, resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png")),
+                       new CardHand(this, resourceFetcher.getBitmapFromFile("images/card_areas/play-area.png")) ,
+                       i); //Creating a new player pawn for each controller
                //TODO give proper deck image!!!
 
                for (int j = 0; j < players[i].getMAX_MANA(); j++)
-                   players[i].getMana()[j] = new Mana(this, manaTypes);
+                   players[i].getMana()[j] = new Mana(this, manaTypes); //create mana
            }
 
            //creating the game machine for processing the game
            gameMachine = new CourseOfHistoryMachine(players, coin, board);
-           gameMachine.startTicking(this);
+           setUpGamePiecePositions(this, viewport.getCenterX(), viewport.getCenterY());
 
-           Controlling[] controllers = new HumanCardGameController[CourseOfHistoryMachine.getPlayerCount()];
+           Controlling[] controllers = new HumanCardGameController[CourseOfHistoryMachine.PLAYER_COUNT];
            //Giving the controllers possession of the corresponding player in the game machine
            for (int i = 0; i < controllers.length; i++) {
-               controllers[i] = new HumanCardGameController(this, inputBuddy, gameMachine.getPlayers()[i]);
-               controllers[i].startTicking(this);
+               //UI is placed at the center of Viewport
+               controllers[i] = new HumanCardGameController(this, inputBuddy, gameMachine.getPlayers()[i], resourceFetcher.getBitmapFromFile("images/backgrounds/starting_hand_selection_ui_background.png"),
+                       resourceFetcher.getBitmapFromFile("images/buttons/confirmation_button.png"), resourceFetcher.getBitmapFromFile("images/buttons/confirmation_button.png"),
+                       resourceFetcher.getBitmapFromFile("images/buttons/end_turn_button.png"), viewport.getCenterX(), viewport.getCenterY() );
            }
+           gameMachine.startTicking(this); //starts game machine - IT LIVES
 
-           //Create the starting hand selection UI for each human player
-        //   startingHandSelectionUIs = new StartingHandSelectionUI[gameMachine.players.length];
-          // for (int i = 0; i < players.length; i++)
-           //    startingHandSelectionUIs[i] = new StartingHandSelectionUI(this, gameMachine.players[i], resourceFetcher.getBitmapFromFile("images/backgrounds/starting_hand_selection_ui_background.png"), resourceFetcher.getBitmapFromFile("images/buttons/confirmation_button.png"));
+           for (Controlling controller : controllers)
+               controller.startTicking(this);
 
        } catch(NullPointerException e) {
-//           Log.d("Loading Error:", "Error fetching resources, returning to menu");
+//         Log.d("Loading Error:", "Error fetching resources, returning to menu");
            Log.e("ERROR", e.getMessage() + "\n" + e.getCause());
            //TODO do properly
            //Failed loading the gameProperties - won't cause crash if resources set up wrong!
            gameProperties.setScreen(new SplashScreen(this.gameProperties));
        }
+     }
+
+    private float workOutPlayerRotation(int playerNumber) {
+        return ((playerNumber % 2) * 180) % 360;
     }
 
-    @Override
-    public void update(float deltaTime) {
-        super.update(deltaTime);
+    private void setUpGamePiecePositions(Screen screen, float placementX, float placementY) {
+        gameMachine.getBoard().place(screen, peterPiperPickedAPlacer.findAbsolutePosition(placementX, BOARD_OFFSET_X), peterPiperPickedAPlacer.findAbsolutePosition(placementY, BOARD_OFFSET_Y), BOARD_ROTATION);
 
-        if (gameMachine.getCurrentGameState() == CourseOfHistoryMachine.GameState.CREATE_STARTING_HAND)
-            switch (gameMachine.getPlayerWithCurrentTurn().getPlayerCurrentState()) {
-                case BEGIN_CREATING_STARTING_HAND:
-                    startingHandSelectionUI = new StartingHandSelectionUI(this, gameMachine.getPlayerWithCurrentTurn(),
-                            resourceFetcher.getBitmapFromFile("images/backgrounds/starting_hand_selection_ui_background.png"),
-                            resourceFetcher.getBitmapFromFile("images/buttons/confirmation_button.png"));
-                    startingHandSelectionUI.place(this, viewport.getCenterX(), viewport.getCenterY());
-            }
-    }
+        float anchorX = gameMachine.getBoard().getPosX();
+        float anchorY = gameMachine.getBoard().getPosY();
 
+        for(int i = 0; i < gameMachine.getPlayers().length; i++) {
+            //Find player rotation
+            Player currentPlayer = gameMachine.getPlayer(i);
+            currentPlayer.setRotation(workOutPlayerRotation(i));
 
-   /* public void updateControllers(float deltaTime) {
-        for (Possessor controller: controllers)
-            controller.update(deltaTime);
-    }*/
+            peterPiperPickedAPlacer.placePlaceableRelativeToAnchorPoint(currentPlayer.getPlayerDeck(), anchorX, anchorY,
+                    PLAYER_DECK_PLACEMENT_X, PLAYER_DECK_PLACEMENT_Y, currentPlayer.getRotation(), peterPiperPickedAPlacer.workOutObjectRotation(currentPlayer.getRotation(), PLAYER_DECK_ROTATION));
 
-  /*  public void update(float deltaTime) {
-        super.update(deltaTime);
-      //  updateControllers(deltaTime); //Should be called before the game machine is updated
-        //gameMachine.update(deltaTime);
+            peterPiperPickedAPlacer.placePlaceableRelativeToAnchorPoint(currentPlayer.getBoard().getPlayAreas()[i], anchorX, anchorY,
+                    BOARD_PLAYER_AREA_OFFSET_X, BOARD_PLAYER_AREA_OFFSET_Y, currentPlayer.getRotation(), peterPiperPickedAPlacer.workOutObjectRotation(currentPlayer.getRotation(), workOutPlayerRotation(i)  + BOARD_PLAYER_AREA_ROTATION));
 
-       for(int i = 0; i < gameMachine.players.length; i++){
-            gameMachine.players[i].board.cardHands[i].update(deltaTime);
-            for(int j = 0; j < gameMachine.players[i].board.cardHands[i].cardsInArea.size(); j++){
-                gameMachine.players[i].board.cardHands[i].cardsInArea.get(j).update(deltaTime);
-               // if (
-               // gameMachine.players[i].playerCurrentState == Player.PlayerState.CREATING_START_HAND)
-                 //   drawables.add()
+            peterPiperPickedAPlacer.placePlaceableRelativeToAnchorPoint(currentPlayer.getHand(), placementX, placementY,
+                    PLAYER_HAND_OFFSET_X, PLAYER_HAND_OFFSET_Y, currentPlayer.getRotation(), peterPiperPickedAPlacer.workOutObjectRotation(currentPlayer.getRotation(), PLAYER_HAND_ROTATION));
+
+            float manaRelOffsetFromLast = 0;
+            for (Mana mana : currentPlayer.getMana()) {
+                peterPiperPickedAPlacer.placePlaceableRelativeToAnchorPoint(mana, placementX, placementY, MANA_OFFSET_X + manaRelOffsetFromLast, MANA_OFFSET_Y, currentPlayer.getRotation(), peterPiperPickedAPlacer.workOutObjectRotation(currentPlayer.getRotation(), MANA_ROTATION));
+                manaRelOffsetFromLast += MANA_PADDING;
             }
 
-
-
-            for(int j = 0; j < gameMachine.players[i].cardHand.cardsInArea.size(); j++){
-                gameMachine.players[i].cardHand.cardsInArea.get(j).update(deltaTime);
-            }
-        }
-
-    }/*
-
-    private void collisionCheckAndResolve() {
-        for(CharacterCard card : controllers[gameMachine.turnIndex].getPlayer().board.playAreas[controllers[gameMachine.turnIndex].getPlayer().playerNumber].cardsInArea)
-        {
-            for(CharacterCard card2 : controllers[gameMachine.turnIndex].getPlayer().board.playAreas[controllers[gameMachine.findNextPlayer(gameMachine.turnIndex)].getPlayer().playerNumber].cardsInArea)
-            {
-                if(card.boundingBox.getCollisionDetector().checkForCollision(card, card2))
-                    card.boundingBox.getCollisionDetector().resolveCollision(card, card2, card.overlapAllowance);
-            }
+            peterPiperPickedAPlacer.placePlaceableRelativeToAnchorPoint(currentPlayer.getHero(), anchorX, anchorY,
+                    HERO_OFFSET_X, HERO_OFFSET_Y, currentPlayer.getRotation(), peterPiperPickedAPlacer.workOutObjectRotation(currentPlayer.getRotation(), PLAYER_DECK_ROTATION));
         }
     }
-
-  /*  @Override
-    public void draw(Canvas canvas, float deltaTime) {
-        super.draw(canvas, deltaTime);
-        /*for(int i = 0; i < gameMachine.players.length; i++) {
-
-    @Override
-    public void draw(Canvas canvas, float deltaTime) {
-        super.draw(canvas, deltaTime);
-        // FIXME: 21/04/2017 pls make me draw things better
-        for(int i = 0; i < gameMachine.players.length; i++) {
-            for (int j = 0; j < gameMachine.players[i].board.cardHands[i].cardsInArea.size(); j++) {
-                scaler.scaleToScreen(gameMachine.players[i].board.cardHands[i].cardsInArea.get(j));
-                gameMachine.players[i].board.cardHands[i].cardsInArea.get(j).draw(canvas, deltaTime);
-            }
-//            for(int j = 0; j < gameMachine.players[i].board.playAreas[i].cardsInArea.size(); j++) {
-//                scaler.scaleToScreen(gameMachine.players[i].board.playAreas[i].cardsInArea.get(j));
-//                gameMachine.players[i].board.cardHands[i].cardsInArea.get(j).draw(canvas, deltaTime);
-//            }
-        }
-    }*/
 
     @Override
     public void pause() {

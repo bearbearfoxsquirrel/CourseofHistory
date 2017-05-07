@@ -1,6 +1,10 @@
 package test.puigames.courseofhistory.framework.game.assets.players;
 
+import android.util.Log;
+
+import test.puigames.courseofhistory.framework.game.assets.CardHand;
 import test.puigames.courseofhistory.framework.game.assets.Deck;
+import test.puigames.courseofhistory.framework.game.assets.Hero;
 import test.puigames.courseofhistory.framework.game.assets.Mana;
 import test.puigames.courseofhistory.framework.game.assets.StartingHandSelector;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
@@ -14,47 +18,72 @@ import test.puigames.courseofhistory.framework.game.assets.players.events.Damage
  */
 
 public class Player {
-    //TODO: Add hero
+
     private static final int STARTING_HAND_SIZE = 3;
+    private static final int MAX_TIMES_PLAYER_CAN_ATTACK_ENEMY_HERO_PER_TURN = 1;
+
     private int playerNumber;
     private PlayerState playerCurrentState;
     private CharacterCard[] testCards;
-    private final int MAX_MANA = 10;
+    public final int MAX_MANA = 10;
     private Mana[] mana = new Mana[MAX_MANA];
     private int currentMana;
     private Deck playerDeck;
     private Board board;
     private StartingHandSelector startingHandSelector;
+    private Hero hero;
+    private float rotation;
+    private CardHand hand;
+
+    //ONLY TEMPORARY UNTIL ABILITIES ARE ADDED
+    private int currentAttacksLeftOnEnemyHero;
 
     public enum PlayerState {
-        CREATED, TURN_STARTED, TURN_ACTIVE, WAITING_FOR_TURN, TURN_ENDED, WIN, LOSE,
+        CREATED, TURN_STARTED, WAITING_FOR_FIRST_TURN, TURN_ACTIVE, WAITING_FOR_TURN, TURN_ENDED, WIN, LOSE,
         WAITING_TO_BEGIN_CREATING_HAND, BEGIN_CREATING_STARTING_HAND, STARTING_HAND_CHOOSING_CARDS_TO_TOSS, FINISHED_CREATING_START_HAND
         //PLAY_ACTIVE refers to when the player is allowed to take active decision in their turn
     }
 
-    public Player(CharacterCard[] playerCards, Board board, Deck deck, int playerNumber) {
+    public Player(CharacterCard[] playerCards, Board board, Deck deck, CardHand cardHand, int playerNumber) {
         this.playerCurrentState = PlayerState.CREATED;
         this.playerNumber = playerNumber;
         this.board = board;
-        this.board = board;
         this.playerDeck = deck;
         this.currentMana = 0;
+        this.rotation = 0;
+        this.hand = cardHand;
+        this.currentAttacksLeftOnEnemyHero = MAX_TIMES_PLAYER_CAN_ATTACK_ENEMY_HERO_PER_TURN;
 
+        this.hero = board.getHero(playerNumber); //give player hero from board now
         setUpPlayerDeck(playerCards);
-
-    }
-
-    public void createNewStartingHand() {
-        playerCurrentState = Player.PlayerState.BEGIN_CREATING_STARTING_HAND;
-
-        CharacterCard[] startingHand = new CharacterCard[STARTING_HAND_SIZE];
-        for (int handIndex = 0; handIndex < STARTING_HAND_SIZE; handIndex++)
-            startingHand[handIndex] = drawCardFromDeck(); //Draws the amount of starting cards from the player's deck for each player
-        startingHandSelector = new StartingHandSelector(startingHand); //Creates a new instance of starting hand selector for the player to use
     }
 
     public void setUpPlayerDeck(CharacterCard[] playerCards){
         playerDeck.setUpDeck(playerCards);
+    }
+
+    public void confirmSelectedCardsFromStartingHandSelector() {
+        //Cards choosen to keep are added to hand
+        for (CharacterCard card : startingHandSelector.getCardsToKeep())
+            hand.addCardToArea(card);
+
+        //Drawing cards from the deck till the player has the right amount of cards
+        //Used if player chooses to toss cards
+        while (hand.getCardsInArea().size() < startingHandSelector.STARTING_HAND_SIZE)
+            hand.addCardToArea(playerDeck.pop());
+
+        //Placing cards chosen to toss back in the deck at random areas (shuffling kinda)˚
+        for (CharacterCard card : startingHandSelector.getCardsToToss())
+            playerDeck.add( (int) Math.random() % playerDeck.size(), card );
+
+        playerCurrentState = PlayerState.FINISHED_CREATING_START_HAND;
+    }
+
+    public void createNewStartingHand() {
+        CharacterCard[] startingHand = new CharacterCard[startingHandSelector.STARTING_HAND_SIZE];
+        for (int handIndex = 0; handIndex < startingHandSelector.STARTING_HAND_SIZE; handIndex++)
+            startingHand[handIndex] = drawCardFromDeck(); //Draws the amount of starting cards from the player's deck for each player
+        startingHandSelector = new StartingHandSelector(startingHand); //Creates a new instance of starting hand selector for the player to use
     }
 
     public void moveCard(Card card, float posX, float posY) {
@@ -66,6 +95,11 @@ public class Player {
         return new CardAttack(theAttacker, recipientOfMyFatalBlow, 5, null);
     }
 
+    public int getCurrentAttacksLeftOnEnemyHero() {
+        return currentAttacksLeftOnEnemyHero;
+    }
+
+    //TODO make
     private void attackHero() {
 
     }
@@ -75,12 +109,18 @@ public class Player {
     }
 
     public void startTurn() {
-        playerCurrentState = PlayerState.TURN_STARTED;
+        if (playerDeck.size() > 0) {
+            hand.addCardToArea(drawCardFromDeck());
+        }
+    }
+
+    public void startActivePartOfTurn() {
+        playerCurrentState = PlayerState.TURN_ACTIVE;
+        currentAttacksLeftOnEnemyHero = MAX_TIMES_PLAYER_CAN_ATTACK_ENEMY_HERO_PER_TURN;
     }
 
     public CharacterCard drawCardFromDeck() {
-      //  ((CharacterCard)playerDeck.peek()).place(this.spawnScreen, 200, 300); //TODO give proper spawn places
-        return (CharacterCard)playerDeck.pop();
+        return (CharacterCard) playerDeck.pop();
     }
 
     public void finishedCreatingStartHand() {
@@ -88,32 +128,97 @@ public class Player {
     }
 
     public void placeCardOnBoard(CharacterCard card) {
-        board.getPlayAreas()[playerNumber].addCardToArea(card);
-//        board.cardHands[playerNumber].removeCardFromArea(card);
+        board.getPlayArea(playerNumber).addCardToArea(card);
+        removeCardFromArea(card);
     }
 
     public void addCardToArea(CharacterCard card) {
-        board.getPlayAreas()[playerNumber].addCardToArea(card);
+        board.getPlayArea(playerNumber).addCardToArea(card);
     }
 
     public void removeCardFromArea(CharacterCard card) {
-        board.getPlayAreas()[playerNumber].removeCardFromArea(card);
+        board.getPlayArea(playerNumber).removeCardFromArea(card);
     }
 
-    public void selectCardToKeep(CharacterCard card) {
-        //Adds card to keep set, and removes it from to toss set if it is in there
-        if (startingHandSelector.getCardsToToss().contains(card))
-            startingHandSelector.getCardsToToss().remove(card);
-        startingHandSelector.getCardsToKeep().add(card);
+    /**
+     * Checks if card is touched, and if the card has energy to attack
+     *
+     * @param card - card we are checking
+     * @return - true if card is touched, the touch event type is dragged, and card has attack energy, false otherwise
+     */
+    public boolean canCardBePlacedOnPlayArea(CharacterCard card) {
+        return (currentMana >= card.getMana());
+    }
+
+    /**
+     * When a player moves a card from their hand to board, this is called
+     * Checks if player has enough mana for the action, if they do, card is played
+     * and the corresponding mana cost of card is removed from player's currentMana
+     *
+     * @param card - card that is being played
+     */
+    public void playCard(CharacterCard card) {
+        //player.currentAction = Player.PawnAction.PLACE_CARD_ON_BOARD;
+        if(getCurrentMana() >= card.getMana()) {
+            placeCardOnBoard(card);
+            removeManaFromPlayer(card.getMana());
+        } //else {
+        //should probably tell the user that they can't do that
+        //}
+    }
+
+    public boolean canPlayerAttackEnemyHero() {
+        return getCurrentAttacksLeftOnEnemyHero() > 0;
+    }
+
+    /**
+     * Card will attack the enemy hero if their bounding boxes are overlapping
+     *
+     * @param card - card that is attacking
+     */
+    public void attackEnemyHero(CharacterCard card) {
+        board.getHero(getOppositePlayerNumber()).applyDamage(card.getAttack());
+        Log.e("hero attacked!", "remaining health " + getHero().getHealth());
+        currentAttacksLeftOnEnemyHero--;
+    }
+
+    /**
+     * If a player has enough mana, this method is called
+     *
+     * @param manaCost - amount of mana used by playing card/switched to used state
+     */
+    private void removeManaFromPlayer(int manaCost) {
+        int remainingMana = (getCurrentMana() - manaCost) > 0 ? (getCurrentMana() - manaCost) : 0;
+        setCurrentMana(remainingMana);
+        for (int i = (getMAX_MANA() - 1); i >= (getCurrentMana()); i--) {
+            getMana()[i].setManaState(Mana.ManaState.used);
+            getMana()[i].setBitmap(getMana()[i].getManaType()[1]);
+        }
+    }
+
+    public void attackCard(CharacterCard cardUsedToAttack, CharacterCard cardToAttack) {
+        cardToAttack.applyDamage(cardUsedToAttack.getAttack()); //opponent takes damage
+        cardUsedToAttack.applyDamage(cardToAttack.getAttack()); //attacking card also takes damage
+        cardUsedToAttack.setCurrentAttackEnergy(cardUsedToAttack.getCurrentAttackEnergy() - 1); //set energy to zero for the rest of the turn
+    }
+
+    public boolean isThereACardThatCanBePlacedOnBoard() {
+        for (CharacterCard card : hand.getCardsInArea())
+            if (card.getMana() <= currentMana)
+                return true;
+        return false;
     }
 
 
-    public void selectCardToRemove(CharacterCard card) {
-        //Adds card to toss set, and removes it from to keep set if it is there
-        if (startingHandSelector.getCardsToKeep().contains(card))
-            startingHandSelector.getCardsToKeep().remove(card);
-        startingHandSelector.getCardsToToss().add(card);
+    /**
+     *  Gets opposing player's player number
+     *
+     * @return - opposing player's number
+     */
+    public int getOppositePlayerNumber() {
+        return ((getPlayerNumber() + 1) % 2);
     }
+
 
     public static int getStartingHandSize() {
         return STARTING_HAND_SIZE;
@@ -186,4 +291,25 @@ public class Player {
     public void setStartingHandSelector(StartingHandSelector startingHandSelector) {
         this.startingHandSelector = startingHandSelector;
     }
+
+    public void setRotation(float rotation) {
+        this.rotation = rotation;
+    }
+
+    public float getRotation() {
+        return this.rotation;
+    }
+
+    public Hero getHero() {
+        return hero;
+    }
+
+    public void setHero(Hero hero) {
+        this.hero = hero;
+    }
+
+    public CardHand getHand() {
+        return hand;
+    }
+
 }

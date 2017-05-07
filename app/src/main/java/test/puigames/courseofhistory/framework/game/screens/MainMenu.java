@@ -4,10 +4,9 @@ import android.graphics.Canvas;
 import android.util.Log;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
-import test.puigames.courseofhistory.framework.engine.gameloop.MainGame;
 import test.puigames.courseofhistory.framework.engine.screen.Menu;
-import test.puigames.courseofhistory.framework.engine.ui.ImageUIElement;
 import test.puigames.courseofhistory.framework.engine.ui.MenuButton;
+import test.puigames.courseofhistory.framework.engine.ui.UIElement;
 
 /**
  * Created by Christopher on 08/02/2017.
@@ -17,7 +16,8 @@ import test.puigames.courseofhistory.framework.engine.ui.MenuButton;
 
 public class MainMenu extends Menu {
 
-    private ImageUIElement backgroundMainMenu, gameTitle;
+    private static final float UI_ROTATION = 0.f;
+    private UIElement backgroundMainMenu, title;
 
     private MenuButton playGame, settings, howToPlay, exitGame;
 
@@ -94,26 +94,26 @@ public class MainMenu extends Menu {
     public void load(){
 
         backgroundMainMenu = null;
-        gameTitle = null;
+        title = null;
         try{
-           backgroundMainMenu = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/backgrounds/main_menu_background.png"),
+           backgroundMainMenu = new UIElement(this, resourceFetcher.getBitmapFromFile("images/backgrounds/main_menu_background.png"),
                   bgImageWidth, bgImageHeight);
-            gameTitle = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/title/coh_title.png"),
+            title = new UIElement(this, resourceFetcher.getBitmapFromFile("images/title/coh_title.png"),
                     titleImageWidth, titleImageHeight);
         }
         catch(NullPointerException e){
             Log.d("Error", "UI Element loading has failed");
         }
 
-        backgroundMainMenu.place(this, centreX, bgCentreY);
-        gameTitle.place(this, centreX, titleCentreY);
-        playGame.place(this, centreX, playGameCentreY);
-        howToPlay.place(this, centreX, howToPlayCentreY);
-        settings.place(this, centreX, settingsCentreY);
-        exitGame.place(this, centreX, exitGameY);
+        backgroundMainMenu.place(this, centreX, bgCentreY, UI_ROTATION);
+        title.place(this, centreX, titleCentreY, UI_ROTATION);
+        playGame.place(this, centreX, playGameCentreY, UI_ROTATION);
+        howToPlay.place(this, centreX, howToPlayCentreY, UI_ROTATION);
+        settings.place(this, centreX, settingsCentreY, UI_ROTATION);
+        exitGame.place(this, centreX, exitGameY, UI_ROTATION);
 
         uiElements.add(backgroundMainMenu);
-        uiElements.add(gameTitle);
+        uiElements.add(title);
         uiElements.add(playGame);
         uiElements.add(howToPlay);
         uiElements.add(settings);
@@ -140,20 +140,20 @@ public class MainMenu extends Menu {
 
     }
 
-    public ImageUIElement getBackgroundMainMenu() {
+    public UIElement getBackgroundMainMenu() {
         return backgroundMainMenu;
     }
 
-    public void setBackgroundMainMenu(ImageUIElement backgroundMainMenu) {
+    public void setBackgroundMainMenu(UIElement backgroundMainMenu) {
         this.backgroundMainMenu = backgroundMainMenu;
     }
 
-    public ImageUIElement getGameTitle() {
-        return gameTitle;
+    public UIElement getTitle() {
+        return title;
     }
 
-    public void setGameTitle(ImageUIElement gameTitle) {
-        this.gameTitle = gameTitle;
+    public void setTitle(UIElement title) {
+        this.title = title;
     }
 
     public MenuButton getPlayGame() {

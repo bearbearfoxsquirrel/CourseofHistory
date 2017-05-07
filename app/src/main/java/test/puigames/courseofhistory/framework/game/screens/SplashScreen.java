@@ -1,12 +1,11 @@
 package test.puigames.courseofhistory.framework.game.screens;
 
 import android.graphics.Canvas;
-import android.media.MediaPlayer;
 import android.util.Log;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.screen.Menu;
-import test.puigames.courseofhistory.framework.engine.ui.ImageUIElement;
+import test.puigames.courseofhistory.framework.engine.ui.UIElement;
 
 /**
  * Created by Christopher on 24/11/2016.
@@ -14,9 +13,11 @@ import test.puigames.courseofhistory.framework.engine.ui.ImageUIElement;
 
 public class SplashScreen extends Menu {
 
-    private ImageUIElement logo;
-    private float logoImageWidth = 480.0f, logoImageHeight = 320.0f;
-    private float logoImageCentreX = 240.0f, logoImageCentreY = 160.0f;
+    private static final float UI_ROTATION = 0.f;
+
+    private UIElement logo;
+    private float bgImageWidth = 480.0f, bgImageHeight = 320.0f;
+    private float bgImageX = 240.0f, bgImageY = 160.0f;
 
     private float screenDuration = 0.0f, splashScreenDelay = 3.0f;
 
@@ -28,15 +29,15 @@ public class SplashScreen extends Menu {
     @Override
     public void load() {
         try {
-            logo = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png"),
-                    logoImageWidth, logoImageHeight);
+            logo = new UIElement(this, resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png"),
+                    bgImageWidth, bgImageHeight);
         }
         catch(NullPointerException e) {
             Log.d("Error", "Can't load UI elements");
             this.gameProperties.setScreen(new SplashScreen(this.gameProperties));
         }
 
-        logo.place(this, logoImageCentreX, logoImageCentreY);
+        logo.place(this, bgImageX, bgImageY, UI_ROTATION);
 
         uiElements.add(logo);
     }
@@ -73,11 +74,11 @@ public class SplashScreen extends Menu {
     }
 
     //Getters and Setters
-    public ImageUIElement getLogo() {
+    public UIElement getLogo() {
         return logo;
     }
 
-    public void setLogo(ImageUIElement logo) {
+    public void setLogo(UIElement logo) {
         this.logo = logo;
     }
 
@@ -97,36 +98,36 @@ public class SplashScreen extends Menu {
         this.splashScreenDelay = splashScreenDelay;
     }
 
-    public float getLogoImageWidth() {
-        return logoImageWidth;
+    public float getBgImageWidth() {
+        return bgImageWidth;
     }
 
-    public void setLogoImageWidth(float logoImageWidth) {
-        this.logoImageWidth = logoImageWidth;
+    public void setBgImageWidth(float bgImageWidth) {
+        this.bgImageWidth = bgImageWidth;
     }
 
-    public float getLogoImageHeight() {
-        return logoImageHeight;
+    public float getBgImageHeight() {
+        return bgImageHeight;
     }
 
-    public void setLogoImageHeight(float logoImageHeight) {
-        this.logoImageHeight = logoImageHeight;
+    public void setBgImageHeight(float bgImageHeight) {
+        this.bgImageHeight = bgImageHeight;
     }
 
-    public float getLogoImageCentreX() {
-        return logoImageCentreX;
+    public float getBgImageX() {
+        return bgImageX;
     }
 
-    public void setLogoImageCentreX(float logoImageCentreX) {
-        this.logoImageCentreX = logoImageCentreX;
+    public void setBgImageX(float bgImageX) {
+        this.bgImageX = bgImageX;
     }
 
-    public float getLogoImageCentreY() {
-        return logoImageCentreY;
+    public float getBgImageY() {
+        return bgImageY;
     }
 
-    public void setLogoImageCentreY(float logoImageCentreY) {
-        this.logoImageCentreY = logoImageCentreY;
+    public void setBgImageY(float bgImageY) {
+        this.bgImageY = bgImageY;
     }
 
 }

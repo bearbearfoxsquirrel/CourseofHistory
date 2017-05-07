@@ -4,6 +4,8 @@ package test.puigames.courseofhistory.framework.game.assets;
  * Created by Jordan on 02/03/2017.
  */
 
+import android.graphics.Bitmap;
+
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 
@@ -13,22 +15,25 @@ import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
  */
 public class PlayArea extends CardArea
 {
-    public PlayArea(Screen screen, int width, int height, int spawnX, int spawnY)
+    private static final float CARD_SCALE_FACTOR = 1.11f;
+
+    public PlayArea(Screen screen, Bitmap bitmap, int width, int height)
     {
-        super(screen, width, height);
+        super(screen, bitmap, width, height);
         maxCardsInArea = 5; //number of cards you can have in play area
-        initPlacement(spawnX, spawnY);
     }
 
     @Override
-    public void update(float deltaTime)
+    public void initPlacement(float spawnX, float spawnY, float rotation)
     {
-        super.update(deltaTime);
+        super.initPlacement(spawnX, spawnY, rotation);
+        setUpPositions();
     }
 
     @Override
-    public void initPlacement(float spawnX, float spawnY){
-        super.initPlacement(spawnX, spawnY);
+    public void place(Screen screen, float placementX, float placementY, float rotation)
+    {
+        super.place(screen, placementX, placementY, rotation);
         setUpPositions();
     }
 
@@ -36,7 +41,8 @@ public class PlayArea extends CardArea
     public void addCardToArea(CharacterCard card)
     {
         if (!cardsInArea.contains(card))
-            card.adjustCardSize(1.25f);
+            card.adjustCardSize(CARD_SCALE_FACTOR);
         super.addCardToArea(card);
+        positionCardsInArea();
     }
 }

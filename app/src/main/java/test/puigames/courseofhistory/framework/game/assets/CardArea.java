@@ -1,10 +1,10 @@
 package test.puigames.courseofhistory.framework.game.assets;
 
-import android.util.Log;
+import android.graphics.Bitmap;
 
 import java.util.ArrayList;
 
-import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
+import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Origin;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
@@ -15,18 +15,18 @@ import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 
 /**
  * Basic card-area class
- * Designed to try and keep cards in a certain area with pseudo-decided positions
+ * Keeps cards in a certain area with pseudo-decided positions
  */
-public abstract class CardArea extends GameObject
+public abstract class CardArea extends Sprite
 {
     protected float cardPadding;
     protected ArrayList<CharacterCard> cardsInArea;
     protected Origin[] positions;
     protected int maxCardsInArea;
 
-    public CardArea(Screen screen, int width, int height)
+    public CardArea(Screen screen, Bitmap bitmap, int width, int height)
     {
-        super(screen, width, height);
+        super(screen, bitmap, width, height);
 
         this.cardPadding = 2.0f;
         this.cardsInArea = new ArrayList<>();
@@ -41,11 +41,7 @@ public abstract class CardArea extends GameObject
     public void addCardToArea(CharacterCard card)
     {
         if(!cardsInArea.contains(card) && cardsInArea.size() < maxCardsInArea)
-        {
             cardsInArea.add(card);
-            Log.d("cardarea", "added card: " + this.toString());
-        }
-//        positionCardsInArea();
     }
 
     /**
@@ -55,11 +51,8 @@ public abstract class CardArea extends GameObject
     public void removeCardFromArea(CharacterCard card)
     {
         if(cardsInArea.contains(card) && cardsInArea.size() > 0)
-        {
             cardsInArea.remove(card);
-            Log.d("cardarea", "removed card: " + this.toString());
-        }
-//        positionCardsInArea();
+       // positionCardsInArea();
     }
 
     /**

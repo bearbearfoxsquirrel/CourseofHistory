@@ -21,28 +21,25 @@ public class Origin {
                 '}';
     }
 
-    public Origin(Origin origin)
-    {
+    public Origin(Origin origin) {
         this.x = origin.x;
         this.y = origin.y;
     }
 
-    public boolean equals(Origin other)
-    {
+    public boolean equals(Origin other) {
         return (this.x == other.x && this.y == other.y);
     }
 
-    public void setOrigin(Origin origin)
-    {
+    public void setOrigin(Origin origin) {
         this.x = origin.x;
         this.y = origin.y;
     }
 
-    public void setOrigin(float x, float y)
-    {
+    public void setOrigin(float x, float y) {
         this.x = x;
         this.y = y;
     }
+
     public float getOriginX() {
         return x;
     }

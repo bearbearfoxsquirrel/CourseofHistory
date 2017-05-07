@@ -11,6 +11,8 @@ import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
  */
 
 public class StartingHandSelector {
+    public static final int STARTING_HAND_SIZE = 3;
+
     private Set<CharacterCard> cardsToKeep;
     private Set<CharacterCard> cardsToToss;
 
@@ -18,7 +20,16 @@ public class StartingHandSelector {
         cardsToKeep = new HashSet<>();
         cardsToToss = new HashSet<>();
 
-        cardsToKeep.addAll(Arrays.asList(cards));
+        cardsToKeep.addAll(Arrays.asList(cards)); //Initially all cards are kept
+    }
+    public void selectCardToToss(CharacterCard cardToBeRemoved) {
+        cardsToToss.add(cardToBeRemoved);
+        cardsToKeep.remove(cardToBeRemoved);
+    }
+
+    public void deselectCardToToss(CharacterCard cardToBeKept) {
+        cardsToKeep.add(cardToBeKept);
+        cardsToToss.remove(cardToBeKept);
     }
 
     public Set<CharacterCard> getCardsToKeep() {

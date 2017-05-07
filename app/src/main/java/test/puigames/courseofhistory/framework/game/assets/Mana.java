@@ -29,6 +29,16 @@ public class Mana extends Sprite
         this.manaType = manaType;
     }
 
+    public void update(float deltaTime) {
+        super.update(deltaTime);
+        switch (manaState) {
+            case available:
+                setBitmap(manaType[0]);
+                break;
+            case used:
+                setBitmap(manaType[1]);
+        }
+    }
     public ManaState getManaState() {
         return manaState;
     }

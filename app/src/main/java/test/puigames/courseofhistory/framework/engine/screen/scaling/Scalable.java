@@ -3,8 +3,6 @@ package test.puigames.courseofhistory.framework.engine.screen.scaling;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 
-import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Origin;
-
 /**
  * Created by Michael on 21/04/2017.
  */
@@ -12,15 +10,24 @@ import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Ori
 public interface Scalable {
     void scale(float scaleFactorX, float scaleFactorY);
 
+    //Matrix is used for objects scaling
     Matrix getMatrix();
 
-    Origin getOrigin();
-
+    //Generic to allow for any way of getting dimensions
     float getWidth();
 
     float getHeight();
 
+    //Generic to allow for any way of getting position
+    float getPosX();
+
+    float getPosY();
+
+    //Generic to allow for any way of getting rotation
+    float getRotation();
+
     interface ImageScalable extends Scalable {
+        //Saleable objects must have a bitmap
         Bitmap getBitmap();
     }
 }

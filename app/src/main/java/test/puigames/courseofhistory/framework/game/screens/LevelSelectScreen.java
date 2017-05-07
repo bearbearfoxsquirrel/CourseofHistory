@@ -5,16 +5,17 @@ import android.util.Log;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.screen.Menu;
-import test.puigames.courseofhistory.framework.engine.ui.ImageUIElement;
 import test.puigames.courseofhistory.framework.engine.ui.MenuButton;
+import test.puigames.courseofhistory.framework.engine.ui.UIElement;
 
 /**
  * Created by Christopher on 28/04/2017.
  */
 
 public class LevelSelectScreen extends Menu {
+    private static final float UI_ROTATION = 0.f;
 
-    private ImageUIElement backgroundLevelSelect, levelGreatMinds, levelGreatMindsText, levelWorldLeaders,
+    private UIElement backgroundLevelSelect, levelGreatMinds, levelGreatMindsText, levelWorldLeaders,
             levelWorldLeadersText;
 
     private MenuButton back;
@@ -35,7 +36,6 @@ public class LevelSelectScreen extends Menu {
     private float backCentreX = 40.0f, backCentreY = 300.0f;
 
     private float duration = 0.0f, delay = 0.025f;
-
 
     public LevelSelectScreen(final GameProperties gameProperties){
         super(gameProperties);
@@ -79,27 +79,27 @@ public class LevelSelectScreen extends Menu {
         levelWorldLeadersText = null;
 
         try{
-            backgroundLevelSelect = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/backgrounds/level_select_background.png"),
+            backgroundLevelSelect = new UIElement(this, resourceFetcher.getBitmapFromFile("images/backgrounds/level_select_background.png"),
                     bgImageWidth, bgImageHeight);
-            levelGreatMinds = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/level_images/level_great_minds_framed.png"),
+            levelGreatMinds = new UIElement(this, resourceFetcher.getBitmapFromFile("images/level_images/level_great_minds_framed.png"),
                     levelImageWidth, levelImageHeight);
-            levelGreatMindsText = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/level_text/level_text_great_minds.png"),
+            levelGreatMindsText = new UIElement(this, resourceFetcher.getBitmapFromFile("images/level_text/level_text_great_minds.png"),
                     levelTextWidth, levelTextHeight);
-            levelWorldLeaders= new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/level_images/level_world_leaders_framed.png"),
+            levelWorldLeaders= new UIElement(this, resourceFetcher.getBitmapFromFile("images/level_images/level_world_leaders_framed.png"),
                     levelImageWidth, levelImageHeight);
-            levelWorldLeadersText = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/level_text/level_text_world_leaders.png"),
+            levelWorldLeadersText = new UIElement(this, resourceFetcher.getBitmapFromFile("images/level_text/level_text_world_leaders.png"),
                     levelTextWidth, levelTextHeight);
         }
         catch(NullPointerException e){
             Log.d("Error", "UI Element loading has failed");
         }
 
-        backgroundLevelSelect.place(this, bgCentreX, bgCentreY);
-        levelGreatMinds.place(this, levelGreatMindsImageCentreX, levelGreatMindsImageCentreY);
-        levelGreatMindsText.place(this, levelGreatMindsTextCentreX, levelGreatMindsTextCentreY);
-        levelWorldLeaders.place(this, levelWorldLeadersImageCentreX, levelWorldLeadersImageCentreY);
-        levelWorldLeadersText.place(this,levelWorldLeadersTextCentreX, levelWorldLeadersTextCentreY);
-        back.place(this, backCentreX, backCentreY);
+        backgroundLevelSelect.place(this, bgCentreX, bgCentreY, UI_ROTATION);
+        levelGreatMinds.place(this, levelGreatMindsImageCentreX, levelGreatMindsImageCentreY, UI_ROTATION);
+        levelGreatMindsText.place(this, levelGreatMindsTextCentreX, levelGreatMindsTextCentreY, UI_ROTATION);
+        levelWorldLeaders.place(this, levelWorldLeadersImageCentreX, levelWorldLeadersImageCentreY, UI_ROTATION);
+        levelWorldLeadersText.place(this,levelWorldLeadersTextCentreX, levelWorldLeadersTextCentreY, UI_ROTATION);
+        back.place(this, backCentreX, backCentreY, UI_ROTATION);
 
         uiElements.add(backgroundLevelSelect);
         uiElements.add(levelGreatMinds);
@@ -129,43 +129,43 @@ public class LevelSelectScreen extends Menu {
 
     }
 
-    public ImageUIElement getBackgroundLevelSelect() {
+    public UIElement getBackgroundLevelSelect() {
         return backgroundLevelSelect;
     }
 
-    public void setBackgroundLevelSelect(ImageUIElement backgroundLevelSelect) {
+    public void setBackgroundLevelSelect(UIElement backgroundLevelSelect) {
         this.backgroundLevelSelect = backgroundLevelSelect;
     }
 
-    public ImageUIElement getLevelGreatMinds() {
+    public UIElement getLevelGreatMinds() {
         return levelGreatMinds;
     }
 
-    public void setLevelGreatMinds(ImageUIElement levelGreatMinds) {
+    public void setLevelGreatMinds(UIElement levelGreatMinds) {
         this.levelGreatMinds = levelGreatMinds;
     }
 
-    public ImageUIElement getLevelGreatMindsText() {
+    public UIElement getLevelGreatMindsText() {
         return levelGreatMindsText;
     }
 
-    public void setLevelGreatMindsText(ImageUIElement levelGreatMindsText) {
+    public void setLevelGreatMindsText(UIElement levelGreatMindsText) {
         this.levelGreatMindsText = levelGreatMindsText;
     }
 
-    public ImageUIElement getLevelWorldLeaders() {
+    public UIElement getLevelWorldLeaders() {
         return levelWorldLeaders;
     }
 
-    public void setLevelWorldLeaders(ImageUIElement levelWorldLeaders) {
+    public void setLevelWorldLeaders(UIElement levelWorldLeaders) {
         this.levelWorldLeaders = levelWorldLeaders;
     }
 
-    public ImageUIElement getLevelWorldLeadersText() {
+    public UIElement getLevelWorldLeadersText() {
         return levelWorldLeadersText;
     }
 
-    public void setLevelWorldLeadersText(ImageUIElement levelWorldLeadersText) {
+    public void setLevelWorldLeadersText(UIElement levelWorldLeadersText) {
         this.levelWorldLeadersText = levelWorldLeadersText;
     }
 

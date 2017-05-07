@@ -1,9 +1,7 @@
 package test.puigames.courseofhistory.framework.game.assets;
 
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 
-import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
 
@@ -19,15 +17,10 @@ public class StatImage extends Sprite {
     public StatImage(Screen screen, Bitmap[] numImages, int width, int height){
         super(screen, numImages[0], width, height);
 
-        for(int i= 0; i < numImages.length; i++){
+        for(int i= 0; i < numImages.length; i++)
             numberImages[i] = numImages[i];
-        }
-        UpdateStats();
-    }
 
-    @Override
-    public void setRotation(int rotation) {
-        super.setRotation(rotation);
+        updateStats();
     }
 
     public enum Number
@@ -36,11 +29,12 @@ public class StatImage extends Sprite {
     }
 
     @Override
-    public void place(Screen screen, float placementX, float placementY) {
-        super.place(screen, placementX, placementY);
+    public void update(float deltaTime) {
+        super.update(deltaTime);
+        updateStats();
     }
 
-    public void UpdateStats(){
+    public void updateStats(){
         switch(state)
         {
             case ZERO:
@@ -76,11 +70,39 @@ public class StatImage extends Sprite {
             default:
                 bitmap = numberImages[0];
                 break;
-
         }
     }
 
-
+    public Number fromIntToStatState(int number){
+        switch(number) {
+            case 0:
+                return Number.ZERO;
+            case 1:
+                return Number.ONE;
+            case 2:
+                return Number.TWO;
+            case 3:
+                return Number.THREE;
+            case 4:
+                return Number.FOUR;
+            case 5:
+                return Number.FIVE;
+            case 6:
+                return Number.SIX;
+            case 7:
+                return Number.SEVEN;
+            case 8:
+                return Number.EIGHT;
+            case 9:
+                return Number.NINE;
+            default:
+                return Number.ZERO;
+        }
+    }
+    @Override
+    public void setRotation(float rotation) {
+        super.setRotation(rotation);
+    }
 
     public Number getState() {
         return state;
@@ -96,10 +118,5 @@ public class StatImage extends Sprite {
 
     public void setNumberImages(Bitmap[] numberImages) {
         this.numberImages = numberImages;
-    }
-
-    @Override
-    public void draw(Canvas canvas, float deltatime){
-        super.draw(canvas, deltatime);
     }
 }

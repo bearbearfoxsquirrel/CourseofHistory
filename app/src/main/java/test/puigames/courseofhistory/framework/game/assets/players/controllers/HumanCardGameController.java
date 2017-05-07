@@ -1,221 +1,331 @@
 package test.puigames.courseofhistory.framework.game.assets.players.controllers;
 
+import android.graphics.Bitmap;
+
+import java.util.ArrayList;
+
 import test.puigames.courseofhistory.framework.engine.controlling.Inputable;
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.inputfriends.InputBuddy;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
-import test.puigames.courseofhistory.framework.game.assets.CardArea;
-import test.puigames.courseofhistory.framework.game.assets.Mana;
+import test.puigames.courseofhistory.framework.engine.ui.MenuButton;
+import test.puigames.courseofhistory.framework.game.assets.Hero;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
+import test.puigames.courseofhistory.framework.game.assets.players.controllers.ui.HumanCardGameUIContainer;
 
 
 //This class is for allowing the user to interact with a pawn pawn
 public class HumanCardGameController extends CardGameController implements Inputable {
     private InputBuddy inputBuddy;
-    private Screen currentScreen;
+    private HumanCardGameUIContainer controllerUI;
 
+    private float uiPlacementX;
+    private float uiPlacementY;
 
-    public HumanCardGameController(Screen screen, InputBuddy inputBuddy, Player player) {
+    public HumanCardGameController(Screen screen, InputBuddy inputBuddy, Player player, Bitmap startingHandSelectorBackgroundBitmap, Bitmap confirmationButtonBitmap, Bitmap endTurnButtonBitmap, Bitmap cardToTossOverlap, float uIPlacementX, float uIPlacementY) {
+        super(screen, player);
         this.inputBuddy = inputBuddy;
-        this.currentScreen = screen;
-        this.player = player;
+        this.controllerUI= new HumanCardGameUIContainer(screen, this.player, startingHandSelectorBackgroundBitmap, confirmationButtonBitmap, endTurnButtonBitmap, cardToTossOverlap);
+        this.uiPlacementX = uIPlacementX;
+        this.uiPlacementY = uIPlacementY;
     }
 
-    public HumanCardGameController(Screen screen, InputBuddy inputBuddy) {
+    public HumanCardGameController(InputBuddy inputBuddy, Player player) {
         this.inputBuddy = inputBuddy;
+        this.player = player;
     }
 
     @Override
     public void update(float deltaTime) {
+        for (MenuButton menuButton : controllerUI.getShownMenuButtonsAsArray())
+            if (menuButton.checkForInput(inputBuddy))
+                menuButton.applyAction();
+
         switch (player.getPlayerCurrentState()) {
             case TURN_ACTIVE:
                 updateCardsInHand(deltaTime);
                 updateCardsOnBoardPlayArea(deltaTime);
+                updateHero(deltaTime);
                 break;
-            case BEGIN_CREATING_STARTING_HAND:
-              //  showStartingHandCreationUI();
-                //player.playerCurrentState = Player.PlayerState.STARTING_HAND_CHOOSING_CARDS_TO_TOSS;
-                break;
+
             case STARTING_HAND_CHOOSING_CARDS_TO_TOSS:
-                //updatePlayersStartingHand();
-                break;
-            case FINISHED_CREATING_START_HAND:
-                //hideStartingHandCreationUI();
+                handleInputOnStartingHandSelector();
                 break;
         }
-        collisionCheckAndResolve(player.getBoard().getPlayAreas()[player.getPlayerNumber()]);
-        collisionCheckAndResolve(player.getBoard().getCardHands()[player.getPlayerNumber()]);
-
-
-       /* if (player.playerCurrentState == Player.PlayerState.TURN_ACTIVE) {
-
-
-            //For actual thing
-
-            if (playerEvents.size() == 0) {
-                for (CharacterCard playerCard : player.board.playAreas[player.playerNumber].cardsInArea)
-                    for (CharacterCard opponentCard : player.board.playAreas[oppositePlayerNumber].cardsInArea)
-                        if (playerCard.boundingBox.isOverlapping(opponentCard.boundingBox))
-                            playerEvents.add(player.createAttack(playerCard, opponentCard));
-                            playerCard.UpdateCardStats();
-                            opponentCard.UpdateCardStats();
-            } else {
-                for (Eventable event : playerEvents)
-                    event.update(deltaTime);
-
-        } else if (player.playerCurrentState == Player.PlayerState.CREATING_START_HAND) {
-            updatePlayersStartingHand();
-        }*/
+        //Inter card collision checking and handling
+        cardCollisionCheckAndResolve(getPlayersCardsInPlayArea());
+        cardCollisionCheckAndResolve(getPlayersCardsInCardHand());
+        //Keep cards on board: don't check hand, causes issues
+        keepCardsInBoardBounds(getPlayersCardsInPlayArea());
     }
 
-   /* private void hideStartingHandCreationUI() {
-        startingHandSelectionUI.remove(this.currentScreen);
-    }
+    /**
+     *  Checks for input on the starting hand selector UI components
+     */
+    private void handleInputOnStartingHandSelector() {
+        if (controllerUI.getStartingHandSelectorUI().confirmationButton.checkForInput(inputBuddy))
+            controllerUI.getStartingHandSelectorUI().confirmationButton.applyAction();
 
-    private void showStartingHandCreationUI() {
-        startingHandSelectionUI.place(this.currentScreen ,startingHandSelectionUI.UI_POS_X, startingHandSelectionUI.UI_POS_Y);
-    }
-
-    public void updatePlayersStartingHand() {
+        ArrayList<CharacterCard> cardsToBeSelectedForTossing = new ArrayList<>();
+        ArrayList<CharacterCard> cardsToBeDeselectedForTossing = new ArrayList<>();
+        //Array lists set up outside and cleared every iteration of touch events to avoid needlessly redeclaring the arraylists
         for (Input.TouchEvent touchEvent : inputBuddy.getTouchEvents()) {
-            for (CharacterCard card : player.board.cardHands[player.playerNumber].cardsInArea) {
-                if (card.boundingBox.isTouchOn(touchEvent) && touchEvent.type == Input.TouchEvent.TOUCH_UP && player.startingHandSelector.cardsToKeep.contains(card)){ //check if card is selected or deselected
-                    player.selectCardToRemove(card);
-                } else if (card.boundingBox.isTouchOn(touchEvent) && touchEvent.type == Input.TouchEvent.TOUCH_UP && player.startingHandSelector.cardsToKeep.contains(card)) {
-                    player.selectCardToKeep(card);
-                }
-            }
-
-            if (startingHandSelectionUI.confirmationButton.boundingBox.isTouchOn(touchEvent)) {
-                startingHandSelectionUI.confirmationButton.applyAction();
-            }
-        }
-    }*/
-//            updateCardsOnBoardPlayArea(deltaTime);
-
-            //For test cards
-//            if (playerEvents.size() == 0) {
-//                for (CharacterCard playerCard : player.board.playAreas[player.playerNumber].cardsInArea)
-//                    for (CharacterCard opponentCard : player.board.playAreas[player.playerNumber].cardsInArea)
-//                        if (playerCard.boundingBox.isOverlapping(opponentCard.boundingBox)) {
-//                            playerEvents.add(player.createAttack(playerCard, opponentCard));
-//                        }
-//            } else {
-//                for (Eventable event : playerEvents)
-//                    event.update(deltaTime);
-//            }
-
-            //For actual thing
-
-//            if (playerEvents.size() == 0) {
-//                for (CharacterCard playerCard : player.board.playAreas[player.playerNumber].cardsInArea)
-//                    for (CharacterCard opponentCard : player.board.playAreas[oppositePlayerNumber].cardsInArea)
-//                        if (playerCard.boundingBox.isOverlapping(opponentCard.boundingBox))
-//                            playerEvents.add(player.createAttack(playerCard, opponentCard));
-//            } else {
-//                for (Eventable event : playerEvents)
-//                    event.update(deltaTime);
-//            }
-//        }
-
-//    }
-
-    private void updateCardsOnBoardPlayArea(float deltaTime){
-        for(int i = 0; i < player.getBoard().getPlayAreas()[player.getPlayerNumber()].getCardsInArea().size(); i++) {
-            CharacterCard card = player.getBoard().getPlayAreas()[player.getPlayerNumber()].getCardsInArea().get(i);
-            if(inputBuddy.getTouchEvents().size() > 0) {
-                Input.TouchEvent touchEvent = inputBuddy.getTouchEvents().get(0);
-                if(checkIsTouched(touchEvent, card)) {
-                    card.getOrigin().setOrigin(touchEvent.x, touchEvent.y);
-                    player.moveCard(card, card.getOrigin().getOriginX(), card.getOrigin().getOriginY());
-                }
-            } else if(inputBuddy.getTouchEvents().isEmpty()) {
-                player.getBoard().getPlayAreas()[player.getPlayerNumber()].positionCardsInArea();
-            }
-            if(card.isDeaders()) {
-                player.getBoard().getPlayAreas()[player.getPlayerNumber()].getCardsInArea().remove(card);
-                //TODO: its dead so should be removed from the universe
+            //check cards to toss selection
+            if(touchEvent.type == Input.TouchEvent.TOUCH_UP) {
+                updateCardsBeingSelectedInStartingHandSelectorUI(touchEvent, cardsToBeSelectedForTossing, cardsToBeDeselectedForTossing);
+                cardsToBeSelectedForTossing.clear();
+                cardsToBeDeselectedForTossing.clear();
             }
         }
     }
 
+    /**
+     *  Checks cards that are selected for tossing or keeping by the user and sorts them into the appropriate list
+     * @param touchEvent
+     * @param cardsToBeSelectedForTossing Queue of cards to be selected for tossing from cardsToKeep list
+     * @param cardsToBeDeselectedForTossing Queue of cards to be selected for tossing from cardsToToss list
+     */
+    private void updateCardsBeingSelectedInStartingHandSelectorUI(Input.TouchEvent touchEvent, ArrayList<CharacterCard> cardsToBeSelectedForTossing, ArrayList<CharacterCard> cardsToBeDeselectedForTossing) {
+        //Check cards to keep selection
+        for (CharacterCard card : player.getStartingHandSelector().getCardsToKeep())
+            if (card.getBoundingBox().isTouchOn(touchEvent))
+                cardsToBeSelectedForTossing.add(card);
+
+        for (CharacterCard card : cardsToBeSelectedForTossing)
+            player.getStartingHandSelector().selectCardToToss(card);
+
+        //Check cards to toss selection
+        for (CharacterCard card : player.getStartingHandSelector().getCardsToToss())
+            if (card.getBoundingBox().isTouchOn(touchEvent) && !cardsToBeSelectedForTossing.contains(card))
+                cardsToBeDeselectedForTossing.add(card);
+
+        for (CharacterCard card : cardsToBeDeselectedForTossing)
+            player.getStartingHandSelector().deselectCardToToss(card);
+    }
+
+    /**
+     * Handles updating cards on the board: allows cards to attack if player indicates so/dragging cards around the board.
+     * @param deltaTime - would be used for animations, should we have those
+    */
+    private void updateCardsOnBoardPlayArea(float deltaTime) {
+        if(inputBuddy.getTouchEvents().size() > 0) {
+            Input.TouchEvent touchEvent = inputBuddy.getTouchEvents().get(0);
+            for(CharacterCard card : getPlayersCardsInPlayArea()) {
+
+                if (checkIfCardCanUnleashHell(touchEvent, card)) {
+                    card.setOrigin(touchEvent.x, touchEvent.y);
+                    player.moveCard(card, card.getOrigin().getOriginX(), card.getOrigin().getOriginY());
+                    preventGoddamnCardOriginOverlappingHopefullySuperAwesomeFunMethod(getPlayersCardsInPlayArea());
+
+                    if(youAreTryingToAttackAnotherCard(touchEvent, card)) {
+                        if(hasTaunt(card) || noCardsInListHaveTaunt(player.getBoard().getPlayArea(player.getOppositePlayerNumber()).getCardsInArea()))
+                            attackIfThereIsACardHere(card);
+
+                    } else if (youAreTryingToAttackTheEnemyHero(touchEvent, card, player.getBoard().getHero(player.getOppositePlayerNumber()))) {
+                        player.attackEnemyHero(card);
+
+                    }
+                } else if (isCardReleased(touchEvent, card))
+                    player.getHand().positionCardsInArea();
+            }
+        }
+    }
+
+    /**
+     * Handles updating cards in the hand: allows players to play cards if they have the mana to do so
+     * @param deltaTime - would be used for animations, should we have those
+     */
     private void updateCardsInHand(float deltaTime) {
-        for(int i = 0; i < player.getBoard().getCardHands()[player.getPlayerNumber()].getCardsInArea().size(); i++) {
-            CharacterCard card = player.getBoard().getCardHands()[player.getPlayerNumber()].getCardsInArea().get(i);
-            if(inputBuddy.getTouchEvents().size() > 0) {
-                Input.TouchEvent touchEvent = inputBuddy.getTouchEvents().get(0);
-                if(checkIsTouched(touchEvent, card)) {
-                    card.getOrigin().setOrigin(touchEvent.x, touchEvent.y);
-                    player.moveCard(card, card.getOrigin().getOriginX(), card.getOrigin().getOriginY());
+        if(inputBuddy.getTouchEvents().size() > 0) {
+            Input.TouchEvent touchEvent = inputBuddy.getTouchEvents().get(0);
+            for(CharacterCard card : getPlayersCardsInCardHand()) {
+                if(player.canCardBePlacedOnPlayArea(card) && checkIsTouched(touchEvent, card)) {
+                    player.moveCard(card, touchEvent.x, touchEvent.y);
+                    preventGoddamnCardOriginOverlappingHopefullySuperAwesomeFunMethod(getPlayersCardsInCardHand());
+
+                } else if (isCardReleased(touchEvent, card)) {
+                    player.getHand().positionCardsInArea();
+
+                } else if(card.getBoundingBox().isEncapsulated(player.getBoard().getPlayArea(player.getPlayerNumber()).getBoundingBox())) {
+                    player.playCard(card);
                 }
-            } else if(card.getBoundingBox().isOverlapping(player.getBoard().getPlayAreas()[player.getPlayerNumber()].getBoundingBox()) && inputBuddy.getTouchEvents().isEmpty()) {
-                playCard(card);
             }
         }
     }
 
+    /**
+     * Press the hero, the end turn button will appear
+     * SPOILER: the button doesn't appear
+     */
+    private void updateHero(float deltaTime) {
+        if (inputBuddy.getTouchEvents().size() > 0) {
+            Input.TouchEvent touchEvent = inputBuddy.getTouchEvents().get(0);
+            if (checkIsTouched(touchEvent, player.getHero()) && touchEvent.type == Input.TouchEvent.TOUCH_UP) {
+                controllerUI.showMenuButton(controllerUI.getEndTurnButton(), controllerUI.END_TURN_BUTTON_OFFSET_X, controllerUI.END_TURN_BUTTON_OFFSET_Y, controllerUI.getAbsoluteRotationOfUIElement(controllerUI.getRotation()));
+                controllerUI.setEndTurnButtonCoolDown(controllerUI.END_TURN_BUTTON_COOLDOWN_TIME);
+            }
+        }
+    }
+
+    /** Card passed in will attack if there is an opposing card's bounding box overlapping with it's bounding box
+     *
+     * Both cards will take damage
+     * @param card - card whose bounding box we are checking for overlaps with opponent's cards
+     */
+    public void attackIfThereIsACardHere(CharacterCard card) {
+        for(CharacterCard opponentCard : player.getBoard().getPlayArea(player.getOppositePlayerNumber()).getCardsInArea())
+            if(card.getBoundingBox().isOverlapping(opponentCard.getBoundingBox())) {
+                player.attackCard(card, opponentCard);
+                //TODO: add update for stats here man bruh dudeseph
+            }
+    }
+
+    /**
+     * checks if there is an attack
+     * @param playerCard - attacking card
+     * @param opponentCard - receiving card
+     * @return true if playerCard's bounding box is overlapping opponentCard's bounding box
+     */
     private boolean checkIfThereIsAnAttackOnOpponentCard(CharacterCard playerCard, CharacterCard opponentCard) {
         return playerCard.getBoundingBox().isOverlapping(opponentCard.getBoundingBox());
     }
 
-    private void collisionCheckAndResolve(CardArea cardArea)
-    {
-        for(CharacterCard card : cardArea.getCardsInArea())
-        {
-            for(CharacterCard card2 : cardArea.getCardsInArea())
-            {
-                if(card.getOrigin().equals(card2.getOrigin()))
-                    card.getBoundingBox().getCollisionDetector().resolveCollision(card, card2, card.getOverlapAllowance());
+    /**
+     * Checks that card was released from touch. Returns true if released.
+     * @param touchEvent - touch event being checked
+     * @param card - card being checked for touch
+     * @return - true if card was is touched and touch event is touch_up, false otherwise
+     */
+    private boolean isCardReleased(Input.TouchEvent touchEvent, CharacterCard card) {
+        return (checkIsTouched(touchEvent,  card) && touchEvent.type == Input.TouchEvent.TOUCH_UP);
+    }
 
-                if(card.getBoundingBox().getCollisionDetector().checkForCollision(card.getBoundingBox(), card2.getBoundingBox()))
-                    card.getBoundingBox().getCollisionDetector().resolveCollision(card, card2, card.getOverlapAllowance());
-                if(!card2.getBoundingBox().isEncapsulated(player.getBoard().getBoundingBox())) //collision with board
-                    player.getBoard().getBoundingBox().getCollisionDetector().keepInsideBoundingBox(player.getBoard(), card2);
+    /**
+     * collision between cards - only if there are no touch events
+     * @param cardList - players cards we are checking for collisions in
+     */
+    private void cardCollisionCheckAndResolve(ArrayList<CharacterCard> cardList) {
+        for (CharacterCard card : cardList)
+            for (CharacterCard card2 : cardList)
+                    if (card.getBoundingBox().getCollisionDetector().checkForCollision(card.getBoundingBox(), card2.getBoundingBox()))
+                            card.getBoundingBox().getCollisionDetector().resolveCollision(card, card2, card.getOverlapAllowance());
+    }
+
+    /**
+     * Returns true if card is touched and touch event is not a drag
+     *
+     * @param touchEvent - touch event we are checking against card & type of touch event
+     * @param card - card we are checking if its touched
+     * @return - true if card is touched and touch event type is touch_up, false otherwise
+     */
+    private boolean youAreTryingToAttackAnotherCard(Input.TouchEvent touchEvent, CharacterCard card) {
+        return (checkIsTouched(touchEvent, card)
+                && (touchEvent.type == Input.TouchEvent.TOUCH_UP || touchEvent.type == Input.TouchEvent.TOUCH_DOWN));
+    }
+
+
+    /**
+     * Checks that no cards in the parameter card list have the taunt ability
+     *
+     * @param characterCards - cards we are checking
+     * @return - true if no cards have taunt, false otherwise
+     */
+    private boolean noCardsInListHaveTaunt(ArrayList<CharacterCard> characterCards) {
+        for(CharacterCard card : characterCards)
+            if(hasTaunt(card))
+                return false;
+        return true;
+    }
+
+    /**
+     * Returns true if card has taunt ability
+     *
+     * @param card - card tested to see if it has taunt
+     * @return - true if card has taunt, false otherwise
+     */
+    private boolean hasTaunt(CharacterCard card) {
+        return card.getAbilityDescription().equalsIgnoreCase("taunt");
+    }
+
+    /**
+     * Returns true if card's bounding box is overlapping the enemy hero's bounding box
+     *
+     * @param touchEvent
+     * @param hero - hero we are checking if it's
+     * @return - true if card is touched and touch event type is touch_up
+     */
+    private boolean youAreTryingToAttackTheEnemyHero(Input.TouchEvent touchEvent, CharacterCard card, Hero hero) {
+        return (card.getBoundingBox().isOverlapping(hero.getBoundingBox())
+                && (touchEvent.type == Input.TouchEvent.TOUCH_UP || touchEvent.type == Input.TouchEvent.TOUCH_DOWN));
+    }
+
+
+    /**
+     * **tries** to stop two cards from snapping to one point of touch
+     *
+     * @param cardList - list of cards we are checking for origin overlapping
+     */
+    private void preventGoddamnCardOriginOverlappingHopefullySuperAwesomeFunMethod(ArrayList<CharacterCard> cardList) {
+        int superFunHappyGreatMultiplier = 2;
+        for(CharacterCard card : cardList) {
+            for (CharacterCard otherCard : cardList) {
+                if(card.getOrigin().equals(otherCard.getOrigin()))
+                        card.getBoundingBox().getCollisionDetector().resolveCollision(card, otherCard, card.getOverlapAllowance() * superFunHappyGreatMultiplier);
             }
+        }
+    }
+
+    /**
+     * @return this player's cards in their hand
+     */
+    private ArrayList<CharacterCard> getPlayersCardsInCardHand() {
+        return player.getHand().getCardsInArea();
+    }
+
+    /**
+     * @return this player's cards in their play area
+     */
+    private ArrayList<CharacterCard> getPlayersCardsInPlayArea() {
+        return player.getBoard().getPlayArea(player.getPlayerNumber()).getCardsInArea();
+    }
+
+    private void keepCardsInBoardBounds(ArrayList<CharacterCard> cardList) {
+        for(CharacterCard card : cardList)
             if(!card.getBoundingBox().isEncapsulated(player.getBoard().getBoundingBox()))
                 card.getBoundingBox().getCollisionDetector().keepInsideBoundingBox(player.getBoard(), card);
-        }
     }
 
     /**
-     * TODO: inform user of not having enough mana for action??
-     * When a player moves a card from their hand to board, this is called
-     * Checks if player has enough mana for the action,
-     *      if they do, card is played
-     *          and the corresponding mana cost of card is removed from player's
-     *          currentMana
-     * @param card - card that is being played
+     * Checks if card is touched, and if the card has energy to attack
+     *
+     * @param touchEvent - checking this event against card
+     * @param card - card we are checking
+     * @return - true if card is touched, the touch event type is dragged, and card has attack energy, false otherwise
      */
-    public void playCard(CharacterCard card)
-    {
-        //player.currentAction = Player.PawnAction.PLACE_CARD_ON_BOARD;
-//        if(player.currentMana >= card.mana)
-//        {
-            player.placeCardOnBoard(card);
-//            removeManaFromPlayer(card.mana);
-//        }
-//        else
-//        {
-            //should probably tell the user that they can't do that
-//        }
+    private boolean checkIfCardCanUnleashHell(Input.TouchEvent touchEvent, CharacterCard card) {
+        return (checkIsTouched(touchEvent, card) && card.hasEnergyToAttack());
     }
 
     /**
-     * If a player has enough mana, this method is called
-     * @param manaCost - amount of mana used by playing card/switched to used state
+     * Checks if card has mana to be played now nad is touched
+     *
+     * @param touchEvent - touch event on card
+     * @param card - card being touched and card's mana that is being checked
+     * @return - true if card is touched and player's mana is >= card's mana
      */
-    private void removeManaFromPlayer(int manaCost)
-    {
-        player.setCurrentMana(player.getCurrentMana()- manaCost);
-        for(int i = (player.getMAX_MANA() - 1); i >= (player.getCurrentMana() - 1); i++)
-        {
-            player.getMana()[i].setManaState(Mana.ManaState.used);
-            player.getMana()[i].setBitmap(player.getMana()[i].getManaType()[1]);
-        }
+    public boolean checkIfCardCanBePlayedNow(Input.TouchEvent touchEvent, CharacterCard card) {
+        return (checkIsTouched(touchEvent, card) && player.getCurrentMana() >= card.getMana());
     }
 
+    /**
+     * Checks if gameObject is touched
+     *
+     * @param touchEvent - touch event object we are checking pos(x, y) of
+     * @param object - object we are checking
+     * @return - true if touch event(x, y) falls within object's bounding box, false otherwise
+     */
     private boolean checkIsTouched(Input.TouchEvent touchEvent, GameObject object) {
         return (object.getBoundingBox().isTouchOn(touchEvent));
     }
@@ -223,6 +333,15 @@ public class HumanCardGameController extends CardGameController implements Input
     @Override
     public InputBuddy getInput() {
         return inputBuddy;
+    }
+
+    public HumanCardGameUIContainer getControllerUI() {
+        return this.controllerUI;
+    }
+
+    public void placeControllerUI(Screen screen, float placementX, float placementY) {
+        controllerUI.place(screen, placementX, placementY, player.getRotation());
+        //UI is bound to the rotation of the player
     }
 
     @Override
@@ -243,12 +362,16 @@ public class HumanCardGameController extends CardGameController implements Input
         this.inputBuddy = inputBuddy;
     }
 
-    public Screen getCurrentScreen() {
-        return currentScreen;
+    @Override
+    public void startTicking(Screen screen) {
+        super.startTicking(screen);
+        placeControllerUI(screen, uiPlacementX, uiPlacementY);
+        // controllerUI.setUpGamePiecePositions(screen, 480/2, 320/2 );
     }
 
-    public void setCurrentScreen(Screen currentScreen) {
-        this.currentScreen = currentScreen;
+    @Override
+    public void stopTicking(Screen screen) {
+       super.stopTicking(screen);
+        controllerUI.stopTicking(screen);
     }
-
 }

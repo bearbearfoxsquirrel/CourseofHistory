@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.inputfriends.subfriends.Input;
-import test.puigames.courseofhistory.framework.engine.ui.ImageUIElement;
 import test.puigames.courseofhistory.framework.engine.ui.UIElement;
 
 /**
@@ -40,8 +39,8 @@ public abstract class Menu extends Screen {
             uiElement.draw(canvas, deltaTime);
     }
 
-    public boolean isTouched(Input.TouchEvent touchEvent, ImageUIElement imageUIElement){
-        return (imageUIElement.getBoundingBox().isTouchOn(touchEvent) && touchEvent.type == Input.TouchEvent.TOUCH_DOWN);
+    public boolean isTouched(Input.TouchEvent touchEvent, UIElement uiElement){
+        return (uiElement.getBoundingBox().isTouchOn(touchEvent) && touchEvent.type == Input.TouchEvent.TOUCH_DOWN);
     }
 
     public ArrayList<UIElement> getUiElements() {
