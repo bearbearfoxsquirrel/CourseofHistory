@@ -36,7 +36,7 @@ public class AICardGameController extends CardGameController {
 
     /**
      *  Finds out how good the card is by returning its rating
-     *  (only used for AI, to give some meaning to cards it chooses)
+     *  (only USED for AI, to give some meaning to cards it chooses)
      *  WIP algorithm for selecting cards
      * @param mana
      * @param attack
@@ -179,7 +179,7 @@ public class AICardGameController extends CardGameController {
         while (enemyCardToKill.getHealth() > getTotalAttack(cardsToAttackWith) && getTotalAttack(cardsToSelectToAttackWith) >= enemyCardToKill.getHealth()) {
             CharacterCard currentWeakestCard = getCardWithHighestAttack(cardsToSelectToAttackWith);
             cardsToAttackWith.add(currentWeakestCard);
-            cardsToAttackWith.remove(currentWeakestCard); //remove that card from cards to select from as it is already going to be used
+            cardsToAttackWith.remove(currentWeakestCard); //remove that card from cards to select from as it is already going to be USED
         }
         return cardsToAttackWith;
     }

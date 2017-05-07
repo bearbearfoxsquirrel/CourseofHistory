@@ -13,29 +13,29 @@ public class Mana extends Sprite
 {
     //Current state of mana
     private ManaState manaState;
-    private Bitmap[] manaType; //0 is available, 1 is used
+    private Bitmap[] manaType; //0 is AVAILABLE, 1 is USED
 
     public enum ManaState
     {
-        available, used
+        AVAILABLE, USED
     }
 
-    //mana state refers to if mana is available to use by the player, or is used (unavailable)
-    public Mana(Screen screen, Bitmap[] manaType)
+    //mana state refers to if mana is AVAILABLE to use by the player, or is USED (unavailable)
+    public Mana(Screen screen, Bitmap[] manaType, int width, int height)
     {
-        //width=10, height=15
-        super(screen, manaType[0], 10, 15);
-        manaState = ManaState.available;
+        super(screen, manaType[1], width, height);
+        manaState = ManaState.USED; //initially used
         this.manaType = manaType;
     }
 
-    public void update(float deltaTime) {
+    public void update(float deltaTime)
+    {
         super.update(deltaTime);
         switch (manaState) {
-            case available:
+            case AVAILABLE:
                 setBitmap(manaType[0]);
                 break;
-            case used:
+            case USED:
                 setBitmap(manaType[1]);
         }
     }

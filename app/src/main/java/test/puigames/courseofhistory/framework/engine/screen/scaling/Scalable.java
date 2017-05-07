@@ -10,7 +10,7 @@ import android.graphics.Matrix;
 public interface Scalable {
     void scale(float scaleFactorX, float scaleFactorY);
 
-    //Matrix is used for objects scaling
+    //Matrix is USED for objects scaling
     Matrix getMatrix();
 
     //Generic to allow for any way of getting dimensions

@@ -52,7 +52,6 @@ public abstract class CardArea extends Sprite
     {
         if(cardsInArea.contains(card) && cardsInArea.size() > 0)
             cardsInArea.remove(card);
-       // positionCardsInArea();
     }
 
     /**

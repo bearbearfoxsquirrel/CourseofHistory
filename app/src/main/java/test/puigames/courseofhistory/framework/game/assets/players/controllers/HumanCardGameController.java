@@ -107,7 +107,7 @@ public class HumanCardGameController extends CardGameController implements Input
 
     /**
      * Handles updating cards on the board: allows cards to attack if player indicates so/dragging cards around the board.
-     * @param deltaTime - would be used for animations, should we have those
+     * @param deltaTime - would be USED for animations, should we have those
     */
     private void updateCardsOnBoardPlayArea(float deltaTime) {
         if(inputBuddy.getTouchEvents().size() > 0) {
@@ -115,8 +115,7 @@ public class HumanCardGameController extends CardGameController implements Input
             for(CharacterCard card : getPlayersCardsInPlayArea()) {
 
                 if (checkIfCardCanUnleashHell(touchEvent, card)) {
-                    card.setOrigin(touchEvent.x, touchEvent.y);
-                    player.moveCard(card, card.getOrigin().getOriginX(), card.getOrigin().getOriginY());
+                    player.moveCard(card, touchEvent.x, touchEvent.y);
                     preventGoddamnCardOriginOverlappingHopefullySuperAwesomeFunMethod(getPlayersCardsInPlayArea());
 
                     if(youAreTryingToAttackAnotherCard(touchEvent, card)) {
@@ -125,7 +124,6 @@ public class HumanCardGameController extends CardGameController implements Input
 
                     } else if (youAreTryingToAttackTheEnemyHero(touchEvent, card, player.getBoard().getHero(player.getOppositePlayerNumber()))) {
                         player.attackEnemyHero(card);
-
                     }
                 } else if (isCardReleased(touchEvent, card))
                     player.getHand().positionCardsInArea();
@@ -135,25 +133,48 @@ public class HumanCardGameController extends CardGameController implements Input
 
     /**
      * Handles updating cards in the hand: allows players to play cards if they have the mana to do so
-     * @param deltaTime - would be used for animations, should we have those
+     * @param deltaTime - would be USED for animations, should we have those
      */
     private void updateCardsInHand(float deltaTime) {
         if(inputBuddy.getTouchEvents().size() > 0) {
             Input.TouchEvent touchEvent = inputBuddy.getTouchEvents().get(0);
             for(CharacterCard card : getPlayersCardsInCardHand()) {
-                if(player.canCardBePlacedOnPlayArea(card) && checkIsTouched(touchEvent, card)) {
+
+                if (player.canCardBePlacedOnPlayArea(card) && checkIsTouched(touchEvent, card)) {
                     player.moveCard(card, touchEvent.x, touchEvent.y);
                     preventGoddamnCardOriginOverlappingHopefullySuperAwesomeFunMethod(getPlayersCardsInCardHand());
 
+                    if (card.getBoundingBox().isEncapsulated(player.getBoard().getPlayArea(player.getPlayerNumber()).getBoundingBox())) {
+                        player.playCard(card);
+                    }
                 } else if (isCardReleased(touchEvent, card)) {
                     player.getHand().positionCardsInArea();
-
-                } else if(card.getBoundingBox().isEncapsulated(player.getBoard().getPlayArea(player.getPlayerNumber()).getBoundingBox())) {
-                    player.playCard(card);
                 }
             }
         }
     }
+
+//    /**
+//     * Handles updating cards in the hand: allows players to play cards if they have the mana to do so
+//     * @param deltaTime - would be USED for animations, should we have those
+//     */
+//    private void updateCardsInHand(float deltaTime) {
+//        if(inputBuddy.getTouchEvents().size() > 0) {
+//            Input.TouchEvent touchEvent = inputBuddy.getTouchEvents().get(0);
+//            for(CharacterCard card : getPlayersCardsInCardHand()) {
+//                if(checkIfCardCanBePlayedNow(touchEvent, card)) {
+//                    card.setOrigin(touchEvent.x, touchEvent.y);
+//                    player.moveCard(card, card.getOrigin().getOriginX(), card.getOrigin().getOriginY());
+//                    if(card.getBoundingBox().isEncapsulated(player.getBoard().getPlayArea(player.getPlayerNumber()).getBoundingBox())) {
+//                        playCard(card);
+//                    }
+//                    preventGoddamnCardOriginOverlappingHopefullySuperAwesomeFunMethod(getPlayersCardsInCardHand());
+//                    break;
+//                } else if (releasedCard(touchEvent, card))
+//                    player.getHand().positionCardsInArea();
+//            }
+//        }
+//    }
 
     /**
      * Press the hero, the end turn button will appear
@@ -213,16 +234,31 @@ public class HumanCardGameController extends CardGameController implements Input
                             card.getBoundingBox().getCollisionDetector().resolveCollision(card, card2, card.getOverlapAllowance());
     }
 
+//    /**
+//     * collision between cards - only if there are no touch events
+//     * @param cardList - players cards we are checking for collisions in
+//     */
+//    private void cardCollisionCheckAndResolve(ArrayList<CharacterCard> cardList) {
+//        for (CharacterCard card : cardList) {
+//            for (CharacterCard card2 : cardList) {
+//                if (inputBuddy.getTouchEvents().size() <= 0) {
+//                    if (card.getBoundingBox().getCollisionDetector().checkForCollision(card.getBoundingBox(), card2.getBoundingBox()))
+//                        card.getBoundingBox().getCollisionDetector().resolveCollision(card, card2, card.getOverlapAllowance());
+//                }
+//            }
+//        }
+//    }
+
     /**
      * Returns true if card is touched and touch event is not a drag
      *
      * @param touchEvent - touch event we are checking against card & type of touch event
      * @param card - card we are checking if its touched
-     * @return - true if card is touched and touch event type is touch_up, false otherwise
+     * @return - true if card is touched and touch event type is touch_up or touch_down, false otherwise
      */
     private boolean youAreTryingToAttackAnotherCard(Input.TouchEvent touchEvent, CharacterCard card) {
         return (checkIsTouched(touchEvent, card)
-                && (touchEvent.type == Input.TouchEvent.TOUCH_UP || touchEvent.type == Input.TouchEvent.TOUCH_DOWN));
+                && (touchEvent.type != Input.TouchEvent.TOUCH_DRAGGED));
     }
 
 
@@ -254,11 +290,11 @@ public class HumanCardGameController extends CardGameController implements Input
      *
      * @param touchEvent
      * @param hero - hero we are checking if it's
-     * @return - true if card is touched and touch event type is touch_up
+     * @return - true if card is touched and touch event type is touch_up or touch_down, false otherwise
      */
     private boolean youAreTryingToAttackTheEnemyHero(Input.TouchEvent touchEvent, CharacterCard card, Hero hero) {
         return (card.getBoundingBox().isOverlapping(hero.getBoundingBox())
-                && (touchEvent.type == Input.TouchEvent.TOUCH_UP || touchEvent.type == Input.TouchEvent.TOUCH_DOWN));
+                && (touchEvent.type != Input.TouchEvent.TOUCH_DRAGGED));
     }
 
 

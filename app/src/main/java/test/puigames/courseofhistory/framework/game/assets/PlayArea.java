@@ -45,4 +45,11 @@ public class PlayArea extends CardArea
         super.addCardToArea(card);
         positionCardsInArea();
     }
+
+    @Override
+    public void removeCardFromArea(CharacterCard card)
+    {
+        super.removeCardFromArea(card);
+        positionCardsInArea();
+    }
 }

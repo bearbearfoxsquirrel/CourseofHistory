@@ -36,6 +36,8 @@ public class AITestLevel extends Level {
     private static float PLAYER_HAND_ROTATION = 0.f;
     private static float PLAYER_HAND_OFFSET_X = 0.f;
     private static float PLAYER_HAND_OFFSET_Y = 140.f;
+    private static int PLAYER_HAND_WIDTH = 340;
+    private static int PLAYER_HAND_HEIGHT = 65;
 
     private static float BOARD_ROTATION = 0.f;
     private static float BOARD_OFFSET_X = 0.f;
@@ -45,6 +47,8 @@ public class AITestLevel extends Level {
     private static float MANA_OFFSET_X = -210.f;
     private static float MANA_OFFSET_Y = 70.f;
     private static float MANA_PADDING = 10.f;
+    private static int MANA_WIDTH = 10;
+    private static int MANA_HEIGHT = 15;
 
     private final int HERO_PORTRAIT_SIZE = 60;
     private final float HERO_OFFSET_X = -210.f;
@@ -107,12 +111,12 @@ public class AITestLevel extends Level {
                 players[i] = new Player(
                         resourceFetcher.loadCharacterCards(this, DECK_NAMES[i]),
                         board, new Deck(this, resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png")),
-                        new CardHand(this, resourceFetcher.getBitmapFromFile("images/card_areas/play-area.png")) ,
-                        i); //Creating a new player pawn for each controller
+                        new CardHand(this, resourceFetcher.getBitmapFromFile("images/card_areas/play-area.png"),
+                                PLAYER_HAND_WIDTH, PLAYER_HAND_HEIGHT), i); //Creating a new player pawn for each controller
                 //TODO give proper deck image!!!
 
                 for (int j = 0; j < players[i].getMAX_MANA(); j++)
-                    players[i].getMana()[j] = new Mana(this, manaTypes); //create mana
+                    players[i].getMana()[j] = new Mana(this, manaTypes, MANA_WIDTH, MANA_HEIGHT); //create mana
             }
 
             //creating the game machine for processing the game

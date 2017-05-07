@@ -262,17 +262,13 @@ public class CourseOfHistoryMachine implements Updateable {
     }
 
     /**
-     * At the start of every turn, give player +1 available mana than last turn
+     * At the start of every turn, give player +1 AVAILABLE mana than last turn
      * Change mana bitmaps to reflect that
      */
     private void giveManaToPlayer() {
-        players[turnIndex].setCurrentMana(manaCount[turnIndex] + 1);
-        for(int i = 0; i < players[turnIndex].getMAX_MANA(); i++) {
-            if (players[turnIndex].getCurrentMana() > i)
-                players[turnIndex].getMana()[i].setManaState(Mana.ManaState.available);
-            else
-                players[turnIndex].getMana()[i].setManaState(Mana.ManaState.used);
-        }
+        players[turnIndex].setCurrentMana(manaCount[turnIndex]);
+        for(int i = 0; i < manaCount[turnIndex]; i++)
+            players[turnIndex].getMana()[i].setManaState(Mana.ManaState.AVAILABLE);
     }
 
     private void updateAndCheckTurnTimeRemaining(float deltaTime) {
