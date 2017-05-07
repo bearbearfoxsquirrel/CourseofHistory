@@ -8,6 +8,7 @@ import test.puigames.courseofhistory.framework.engine.controlling.Controlling;
 import test.puigames.courseofhistory.framework.engine.screen.Level;
 import test.puigames.courseofhistory.framework.engine.screen.Placer;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
+import test.puigames.courseofhistory.framework.game.CourseOfHistoryMachine;
 import test.puigames.courseofhistory.framework.game.assets.CardHand;
 import test.puigames.courseofhistory.framework.game.assets.Coin;
 import test.puigames.courseofhistory.framework.game.assets.Deck;
@@ -16,15 +17,14 @@ import test.puigames.courseofhistory.framework.game.assets.Mana;
 import test.puigames.courseofhistory.framework.game.assets.StatImage;
 import test.puigames.courseofhistory.framework.game.assets.boards.Board;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
-import test.puigames.courseofhistory.framework.game.CourseOfHistoryMachine;
-import test.puigames.courseofhistory.framework.game.assets.players.controllers.HumanCardGameController;
+import test.puigames.courseofhistory.framework.game.assets.players.controllers.AICardGameController;
 import test.puigames.courseofhistory.framework.game.screens.SplashScreen;
 
 /**
- * Created by Jordan on 10/11/2016.
+ * Created by Michael on 07/05/2017.
  */
 
-public class TestLevel extends Level {
+public class AITestLevel extends Level {
     private static float PLAYER_DECK_ROTATION = 0.f;
     private static float PLAYER_DECK_PLACEMENT_X = 190.f;
     private static float PLAYER_DECK_PLACEMENT_Y = 105.f;
@@ -57,89 +57,87 @@ public class TestLevel extends Level {
 
     private CourseOfHistoryMachine gameMachine;
 
-    public TestLevel(GameProperties gameProperties) {
+    public AITestLevel(GameProperties gameProperties) {
         super(gameProperties);
         load();
     }
 
     @Override
     protected void load() {
-       try {
-           //Setting up the coin and spawning it
-           Bitmap[] coinSides = {
-                   resourceFetcher.getBitmapFromFile("images/coins/coin-heads.png"),
-                   resourceFetcher.getBitmapFromFile("images/coins/coin-tails.png")};
-           Coin coin = new Coin(this, coinSides);
+        try {
+            //Setting up the coin and spawning it
+            Bitmap[] coinSides = {
+                    resourceFetcher.getBitmapFromFile("images/coins/coin-heads.png"),
+                    resourceFetcher.getBitmapFromFile("images/coins/coin-tails.png")};
+            Coin coin = new Coin(this, coinSides);
 
-           //Create players
-           Player[] players = new Player[CourseOfHistoryMachine.PLAYER_COUNT];
+            //Create players
+            Player[] players = new Player[CourseOfHistoryMachine.PLAYER_COUNT];
 
-           //Load mana images
-           Bitmap[] manaTypes = {
-                   resourceFetcher.getBitmapFromFile("images/mana/mana.png"),
-                   resourceFetcher.getBitmapFromFile("images/mana/mana-used.png")};
+            //Load mana images
+            Bitmap[] manaTypes = {
+                    resourceFetcher.getBitmapFromFile("images/mana/mana.png"),
+                    resourceFetcher.getBitmapFromFile("images/mana/mana-used.png")};
 
-           //Load stat images
-           final int numSize = 10;
-           Bitmap numImages[] = new Bitmap[numSize];
-           for(int i = 0; i < numSize; i++)
-               numImages[i] = resourceFetcher.getBitmapFromFile("images/numbers/" + Integer.toString(i)+".png");
+            //Load stat images
+            final int numSize = 10;
+            Bitmap numImages[] = new Bitmap[numSize];
+            for(int i = 0; i < numSize; i++)
+                numImages[i] = resourceFetcher.getBitmapFromFile("images/numbers/" + Integer.toString(i)+".png");
 
-           //Load hero bitmaps
-           Bitmap[] heroBitmaps = {
-                   resourceFetcher.getBitmapFromFile("images/heroes/great-minds-hero.jpg"),
-                   resourceFetcher.getBitmapFromFile("images/heroes/evil-leaders-hero.jpg")};
+            //Load hero bitmaps
+            Bitmap[] heroBitmaps = {
+                    resourceFetcher.getBitmapFromFile("images/heroes/great-minds-hero.jpg"),
+                    resourceFetcher.getBitmapFromFile("images/heroes/evil-leaders-hero.jpg")};
 
-           Hero[] heroes = new Hero[CourseOfHistoryMachine.PLAYER_COUNT];
-           for(int i = 0; i < CourseOfHistoryMachine.PLAYER_COUNT; i++)
-               heroes[i] = new Hero(this, heroBitmaps[i], numImages, HERO_PORTRAIT_SIZE, HERO_PORTRAIT_SIZE); //create heroes
+            Hero[] heroes = new Hero[CourseOfHistoryMachine.PLAYER_COUNT];
+            for(int i = 0; i < CourseOfHistoryMachine.PLAYER_COUNT; i++)
+                heroes[i] = new Hero(this, heroBitmaps[i], numImages, HERO_PORTRAIT_SIZE, HERO_PORTRAIT_SIZE); //create heroes
 
-           //Setting up the board and spawning it
-           Board board = resourceFetcher.loadBoard(this, "testBoard", heroes);
+            //Setting up the board and spawning it
+            Board board = resourceFetcher.loadBoard(this, "testBoard", heroes);
 
-           StatImage[] statImage = {
-                   new StatImage(this, numImages,6, 7),
-                   new StatImage(this, numImages,5, 6),
-                   new StatImage(this, numImages,5, 6)}; //load stat images
+            StatImage[] statImage = {
+                    new StatImage(this, numImages,6, 7),
+                    new StatImage(this, numImages,5, 6),
+                    new StatImage(this, numImages,5, 6)}; //load stat images
 
-           //Creates a controller and a player for each participant
-           for(int i = 0; i < players.length; i++) {
-               players[i] = new Player(
-                       resourceFetcher.loadCharacterCards(this, DECK_NAMES[i]),
-                       board, new Deck(this, resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png")),
-                       new CardHand(this, resourceFetcher.getBitmapFromFile("images/card_areas/play-area.png")) ,
-                       i); //Creating a new player pawn for each controller
-               //TODO give proper deck image!!!
+            //Creates a controller and a player for each participant
+            for(int i = 0; i < players.length; i++) {
+                players[i] = new Player(
+                        resourceFetcher.loadCharacterCards(this, DECK_NAMES[i]),
+                        board, new Deck(this, resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png")),
+                        new CardHand(this, resourceFetcher.getBitmapFromFile("images/card_areas/play-area.png")) ,
+                        i); //Creating a new player pawn for each controller
+                //TODO give proper deck image!!!
 
-               for (int j = 0; j < players[i].getMAX_MANA(); j++)
-                   players[i].getMana()[j] = new Mana(this, manaTypes); //create mana
-           }
+                for (int j = 0; j < players[i].getMAX_MANA(); j++)
+                    players[i].getMana()[j] = new Mana(this, manaTypes); //create mana
+            }
 
-           //creating the game machine for processing the game
-           gameMachine = new CourseOfHistoryMachine(players, coin, board);
-           setUpGamePiecePositions(this, viewport.getCenterX(), viewport.getCenterY());
+            //creating the game machine for processing the game
+            gameMachine = new CourseOfHistoryMachine(players, coin, board);
+            setUpGamePiecePositions(this, viewport.getCenterX(), viewport.getCenterY());
 
-           Controlling[] controllers = new HumanCardGameController[CourseOfHistoryMachine.PLAYER_COUNT];
-           //Giving the controllers possession of the corresponding player in the game machine
-           for (int i = 0; i < controllers.length; i++) {
-               //UI is placed at the center of Viewport
-               controllers[i] = new HumanCardGameController(this, inputBuddy, gameMachine.getPlayers()[i], resourceFetcher.getBitmapFromFile("images/backgrounds/starting_hand_selection_ui_background.png"),
-                       resourceFetcher.getBitmapFromFile("images/buttons/confirmation_button.png"), resourceFetcher.getBitmapFromFile("images/buttons/confirmation_button.png"),
-                       resourceFetcher.getBitmapFromFile("images/buttons/end_turn_button.png"), viewport.getCenterX(), viewport.getCenterY() );
-           }
-           gameMachine.startTicking(this); //starts game machine - IT LIVES
+            Controlling[] controllers = new AICardGameController[CourseOfHistoryMachine.PLAYER_COUNT];
+            //Giving the controllers possession of the corresponding player in the game machine
+            for (int i = 0; i < controllers.length; i++) {
+                //UI is placed at the center of Viewport
+                controllers[i] = new AICardGameController(this, gameMachine.getPlayers()[i]);
+            }
+            gameMachine.startTicking(this); //starts game machine - IT LIVES
 
-           for (Controlling controller : controllers)
-               controller.startTicking(this);
+            for (Controlling controller : controllers)
+                controller.startTicking(this);
 
-       } catch(NullPointerException e) {
+        } catch(NullPointerException e) {
 //         Log.d("Loading Error:", "Error fetching resources, returning to menu");
-           Log.e("ERROR", e.getMessage() + "\n" + e.getCause());
-           //TODO do properly
-           //Failed loading the gameProperties - won't cause crash if resources set up wrong!
-           gameProperties.setScreen(new SplashScreen(this.gameProperties));
-       }
-     }
+            Log.e("ERROR", e.getMessage() + "\n" + e.getCause());
+            //TODO do properly
+            //Failed loading the gameProperties - won't cause crash if resources set up wrong!
+            gameProperties.setScreen(new SplashScreen(this.gameProperties));
+        }
+    }
 
     private float workOutPlayerRotation(int playerNumber) {
         return ((playerNumber % 2) * 180) % 360;

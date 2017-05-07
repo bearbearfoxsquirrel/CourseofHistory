@@ -215,11 +215,11 @@ public class CourseOfHistoryMachine implements Updateable {
                 break;
 
             case WAITING_FOR_FIRST_TURN:
-                players[turnIndex].setPlayerCurrentState(Player.PlayerState.TURN_ACTIVE);
+                players[turnIndex].startActivePartOfTurn();
 
             case TURN_STARTED:
                 startTurn();
-                players[turnIndex].setPlayerCurrentState(Player.PlayerState.TURN_ACTIVE);
+                players[turnIndex].startActivePartOfTurn();
                 break;
 
             case TURN_ACTIVE:

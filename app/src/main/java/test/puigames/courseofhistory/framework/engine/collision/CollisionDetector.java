@@ -3,7 +3,6 @@ package test.puigames.courseofhistory.framework.engine.collision;
 import test.puigames.courseofhistory.framework.engine.gameobjects.GameObject;
 import test.puigames.courseofhistory.framework.engine.gameobjects.Sprite;
 import test.puigames.courseofhistory.framework.engine.gameobjects.properties.BoundingBox;
-import test.puigames.courseofhistory.framework.engine.gameobjects.properties.Origin;
 
 /**
  * Created by Jordan on 26/01/2017.
@@ -22,16 +21,12 @@ public class CollisionDetector implements Collision
 
     public void resolveCollision(GameObject object1, GameObject object2, float overlapModifier)
     {
-        if(overlapModifier == object1.getMIN_OVERLAP_ALLOWANCE() || object1.equals(object2))
-            return;
-        else
-            object1.getBoundingBox().getCollisionDetector()
-                    .determineAndResolveCollision(object1, object2, overlapModifier);
+        if(overlapModifier >= object1.getMIN_OVERLAP_ALLOWANCE() && object1.equals(object2))
+            object1.getBoundingBox().getCollisionDetector().determineAndResolveCollision(object1, object2, overlapModifier);
     }
 
     //determines which bound was broken and (hopefully) resolves the collision peacefully
-    private void determineAndResolveCollision(GameObject object1, GameObject
-            object2, float overlapModifier)
+    private void determineAndResolveCollision(GameObject object1, GameObject object2, float overlapModifier)
     {
         BoundingBox.bound collisionType = BoundingBox.bound.NONE;
 
@@ -79,16 +74,20 @@ public class CollisionDetector implements Collision
             switch (collisionType)
             {
                 case TOP:
-                    object1.getOrigin().setOriginY(object1.getOrigin().getOriginY() + (collisionDepth * overlapModifier));
+                    object1.setOrigin(object1.getPosX(), object1.getPosY() + (collisionDepth * overlapModifier));
+                    //object1.getOrigin().setOriginY(object1.getOrigin().getOriginY() + (collisionDepth * overlapModifier));
                     break;
                 case BOTTOM:
-                    object1.getOrigin().setOriginY(object1.getOrigin().getOriginY() - (collisionDepth * overlapModifier));
+                    object1.setOrigin(object1.getPosX(), object1.getPosY() - (collisionDepth * overlapModifier));
+                    //object1.getOrigin().setOriginY(object1.getOrigin().getOriginY() - (collisionDepth * overlapModifier));
                     break;
                 case LEFT:
-                    object1.getOrigin().setOriginX(object1.getOrigin().getOriginX() + (collisionDepth * overlapModifier));
+                    object1.setOrigin(object1.getPosX() + (collisionDepth * overlapModifier), object1.getPosY());
+                    //object1.getOrigin().setOriginX(object1.getOrigin().getOriginX() + (collisionDepth * overlapModifier));
                     break;
                 case RIGHT:
-                    object1.getOrigin().setOriginX(object1.getOrigin().getOriginX() - (collisionDepth * overlapModifier));
+                    object1.setOrigin(object1.getPosX() - (collisionDepth * overlapModifier), object1.getPosY());
+                    //object1.getOrigin().setOriginX(object1.getOrigin().getOriginX() - (collisionDepth * overlapModifier));
                     break;
                 case NONE:
                     break;

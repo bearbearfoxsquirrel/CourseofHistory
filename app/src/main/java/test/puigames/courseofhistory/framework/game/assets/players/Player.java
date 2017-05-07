@@ -1,5 +1,7 @@
 package test.puigames.courseofhistory.framework.game.assets.players;
 
+import android.util.Log;
+
 import test.puigames.courseofhistory.framework.game.assets.CardHand;
 import test.puigames.courseofhistory.framework.game.assets.Deck;
 import test.puigames.courseofhistory.framework.game.assets.Hero;
@@ -18,6 +20,8 @@ import test.puigames.courseofhistory.framework.game.assets.players.events.Damage
 public class Player {
 
     private static final int STARTING_HAND_SIZE = 3;
+    private static final int MAX_TIMES_PLAYER_CAN_ATTACK_ENEMY_HERO_PER_TURN = 1;
+
     private int playerNumber;
     private PlayerState playerCurrentState;
     private CharacterCard[] testCards;
@@ -30,6 +34,9 @@ public class Player {
     private Hero hero;
     private float rotation;
     private CardHand hand;
+
+    //ONLY TEMPORARY UNTIL ABILITIES ARE ADDED
+    private int currentAttacksLeftOnEnemyHero;
 
     public enum PlayerState {
         CREATED, TURN_STARTED, WAITING_FOR_FIRST_TURN, TURN_ACTIVE, WAITING_FOR_TURN, TURN_ENDED, WIN, LOSE,
@@ -45,6 +52,7 @@ public class Player {
         this.currentMana = 0;
         this.rotation = 0;
         this.hand = cardHand;
+        this.currentAttacksLeftOnEnemyHero = MAX_TIMES_PLAYER_CAN_ATTACK_ENEMY_HERO_PER_TURN;
 
         this.hero = board.getHero(playerNumber); //give player hero from board now
         setUpPlayerDeck(playerCards);
@@ -86,6 +94,10 @@ public class Player {
         return new CardAttack(theAttacker, recipientOfMyFatalBlow, 5, null);
     }
 
+    public int getCurrentAttacksLeftOnEnemyHero() {
+        return currentAttacksLeftOnEnemyHero;
+    }
+
     //TODO make
     private void attackHero() {
 
@@ -97,6 +109,11 @@ public class Player {
 
     public void startTurn() {
         playerCurrentState = PlayerState.TURN_STARTED;
+    }
+
+    public void startActivePartOfTurn() {
+        playerCurrentState = PlayerState.TURN_ACTIVE;
+        currentAttacksLeftOnEnemyHero = MAX_TIMES_PLAYER_CAN_ATTACK_ENEMY_HERO_PER_TURN;
     }
 
     public CharacterCard drawCardFromDeck() {
@@ -119,6 +136,86 @@ public class Player {
     public void removeCardFromArea(CharacterCard card) {
         board.getPlayArea(playerNumber).removeCardFromArea(card);
     }
+
+    /**
+     * Checks if card is touched, and if the card has energy to attack
+     *
+     * @param card - card we are checking
+     * @return - true if card is touched, the touch event type is dragged, and card has attack energy, false otherwise
+     */
+    public boolean canCardBePlacedOnPlayArea(CharacterCard card) {
+        return (currentMana > card.getMana());
+    }
+
+    /**
+     * When a player moves a card from their hand to board, this is called
+     * Checks if player has enough mana for the action, if they do, card is played
+     * and the corresponding mana cost of card is removed from player's currentMana
+     *
+     * @param card - card that is being played
+     */
+    public void playCard(CharacterCard card) {
+        //player.currentAction = Player.PawnAction.PLACE_CARD_ON_BOARD;
+        if(getCurrentMana() >= card.getMana()) {
+            placeCardOnBoard(card);
+            removeManaFromPlayer(card.getMana());
+        } //else {
+        //should probably tell the user that they can't do that
+        //}
+    }
+
+    public boolean canPlayerAttackEnemyHero() {
+        return getCurrentAttacksLeftOnEnemyHero() > 0;
+    }
+
+    /**
+     * Card will attack the enemy hero if their bounding boxes are overlapping
+     *
+     * @param card - card that is attacking
+     */
+    public void attackEnemyHero(CharacterCard card) {
+        board.getHero(getOppositePlayerNumber()).applyDamage(card.getAttack());
+        Log.e("hero attacked!", "remaining health " + getHero().getHealth());
+        currentAttacksLeftOnEnemyHero--;
+    }
+
+    /**
+     * If a player has enough mana, this method is called
+     *
+     * @param manaCost - amount of mana used by playing card/switched to used state
+     */
+    private void removeManaFromPlayer(int manaCost) {
+        int remainingMana = (getCurrentMana() - manaCost) > 0 ? (getCurrentMana() - manaCost) : 0;
+        setCurrentMana(remainingMana);
+        for (int i = (getMAX_MANA() - 1); i >= (getCurrentMana()); i--) {
+            getMana()[i].setManaState(Mana.ManaState.used);
+            getMana()[i].setBitmap(getMana()[i].getManaType()[1]);
+        }
+    }
+
+    public void attackCard(CharacterCard cardUsedToAttack, CharacterCard cardToAttack) {
+        cardToAttack.applyDamage(cardUsedToAttack.getAttack()); //opponent takes damage
+        cardUsedToAttack.applyDamage(cardToAttack.getAttack()); //attacking card also takes damage
+        cardUsedToAttack.setCurrentAttackEnergy(cardUsedToAttack.getCurrentAttackEnergy() - 1); //set energy to zero for the rest of the turn
+    }
+
+    public boolean isThereACardThatCanBePlacedOnBoard() {
+        for (CharacterCard card : hand.getCardsInArea())
+            if (card.getMana() <= currentMana)
+                return true;
+        return false;
+    }
+
+
+    /**
+     *  Gets opposing player's player number
+     *
+     * @return - opposing player's number
+     */
+    public int getOppositePlayerNumber() {
+        return ((getPlayerNumber() + 1) % 2);
+    }
+
 
     public static int getStartingHandSize() {
         return STARTING_HAND_SIZE;

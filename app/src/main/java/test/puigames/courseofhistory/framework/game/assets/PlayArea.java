@@ -4,6 +4,8 @@ package test.puigames.courseofhistory.framework.game.assets;
  * Created by Jordan on 02/03/2017.
  */
 
+import android.graphics.Bitmap;
+
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 
@@ -15,9 +17,9 @@ public class PlayArea extends CardArea
 {
     private static final float CARD_SCALE_FACTOR = 1.11f;
 
-    public PlayArea(Screen screen, int width, int height)
+    public PlayArea(Screen screen, Bitmap bitmap, int width, int height)
     {
-        super(screen, width, height);
+        super(screen, bitmap, width, height);
         maxCardsInArea = 5; //number of cards you can have in play area
     }
 
@@ -41,6 +43,6 @@ public class PlayArea extends CardArea
         if (!cardsInArea.contains(card))
             card.adjustCardSize(CARD_SCALE_FACTOR);
         super.addCardToArea(card);
-        //positionCardsInArea();
+        positionCardsInArea();
     }
 }

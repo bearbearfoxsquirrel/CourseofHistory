@@ -21,25 +21,23 @@ public class Board extends Sprite implements Drawable {
     private int playAreaWidth = 460;
     private int playAreaHeight = 90;
 
-    public Board(Screen screen, Bitmap bitmap, Hero[] heroes) {
+    public Board(Screen screen, Bitmap bitmap, Bitmap playAreaBitmap, Hero[] heroes) {
         super(screen, bitmap, 480, 320);
         overlapAllowance = 1.f;
         this.heroes = heroes;
+
+        for (int i = 0; i < playAreas.length; i++) {
+            playAreas[i] = new PlayArea(this.currentScreen, playAreaBitmap, playAreaWidth, playAreaHeight);
+        }
     }
+/*
 
     public void update(float deltaTime) {
         super.update(deltaTime);
         for (PlayArea playArea : playAreas)
             playArea.update(deltaTime); //update play areas
     }
-
-    @Override
-    public void initPlacement(float spawnX, float spawnY, float rotation) {
-        super.initPlacement(spawnX, spawnY, rotation);
-        for (int i = 0; i < playAreas.length; i++) {
-            playAreas[i] = new PlayArea(this.currentScreen, playAreaWidth, playAreaHeight);
-        }
-    }
+*/
 
     public PlayArea[] getPlayAreas() {
         return playAreas;
