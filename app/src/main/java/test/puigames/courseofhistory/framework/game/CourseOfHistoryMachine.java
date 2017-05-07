@@ -256,8 +256,8 @@ public class CourseOfHistoryMachine implements Updateable {
     }
 
     private void repositionCards() {
-       // players[turnIndex].getBoard().getPlayArea(players[turnIndex].getPlayerNumber()).positionCardsInArea();
-       // players[turnIndex].getHand().positionCardsInArea();
+        players[turnIndex].getBoard().getPlayArea(players[turnIndex].getPlayerNumber()).positionCardsInArea();
+        players[turnIndex].getHand().positionCardsInArea();
     }
 
     /**
@@ -265,10 +265,12 @@ public class CourseOfHistoryMachine implements Updateable {
      * Change mana bitmaps to reflect that
      */
     private void giveManaToPlayer() {
-        players[turnIndex].setCurrentMana(manaCount[turnIndex]);
+        players[turnIndex].setCurrentMana(manaCount[turnIndex] + 1);
         for(int i = 0; i < players[turnIndex].getMAX_MANA(); i++) {
-            players[turnIndex].getMana()[i].setManaState(Mana.ManaState.available);
-            players[turnIndex].getMana()[i].setBitmap(players[turnIndex].getMana()[i].getManaType()[0]);
+            if (players[turnIndex].getCurrentMana() > i)
+                players[turnIndex].getMana()[i].setManaState(Mana.ManaState.available);
+            else
+                players[turnIndex].getMana()[i].setManaState(Mana.ManaState.used);
         }
     }
 
