@@ -122,7 +122,9 @@ public class HumanCardGameController extends CardGameController implements Input
                         if(hasTaunt(card) || noCardsInListHaveTaunt(player.getBoard().getPlayArea(player.getOppositePlayerNumber()).getCardsInArea()))
                             attackIfThereIsACardHere(card);
 
-                    } else if (youAreTryingToAttackTheEnemyHero(touchEvent, card, player.getBoard().getHero(player.getOppositePlayerNumber()))) {
+                    }
+
+                    if (youAreTryingToAttackTheEnemyHero(touchEvent, card, player.getBoard().getHero(player.getOppositePlayerNumber()))) {
                         player.attackEnemyHero(card);
                     }
                 } else if (isCardReleased(touchEvent, card))

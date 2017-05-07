@@ -180,7 +180,7 @@ public class Player {
     /**
      * If a player has enough mana, this method is called
      *
-     * @param manaCost - amount of mana USED by playing card/switched to USED state
+     * @param manaCost - amount of mana used by playing card/switched to used state
      */
     private void removeManaFromPlayer(int manaCost) {
         int remainingMana = (currentMana - manaCost) > 0 ? (currentMana - manaCost) : 0;
