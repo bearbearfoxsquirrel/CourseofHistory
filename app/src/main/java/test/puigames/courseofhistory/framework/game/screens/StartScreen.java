@@ -5,7 +5,7 @@ import android.util.Log;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.screen.Menu;
-import test.puigames.courseofhistory.framework.engine.ui.ImageUIElement;
+import test.puigames.courseofhistory.framework.engine.ui.UIElement;
 
 /**
  * Created by Christopher on 07/05/2017.
@@ -13,7 +13,9 @@ import test.puigames.courseofhistory.framework.engine.ui.ImageUIElement;
 
 public class StartScreen extends Menu {
 
-    private ImageUIElement backgroundStartScreen, title, pressScreen;
+    private static final float UI_ROTATION = 0.f;
+
+    private UIElement backgroundStartScreen, title, pressScreen;
 
     private float bgImageWidth = 480.0f, bgImageHeight = 320.0f;
 
@@ -53,20 +55,20 @@ public class StartScreen extends Menu {
         pressScreen = null;
 
         try{
-            backgroundStartScreen = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/backgrounds/start_screen_background.png"),
+            backgroundStartScreen = new UIElement(this, resourceFetcher.getBitmapFromFile("images/backgrounds/start_screen_background.png"),
                     bgImageWidth, bgImageHeight);
-            title = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/title/coh_title.png"),
+            title = new UIElement(this, resourceFetcher.getBitmapFromFile("images/title/coh_title.png"),
                     titleImageWidth, titleImageHeight);
-            pressScreen = new ImageUIElement(this, resourceFetcher.getBitmapFromFile("images/title/start_screen_instruction.png"),
+            pressScreen = new UIElement(this, resourceFetcher.getBitmapFromFile("images/title/start_screen_instruction.png"),
                     pressScreenWidth, pressScreenHeight);
         }
         catch(NullPointerException e){
             Log.d("Error", "UI Element loading has failed");
         }
 
-        backgroundStartScreen.place(this, centreX, bgCentreY);
-        title.place(this, centreX, titleCentreY);
-        pressScreen.place(this, centreX, pressScreenCentreY);
+        backgroundStartScreen.place(this, centreX, bgCentreY, UI_ROTATION);
+        title.place(this, centreX, titleCentreY, UI_ROTATION);
+        pressScreen.place(this, centreX, pressScreenCentreY, UI_ROTATION);
     }
 
     @Override
@@ -89,27 +91,27 @@ public class StartScreen extends Menu {
 
     }
 
-    public ImageUIElement getBackgroundStartScreen() {
+    public UIElement getBackgroundStartScreen() {
         return backgroundStartScreen;
     }
 
-    public void setBackgroundStartScreen(ImageUIElement backgroundStartScreen) {
+    public void setBackgroundStartScreen(UIElement backgroundStartScreen) {
         this.backgroundStartScreen = backgroundStartScreen;
     }
 
-    public ImageUIElement getTitle() {
+    public UIElement getTitle() {
         return title;
     }
 
-    public void setTitle(ImageUIElement title) {
+    public void setTitle(UIElement title) {
         this.title = title;
     }
 
-    public ImageUIElement getPressScreen() {
+    public UIElement getPressScreen() {
         return pressScreen;
     }
 
-    public void setPressScreen(ImageUIElement pressScreen) {
+    public void setPressScreen(UIElement pressScreen) {
         this.pressScreen = pressScreen;
     }
 

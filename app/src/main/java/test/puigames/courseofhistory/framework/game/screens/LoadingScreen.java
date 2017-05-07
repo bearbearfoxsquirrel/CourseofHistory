@@ -41,7 +41,7 @@ public class LoadingScreen extends Menu {
     }
 
     public void load(){
-        backgroundLoadingScreen = null;
+        bgImage = null;
         try{
             bgImage = new UIElement(this, resourceFetcher.getBitmapFromFile("images/backgrounds/loading_screen_background.png"),
                     bgImageWidth, bgImageHeight);

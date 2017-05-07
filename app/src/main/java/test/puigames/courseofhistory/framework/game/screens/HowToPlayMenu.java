@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.screen.Menu;
-import test.puigames.courseofhistory.framework.engine.ui.ImageUIElement;
 import test.puigames.courseofhistory.framework.engine.ui.MenuButton;
 import test.puigames.courseofhistory.framework.engine.ui.UIElement;
 
@@ -19,11 +18,11 @@ import test.puigames.courseofhistory.framework.engine.ui.UIElement;
 
 public class HowToPlayMenu extends Menu {
 
-    private UIElement backgroundHowToPlay, rulesForward, rulesBackward, howToPlayImage;
+    private UIElement backgroundHowToPlay, howToPlayImage;
 
     private ArrayList<Bitmap> howToPlayTexts;
 
-    private MenuButton back;
+    private MenuButton back, rulesForward, rulesBackward;
 
     private float bgImageWidth = 480.0f, bgImageHeight = 320.0f;
     private float bgCentreX = 240.0f, bgCentreY = 160.0f;
@@ -45,7 +44,7 @@ public class HowToPlayMenu extends Menu {
     int currentIndex = 0;
 
 
-    public HowToPlayMenu(final GameProperties gameProperties){
+    public HowToPlayMenu(final GameProperties gameProperties) {
         super(gameProperties);
 
         howToPlayTexts = new ArrayList<>();
@@ -58,6 +57,22 @@ public class HowToPlayMenu extends Menu {
             }
         };
 
+        this.rulesForward = new MenuButton(this, resourceFetcher.getBitmapFromFile("images/buttons/button_forward.png"),
+                rulesWidth, rulesHeight) {
+            @Override
+            public void applyAction() {
+                swapImageForward();
+            }
+        };
+
+        this.rulesBackward = new MenuButton(this, resourceFetcher.getBitmapFromFile("images/buttons/button_backward.png"),
+                rulesWidth, rulesHeight) {
+            @Override
+            public void applyAction() {
+                swapImageBackward();
+            }
+        };
+
         load();
     }
 
@@ -65,40 +80,30 @@ public class HowToPlayMenu extends Menu {
     public void update(float deltaTime) {
         super.update(deltaTime);
 
-        if(gameProperties.getInput().getTouchEvents().size() > 0) {
-            if(isTouched(inputBuddy.getTouchEvents().get(0), rulesForward)) {
-                swapImageForward();
-            }
-            if(isTouched(inputBuddy.getTouchEvents().get(0), rulesBackward)) {
-                swapImageBackward();
-            }
+        if (gameProperties.getInput().getTouchEvents().size() > 0) {
+            if (back.checkForInput(inputBuddy))
+                back.applyAction();
+            if(rulesForward.checkForInput(inputBuddy))
+                rulesForward.applyAction();
+            if(rulesBackward.checkForInput(inputBuddy))
+                rulesBackward.applyAction();
         }
 
-        if(back.checkForInput(inputBuddy)){
-            back.applyAction();
-        }
     }
 
-    public void load(){
+    public void load() {
         backgroundHowToPlay = null;
-        rulesForward = null;
-        rulesBackward = null;
         howToPlayImage = null;
-        try{
+        try {
             backgroundHowToPlay = new UIElement(this, resourceFetcher.getBitmapFromFile("images/backgrounds/how_to_play_background.png"),
                     bgImageWidth, bgImageHeight);
-            rulesForward = new UIElement(this, resourceFetcher.getBitmapFromFile("images/buttons/button_forward.png"),
-                    rulesWidth, rulesHeight);
-            rulesBackward = new UIElement(this, resourceFetcher.getBitmapFromFile("images/buttons/button_backward.png"),
-                    rulesWidth, rulesHeight);
             howToPlayImage = new UIElement(this, resourceFetcher.getBitmapFromFile("images/how_to_play/Rules1Transparent.png"),
                     howToPlayImageWidth, howToPlayImageHeight);
             howToPlayTexts.add(resourceFetcher.getBitmapFromFile("images/how_to_play/Rules1Transparent.png"));
             howToPlayTexts.add(resourceFetcher.getBitmapFromFile("images/how_to_play/Rules2Transparent.png"));
             howToPlayTexts.add(resourceFetcher.getBitmapFromFile("images/how_to_play/Rules3Transparent.png"));
 
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             Log.d("Error", "UI Element loading has failed");
         }
 
@@ -122,7 +127,7 @@ public class HowToPlayMenu extends Menu {
 
     private void swapImageForward() {
         currentIndex++;
-        if(currentIndex < 0)
+        if (currentIndex < 0)
             currentIndex = howToPlayTexts.size() - 1;
         else if (currentIndex > howToPlayTexts.size() - 1)
             currentIndex = 0;
@@ -131,7 +136,7 @@ public class HowToPlayMenu extends Menu {
 
     private void swapImageBackward() {
         currentIndex--;
-        if(currentIndex < 0)
+        if (currentIndex < 0)
             currentIndex = howToPlayTexts.size() - 1;
         else if (currentIndex > howToPlayTexts.size() - 1)
             currentIndex = 0;
@@ -161,33 +166,7 @@ public class HowToPlayMenu extends Menu {
         this.backgroundHowToPlay = backgroundHowToPlay;
     }
 
-    public UIElement getRulesForward() {
-        return rulesForward;
-    }
-
-    public void setRulesForward(UIElement rulesForward) {
-        this.rulesForward = rulesForward;
-    }
-
-    public UIElement getRulesBackward() {
-        return rulesBackward;
-    }
-
-    public void setRulesBackward(UIElement rulesBackward) {
-        this.rulesBackward = rulesBackward;
-    }
-
     public UIElement getHowToPlayImage() {
-
-    public int getCurrentIndex() {
-        return currentIndex;
-    }
-
-    public void setCurrentIndex(int currentIndex) {
-        this.currentIndex = currentIndex;
-    }
-
-    public ImageUIElement getHowToPlayImage() {
         return howToPlayImage;
     }
 
@@ -209,6 +188,22 @@ public class HowToPlayMenu extends Menu {
 
     public void setBack(MenuButton back) {
         this.back = back;
+    }
+
+    public MenuButton getRulesForward() {
+        return rulesForward;
+    }
+
+    public void setRulesForward(MenuButton rulesForward) {
+        this.rulesForward = rulesForward;
+    }
+
+    public MenuButton getRulesBackward() {
+        return rulesBackward;
+    }
+
+    public void setRulesBackward(MenuButton rulesBackward) {
+        this.rulesBackward = rulesBackward;
     }
 
     public float getBgImageWidth() {
@@ -307,6 +302,10 @@ public class HowToPlayMenu extends Menu {
         this.rulesBackwardCentreY = rulesBackwardCentreY;
     }
 
+    public static float getUiRotation() {
+        return UI_ROTATION;
+    }
+
     public float getRulesWidth() {
         return rulesWidth;
     }
@@ -355,4 +354,11 @@ public class HowToPlayMenu extends Menu {
         this.howToPlayCentreY = howToPlayCentreY;
     }
 
+    public int getCurrentIndex() {
+        return currentIndex;
+    }
+
+    public void setCurrentIndex(int currentIndex) {
+        this.currentIndex = currentIndex;
+    }
 }

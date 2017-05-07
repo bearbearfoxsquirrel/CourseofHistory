@@ -90,9 +90,8 @@ public class SettingsMenu extends Menu {
 
         backgroundSettings.place(this, bgImageX, bgImageY, UI_ROTATION);
         back.place(this, backCentreX, backCentreY, UI_ROTATION);
-        back.place(this, backCentreX, backCentreY);
-        volumeOn.place(this, volumeOnCentreX, volumeOnCentreY);
-        volumeOff.place(this, volumeOffCentreX, volumeOffCentreY);
+        volumeOn.place(this, volumeOnCentreX, volumeOnCentreY, UI_ROTATION);
+        volumeOff.place(this, volumeOffCentreX, volumeOffCentreY, UI_ROTATION);
 
         uiElements.add(backgroundSettings);
         uiElements.add(back);

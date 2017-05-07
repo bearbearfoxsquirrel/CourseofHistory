@@ -13,6 +13,7 @@ import test.puigames.courseofhistory.framework.engine.ui.UIElement;
  */
 
 public class LevelSelectScreen extends Menu {
+
     private static final float UI_ROTATION = 0.f;
 
     private UIElement backgroundLevelSelect, levelGreatMinds, levelGreatMindsText, levelWorldLeaders,
