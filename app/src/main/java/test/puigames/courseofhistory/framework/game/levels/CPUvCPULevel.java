@@ -6,6 +6,7 @@ import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.controlling.Controlling;
 import test.puigames.courseofhistory.framework.game.CourseOfHistoryMachine;
 import test.puigames.courseofhistory.framework.game.assets.players.controllers.AICardGameController;
+import test.puigames.courseofhistory.framework.game.screens.MainMenu;
 import test.puigames.courseofhistory.framework.game.screens.SplashScreen;
 
 /**
@@ -36,7 +37,7 @@ public class CPUvCPULevel extends Level {
             Log.e("ERROR", e.getMessage() + "\n" + e.getCause());
             //TODO do properly
             //Failed loading the gameProperties - won't cause crash if resources set up wrong!
-            gameProperties.setScreen(new SplashScreen(this.gameProperties));
+            gameProperties.setScreen(new MainMenu(this.gameProperties));
         }
     }
 }
