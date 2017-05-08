@@ -54,6 +54,8 @@ public abstract class Level extends Screen {
     private final float HERO_OFFSET_X = -210.f;
     private final float HERO_OFFSET_Y = 115.f;
 
+    private final int HEROES_BITMAPS_LENGTH = 6;
+
 
     private final String[] DECK_NAMES = {"greatMindsCards", "evilLeaderCards"};
     private final Placer peterPiperPickedAPlacer = new Placer(this);
@@ -83,16 +85,23 @@ public abstract class Level extends Screen {
 
 
             //Load hero bitmaps
-            Bitmap[] heroBitmaps = {
-                    resourceFetcher.getBitmapFromFile("images/heroes/great-minds-hero.jpg"),
-                    resourceFetcher.getBitmapFromFile("images/heroes/evil-leaders-hero.jpg")};
-
+            Bitmap[] greatMindsBitmaps = new Bitmap[HEROES_BITMAPS_LENGTH];
+            Bitmap[] worldLeadersBitmaps = new Bitmap[HEROES_BITMAPS_LENGTH];
+            for(int i = 0; i < HEROES_BITMAPS_LENGTH; i++) {
+                greatMindsBitmaps[i] = resourceFetcher.getBitmapFromFile("images/heroes/great_minds/greatMinds" + (i + 1) + ".png");
+                worldLeadersBitmaps[i] = resourceFetcher.getBitmapFromFile("images/heroes/world_leaders/worldLeaders" + (i + 1) + ".png");
+            }
+            int superRandomNumber = 0; //note: not actually that random
 
             //Create heroes
             Hero[] heroes = new Hero[CourseOfHistoryMachine.PLAYER_COUNT];
-            for (int i = 0; i < CourseOfHistoryMachine.PLAYER_COUNT; i++)
-                heroes[i] = new Hero(this, heroBitmaps[i], numImages, HERO_PORTRAIT_SIZE, HERO_PORTRAIT_SIZE); //create heroes
-
+            for (int i = 0; i < CourseOfHistoryMachine.PLAYER_COUNT; i++) {
+                superRandomNumber = (int) Math.floor(Math.random() * HEROES_BITMAPS_LENGTH);
+                if(i == 0)
+                    heroes[i] = new Hero(this, greatMindsBitmaps[superRandomNumber], numImages, HERO_PORTRAIT_SIZE, HERO_PORTRAIT_SIZE); //create heroes
+                else
+                    heroes[i] = new Hero(this, worldLeadersBitmaps[superRandomNumber], numImages, HERO_PORTRAIT_SIZE, HERO_PORTRAIT_SIZE);
+            }
 
             //Setting up the board and spawning it
             Board board = resourceFetcher.loadBoard(this, "testBoard", heroes);
@@ -110,7 +119,7 @@ public abstract class Level extends Screen {
             for (int i = 0; i < players.length; i++) {
                 players[i] = new Player(
                         resourceFetcher.loadCharacterCards(this, DECK_NAMES[i]),
-                        board, new Deck(this, resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png")),
+                        board, new Deck(this, resourceFetcher.getBitmapFromFile("images/deck/deck.png")),
                         new CardHand(this, resourceFetcher.getBitmapFromFile("images/card_areas/play-area.png"),
                                 PLAYER_HAND_WIDTH, PLAYER_HAND_HEIGHT), i); //Creating a new player pawn for each controller
                 //TODO give proper deck image!!!
