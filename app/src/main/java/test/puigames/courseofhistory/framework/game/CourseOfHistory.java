@@ -2,6 +2,7 @@ package test.puigames.courseofhistory.framework.game;
 
 import test.puigames.courseofhistory.framework.engine.gameloop.MainGame;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
+import test.puigames.courseofhistory.framework.game.levels.AITestLevel;
 import test.puigames.courseofhistory.framework.game.levels.TestLevel;
 import test.puigames.courseofhistory.framework.game.screens.SplashScreen;
 
@@ -16,6 +17,6 @@ public class CourseOfHistory extends MainGame
      * change this to return new [screenName](this)
      */
     public Screen getStartScreen() {
-        return new SplashScreen(this);
+        return new AITestLevel(this);
     }
 }

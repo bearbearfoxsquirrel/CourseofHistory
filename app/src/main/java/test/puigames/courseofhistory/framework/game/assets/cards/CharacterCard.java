@@ -155,6 +155,8 @@ public class CharacterCard extends Card implements Damageable.Attackable {
     public void update(float deltaTime) {
         super.update(deltaTime);
         updateCardStats();
+        if (isDeaders())
+            remove(currentScreen);
     }
 
 

@@ -45,8 +45,8 @@ public class AITestLevel extends Level {
     private static float BOARD_OFFSET_Y = 0.f;
 
     private static float MANA_ROTATION = 0.f;
-    private static float MANA_OFFSET_X = -210.f;
-    private static float MANA_OFFSET_Y = 70.f;
+    private static float MANA_OFFSET_X = -230.f;
+    private static float MANA_OFFSET_Y = 75.f;
     private static float MANA_PADDING = 10.f;
     private static int MANA_WIDTH = 10;
     private static int MANA_HEIGHT = 15;
@@ -149,7 +149,8 @@ public class AITestLevel extends Level {
     }
 
     private void setUpGamePiecePositions(Screen screen, float placementX, float placementY) {
-        gameMachine.getBoard().place(screen, peterPiperPickedAPlacer.findAbsolutePosition(placementX, BOARD_OFFSET_X), peterPiperPickedAPlacer.findAbsolutePosition(placementY, BOARD_OFFSET_Y), BOARD_ROTATION);
+        gameMachine.getBoard().place(screen, peterPiperPickedAPlacer.findAbsolutePosition(placementX, BOARD_OFFSET_X),
+                peterPiperPickedAPlacer.findAbsolutePosition(placementY, BOARD_OFFSET_Y), BOARD_ROTATION);
 
         float anchorX = gameMachine.getBoard().getPosX();
         float anchorY = gameMachine.getBoard().getPosY();
@@ -160,22 +161,39 @@ public class AITestLevel extends Level {
             currentPlayer.setRotation(workOutPlayerRotation(i));
 
             peterPiperPickedAPlacer.placePlaceableRelativeToAnchorPoint(currentPlayer.getPlayerDeck(), anchorX, anchorY,
-                    PLAYER_DECK_PLACEMENT_X, PLAYER_DECK_PLACEMENT_Y, currentPlayer.getRotation(), peterPiperPickedAPlacer.workOutObjectRotation(currentPlayer.getRotation(), PLAYER_DECK_ROTATION));
+                    PLAYER_DECK_PLACEMENT_X, PLAYER_DECK_PLACEMENT_Y, currentPlayer.getRotation(),
+                    peterPiperPickedAPlacer.workOutObjectRotation(currentPlayer.getRotation(), PLAYER_DECK_ROTATION));
+
 
             peterPiperPickedAPlacer.placePlaceableRelativeToAnchorPoint(currentPlayer.getBoard().getPlayAreas()[i], anchorX, anchorY,
-                    BOARD_PLAYER_AREA_OFFSET_X, BOARD_PLAYER_AREA_OFFSET_Y, currentPlayer.getRotation(), peterPiperPickedAPlacer.workOutObjectRotation(currentPlayer.getRotation(), workOutPlayerRotation(i)  + BOARD_PLAYER_AREA_ROTATION));
+                    BOARD_PLAYER_AREA_OFFSET_X, BOARD_PLAYER_AREA_OFFSET_Y, currentPlayer.getRotation(),
+                    peterPiperPickedAPlacer.workOutObjectRotation(currentPlayer.getRotation(), workOutPlayerRotation(i)  + BOARD_PLAYER_AREA_ROTATION));
+
 
             peterPiperPickedAPlacer.placePlaceableRelativeToAnchorPoint(currentPlayer.getHand(), placementX, placementY,
-                    PLAYER_HAND_OFFSET_X, PLAYER_HAND_OFFSET_Y, currentPlayer.getRotation(), peterPiperPickedAPlacer.workOutObjectRotation(currentPlayer.getRotation(), PLAYER_HAND_ROTATION));
+                    PLAYER_HAND_OFFSET_X, PLAYER_HAND_OFFSET_Y, currentPlayer.getRotation(),
+                    peterPiperPickedAPlacer.workOutObjectRotation(currentPlayer.getRotation(), PLAYER_HAND_ROTATION));
 
-            float manaRelOffsetFromLast = 0;
+
+            float manaRelOffsetFromLastX = 0;
+            float manaRelOffsetFromLastY = 0;
+            int counter = 0;
             for (Mana mana : currentPlayer.getMana()) {
-                peterPiperPickedAPlacer.placePlaceableRelativeToAnchorPoint(mana, placementX, placementY, MANA_OFFSET_X + manaRelOffsetFromLast, MANA_OFFSET_Y, currentPlayer.getRotation(), peterPiperPickedAPlacer.workOutObjectRotation(currentPlayer.getRotation(), MANA_ROTATION));
-                manaRelOffsetFromLast += MANA_PADDING;
+                peterPiperPickedAPlacer.placePlaceableRelativeToAnchorPoint(mana, placementX, placementY,
+                        MANA_OFFSET_X + manaRelOffsetFromLastX, MANA_OFFSET_Y + manaRelOffsetFromLastY, currentPlayer.getRotation(),
+                        peterPiperPickedAPlacer.workOutObjectRotation(currentPlayer.getRotation(), MANA_ROTATION));
+                manaRelOffsetFromLastX += MANA_PADDING;
+                counter++;
+                if(counter == 5) {
+                    manaRelOffsetFromLastX = 0;
+                    manaRelOffsetFromLastY -= MANA_HEIGHT;
+                }
             }
 
+
             peterPiperPickedAPlacer.placePlaceableRelativeToAnchorPoint(currentPlayer.getHero(), anchorX, anchorY,
-                    HERO_OFFSET_X, HERO_OFFSET_Y, currentPlayer.getRotation(), peterPiperPickedAPlacer.workOutObjectRotation(currentPlayer.getRotation(), PLAYER_DECK_ROTATION));
+                    HERO_OFFSET_X, HERO_OFFSET_Y, currentPlayer.getRotation(),
+                    peterPiperPickedAPlacer.workOutObjectRotation(currentPlayer.getRotation(), PLAYER_DECK_ROTATION));
         }
     }
 

@@ -62,7 +62,7 @@ public class Hero extends Sprite implements  Damageable.Attackable
         Stack<Integer> healthStatDigits = getDigits(currentHealth);
 
         for (int i = 0; i < healthStat.length; i++) {
-            healthStat[i].setState(healthStat[i].fromIntToStatState(healthStatDigits.get(i)));
+            healthStat[i].setState(healthStat[i].fromIntToStatState(healthStatDigits.pop()));
         }
     }
 
@@ -70,8 +70,8 @@ public class Hero extends Sprite implements  Damageable.Attackable
     private Stack<Integer> getDigits(int numberToGetDigitsOf) {
         Stack<Integer> digits = new Stack<>();
         while (numberToGetDigitsOf > 0) {
+            digits.add(numberToGetDigitsOf % 10);
             numberToGetDigitsOf /= 10;
-            digits.add(numberToGetDigitsOf);
         }
         return digits;
     }
