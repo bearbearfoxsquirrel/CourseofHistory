@@ -17,7 +17,7 @@ import test.puigames.courseofhistory.framework.game.assets.players.Player;
  */
 
 public class CourseOfHistoryMachine implements Updateable {
-    private static float TURN_TIME = 20.f;
+    private static float TURN_TIME = 60.f;
     private static final float COIN_TOSS_DELAY = 1.f;
     public static int PLAYER_COUNT = 2;
 
@@ -191,6 +191,16 @@ public class CourseOfHistoryMachine implements Updateable {
         players[loser].setPlayerCurrentState(Player.PlayerState.LOSE);
         players[findNextPlayer(loser)].setPlayerCurrentState(Player.PlayerState.WIN);
         currentGameState = GameState.GG;
+        for (Player player : players)
+            switch (player.getPlayerCurrentState()) {
+                case WIN:
+                    Log.i("Player " + (player.getPlayerNumber()  + 1), "" +" wins! :D");
+                    break;
+                case LOSE:
+                    Log.i("Player " + (player.getPlayerNumber() + 1), "" +" loses! :(");
+                    break;
+            }
+
     }
 
     private void updateCardsInPlay() {

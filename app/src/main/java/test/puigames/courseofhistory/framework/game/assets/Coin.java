@@ -42,8 +42,6 @@ public class Coin extends Sprite
 
     public void flipCoin()
     {
-        place(currentScreen, currentScreen.getViewport().getCenterX(),  currentScreen.getViewport().getCenterX(), this.rotation);
-
         int randomNumber = rand.nextInt(2); //rando number between 0 and 1
         switch(randomNumber)
         {
