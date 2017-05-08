@@ -158,8 +158,10 @@ public class CourseOfHistoryMachine implements Updateable {
         for (int i = 0; i < players.length; i++) {
             if (i == turnIndex)
                 players[i].setPlayerCurrentState(Player.PlayerState.TURN_ACTIVE); //Made to turn
-            else
+            else {
                 players[i].setPlayerCurrentState(Player.PlayerState.WAITING_FOR_FIRST_TURN);
+                players[i].drawCardFromDeck();
+            }
         }
     }
 
@@ -176,15 +178,8 @@ public class CourseOfHistoryMachine implements Updateable {
 
     private void checkWinStatus() {
         for (int i = 0; i < players.length; i++) {
-            if(players[i].getPlayerDeck().size() == 0 && players[i].getPlayerCurrentState() == Player.PlayerState.TURN_STARTED) { //TODO add if hero health is <= 0
-               if(players[i].getHero().getHealth() < players[findNextPlayer(i)].getHero().getHealth()) {
-                   resolveGame(i);
-               } else if(players[i].getHero().getHealth() == players[findNextPlayer(i)].getHero().getHealth()) {
-                   //tie??
-                   resolveGame(findNextPlayer(i)); //other player wins by default xD xD xD xD :3c
-               } else {
-                   resolveGame(findNextPlayer(i));
-               }
+            if(players[i].getPlayerDeck().size() == 0 && players[i].getPlayerCurrentState() == Player.PlayerState.TURN_STARTED) {
+                resolveGame(i);//TODO add if hero health is <= 0
             }
             if(players[i].getHero().getHealth() <= 0) {
                 resolveGame(i);
@@ -306,7 +301,7 @@ public class CourseOfHistoryMachine implements Updateable {
     }
 
     public int findNextPlayer(int playerIndex) {
-        return (playerIndex + 1) & PLAYER_COUNT;
+        return (playerIndex + 1) % PLAYER_COUNT;
     }
 
     public Player getPlayerWithCurrentTurn() {

@@ -108,6 +108,7 @@ public class Player {
     }
 
     public void startTurn() {
+        currentAttacksLeftOnEnemyHero = MAX_TIMES_PLAYER_CAN_ATTACK_ENEMY_HERO_PER_TURN;
         if (playerDeck.size() > 0) {
             hand.addCardToArea(drawCardFromDeck());
         }
@@ -123,26 +124,18 @@ public class Player {
     }
 
     public void finishedCreatingStartHand() {
-        //playerCurrentState = PlayerState.FINISHED_CREATING_START_HAND;
+        playerCurrentState = PlayerState.FINISHED_CREATING_START_HAND;
     }
 
-    public void placeCardOnBoard(CharacterCard card) {
-        board.getPlayArea(playerNumber).addCardToArea(card);
-        removeCardFromHand(card);
-    }
-
-    public void removeCardFromBoardPlayArea(CharacterCard card) {
-        if (board.getPlayArea(playerNumber).getCardsInArea().contains(card)) {
-            board.getPlayArea(playerNumber).removeCardFromArea(card);
-        }
+    public boolean hasCardThatCanBeDrawn() {
+        for (CharacterCard card : hand.getCardsInArea())
+            if (card.getMana() <= getCurrentMana())
+                return true;
+        return false;
     }
 
     public void addCardToArea(CharacterCard card) {
         board.getPlayArea(playerNumber).addCardToArea(card);
-    }
-
-    public void removeCardFromHand(CharacterCard card) {
-        hand.removeCardFromArea(card);
     }
 
     /**
@@ -163,13 +156,30 @@ public class Player {
      * @param card - card that is being played
      */
     public void playCard(CharacterCard card) {
-        //player.currentAction = Player.PawnAction.PLACE_CARD_ON_BOARD;
-            placeCardOnBoard(card);
-            removeManaFromPlayer(card.getMana());
-        //else {
-        //should probably tell the user that they can't do that
-        //}
+        placeCardOnBoard(card);
+        removeManaFromPlayer(card.getMana());
     }
+
+    public void placeCardOnBoard(CharacterCard card) {
+        board.getPlayArea(playerNumber).addCardToArea(card);
+        removeCardFromHand(card);
+    }
+
+    public void removeCardFromBoardPlayArea(CharacterCard card) {
+        if (board.getPlayArea(playerNumber).getCardsInArea().contains(card)) {
+            board.getPlayArea(playerNumber).removeCardFromArea(card);
+        }
+    }
+
+    public boolean enemyHasCardsThatCanBeAttacked() {
+        return !board.getPlayArea(getOppositePlayerNumber()).getCardsInArea().isEmpty();
+
+    }
+
+    public void removeCardFromHand(CharacterCard card) {
+        hand.removeCardFromArea(card);
+    }
+
 
     public boolean canPlayerAttackEnemyHero() {
         return getCurrentAttacksLeftOnEnemyHero() > 0;
@@ -181,7 +191,7 @@ public class Player {
      * @param card - card that is attacking
      */
     public void attackEnemyHero(CharacterCard card) {
-        board.getHero(getOppositePlayerNumber()).applyDamage(card.getAttack());
+        card.attack(board.getHero(getOppositePlayerNumber()));
         Log.e("hero attacked!", "remaining health " + getHero().getHealth());
         currentAttacksLeftOnEnemyHero--;
     }
@@ -201,11 +211,7 @@ public class Player {
     }
 
     public void attackCard(CharacterCard cardUsedToAttack, CharacterCard cardToAttack) {
-        cardUsedToAttack.attack(cardToAttack); //this was already implemented in CharacterCard
-
-//        cardToAttack.applyDamage(cardUsedToAttack.getAttack()); //opponent takes damage
-//        cardUsedToAttack.applyDamage(cardToAttack.getAttack()); //attacking card also takes damage
-//        cardUsedToAttack.setCurrentAttackEnergy(cardUsedToAttack.getCurrentAttackEnergy() - 1); //set energy to zero for the rest of the turn
+        cardUsedToAttack.attack(cardToAttack);
     }
 
     /**
