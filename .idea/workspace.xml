@@ -5,20 +5,8 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7697c4b5-53c2-41a0-a829-cf5803a88f53" name="Default" comment="Every character image refactored">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/images/backgrounds/loading_screen_background2.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/assets/images/backgrounds/loading_screen_background2.jpg" afterPath="$PROJECT_DIR$/app/src/main/assets/images/backgrounds/loading_screen_background2.png" />
+    <list default="true" id="7697c4b5-53c2-41a0-a829-cf5803a88f53" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/levels/Level.java" afterPath="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/levels/Level.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/screens/HowToPlayMenu.java" afterPath="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/screens/HowToPlayMenu.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/screens/LevelSelectScreen.java" afterPath="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/screens/LevelSelectScreen.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/screens/LoadingScreenCPUvCPU.java" afterPath="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/screens/LoadingScreenCPUvCPU.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/screens/LoadingScreenPVP.java" afterPath="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/screens/LoadingScreenPVP.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/screens/LoadingScreenPvCPU.java" afterPath="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/screens/LoadingScreenPvCPU.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/screens/MainMenu.java" afterPath="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/screens/MainMenu.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/screens/SettingsMenu.java" afterPath="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/screens/SettingsMenu.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/screens/SplashScreen.java" afterPath="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/screens/SplashScreen.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/screens/StartScreen.java" afterPath="$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/screens/StartScreen.java" />
     </list>
     <ignored path="csc2043-1617-106.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -50,7 +38,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Level.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Level.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/levels/Level.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1819">
@@ -60,31 +48,41 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SettingsMenu.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/screens/SettingsMenu.java">
+      <file leaf-file-name="HumanCardGameController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/assets/players/controllers/HumanCardGameController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-640">
-              <caret line="89" column="63" selection-start-line="89" selection-start-column="63" selection-end-line="89" selection-end-column="63" />
+            <state relative-caret-position="142">
+              <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SplashScreen.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/screens/SplashScreen.java">
+      <file leaf-file-name="Screen.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/screen/Screen.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="127">
-              <caret line="79" column="26" selection-start-line="79" selection-start-column="26" selection-end-line="79" selection-end-column="26" />
+            <state relative-caret-position="151">
+              <caret line="68" column="0" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainMenu.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/screens/MainMenu.java">
+      <file leaf-file-name="FastRenderView.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/gameloop/FastRenderView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-331">
-              <caret line="100" column="33" selection-start-line="100" selection-start-column="33" selection-end-line="100" selection-end-column="33" />
+            <state relative-caret-position="151">
+              <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PlayerButton.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/assets/players/controllers/ui/PlayerButton.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="241">
+              <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -173,16 +171,6 @@
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StartScreen.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/screens/StartScreen.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="411">
-              <caret line="101" column="26" selection-start-line="101" selection-start-column="26" selection-end-line="101" selection-end-column="26" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -2448,20 +2436,6 @@
       <option name="presentableId" value="Default" />
       <updated>1480019811470</updated>
     </task>
-    <task id="LOCAL-00005" summary="removed this frame and last frame">
-      <created>1485995801126</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1485995801126</updated>
-    </task>
-    <task id="LOCAL-00006" summary="added interface for loading files">
-      <created>1486033873763</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1486033873763</updated>
-    </task>
     <task id="LOCAL-00007" summary="updating CharacterCard to test loading JSON">
       <created>1486228415023</created>
       <option name="number" value="00007" />
@@ -2791,7 +2765,21 @@
       <option name="project" value="LOCAL" />
       <updated>1494222666826</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="General cleanup">
+      <created>1494223476466</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1494223476466</updated>
+    </task>
+    <task id="LOCAL-00055" summary="Every character image refactored">
+      <created>1494223845715</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1494223845715</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TodoView">
@@ -2805,7 +2793,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32907802" sideWeight="0.49676377" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32408434" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
@@ -2813,14 +2801,14 @@
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.8933764" sideWeight="0.5045386" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4672586" sideWeight="0.49546143" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2663707" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4672586" sideWeight="0.49546143" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2663707" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32907802" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21086262" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21086262" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2914,10 +2902,10 @@
     <MESSAGE value="Refactoring humancardgamecontroller and mana and other things" />
     <MESSAGE value="Added volume incrementing and decrementing in settings menu" />
     <MESSAGE value="Loading Screens, buttons, and images" />
-    <MESSAGE value="Every character image refactored" />
     <MESSAGE value="Error fixing" />
     <MESSAGE value="General cleanup" />
-    <option name="LAST_COMMIT_MESSAGE" value="General cleanup" />
+    <MESSAGE value="Every character image refactored" />
+    <option name="LAST_COMMIT_MESSAGE" value="Every character image refactored" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2934,21 +2922,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/assets/images/cards/tier2/world_leaders/mao.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/assets/images/cards/tier2/world_leaders/lenin.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/assets/images/cards/tier2/world_leaders/mussolini.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/assets/images/cards/tier2/world_leaders/benitoMussolini.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -3118,14 +3091,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/gameloop/FastRenderView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/assets/players/controllers/ui/StartingHandSelectionUI.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -3283,6 +3248,38 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1819">
           <caret line="124" column="124" selection-start-line="124" selection-start-column="124" selection-end-line="124" selection-end-column="124" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/assets/players/controllers/HumanCardGameController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="142">
+          <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/screen/Screen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="68" column="0" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/engine/gameloop/FastRenderView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/puigames/courseofhistory/framework/game/assets/players/controllers/ui/PlayerButton.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="241">
+          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
           <folding />
         </state>
       </provider>
