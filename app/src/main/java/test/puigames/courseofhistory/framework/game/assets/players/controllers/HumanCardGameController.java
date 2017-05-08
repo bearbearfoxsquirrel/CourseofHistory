@@ -21,8 +21,11 @@ public class HumanCardGameController extends CardGameController implements Input
     private InputBuddy inputBuddy;
     private HumanCardGameUIContainer controllerUI;
 
+    private final static float TIME_TO_CONFIRM_USER_TOUCH_SELECTION = 0.19f;
+
     private float uiPlacementX;
     private float uiPlacementY;
+    private float timeLeftToConfirmInput = 0;
 
     public HumanCardGameController(Screen screen, InputBuddy inputBuddy, Player player, Bitmap startingHandSelectorBackgroundBitmap, Bitmap confirmationButtonBitmap, Bitmap endTurnButtonBitmap, Bitmap cardToTossOverlap, float uIPlacementX, float uIPlacementY) {
         super(screen, player);
@@ -110,34 +113,30 @@ public class HumanCardGameController extends CardGameController implements Input
      * @param deltaTime - would be USED for animations, should we have those
     */
     private void updateCardsOnBoardPlayArea(float deltaTime) {
-        if(inputBuddy.getTouchEvents().size() > 0) {
+        if (inputBuddy.getTouchEvents().size() > 0) {
             Input.TouchEvent touchEvent = inputBuddy.getTouchEvents().get(0);
-            for(CharacterCard card : getPlayersCardsInPlayArea()) {
-
+            timeLeftToConfirmInput = TIME_TO_CONFIRM_USER_TOUCH_SELECTION;
+            for (CharacterCard card : getPlayersCardsInPlayArea()) {
                 if (checkIfCardCanUnleashHell(touchEvent, card)) {
                     player.moveCard(card, touchEvent.x, touchEvent.y);
-                    preventGoddamnCardOriginOverlappingHopefullySuperAwesomeFunMethod(getPlayersCardsInPlayArea());
-                    for(CharacterCard opponentCard : player.getBoard().getPlayArea(player.getOppositePlayerNumber()).getCardsInArea()) {
-                        if(checkIfThereIsAnAttackOnOpponentCard(card, opponentCard)) {
-//                            if(hasTaunt(card) || noCardsInListHaveTaunt(player.getBoard().getPlayArea(player.getOppositePlayerNumber()).getCardsInArea())) {
-                                attackIfThereIsACardHere(card);
-//                            }
-                        } else if (youAreTryingToAttackTheEnemyHero(touchEvent, card, player.getBoard().getHero(player.getOppositePlayerNumber()))) {
-                            player.attackEnemyHero(card);
-//                        player.getBoard().getPlayArea(player.getPlayerNumber()).positionCardsInArea();
-//                        break;
-                        }
-                        break;
-                    }
-
-                } else if (isCardReleased(touchEvent, card)) {
-//                    player.getHand().positionCardsInArea();
-                    player.getBoard().getPlayArea(player.getPlayerNumber()).positionCardsInArea();
-//                    break;
                 }
+                preventGoddamnCardOriginOverlappingHopefullySuperAwesomeFunMethod(getPlayersCardsInPlayArea());
             }
-        } else
-            player.getBoard().getPlayArea(player.getPlayerNumber()).positionCardsInArea();
+        } else {
+            timeLeftToConfirmInput -= deltaTime;
+            if (timeLeftToConfirmInput <= 0) {
+                for (CharacterCard card : getPlayersCardsInPlayArea()) {
+                    for (CharacterCard opponentCard : player.getBoard().getPlayArea(player.getOppositePlayerNumber()).getCardsInArea()) {
+                        if (card.getBoundingBox().getCollisionDetector().checkForCollision(card.getBoundingBox(), opponentCard.getBoundingBox()) && card.hasEnergyToAttack()) {
+                            card.attack(opponentCard);
+                        }
+                    }
+                    if (card.getBoundingBox().getCollisionDetector().checkForCollision(player.getBoard().getHero(player.getOppositePlayerNumber()).getBoundingBox(), card.getBoundingBox()) && card.hasEnergyToAttack() && player.canPlayerAttackEnemyHero())
+                        player.attackEnemyHero(card);
+                }
+                player.getBoard().getPlayArea(player.getPlayerNumber()).positionCardsInArea();
+            }
+        }
     }
 
     /**
