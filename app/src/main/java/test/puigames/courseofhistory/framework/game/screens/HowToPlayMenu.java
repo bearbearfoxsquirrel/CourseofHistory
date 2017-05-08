@@ -49,6 +49,8 @@ public class HowToPlayMenu extends Menu {
 
         howToPlayTexts = new ArrayList<>();
 
+        //Creation of the menu buttons, each with a specific function based on what they are required
+        //to do.
         this.back = new MenuButton(this, resourceFetcher.getBitmapFromFile("images/buttons/button_back.png"),
                 buttonWidth, buttonHeight) {
             @Override
@@ -91,7 +93,9 @@ public class HowToPlayMenu extends Menu {
 
     }
 
+    //Method to load all of the assets used and then place, scale, and draw them.
     public void load() {
+        //setting up uiElements
         backgroundHowToPlay = null;
         howToPlayImage = null;
         try {
@@ -107,15 +111,14 @@ public class HowToPlayMenu extends Menu {
             Log.d("Error", "UI Element loading has failed");
         }
 
-        //uiElements are given a location to be placed on the screen based on the centre of their image
-        //
+        //uiElements are given a location to be placed on the screen based on the centre of their image.
         backgroundHowToPlay.place(this, bgCentreX, bgCentreY, UI_ROTATION);
         back.place(this, backCentreX, backCentreY, UI_ROTATION);
         rulesForward.place(this, rulesForwardCentreX, rulesForwardCentreY, UI_ROTATION);
         rulesBackward.place(this, rulesBackwardCentreX, rulesBackwardCentreY, UI_ROTATION);
         howToPlayImage.place(this, howToPlayCentreX, howToPlayCentreY, UI_ROTATION);
 
-        //Added to the uiElements ArrayList to be scaled and drawn to the screen
+        //Added to the uiElements ArrayList to be scaled and drawn to the screen.
         uiElements.add(backgroundHowToPlay);
         uiElements.add(back);
         uiElements.add(rulesForward);

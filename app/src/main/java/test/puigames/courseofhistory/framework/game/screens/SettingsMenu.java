@@ -59,7 +59,7 @@ public class SettingsMenu extends Menu {
             public void applyAction(){
                 if(currentVolume < MAX_VOLUME) {
                     currentVolume += VOLUME_STEP;
-                    gameProperties.getMediaPlayer().setVolume(currentVolume, currentVolume); //change to increment up
+                    gameProperties.getMediaPlayer().setVolume(currentVolume, currentVolume);
                 }
             }
         };
@@ -70,7 +70,7 @@ public class SettingsMenu extends Menu {
             public void applyAction() {
                 if(currentVolume > MIN_VOLUME) {
                     currentVolume -= VOLUME_STEP;
-                    gameProperties.getMediaPlayer().setVolume(currentVolume, currentVolume); //change to increment up
+                    gameProperties.getMediaPlayer().setVolume(currentVolume, currentVolume);
                 }
             }
         };
