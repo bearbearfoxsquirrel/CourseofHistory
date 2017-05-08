@@ -81,13 +81,13 @@ public class ResourceFetcher implements Fetcher {
                 JSONObject jsonCard = cardJsonArray.getJSONObject(index);
                 //creating a new character card with attributes from JSONObject
                 // an arbitrary spawn point is also set until we decide how to spawn cards
-                characterCards[index] = new CharacterCard(screen, statImages, getBitmapFromFile(jsonCard.getString("portraitSrc")),
+                characterCards[index] =  new CharacterCard(screen, statImages, getBitmapFromFile(jsonCard.getString("portraitSrc")),
                         jsonCard.getString("name"),
                         jsonCard.getString("charDescription"),
                         jsonCard.getInt("mana"),
                         jsonCard.getInt("health"),
                         jsonCard.getInt("attack"),
-                        jsonCard.getString("abilityName"));
+                        jsonCard.getString("abilityName"));;
                 index++;
             }
         } catch (JSONException e) {

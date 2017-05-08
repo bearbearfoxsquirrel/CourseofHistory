@@ -143,11 +143,11 @@ public class AICardGameController extends CardGameController {
                         player.attackEnemyHero(getCardWithHighestAttackThatHasEnergy(player.getBoard().getPlayArea(player.getPlayerNumber()).getCardsInArea()));
                         noMoreMovesCanBeMade = false;
                         break;
+
                     default:
                         CharacterCard cardToAttack = getWeakestEnemyCardToAttack();
                         player.attackCard(getCardWithHighestAttackThatHasEnergy(player.getBoard().getPlayArea(player.getPlayerNumber()).getCardsInArea()), cardToAttack);
                         noMoreMovesCanBeMade = false;
-
                         break;
                 }
             }

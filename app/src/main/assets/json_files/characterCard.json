@@ -250,7 +250,7 @@
       "health": 3,
       "attack": 4,
       "abilityName":"",
-      "portraitSrc" : "images/cards/tier2/great_minds/leonardoDeVinci.png"
+      "portraitSrc" : "images/cards/tier2/great_minds/leonardoDaVinci.png"
     },
 
     {
@@ -261,7 +261,7 @@
       "health": 5,
       "attack": 2,
       "abilityName":"taunt",
-      "portraitSrc" : "images/cards/tier2/great_minds/christopherColombus.png"
+      "portraitSrc" : "images/cards/tier2/great_minds/christopherColumbus.png"
     },
 
     {
@@ -321,7 +321,7 @@
     {
       "ID":"charlesDarwin",
       "name": "Charles Darwin",
-      "charDescription":"Whoever is the most reponsive to change survives",
+      "charDescription":"Whoever is the most responsive to change survives",
       "mana": 6,
       "health": 3,
       "attack": 5,
@@ -560,7 +560,7 @@
 			"health": 2,
 			"attack": 4,
 			"abilityName":"",
-			"portraitSrc" : "images/cards/tier2/evil_leaders/saddamHussein.png"
+			"portraitSrc" : "images/cards/tier2/world_leaders/saddamHussein.png"
 		},
 
 		{
@@ -571,7 +571,7 @@
 			"health": 4,
 			"attack": 1,
 			"abilityName":"",
-			"portraitSrc" : "images/cards/tier2/evil_leaders/oliverCromwell.png"
+			"portraitSrc" : "images/cards/tier2/world_leaders/oliverCromwell.png"
 		},
 
 		{
@@ -582,7 +582,7 @@
 			"health": 4,
 			"attack": 2,
 			"abilityName":"",
-			"portraitSrc" : "images/cards/tier2/evil_leaders/henryVIII.png"
+			"portraitSrc" : "images/cards/tier2/world_leaders/henryVIII.png"
 		},
 
 		{
@@ -593,7 +593,7 @@
 			"health": 3,
 			"attack": 2,
 			"abilityName":"taunt",
-			"portraitSrc" : "images/cards/tier2/evil_leaders/nixon.png"
+			"portraitSrc" : "images/cards/tier2/world_leaders/richardNixon.png"
 		},
 
 		{
@@ -604,7 +604,7 @@
 			"health": 1,
 			"attack": 4,
 			"abilityName":"charge",
-			"portraitSrc" : "images/cards/tier2/evil_leaders/fidelCastro.png"
+			"portraitSrc" : "images/cards/tier2/world_leaders/fidelCastro.png"
 		},
 
 		{
@@ -615,7 +615,7 @@
 			"health": 2,
 			"attack": 2,
 			"abilityName":"sayHelloToMyLittleFriend",
-			"portraitSrc" : "images/cards/tier2/evil_leaders/alCapone.png"
+			"portraitSrc" : "images/cards/tier2/world_leaders/alCapone.png"
 		},
 
 		{
@@ -626,7 +626,7 @@
 			"health": 3,
 			"attack": 2,
 			"abilityName":"drawACard",
-			"portraitSrc" : "images/cards/tier2/evil_leaders/emperorHirohito.png"
+			"portraitSrc" : "images/cards/tier2/world_leaders/emperorHirohito.png"
 		},
 
 		{
@@ -637,7 +637,7 @@
 			"health": 2,
 			"attack": 3,
 			"abilityName":"drawACard",
-			"portraitSrc" : "images/cards/tier2/evil_leaders/mussolini.png"
+			"portraitSrc" : "images/cards/tier2/world_leaders/benitoMussolini.png"
 		},
 
 		{
@@ -648,7 +648,7 @@
 			"health": 2,
 			"attack": 3,
 			"abilityName":"windfury",
-			"portraitSrc" : "images/cards/tier2/evil_leaders/shakaZulu.png"
+			"portraitSrc" : "images/cards/tier2/world_leaders/shakaZulu.png"
 		},
 
 		{
@@ -659,7 +659,7 @@
 			"health": 3,
 			"attack": 3,
 			"abilityName":"taunt",
-			"portraitSrc" : "images/cards/tier2/evil_leaders/alexanderTheGreat.png"
+			"portraitSrc" : "images/cards/tier2/world_leaders/alexanderTheGreat.png"
 		},
 
 		{
@@ -670,7 +670,7 @@
 			"health": 5,
 			"attack": 1,
 			"abilityName":"taunt",
-			"portraitSrc" : "images/cards/tier2/evil_leaders/lenin.png"
+			"portraitSrc" : "images/cards/tier2/world_leaders/lenin.png"
 		},
 
 		{
@@ -681,7 +681,7 @@
 			"health": 4,
 			"attack": 2,
 			"abilityName":"inspireHealth(+1)",
-			"portraitSrc" : "images/cards/tier2/evil_leaders/queenVictoria.png"
+			"portraitSrc" : "images/cards/tier2/world_leaders/queenVictoria.png"
 		},
 
 		{
@@ -692,7 +692,7 @@
 			"health": 2,
 			"attack": 4,
 			"abilityName":"inspireDamage(+1)",
-			"portraitSrc" : "images/cards/tier2/evil_leaders/mao.png"
+			"portraitSrc" : "images/cards/tier2/world_leaders/chairmanMao.png"
 		},
 
 		{
@@ -703,7 +703,7 @@
 			"health": 1,
 			"attack": 5,
 			"abilityName":"charge",
-			"portraitSrc" : "images/cards/tier2/evil_leaders/atillaTheHun.png"
+			"portraitSrc" : "images/cards/tier2/world_leaders/atillaTheHun.png"
 		},
 
 		{
@@ -714,7 +714,7 @@
 			"health": 7,
 			"attack": 1,
 			"abilityName":"censorship",
-			"portraitSrc" : "images/cards/tier2/evil_leaders/kimJongIl.png"
+			"portraitSrc" : "images/cards/tier2/world_leaders/kimJongIl.png"
 		},
 
 		{
@@ -725,7 +725,7 @@
 			"health": 4,
 			"attack": 4,
 			"abilityName":"bombardment",
-			"portraitSrc" : "images/cards/tier2/evil_leaders/napolean.png"
+			"portraitSrc" : "images/cards/tier2/world_leaders/napoleon.png"
 		},
 
 		{
@@ -736,7 +736,7 @@
 			"health": 3,
 			"attack": 5,
 			"abilityName":"plunder",
-			"portraitSrc" : "images/cards/tier2/evil_leaders/genghisKhan.png"
+			"portraitSrc" : "images/cards/tier2/world_leaders/genghisKhan.png"
 		},
 
 		{
@@ -747,7 +747,7 @@
 			"health": 3,
 			"attack": 5,
 			"abilityName":"nationalisation",
-			"portraitSrc" : "images/cards/tier2/evil_leaders/margaretThatcher.png"
+			"portraitSrc" : "images/cards/tier2/world_leaders/margaretThatcher.png"
 		},
 
 		{
@@ -758,7 +758,7 @@
 			"health": 5,
 			"attack": 2,
 			"abilityName":"theBlitz",
-			"portraitSrc" : "images/cards/tier2/evil_leaders/hitler.png"
+			"portraitSrc" : "images/cards/tier2/world_leaders/adolfHitler.png"
 		},
 
 		{
@@ -769,7 +769,7 @@
 			"health": 5,
 			"attack": 3,
 			"abilityName":"onePartyState",
-			"portraitSrc" : "images/cards/tier2/evil_leaders/stalin.png"
+			"portraitSrc" : "images/cards/tier2/world_leaders/stalin.png"
 		}
 
 	]

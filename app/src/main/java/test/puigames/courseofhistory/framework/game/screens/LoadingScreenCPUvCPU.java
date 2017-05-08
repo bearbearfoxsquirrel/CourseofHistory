@@ -6,7 +6,7 @@ import android.util.Log;
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.screen.Menu;
 import test.puigames.courseofhistory.framework.engine.ui.UIElement;
-import test.puigames.courseofhistory.framework.game.levels.AITestLevel;
+import test.puigames.courseofhistory.framework.game.levels.CPUvCPULevel;
 
 /**
  * Created by Christopher on 08/05/2017.
@@ -36,7 +36,7 @@ public class LoadingScreenCPUvCPU extends Menu {
 
         //Changes the screen after a set amount of time.
         if(duration > delay)
-            gameProperties.setScreen(new AITestLevel(this.gameProperties));
+            gameProperties.setScreen(new CPUvCPULevel(this.gameProperties));
 
         duration += deltaTime;
     }
