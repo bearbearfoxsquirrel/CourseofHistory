@@ -200,7 +200,6 @@ public class CourseOfHistoryMachine implements Updateable {
                     Log.i("Player " + (player.getPlayerNumber() + 1), "" +" loses! :(");
                     break;
             }
-
     }
 
     private void updateCardsInPlay() {

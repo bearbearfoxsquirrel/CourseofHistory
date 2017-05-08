@@ -132,13 +132,12 @@ public class AICardGameController extends CardGameController {
             return; //Returns are used to make controller go though mutiple cycles between
         }
 
-        int randomerNumberer = (int) Math.random() % 5;
-        //One in five chance of player attacking opponent hero
+        int randomerNumberer = (int) Math.random() % 20;
+        //One in twenty chance of player attacking opponent hero
         if (getCardsWithEnergy(player.getBoard().getPlayArea(player.getPlayerNumber()).getCardsInArea()).size() > 0) {
-
-            if (player.getBoard().getPlayArea(player.getOppositePlayerNumber()).getCardsInArea().isEmpty())
+            if (player.getBoard().getPlayArea(player.getOppositePlayerNumber()).getCardsInArea().isEmpty()) {
                 player.attackEnemyHero(getCardWithHighestAttackThatHasEnergy(player.getBoard().getPlayArea(player.getPlayerNumber()).getCardsInArea()));
-            else
+            } else {
                 switch (randomerNumberer) {
                     case 0:
                         player.attackEnemyHero(getCardWithHighestAttackThatHasEnergy(player.getBoard().getPlayArea(player.getPlayerNumber()).getCardsInArea()));
@@ -151,7 +150,7 @@ public class AICardGameController extends CardGameController {
 
                         break;
                 }
-
+            }
         }
     }
 
@@ -222,11 +221,18 @@ public class AICardGameController extends CardGameController {
         //While the card to kill still has health keep adding the card with the highest attack to the list of cards to attack it
         //Or while the cards to select from still have the potential to kill that card
         while (enemyCardToKill.getHealth() > getTotalAttack(cardsToAttackWith) && getTotalAttack(cardsToSelectToAttackWith) >= enemyCardToKill.getHealth()) {
-            CharacterCard currentWeakestCard = getCardWithHighestAttack(cardsToSelectToAttackWith);
+            CharacterCard currentWeakestCard = getCardWithLowestAttack(cardsToSelectToAttackWith);
             cardsToAttackWith.add(currentWeakestCard);
-            cardsToAttackWith.remove(currentWeakestCard); //remove that card from cards to select from as it is already going to be USED
         }
         return cardsToAttackWith;
+    }
+
+    private CharacterCard getCardWithLowestAttack(ArrayList<CharacterCard> cardsToCompare) {
+        CharacterCard cardWithHighestAttack = null;
+        for (CharacterCard card : cardsToCompare)
+            if (cardWithHighestAttack == null || card.getAttack() < cardWithHighestAttack.getAttack())
+                cardWithHighestAttack = card;
+        return cardWithHighestAttack;
     }
 
     private int getEnemyPlayerNumber() {
