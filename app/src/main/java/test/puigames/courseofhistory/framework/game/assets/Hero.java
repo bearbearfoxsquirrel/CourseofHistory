@@ -62,7 +62,10 @@ public class Hero extends Sprite implements  Damageable.Attackable
         Stack<Integer> healthStatDigits = getDigits(currentHealth);
 
         for (int i = 0; i < healthStat.length; i++) {
-            healthStat[i].setState(healthStat[i].fromIntToStatState(healthStatDigits.pop()));
+            if (!healthStatDigits.isEmpty())
+                healthStat[i].setState(healthStat[i].fromIntToStatState(healthStatDigits.pop()));
+            else
+                healthStat[i].remove(currentScreen);
         }
     }
 

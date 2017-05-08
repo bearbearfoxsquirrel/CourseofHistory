@@ -37,6 +37,13 @@ public class Player {
     //ONLY TEMPORARY UNTIL ABILITIES ARE ADDED
     private int currentAttacksLeftOnEnemyHero;
 
+    public boolean hasCardsThatCanAttack() {
+        for (CharacterCard card : board.getPlayArea(playerNumber).getCardsInArea())
+            if (card.hasEnergyToAttack())
+                return true;
+        return false;
+    }
+
     public enum PlayerState {
         CREATED, TURN_STARTED, WAITING_FOR_FIRST_TURN, TURN_ACTIVE, WAITING_FOR_TURN, TURN_ENDED, WIN, LOSE,
         WAITING_TO_BEGIN_CREATING_HAND, BEGIN_CREATING_STARTING_HAND, STARTING_HAND_CHOOSING_CARDS_TO_TOSS, FINISHED_CREATING_START_HAND
@@ -160,7 +167,7 @@ public class Player {
         removeManaFromPlayer(card.getMana());
     }
 
-    public void placeCardOnBoard(CharacterCard card) {
+    private void placeCardOnBoard(CharacterCard card) {
         board.getPlayArea(playerNumber).addCardToArea(card);
         removeCardFromHand(card);
     }
