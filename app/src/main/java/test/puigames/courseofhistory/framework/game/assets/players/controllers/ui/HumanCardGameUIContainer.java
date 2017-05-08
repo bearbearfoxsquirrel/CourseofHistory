@@ -51,6 +51,7 @@ public class HumanCardGameUIContainer implements Updateable, Placeable, Drawable
     private Player player;
     private Placer patrickPlacer;
     private StartingHandSelectionUI startingHandSelectorUI;
+
     private MenuButton pauseButton;
 
 

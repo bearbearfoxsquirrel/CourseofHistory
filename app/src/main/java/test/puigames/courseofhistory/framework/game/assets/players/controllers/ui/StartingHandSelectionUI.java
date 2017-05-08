@@ -2,14 +2,13 @@ package test.puigames.courseofhistory.framework.game.assets.players.controllers.
 
 import android.graphics.Bitmap;
 
+import test.puigames.courseofhistory.framework.engine.screen.Placer;
 import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.engine.ui.MenuButton;
-import test.puigames.courseofhistory.framework.engine.ui.TextUIElement;
 import test.puigames.courseofhistory.framework.engine.ui.UIElement;
 import test.puigames.courseofhistory.framework.game.assets.StartingHandSelector;
 import test.puigames.courseofhistory.framework.game.assets.cards.CharacterCard;
 import test.puigames.courseofhistory.framework.game.assets.players.Player;
-import test.puigames.courseofhistory.framework.engine.screen.Placer;
 
 /**
  * Created by Michael on 11/04/2017.
@@ -37,7 +36,7 @@ public class StartingHandSelectionUI extends UIElement {
     private final float CONFIRMATION_BUTTON_HEIGHT = 40.f;
     private static final float CONFIRMATION_BUTTON_ROTATION = 0.f;
 
-    private TextUIElement title;
+  //  private TextUIElement title;
     private static final int TITLE_TEXT_SIZE = 12;
 
     public MenuButton confirmationButton;
@@ -51,7 +50,7 @@ public class StartingHandSelectionUI extends UIElement {
         super(screen, uIBackground, STARTING_HAND_SELECTOR_WIDTH, STARTING_HAND_SELECTOR_HEIGHT);
         this.player = player;
 
-        this.title = new TextUIElement(screen, "Player " + (player.getPlayerNumber() + 1) + " select your cards to toss", TITLE_TEXT_SIZE);
+        //this.title = new TextUIElement(screen, "Player " + (player.getPlayerNumber() + 1) + " select your cards to toss", TITLE_TEXT_SIZE);
 
         //Setting up the array of overlays to be placed
         this.cardToTossOverlays = new UIElement[player.getStartingHandSelector().STARTING_HAND_SIZE];
@@ -106,7 +105,7 @@ public class StartingHandSelectionUI extends UIElement {
             card.remove(screen);
 
         confirmationButton.remove(screen);
-        title.remove(screen);
+        //title.remove(screen);
 
         for (UIElement overlay : cardToTossOverlays)
             overlay.remove(screen);
@@ -131,7 +130,7 @@ public class StartingHandSelectionUI extends UIElement {
 
         resizeAllCardsInSelector(player.getStartingHandSelector());
         //TODO get actual values and rotate properly
-        placer.placePlaceableRelativeToAnchorPoint(title, -70.f, -20.f, this.rotation, this.rotation);
+    //    placer.placePlaceableRelativeToAnchorPoint(title, -70.f, -20.f, this.rotation, this.rotation);
     }
 
     private float findXPositionInRelationToContainer(float offsetX) {

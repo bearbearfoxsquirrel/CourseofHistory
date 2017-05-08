@@ -17,7 +17,7 @@ import test.puigames.courseofhistory.framework.game.assets.players.Player;
  */
 
 public class CourseOfHistoryMachine implements Updateable {
-    private static float TURN_TIME = 20.f;
+    private static float TURN_TIME = 60.f;
     private static final float COIN_TOSS_DELAY = 1.f;
     public static int PLAYER_COUNT = 2;
 
@@ -191,6 +191,15 @@ public class CourseOfHistoryMachine implements Updateable {
         players[loser].setPlayerCurrentState(Player.PlayerState.LOSE);
         players[findNextPlayer(loser)].setPlayerCurrentState(Player.PlayerState.WIN);
         currentGameState = GameState.GG;
+        for (Player player : players)
+            switch (player.getPlayerCurrentState()) {
+                case WIN:
+                    Log.i("Player " + (player.getPlayerNumber()  + 1), "" +" wins! :D");
+                    break;
+                case LOSE:
+                    Log.i("Player " + (player.getPlayerNumber() + 1), "" +" loses! :(");
+                    break;
+            }
     }
 
     private void updateCardsInPlay() {
@@ -255,10 +264,9 @@ public class CourseOfHistoryMachine implements Updateable {
     }
 
     private void workOutPlayersManaForTurn() {
-        if (manaCount[turnIndex] < players[turnIndex].getMAX_MANA()) { //don't want it going over 10 - max
+        if (manaCount[turnIndex] < players[turnIndex].getMAX_MANA())  //don't want it going over 10 - max
             manaCount[turnIndex]++;
-            giveManaToPlayer();
-        }
+        giveManaToPlayer();
         Log.i("Player " + (turnIndex + 1), "" + players[turnIndex].getCurrentMana() + " mana");
     }
 
@@ -291,7 +299,6 @@ public class CourseOfHistoryMachine implements Updateable {
         repositionCards();
         players[turnIndex].setPlayerCurrentState(Player.PlayerState.WAITING_FOR_TURN);
         incrementTurnIndex();
-        coin.setBitmap(coin.getCoinSides()[turnIndex]); //Just to test turns are working :)
         players[turnIndex].setPlayerCurrentState(Player.PlayerState.TURN_STARTED);
     }
 

@@ -117,20 +117,27 @@ public class HumanCardGameController extends CardGameController implements Input
                 if (checkIfCardCanUnleashHell(touchEvent, card)) {
                     player.moveCard(card, touchEvent.x, touchEvent.y);
                     preventGoddamnCardOriginOverlappingHopefullySuperAwesomeFunMethod(getPlayersCardsInPlayArea());
-
-                    if(youAreTryingToAttackAnotherCard(touchEvent, card)) {
-                        if(hasTaunt(card) || noCardsInListHaveTaunt(player.getBoard().getPlayArea(player.getOppositePlayerNumber()).getCardsInArea()))
-                            attackIfThereIsACardHere(card);
-
+                    for(CharacterCard opponentCard : player.getBoard().getPlayArea(player.getOppositePlayerNumber()).getCardsInArea()) {
+                        if(checkIfThereIsAnAttackOnOpponentCard(card, opponentCard)) {
+//                            if(hasTaunt(card) || noCardsInListHaveTaunt(player.getBoard().getPlayArea(player.getOppositePlayerNumber()).getCardsInArea())) {
+                                attackIfThereIsACardHere(card);
+//                            }
+                        } else if (youAreTryingToAttackTheEnemyHero(touchEvent, card, player.getBoard().getHero(player.getOppositePlayerNumber()))) {
+                            player.attackEnemyHero(card);
+//                        player.getBoard().getPlayArea(player.getPlayerNumber()).positionCardsInArea();
+//                        break;
+                        }
+                        break;
                     }
 
-                    if (youAreTryingToAttackTheEnemyHero(touchEvent, card, player.getBoard().getHero(player.getOppositePlayerNumber()))) {
-                        player.attackEnemyHero(card);
-                    }
-                } else if (isCardReleased(touchEvent, card))
-                    player.getHand().positionCardsInArea();
+                } else if (isCardReleased(touchEvent, card)) {
+//                    player.getHand().positionCardsInArea();
+                    player.getBoard().getPlayArea(player.getPlayerNumber()).positionCardsInArea();
+//                    break;
+                }
             }
-        }
+        } else
+            player.getBoard().getPlayArea(player.getPlayerNumber()).positionCardsInArea();
     }
 
     /**
@@ -140,22 +147,21 @@ public class HumanCardGameController extends CardGameController implements Input
     private void updateCardsInHand(float deltaTime) {
         if(inputBuddy.getTouchEvents().size() > 0) {
             Input.TouchEvent touchEvent = inputBuddy.getTouchEvents().get(0);
+            // TODO ADD QUEUE OF CARDS TO ADD TO BOARD BREAKS AVOID THIS FOR NOW
             for(CharacterCard card : getPlayersCardsInCardHand()) {
-
-                if (player.canCardBePlacedOnPlayArea(card) && checkIsTouched(touchEvent, card)) {
+                if (checkIsTouched(touchEvent, card)) {
                     player.moveCard(card, touchEvent.x, touchEvent.y);
-                    preventGoddamnCardOriginOverlappingHopefullySuperAwesomeFunMethod(getPlayersCardsInCardHand());
 
-                    if (card.getBoundingBox().isEncapsulated(player.getBoard().getPlayArea(player.getPlayerNumber()).getBoundingBox())) {
+                    if (card.getBoundingBox().isEncapsulated(player.getBoard().getPlayArea(player.getPlayerNumber()).getBoundingBox()) && player.canCardBePlacedOnPlayArea(card) ) {
                         player.playCard(card);
                     }
-                } else if (isCardReleased(touchEvent, card)) {
+                    preventGoddamnCardOriginOverlappingHopefullySuperAwesomeFunMethod(getPlayersCardsInCardHand());
+                    break;
+                } else if(isCardReleased(touchEvent, card))
                     player.getHand().positionCardsInArea();
-                }
             }
-
-            //TODO add queue
-        }
+        } else
+            player.getHand().positionCardsInArea();
     }
 
 //    /**
@@ -232,10 +238,12 @@ public class HumanCardGameController extends CardGameController implements Input
      * @param cardList - players cards we are checking for collisions in
      */
     private void cardCollisionCheckAndResolve(ArrayList<CharacterCard> cardList) {
-        for (CharacterCard card : cardList)
-            for (CharacterCard card2 : cardList)
+        if(inputBuddy.getTouchEvents().isEmpty()) {
+            for (CharacterCard card : cardList)
+                for (CharacterCard card2 : cardList)
                     if (card.getBoundingBox().getCollisionDetector().checkForCollision(card.getBoundingBox(), card2.getBoundingBox()))
-                            card.getBoundingBox().getCollisionDetector().resolveCollision(card, card2, card.getOverlapAllowance());
+                        card.getBoundingBox().getCollisionDetector().resolveCollision(card, card2, card.getOverlapAllowance());
+        }
     }
 
 //    /**
@@ -261,8 +269,7 @@ public class HumanCardGameController extends CardGameController implements Input
      * @return - true if card is touched and touch event type is touch_up or touch_down, false otherwise
      */
     private boolean youAreTryingToAttackAnotherCard(Input.TouchEvent touchEvent, CharacterCard card) {
-        return (checkIsTouched(touchEvent, card)
-                && (touchEvent.type != Input.TouchEvent.TOUCH_DRAGGED));
+        return card.getBoundingBox().isEncapsulated(card.getBoundingBox());
     }
 
 
@@ -297,8 +304,7 @@ public class HumanCardGameController extends CardGameController implements Input
      * @return - true if card is touched and touch event type is touch_up or touch_down, false otherwise
      */
     private boolean youAreTryingToAttackTheEnemyHero(Input.TouchEvent touchEvent, CharacterCard card, Hero hero) {
-        return (card.getBoundingBox().isOverlapping(hero.getBoundingBox())
-                && (touchEvent.type != Input.TouchEvent.TOUCH_DRAGGED));
+        return card.getBoundingBox().isOverlapping(hero.getBoundingBox());
     }
 
 
