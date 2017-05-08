@@ -41,9 +41,9 @@ public class PvPLevel extends Level {
                //UI is placed at the center of Viewport
                controllers[i] = new HumanCardGameController(this, inputBuddy, gameMachine.getPlayers()[i],
                        resourceFetcher.getBitmapFromFile("images/backgrounds/starting_hand_selection_ui_background.png"),
-                       resourceFetcher.getBitmapFromFile("images/buttons/confirmation_button.png"),
-                       resourceFetcher.getBitmapFromFile("images/buttons/confirmation_button.png"),
-                       resourceFetcher.getBitmapFromFile("images/buttons/end_turn_button.png"), viewport.getCenterX(), viewport.getCenterY() );
+                       resourceFetcher.getBitmapFromFile("images/buttons/button_confirm.png"),
+                       resourceFetcher.getBitmapFromFile("images/buttons/button_confirm.png"),
+                       resourceFetcher.getBitmapFromFile("images/buttons/button_end-turn.png"), viewport.getCenterX(), viewport.getCenterY() );
            }
 
            for (Controlling controller : controllers)
