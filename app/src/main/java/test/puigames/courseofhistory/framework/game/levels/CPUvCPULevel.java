@@ -12,8 +12,8 @@ import test.puigames.courseofhistory.framework.game.screens.SplashScreen;
  * Created by Michael on 07/05/2017.
  */
 
-public class AITestLevel extends Level {
-    public AITestLevel(GameProperties gameProperties) {
+public class CPUvCPULevel extends Level {
+    public CPUvCPULevel(GameProperties gameProperties) {
         super(gameProperties);
     }
 
