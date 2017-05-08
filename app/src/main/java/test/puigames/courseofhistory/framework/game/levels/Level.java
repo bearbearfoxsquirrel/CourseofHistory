@@ -103,6 +103,7 @@ public abstract class Level extends Screen {
                     heroes[i] = new Hero(this, worldLeadersBitmaps[superRandomNumber], numImages, HERO_PORTRAIT_SIZE, HERO_PORTRAIT_SIZE);
             }
 
+
             //Setting up the board and spawning it
             Board board = resourceFetcher.loadBoard(this, "testBoard", heroes);
 
