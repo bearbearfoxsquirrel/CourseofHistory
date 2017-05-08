@@ -99,6 +99,7 @@ public class StartScreen extends Menu {
 
     }
 
+    //Getters and setters.
     public UIElement getBackgroundStartScreen() {
         return backgroundStartScreen;
     }

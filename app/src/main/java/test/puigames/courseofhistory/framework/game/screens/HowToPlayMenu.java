@@ -173,8 +173,7 @@ public class HowToPlayMenu extends Menu {
 
     }
 
-    //Getters and Setters - How To Play
-
+    //Getters and setters.
     public UIElement getBackgroundHowToPlay() { return backgroundHowToPlay; }
 
     public void setBackgroundHowToPlay(UIElement backgroundHowToPlay) { this.backgroundHowToPlay = backgroundHowToPlay; }

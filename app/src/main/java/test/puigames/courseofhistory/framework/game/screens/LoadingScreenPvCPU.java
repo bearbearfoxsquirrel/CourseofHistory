@@ -46,7 +46,7 @@ public class LoadingScreenPvCPU extends Menu {
         //Settings up uiElements.
         bgImage = null;
         try{
-            bgImage = new UIElement(this, resourceFetcher.getBitmapFromFile("images/backgrounds/loading_screen_background2.jpg"),
+            bgImage = new UIElement(this, resourceFetcher.getBitmapFromFile("images/backgrounds/loading_screen_background2.png"),
                     bgImageWidth, bgImageHeight);
             logo = new UIElement(this, resourceFetcher.getBitmapFromFile("images/title/logo_base.png"),
                     logoWidth, logoHeight);
@@ -85,7 +85,7 @@ public class LoadingScreenPvCPU extends Menu {
 
     }
 
-    //Getters and setters
+    //Getters and setters.
     public UIElement getBgImage() {
         return bgImage;
     }

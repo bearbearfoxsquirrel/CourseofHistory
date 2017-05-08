@@ -77,7 +77,7 @@ public class SplashScreen extends Menu {
 
     }
 
-    //Getters and Setters.
+    //Getters and setters.
     public UIElement getLogo() {
         return logo;
     }

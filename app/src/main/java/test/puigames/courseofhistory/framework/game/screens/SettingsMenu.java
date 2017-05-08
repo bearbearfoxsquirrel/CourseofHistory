@@ -87,6 +87,7 @@ public class SettingsMenu extends Menu {
     public void update(float deltaTime) {
         super.update(deltaTime);
 
+        //Checks for input and performs button specific action.
         if(back.checkForInput(inputBuddy))
             back.applyAction();
         if(volumeDown.checkForInput(inputBuddy))

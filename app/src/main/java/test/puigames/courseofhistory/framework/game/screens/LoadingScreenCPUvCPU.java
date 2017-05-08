@@ -85,7 +85,7 @@ public class LoadingScreenCPUvCPU extends Menu {
 
     }
 
-    //Getters and setters
+    //Getters and setters.
     public UIElement getBgImage() {
         return bgImage;
     }

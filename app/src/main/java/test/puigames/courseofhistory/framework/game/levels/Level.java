@@ -123,7 +123,6 @@ public abstract class Level extends Screen {
                         board, new Deck(this, resourceFetcher.getBitmapFromFile("images/deck/deck.png")),
                         new CardHand(this, resourceFetcher.getBitmapFromFile("images/card_areas/play-area.png"),
                                 PLAYER_HAND_WIDTH, PLAYER_HAND_HEIGHT), i); //Creating a new player pawn for each controller
-                //TODO give proper deck image!!!
 
                 for (int j = 0; j < players[i].getMAX_MANA(); j++)
                     players[i].getMana()[j] = new Mana(this, manaTypes, MANA_WIDTH, MANA_HEIGHT); //create mana

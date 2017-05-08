@@ -60,8 +60,8 @@ public class LevelSelectScreen extends Menu {
     public void update(float deltaTime) {
         super.update(deltaTime);
 
-        //Checks for input and prevents null pointer errors, delay to prevent multiple input if
-        //stuttering
+        //Checks for input and prevents null pointer errors, delay to prevent multiple input
+        //occurrences.
         if(duration > delay) {
             if (gameProperties.getInput().getTouchEvents().size() > 0) {
                 if (isTouched(inputBuddy.getTouchEvents().get(0), PvP))
@@ -73,9 +73,8 @@ public class LevelSelectScreen extends Menu {
             }
 
 
-            if (back.checkForInput(inputBuddy)) {
+            if (back.checkForInput(inputBuddy))
                 back.applyAction();
-            }
         }
         duration += deltaTime;
     }
@@ -153,6 +152,7 @@ public class LevelSelectScreen extends Menu {
 
     }
 
+    //Getters and setters.
     public UIElement getBackgroundLevelSelect() {
         return backgroundLevelSelect;
     }

@@ -79,6 +79,8 @@ public class MainMenu extends Menu {
     public void update(float deltaTime) {
         super.update(deltaTime);
 
+        //Checks for input then performs button specific function, delay to prevent multiple
+        //input occurrences.
         if(duration > delay) {
             if (playGame.checkForInput(inputBuddy))
                 playGame.applyAction();
@@ -96,7 +98,7 @@ public class MainMenu extends Menu {
     //Method to load all of the assets used and then place, scale, and draw them.
     public void load(){
 
-        //Settings up uiElements
+        //Settings up uiElements.
         backgroundMainMenu = null;
         title = null;
         try{
