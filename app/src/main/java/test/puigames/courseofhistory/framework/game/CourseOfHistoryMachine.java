@@ -255,10 +255,9 @@ public class CourseOfHistoryMachine implements Updateable {
     }
 
     private void workOutPlayersManaForTurn() {
-        if (manaCount[turnIndex] < players[turnIndex].getMAX_MANA()) { //don't want it going over 10 - max
+        if (manaCount[turnIndex] < players[turnIndex].getMAX_MANA())  //don't want it going over 10 - max
             manaCount[turnIndex]++;
-            giveManaToPlayer();
-        }
+        giveManaToPlayer();
         Log.i("Player " + (turnIndex + 1), "" + players[turnIndex].getCurrentMana() + " mana");
     }
 
@@ -291,7 +290,6 @@ public class CourseOfHistoryMachine implements Updateable {
         repositionCards();
         players[turnIndex].setPlayerCurrentState(Player.PlayerState.WAITING_FOR_TURN);
         incrementTurnIndex();
-        coin.setBitmap(coin.getCoinSides()[turnIndex]); //Just to test turns are working :)
         players[turnIndex].setPlayerCurrentState(Player.PlayerState.TURN_STARTED);
     }
 

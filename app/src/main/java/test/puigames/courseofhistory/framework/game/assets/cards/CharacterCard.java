@@ -36,7 +36,7 @@ public class CharacterCard extends Card implements Damageable.Attackable {
 
     private Placer perryPlacablePlacer;
 
-    private final float[] DEFAULT_STAT_LOCATION_OFFSET_X = {-18.f, 18.f, -18.f};
+    private final float[] DEFAULT_STAT_LOCATION_OFFSET_X = {-16.f, 16.f, -16.f};
     private final float[] DEFAULT_STAT_LOCATION_OFFSET_Y = {-34.f, 34.f, 34.f};
 
     private float[] statLocationsX = {-18.f, 18.f, -18.f};

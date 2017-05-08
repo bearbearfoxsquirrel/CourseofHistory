@@ -45,7 +45,7 @@ public class AICardGameController extends CardGameController {
 
     /**
      *  Finds out how good the card is by returning its rating
-     *  (only USED for AI, to give some meaning to cards it chooses)
+     *  (only used for AI, to give some meaning to cards it chooses)
      *  WIP algorithm for selecting cards
      * @param mana
      * @param attack
@@ -106,7 +106,7 @@ public class AICardGameController extends CardGameController {
         if (player.hasCardThatCanBeDrawn()) {
             ArrayList<CharacterCard> cardsToBeDrawn = getCardsThatCanBePlayedFromHand();
             for (CharacterCard card : cardsToBeDrawn)
-                player.placeCardOnBoard(card);
+                player.playCard(card);
         }
 
         if (getEnemyAttackPotential() > SAFE_BUFFER_OF_HEALTH) {

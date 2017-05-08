@@ -124,6 +124,8 @@ public class TestLevel extends Level {
            gameMachine = new CourseOfHistoryMachine(players, coin, board);
            setUpGamePiecePositions(this, viewport.getCenterX(), viewport.getCenterY());
 
+           gameMachine.startTicking(this); //starts game machine - IT LIVES
+
 
            Controlling[] controllers = new HumanCardGameController[CourseOfHistoryMachine.PLAYER_COUNT];
            //Giving the controllers possession of the corresponding player in the game machine
@@ -135,10 +137,9 @@ public class TestLevel extends Level {
                        resourceFetcher.getBitmapFromFile("images/buttons/confirmation_button.png"),
                        resourceFetcher.getBitmapFromFile("images/buttons/end_turn_button.png"), viewport.getCenterX(), viewport.getCenterY() );
            }
-           gameMachine.startTicking(this); //starts game machine - IT LIVES
-
            for (Controlling controller : controllers)
                controller.startTicking(this);
+
        } catch(NullPointerException e) {
 //         Log.d("Loading Error:", "Error fetching resources, returning to menu");
            Log.e("ERROR", e.getMessage() + "\n" + e.getCause());

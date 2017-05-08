@@ -212,6 +212,7 @@ public class Player {
 
     public void attackCard(CharacterCard cardUsedToAttack, CharacterCard cardToAttack) {
         cardUsedToAttack.attack(cardToAttack);
+        cardUsedToAttack.setHealth(cardUsedToAttack.getHealth() - cardToAttack.getAttack());
     }
 
     /**
