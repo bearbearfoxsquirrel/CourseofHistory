@@ -45,6 +45,8 @@ public class SettingsMenu extends Menu {
         super(gameProperties);
         currentVolume = 1.f;
 
+        //Creation of the menu buttons, which can either go back to the main menu, or raise or lower the
+        //volume respectively.
         this.back = new MenuButton(this, resourceFetcher.getBitmapFromFile("images/buttons/button_back.png"),
                 buttonWidth, buttonHeight) {
             @Override
@@ -90,7 +92,9 @@ public class SettingsMenu extends Menu {
             volumeOff.applyAction();
     }
 
+    //Method to load all of the assets used and then place, scale, and draw them.
     public void load(){
+        //Settings up uiElements.
         try {
             backgroundSettings = new UIElement(this, resourceFetcher.getBitmapFromFile("images/backgrounds/settings_background.png"),
                     bgImageWidth, bgImageHeight);
@@ -99,11 +103,13 @@ public class SettingsMenu extends Menu {
             Log.d("Error", "UI Element loading has failed");
         }
 
+        //uiElements are given a location to be placed on the screen based on the centre of their image.
         backgroundSettings.place(this, bgImageX, bgImageY, UI_ROTATION);
         back.place(this, backCentreX, backCentreY, UI_ROTATION);
         volumeOn.place(this, volumeOnCentreX, volumeOnCentreY, UI_ROTATION);
         volumeOff.place(this, volumeOffCentreX, volumeOffCentreY, UI_ROTATION);
 
+        //Added to the uiElements ArrayList to be scaled and drawn to the screen.
         uiElements.add(backgroundSettings);
         uiElements.add(back);
         uiElements.add(volumeOn);
@@ -130,6 +136,7 @@ public class SettingsMenu extends Menu {
 
     }
 
+    //Getters and setters.
     public UIElement getBackgroundSettings() {
         return backgroundSettings;
     }

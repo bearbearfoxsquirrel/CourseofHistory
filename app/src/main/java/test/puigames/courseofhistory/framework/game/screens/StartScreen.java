@@ -38,7 +38,7 @@ public class StartScreen extends Menu {
     public void update(float deltaTime) {
         super.update(deltaTime);
 
-
+        //Checks for input and prevents null pointer errors
         if(duration > delay) {
             if(gameProperties.getInput().getTouchEvents().size() > 0)
                 if(isTouched(inputBuddy.getTouchEvents().get(0), backgroundStartScreen))
@@ -48,12 +48,14 @@ public class StartScreen extends Menu {
         duration += deltaTime;
     }
 
+    //Method to load all of the assets used and then place, scale, and draw them.
     @Override
     public void load(){
         backgroundStartScreen = null;
         title = null;
         pressScreen = null;
 
+        //Settings up uiElements.
         try{
             backgroundStartScreen = new UIElement(this, resourceFetcher.getBitmapFromFile("images/backgrounds/start_screen_background.png"),
                     bgImageWidth, bgImageHeight);
@@ -66,9 +68,15 @@ public class StartScreen extends Menu {
             Log.d("Error", "UI Element loading has failed");
         }
 
+        //uiElements are given a location to be placed on the screen based on the centre of their image.
         backgroundStartScreen.place(this, centreX, bgCentreY, UI_ROTATION);
         title.place(this, centreX, titleCentreY, UI_ROTATION);
         pressScreen.place(this, centreX, pressScreenCentreY, UI_ROTATION);
+
+        //Added to the uiElements ArrayList to be scaled and drawn to the screen.
+        uiElements.add(backgroundStartScreen);
+        uiElements.add(title);
+        uiElements.add(pressScreen);
     }
 
     @Override

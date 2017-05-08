@@ -16,6 +16,8 @@ public abstract class MenuButton extends UIElement implements Drawable, UIAction
         super(screen, buttonImage, width, height);
     }
 
+    //Method to detect if a touch event has occurred, and requires a touch down and up, to prevent
+    //too many registering at once.
     @Override
     public boolean checkForInput(InputBuddy inputBuddy) {
         for (Input.TouchEvent touchEvent : inputBuddy.getTouchEvents())

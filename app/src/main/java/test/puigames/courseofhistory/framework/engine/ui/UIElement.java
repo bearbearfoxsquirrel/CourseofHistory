@@ -45,6 +45,8 @@ public class UIElement implements Drawable, Scalable.ImageScalable, Placeable {
         canvas.drawBitmap(image, matrix, paint);
     }
 
+    //Utilises the initPlacement method to then add the object to the scalables and drawables
+    //Array Lists.
     @Override
     public void place(Screen screen, float placementX, float placementY, float rotation) {
         this.currentScreen = screen;
@@ -70,8 +72,8 @@ public class UIElement implements Drawable, Scalable.ImageScalable, Placeable {
         getMatrix().postTranslate((getPosX() - halfWidth) * scaleFactorX, (getPosY() - halfHeight) * scaleFactorY); //Translates the object by the scale factor
     }
 
-    //Method to setUpGamePiecePositions the UI Element on screen based on the middle of the object
-    //takes in a position and calculated with the origin
+    //Method to position uiElement on screen based on the x and y inputted, sets up an origin
+    //on the middle of the uiElement, and then sets up a bounding box about it.
     public void initPlacement(float spawnX, float spawnY, float rotation) {
         this.origin = new Origin(spawnX, spawnY);
         this.boundingBox = new BoundingBox(width, height, origin);

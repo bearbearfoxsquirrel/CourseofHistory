@@ -38,6 +38,8 @@ public class MainMenu extends Menu {
     public MainMenu(final GameProperties gameProperties){
         super(gameProperties);
 
+        //Creation of the menu buttons, each with a specific function based on what they are required
+        //to do.
         this.playGame = new MenuButton(this, resourceFetcher.getBitmapFromFile("images/buttons/button_play.png"),
                 buttonWidth, buttonHeight) {
             @Override
@@ -91,8 +93,10 @@ public class MainMenu extends Menu {
         duration += deltaTime;
     }
 
+    //Method to load all of the assets used and then place, scale, and draw them.
     public void load(){
 
+        //Settings up uiElements
         backgroundMainMenu = null;
         title = null;
         try{
@@ -105,6 +109,7 @@ public class MainMenu extends Menu {
             Log.d("Error", "UI Element loading has failed");
         }
 
+        //uiElements are given a location to be placed on the screen based on the centre of their image.
         backgroundMainMenu.place(this, centreX, bgCentreY, UI_ROTATION);
         title.place(this, centreX, titleCentreY, UI_ROTATION);
         playGame.place(this, centreX, playGameCentreY, UI_ROTATION);
@@ -112,6 +117,7 @@ public class MainMenu extends Menu {
         settings.place(this, centreX, settingsCentreY, UI_ROTATION);
         exitGame.place(this, centreX, exitGameY, UI_ROTATION);
 
+        //Added to the uiElements ArrayList to be scaled and drawn to the screen.
         uiElements.add(backgroundMainMenu);
         uiElements.add(title);
         uiElements.add(playGame);
@@ -140,6 +146,7 @@ public class MainMenu extends Menu {
 
     }
 
+    //Getters and setters.
     public UIElement getBackgroundMainMenu() {
         return backgroundMainMenu;
     }

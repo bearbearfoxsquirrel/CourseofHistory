@@ -82,6 +82,7 @@ public class HowToPlayMenu extends Menu {
     public void update(float deltaTime) {
         super.update(deltaTime);
 
+        //Checks for input and prevents null pointer errors.
         if (gameProperties.getInput().getTouchEvents().size() > 0) {
             if (back.checkForInput(inputBuddy))
                 back.applyAction();
