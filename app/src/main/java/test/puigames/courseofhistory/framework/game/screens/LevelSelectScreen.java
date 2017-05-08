@@ -30,11 +30,11 @@ public class LevelSelectScreen extends Menu {
     private float PvPImageCentreX = 100.0f, PvPImageCentreY = 106.67f;
     private float PvPTextCentreX = 100.0f, PvPTextCentreY = 245.0f;
 
-    private float PvCPUImageCentreX = 240.0f, PvCPUImageCentreY = 106.67f;
-    private float PvCPUTextCentreX = 240.0f, PvCPUTextCentreY = 245.0f;
+    private float PvCPUImageCentreX = 230.0f, PvCPUImageCentreY = 106.67f;
+    private float PvCPUTextCentreX = 230.0f, PvCPUTextCentreY = 245.0f;
 
-    private float CPUvCPUImageCentreX = 350.0f, CPUvCPUImageCentreY = 106.67f;
-    private float CPUvCPUTextCentreX = 350.0f, CPUvCPUTextCentreY = 245.0f;
+    private float CPUvCPUImageCentreX = 360.0f, CPUvCPUImageCentreY = 106.67f;
+    private float CPUvCPUTextCentreX = 360, CPUvCPUTextCentreY = 245.0f;
 
     private float backWidth = 75.0f, backHeight = 35.0f;
     private float backCentreX = 40.0f, backCentreY = 300.0f;
@@ -63,15 +63,14 @@ public class LevelSelectScreen extends Menu {
         //Checks for input and prevents null pointer errors, delay to prevent multiple input if
         //stuttering
         if(duration > delay) {
-            if (gameProperties.getInput().getTouchEvents().size() > 0)
+            if (gameProperties.getInput().getTouchEvents().size() > 0) {
                 if (isTouched(inputBuddy.getTouchEvents().get(0), PvP))
                     gameProperties.setScreen(new LoadingScreenPVP(this.gameProperties));
                 if (isTouched(inputBuddy.getTouchEvents().get(0), PvCPU))
                     gameProperties.setScreen(new LoadingScreenPvCPU(this.gameProperties));
                 if (isTouched(inputBuddy.getTouchEvents().get(0), CPUvCPU))
                     gameProperties.setScreen(new LoadingScreenCPUvCPU(this.gameProperties));
-
-
+            }
 
             if (back.checkForInput(inputBuddy)) {
                 back.applyAction();
@@ -106,7 +105,7 @@ public class LevelSelectScreen extends Menu {
             CPUvCPU = new UIElement(this, resourceFetcher.getBitmapFromFile("images/level_images/CPUvCPU_framed.png"),
                     levelImageWidth, levelImageHeight);
             CPUvCPUText = new UIElement(this, resourceFetcher.getBitmapFromFile("images/level_text/CPUvCPU.png"),
-                    levelImageWidth, levelImageHeight);
+                    levelTextWidth, levelTextHeight);
         }
         catch(NullPointerException e){
             Log.d("Error", "UI Element loading has failed");
