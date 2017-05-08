@@ -19,7 +19,7 @@ public class SplashScreen extends Menu {
     private float bgImageWidth = 480.0f, bgImageHeight = 320.0f;
     private float bgImageX = 240.0f, bgImageY = 160.0f;
 
-    private float screenDuration = 0.0f, splashScreenDelay = 3.0f;
+    private float screenDuration = 0.0f, splashScreenDelay = 5.0f;
 
     public SplashScreen(final GameProperties gameProperties) {
         super(gameProperties);

@@ -30,11 +30,11 @@ public class LevelSelectScreen extends Menu {
     private float PvPImageCentreX = 100.0f, PvPImageCentreY = 106.67f;
     private float PvPTextCentreX = 100.0f, PvPTextCentreY = 245.0f;
 
-    private float PvCPUImageCentreX = 240.0f, PvCPUImageCentreY = 106.67f;
-    private float PvCPUTextCentreX = 240.0f, PvCPUTextCentreY = 245.0f;
+    private float PvCPUImageCentreX = 230.0f, PvCPUImageCentreY = 106.67f;
+    private float PvCPUTextCentreX = 230.0f, PvCPUTextCentreY = 245.0f;
 
-    private float CPUvCPUImageCentreX = 350.0f, CPUvCPUImageCentreY = 106.67f;
-    private float CPUvCPUTextCentreX = 350.0f, CPUvCPUTextCentreY = 245.0f;
+    private float CPUvCPUImageCentreX = 360.0f, CPUvCPUImageCentreY = 106.67f;
+    private float CPUvCPUTextCentreX = 360, CPUvCPUTextCentreY = 245.0f;
 
     private float backWidth = 75.0f, backHeight = 35.0f;
     private float backCentreX = 40.0f, backCentreY = 300.0f;
@@ -73,6 +73,7 @@ public class LevelSelectScreen extends Menu {
             }
 
 
+            }
 
             if (back.checkForInput(inputBuddy)) {
                 back.applyAction();
@@ -107,7 +108,7 @@ public class LevelSelectScreen extends Menu {
             CPUvCPU = new UIElement(this, resourceFetcher.getBitmapFromFile("images/level_images/CPUvCPU_framed.png"),
                     levelImageWidth, levelImageHeight);
             CPUvCPUText = new UIElement(this, resourceFetcher.getBitmapFromFile("images/level_text/CPUvCPU.png"),
-                    levelImageWidth, levelImageHeight);
+                    levelTextWidth, levelTextHeight);
         }
         catch(NullPointerException e){
             Log.d("Error", "UI Element loading has failed");
