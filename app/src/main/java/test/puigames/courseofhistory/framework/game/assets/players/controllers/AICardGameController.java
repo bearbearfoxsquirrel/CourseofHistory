@@ -100,6 +100,24 @@ public class AICardGameController extends CardGameController {
         //
     }
 
+    private void handleEnemyThreat() {
+        final int SAFE_BUFFER_OF_HEALTH = player.getHero().getHealth() / 2;
+
+        if (player.hasCardThatCanBeDrawn()) {
+            ArrayList<CharacterCard> cardsToBeDrawn = getCardsThatCanBePlayedFromHand();
+            for (CharacterCard card : cardsToBeDrawn)
+                player.placeCardOnBoard(card);
+        }
+
+        if (getEnemyAttackPotential() > SAFE_BUFFER_OF_HEALTH) {
+            CharacterCard weakestCardToAttack = getWeakestEnemyCardToAttack();
+            ArrayList<CharacterCard> weakestCardsForTheJob = getWeakestCardsForTheJob(weakestCardToAttack);
+            for (CharacterCard card : weakestCardsForTheJob) {
+                player.attackCard(card, weakestCardToAttack);
+            }
+        }
+    }
+
     private void haveARelaxingTurn() {
         if (player.isThereACardThatCanBePlacedOnBoard()) {
             player.placeCardOnBoard(getCardWIthBestRatingThatCanBePlayedFromHand());
@@ -107,13 +125,10 @@ public class AICardGameController extends CardGameController {
         } else
             noMoreMovesCanBeMade = true;
 
-        if (getCardsWithEnergy(player.getBoard().getPlayArea(player.getPlayerNumber()).getCardsInArea()).size() > 0 && player.canPlayerAttackEnemyHero()) {
+        if (getCardsWithEnergy(player.getBoard().getPlayArea(player.getPlayerNumber()).getCardsInArea()).size() > 0 && !player.enemyHasCardsThatCanBeAttacked()) {
             player.attackEnemyHero(getCardWithHighestAttackThatHasEnergy(player.getBoard().getPlayArea(player.getPlayerNumber()).getCardsInArea()));
             noMoreMovesCanBeMade = false;
-        } else
-            noMoreMovesCanBeMade = true;
-
-        if (getCardsWithEnergy(player.getBoard().getPlayArea(player.getPlayerNumber()).getCardsInArea()).size() > 0) {
+        }  else if (getCardsWithEnergy(player.getBoard().getPlayArea(player.getPlayerNumber()).getCardsInArea()).size() > 0 && player.canPlayerAttackEnemyHero()) {
             CharacterCard cardToAttack = getWeakestEnemyCardToAttack();
             if (cardToAttack.getHealth() > 0)
                 player.attackCard(getCardWithHighestAttackThatHasEnergy(player.getBoard().getPlayArea(player.getPlayerNumber()).getCardsInArea()), cardToAttack);
@@ -121,7 +136,6 @@ public class AICardGameController extends CardGameController {
         } else {
             noMoreMovesCanBeMade = true;
         }
-
     }
 
     private CharacterCard getCardWithHighestAttackThatHasEnergy(ArrayList<CharacterCard> cardsToConsider) {
@@ -161,17 +175,6 @@ public class AICardGameController extends CardGameController {
             }
         }
         return cardWithBestRating;
-    }
-
-    private void handleEnemyThreat() {
-        final int SAFE_BUFFER_OF_HEALTH = player.getHero().getHealth() / 2;
-        while(getEnemyAttackPotential() > SAFE_BUFFER_OF_HEALTH) {
-            CharacterCard weakestCardToAttack = getWeakestEnemyCardToAttack();
-            ArrayList<CharacterCard> weakestCardsForTheJob = getWeakestCardsForTheJob(weakestCardToAttack);
-            for (CharacterCard card : weakestCardsForTheJob) {
-                player.attackCard(card, weakestCardToAttack);
-            }
-        }
     }
 
     private CharacterCard getWeakestEnemyCardToAttack() {

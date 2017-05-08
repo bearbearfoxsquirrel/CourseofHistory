@@ -46,7 +46,6 @@ public class StartingHandSelectionUI extends UIElement {
     private UIElement[] cardToTossOverlays;
 
     public Player player;
-    //TODO add highlight bitmap
 
     public StartingHandSelectionUI(Screen screen, Player player, Bitmap uIBackground, Bitmap confirmationButtonBitmap,  Bitmap selectedCardToTossOverlay) {
         super(screen, uIBackground, STARTING_HAND_SELECTOR_WIDTH, STARTING_HAND_SELECTOR_HEIGHT);
@@ -62,7 +61,7 @@ public class StartingHandSelectionUI extends UIElement {
         this.confirmationButton = new PlayerButton(this.currentScreen, this.player, confirmationButtonBitmap, CONFIRMATION_BUTTON_WIDTH, CONFIRMATION_BUTTON_HEIGHT) {
             @Override
             public void applyAction() {
-                player.setPlayerCurrentState(Player.PlayerState.FINISHED_CREATING_START_HAND);
+                player.finishedCreatingStartHand();
             }
         };
     }
@@ -76,7 +75,7 @@ public class StartingHandSelectionUI extends UIElement {
 
             @Override
             public void applyAction() {
-                player.setPlayerCurrentState(Player.PlayerState.FINISHED_CREATING_START_HAND);
+                player.finishedCreatingStartHand();
             }
         };
     }
