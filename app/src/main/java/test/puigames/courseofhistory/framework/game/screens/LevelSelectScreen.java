@@ -62,7 +62,7 @@ public class LevelSelectScreen extends Menu {
 
         //Checks for input and prevents null pointer errors, delay to prevent multiple input if
         //stuttering
-        if(duration > delay) {
+        if (duration > delay) {
             if (gameProperties.getInput().getTouchEvents().size() > 0) {
                 if (isTouched(inputBuddy.getTouchEvents().get(0), PvP))
                     gameProperties.setScreen(new LoadingScreenPVP(this.gameProperties));
@@ -73,11 +73,10 @@ public class LevelSelectScreen extends Menu {
             }
 
 
-            }
+        }
 
-            if (back.checkForInput(inputBuddy)) {
-                back.applyAction();
-            }
+        if (back.checkForInput(inputBuddy)) {
+            back.applyAction();
         }
         duration += deltaTime;
     }
