@@ -26,8 +26,10 @@ public class SplashScreen extends Menu {
         load();
     }
 
+    //Method to load all of the assets used and then place, scale, and draw them.
     @Override
     public void load() {
+        //Settings up uiElements.
         try {
             logo = new UIElement(this, resourceFetcher.getBitmapFromFile("images/splashscreen/splash.png"),
                     bgImageWidth, bgImageHeight);
@@ -37,16 +39,18 @@ public class SplashScreen extends Menu {
             this.gameProperties.setScreen(new SplashScreen(this.gameProperties));
         }
 
+        //uiElements are given a location to be placed on the screen based on the centre of their image.
         logo.place(this, bgImageX, bgImageY, UI_ROTATION);
 
+        //Added to the uiElements ArrayList to be scaled and drawn to the screen.
         uiElements.add(logo);
     }
 
-    //Allows for the splash image to display and then swaps screen to main menu after a set time
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
 
+        //Allows for the splash image to display and then swaps screen to main menu after a set time.
         if(screenDuration > splashScreenDelay)
                 this.gameProperties.setScreen(new StartScreen(this.gameProperties));
 
@@ -73,7 +77,7 @@ public class SplashScreen extends Menu {
 
     }
 
-    //Getters and Setters
+    //Getters and Setters.
     public UIElement getLogo() {
         return logo;
     }

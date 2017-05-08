@@ -41,6 +41,7 @@ public class LevelSelectScreen extends Menu {
     public LevelSelectScreen(final GameProperties gameProperties){
         super(gameProperties);
 
+        //Creation of the back button to return to the main menu.
         this.back = new MenuButton(this, resourceFetcher.getBitmapFromFile("images/buttons/button_back.png"),
                 backWidth, backHeight) {
             @Override
@@ -56,6 +57,8 @@ public class LevelSelectScreen extends Menu {
     public void update(float deltaTime) {
         super.update(deltaTime);
 
+        //Checks for input and prevents null pointer errors, delay to prevent multiple input if
+        //stuttering
         if(duration > delay) {
             if (gameProperties.getInput().getTouchEvents().size() > 0)
                 if (isTouched(inputBuddy.getTouchEvents().get(0), levelGreatMinds))
@@ -71,8 +74,10 @@ public class LevelSelectScreen extends Menu {
         duration += deltaTime;
     }
 
+    //Method to load all of the assets used and then place, scale, and draw them.
     @Override
     public void load() {
+        //Setting up uiElements.
         backgroundLevelSelect = null;
         levelGreatMinds = null;
         levelGreatMindsText = null;
@@ -95,6 +100,7 @@ public class LevelSelectScreen extends Menu {
             Log.d("Error", "UI Element loading has failed");
         }
 
+        //uiElements are given a location to be placed on the screen based on the centre of their image.
         backgroundLevelSelect.place(this, bgCentreX, bgCentreY, UI_ROTATION);
         levelGreatMinds.place(this, levelGreatMindsImageCentreX, levelGreatMindsImageCentreY, UI_ROTATION);
         levelGreatMindsText.place(this, levelGreatMindsTextCentreX, levelGreatMindsTextCentreY, UI_ROTATION);
@@ -102,6 +108,7 @@ public class LevelSelectScreen extends Menu {
         levelWorldLeadersText.place(this,levelWorldLeadersTextCentreX, levelWorldLeadersTextCentreY, UI_ROTATION);
         back.place(this, backCentreX, backCentreY, UI_ROTATION);
 
+        //Added to the uiElements ArrayList to be scaled and drawn to the screen.
         uiElements.add(backgroundLevelSelect);
         uiElements.add(levelGreatMinds);
         uiElements.add(levelGreatMindsText);

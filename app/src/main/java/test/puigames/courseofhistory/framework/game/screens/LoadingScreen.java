@@ -6,7 +6,7 @@ import android.util.Log;
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.screen.Menu;
 import test.puigames.courseofhistory.framework.engine.ui.UIElement;
-import test.puigames.courseofhistory.framework.game.levels.TestLevel;
+import test.puigames.courseofhistory.framework.game.levels.PvPLevel;
 
 /**
  * Created by Christopher on 04/05/2017.
@@ -34,13 +34,16 @@ public class LoadingScreen extends Menu {
     public void update(float deltaTime) {
         super.update(deltaTime);
 
+        //Changes the screen after a set amount of time.
         if(duration > delay)
-            gameProperties.setScreen(new TestLevel(this.gameProperties));
+            gameProperties.setScreen(new PvPLevel(this.gameProperties));
 
         duration += deltaTime;
     }
 
+    //Method to load all of the assets used and then place, scale, and draw them.
     public void load(){
+        //Settings up uiElements.
         bgImage = null;
         try{
             bgImage = new UIElement(this, resourceFetcher.getBitmapFromFile("images/backgrounds/loading_screen_background.png"),
@@ -52,9 +55,11 @@ public class LoadingScreen extends Menu {
             Log.d("Error", "UI Element loading has failed");
         }
 
+        //uiElements are given a location to be placed on the screen based on the centre of their image.
         bgImage.place(this, bgImageCentreX, bgImageCentreY, UI_ROTATION);
         logo.place(this, logoCentreX, logoCentreY, UI_ROTATION);
 
+        //Added to the uiElements ArrayList to be scaled and drawn to the screen.
         uiElements.add(bgImage);
         uiElements.add(logo);
 
@@ -80,6 +85,7 @@ public class LoadingScreen extends Menu {
 
     }
 
+    //Getters and Setter
     public UIElement getBgImage() {
         return bgImage;
     }
