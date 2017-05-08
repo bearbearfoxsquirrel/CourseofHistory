@@ -12,7 +12,7 @@ import test.puigames.courseofhistory.framework.game.levels.PvPLevel;
  * Created by Christopher on 04/05/2017.
  */
 
-public class LoadingScreen extends Menu {
+public class LoadingScreenPVP extends Menu {
 
     private static final float UI_ROTATION = 0.f;
     private UIElement bgImage, logo;
@@ -25,7 +25,7 @@ public class LoadingScreen extends Menu {
 
     private float duration = 0.0f, delay = 5.0f;
 
-    public LoadingScreen(final GameProperties gameProperties){
+    public LoadingScreenPVP(final GameProperties gameProperties){
         super(gameProperties);
         load();
     }
@@ -46,7 +46,7 @@ public class LoadingScreen extends Menu {
         //Settings up uiElements.
         bgImage = null;
         try{
-            bgImage = new UIElement(this, resourceFetcher.getBitmapFromFile("images/backgrounds/loading_screen_background.png"),
+            bgImage = new UIElement(this, resourceFetcher.getBitmapFromFile("images/backgrounds/loading_screen_background1.png"),
                     bgImageWidth, bgImageHeight);
             logo = new UIElement(this, resourceFetcher.getBitmapFromFile("images/title/logo_base.png"),
                     logoWidth, logoHeight);
@@ -85,7 +85,7 @@ public class LoadingScreen extends Menu {
 
     }
 
-    //Getters and Setter
+    //Getters and setters
     public UIElement getBgImage() {
         return bgImage;
     }

@@ -16,22 +16,25 @@ public class LevelSelectScreen extends Menu {
 
     private static final float UI_ROTATION = 0.f;
 
-    private UIElement backgroundLevelSelect, levelGreatMinds, levelGreatMindsText, levelWorldLeaders,
-            levelWorldLeadersText;
+    private UIElement backgroundLevelSelect, PvP, PvPText, PvCPU,
+            PvCPUText, CPUvCPU, CPUvCPUText;
 
     private MenuButton back;
 
     private float bgImageWidth = 480.0f, bgImageHeight = 320.0f;
     private float bgCentreX = 240.0f, bgCentreY = 160.0f;
 
-    private float levelImageWidth = 160.0f, levelImageHeight = 200.0f;
-    private float levelTextWidth = 160.0f, levelTextHeight = 75.0f;
+    private float levelImageWidth = 100.0f, levelImageHeight = 180.0f;
+    private float levelTextWidth = 100.0f, levelTextHeight = 75.0f;
 
-    private float levelGreatMindsImageCentreX = 140.0f, levelGreatMindsImageCentreY = 106.67f;
-    private float levelGreatMindsTextCentreX = 140.0f, levelGreatMindsTextCentreY = 245.0f;
+    private float PvPImageCentreX = 100.0f, PvPImageCentreY = 106.67f;
+    private float PvPTextCentreX = 100.0f, PvPTextCentreY = 245.0f;
 
-    private float levelWorldLeadersImageCentreX = 340.0f, levelWorldLeadersImageCentreY = 106.67f;
-    private float levelWorldLeadersTextCentreX = 340.0f, levelWorldLeadersTextCentreY = 245.0f;
+    private float PvCPUImageCentreX = 240.0f, PvCPUImageCentreY = 106.67f;
+    private float PvCPUTextCentreX = 240.0f, PvCPUTextCentreY = 245.0f;
+
+    private float CPUvCPUImageCentreX = 350.0f, CPUvCPUImageCentreY = 106.67f;
+    private float CPUvCPUTextCentreX = 350.0f, CPUvCPUTextCentreY = 245.0f;
 
     private float backWidth = 75.0f, backHeight = 35.0f;
     private float backCentreX = 40.0f, backCentreY = 300.0f;
@@ -61,10 +64,13 @@ public class LevelSelectScreen extends Menu {
         //stuttering
         if(duration > delay) {
             if (gameProperties.getInput().getTouchEvents().size() > 0)
-                if (isTouched(inputBuddy.getTouchEvents().get(0), levelGreatMinds))
-                    gameProperties.setScreen(new LoadingScreen(this.gameProperties));
-                else if(isTouched(inputBuddy.getTouchEvents().get(0), levelWorldLeaders))
-                    gameProperties.setScreen(new LoadingScreen(this.gameProperties));
+                if (isTouched(inputBuddy.getTouchEvents().get(0), PvP))
+                    gameProperties.setScreen(new LoadingScreenPVP(this.gameProperties));
+                if (isTouched(inputBuddy.getTouchEvents().get(0), PvCPU))
+                    gameProperties.setScreen(new LoadingScreenPvCPU(this.gameProperties));
+                if (isTouched(inputBuddy.getTouchEvents().get(0), CPUvCPU))
+                    gameProperties.setScreen(new LoadingScreenCPUvCPU(this.gameProperties));
+
 
 
             if (back.checkForInput(inputBuddy)) {
@@ -79,22 +85,28 @@ public class LevelSelectScreen extends Menu {
     public void load() {
         //Setting up uiElements.
         backgroundLevelSelect = null;
-        levelGreatMinds = null;
-        levelGreatMindsText = null;
-        levelWorldLeaders = null;
-        levelWorldLeadersText = null;
+        PvP = null;
+        PvPText = null;
+        PvCPU = null;
+        PvCPUText = null;
+        CPUvCPU = null;
+        CPUvCPUText = null;
 
         try{
             backgroundLevelSelect = new UIElement(this, resourceFetcher.getBitmapFromFile("images/backgrounds/level_select_background.png"),
                     bgImageWidth, bgImageHeight);
-            levelGreatMinds = new UIElement(this, resourceFetcher.getBitmapFromFile("images/level_images/level_great_minds_framed.png"),
+            PvP = new UIElement(this, resourceFetcher.getBitmapFromFile("images/level_images/PvP_framed.png"),
                     levelImageWidth, levelImageHeight);
-            levelGreatMindsText = new UIElement(this, resourceFetcher.getBitmapFromFile("images/level_text/level_text_great_minds.png"),
+            PvPText = new UIElement(this, resourceFetcher.getBitmapFromFile("images/level_text/PvP.png"),
                     levelTextWidth, levelTextHeight);
-            levelWorldLeaders= new UIElement(this, resourceFetcher.getBitmapFromFile("images/level_images/level_world_leaders_framed.png"),
+            PvCPU = new UIElement(this, resourceFetcher.getBitmapFromFile("images/level_images/PvCPU_framed.png"),
                     levelImageWidth, levelImageHeight);
-            levelWorldLeadersText = new UIElement(this, resourceFetcher.getBitmapFromFile("images/level_text/level_text_world_leaders.png"),
+            PvCPUText = new UIElement(this, resourceFetcher.getBitmapFromFile("images/level_text/PvCPU.png"),
                     levelTextWidth, levelTextHeight);
+            CPUvCPU = new UIElement(this, resourceFetcher.getBitmapFromFile("images/level_images/CPUvCPU_framed.png"),
+                    levelImageWidth, levelImageHeight);
+            CPUvCPUText = new UIElement(this, resourceFetcher.getBitmapFromFile("images/level_text/CPUvCPU.png"),
+                    levelImageWidth, levelImageHeight);
         }
         catch(NullPointerException e){
             Log.d("Error", "UI Element loading has failed");
@@ -102,18 +114,22 @@ public class LevelSelectScreen extends Menu {
 
         //uiElements are given a location to be placed on the screen based on the centre of their image.
         backgroundLevelSelect.place(this, bgCentreX, bgCentreY, UI_ROTATION);
-        levelGreatMinds.place(this, levelGreatMindsImageCentreX, levelGreatMindsImageCentreY, UI_ROTATION);
-        levelGreatMindsText.place(this, levelGreatMindsTextCentreX, levelGreatMindsTextCentreY, UI_ROTATION);
-        levelWorldLeaders.place(this, levelWorldLeadersImageCentreX, levelWorldLeadersImageCentreY, UI_ROTATION);
-        levelWorldLeadersText.place(this,levelWorldLeadersTextCentreX, levelWorldLeadersTextCentreY, UI_ROTATION);
+        PvP.place(this, PvPImageCentreX, PvPImageCentreY, UI_ROTATION);
+        PvPText.place(this, PvPTextCentreX, PvPTextCentreY, UI_ROTATION);
+        PvCPU.place(this, PvCPUImageCentreX, PvCPUImageCentreY, UI_ROTATION);
+        PvCPUText.place(this, PvCPUTextCentreX, PvCPUTextCentreY, UI_ROTATION);
+        CPUvCPU.place(this, CPUvCPUImageCentreX, CPUvCPUImageCentreY, UI_ROTATION);
+        CPUvCPUText.place(this, CPUvCPUTextCentreX, CPUvCPUTextCentreY, UI_ROTATION);
         back.place(this, backCentreX, backCentreY, UI_ROTATION);
 
         //Added to the uiElements ArrayList to be scaled and drawn to the screen.
         uiElements.add(backgroundLevelSelect);
-        uiElements.add(levelGreatMinds);
-        uiElements.add(levelGreatMindsText);
-        uiElements.add(levelWorldLeaders);
-        uiElements.add(levelWorldLeadersText);
+        uiElements.add(PvP);
+        uiElements.add(PvPText);
+        uiElements.add(PvCPU);
+        uiElements.add(PvCPUText);
+        uiElements.add(CPUvCPU);
+        uiElements.add(CPUvCPUText);
         uiElements.add(back);
     }
 
@@ -145,36 +161,36 @@ public class LevelSelectScreen extends Menu {
         this.backgroundLevelSelect = backgroundLevelSelect;
     }
 
-    public UIElement getLevelGreatMinds() {
-        return levelGreatMinds;
+    public UIElement getPvP() {
+        return PvP;
     }
 
-    public void setLevelGreatMinds(UIElement levelGreatMinds) {
-        this.levelGreatMinds = levelGreatMinds;
+    public void setPvP(UIElement pvP) {
+        this.PvP = pvP;
     }
 
-    public UIElement getLevelGreatMindsText() {
-        return levelGreatMindsText;
+    public UIElement getPvPText() {
+        return PvPText;
     }
 
-    public void setLevelGreatMindsText(UIElement levelGreatMindsText) {
-        this.levelGreatMindsText = levelGreatMindsText;
+    public void setPvPText(UIElement pvPText) {
+        this.PvPText = pvPText;
     }
 
-    public UIElement getLevelWorldLeaders() {
-        return levelWorldLeaders;
+    public UIElement getPvCPU() {
+        return PvCPU;
     }
 
-    public void setLevelWorldLeaders(UIElement levelWorldLeaders) {
-        this.levelWorldLeaders = levelWorldLeaders;
+    public void setPvCPU(UIElement pvCPU) {
+        this.PvCPU = pvCPU;
     }
 
-    public UIElement getLevelWorldLeadersText() {
-        return levelWorldLeadersText;
+    public UIElement getPvCPUText() {
+        return PvCPUText;
     }
 
-    public void setLevelWorldLeadersText(UIElement levelWorldLeadersText) {
-        this.levelWorldLeadersText = levelWorldLeadersText;
+    public void setPvCPUText(UIElement pvCPUText) {
+        this.PvCPUText = pvCPUText;
     }
 
     public MenuButton getBack() {
@@ -249,68 +265,120 @@ public class LevelSelectScreen extends Menu {
         this.levelTextHeight = levelTextHeight;
     }
 
-    public float getLevelGreatMindsImageCentreX() {
-        return levelGreatMindsImageCentreX;
+    public float getPvPImageCentreX() {
+        return PvPImageCentreX;
     }
 
-    public void setLevelGreatMindsImageCentreX(float levelGreatMindsImageCentreX) {
-        this.levelGreatMindsImageCentreX = levelGreatMindsImageCentreX;
+    public void setPvPImageCentreX(float pvPImageCentreX) {
+        this.PvPImageCentreX = pvPImageCentreX;
     }
 
-    public float getLevelGreatMindsImageCentreY() {
-        return levelGreatMindsImageCentreY;
+    public float getPvPImageCentreY() {
+        return PvPImageCentreY;
     }
 
-    public void setLevelGreatMindsImageCentreY(float levelGreatMindsImageCentreY) {
-        this.levelGreatMindsImageCentreY = levelGreatMindsImageCentreY;
+    public void setPvPImageCentreY(float pvPImageCentreY) {
+        this.PvPImageCentreY = pvPImageCentreY;
     }
 
-    public float getLevelGreatMindsTextCentreX() {
-        return levelGreatMindsTextCentreX;
+    public float getPvPTextCentreX() {
+        return PvPTextCentreX;
     }
 
-    public void setLevelGreatMindsTextCentreX(float levelGreatMindsTextCentreX) {
-        this.levelGreatMindsTextCentreX = levelGreatMindsTextCentreX;
+    public void setPvPTextCentreX(float pvPTextCentreX) {
+        this.PvPTextCentreX = pvPTextCentreX;
     }
 
-    public float getLevelGreatMindsTextCentreY() {
-        return levelGreatMindsTextCentreY;
+    public float getPvPTextCentreY() {
+        return PvPTextCentreY;
     }
 
-    public void setLevelGreatMindsTextCentreY(float levelGreatMindsTextCentreY) {
-        this.levelGreatMindsTextCentreY = levelGreatMindsTextCentreY;
+    public void setPvPTextCentreY(float pvPTextCentreY) {
+        this.PvPTextCentreY = pvPTextCentreY;
     }
 
-    public float getLevelWorldLeadersImageCentreX() {
-        return levelWorldLeadersImageCentreX;
+    public float getPvCPUImageCentreX() {
+        return PvCPUImageCentreX;
     }
 
-    public void setLevelWorldLeadersImageCentreX(float levelWorldLeadersImageCentreX) {
-        this.levelWorldLeadersImageCentreX = levelWorldLeadersImageCentreX;
+    public void setPvCPUImageCentreX(float pvCPUImageCentreX) {
+        this.PvCPUImageCentreX = pvCPUImageCentreX;
     }
 
-    public float getLevelWorldLeadersImageCentreY() {
-        return levelWorldLeadersImageCentreY;
+    public float getPvCPUImageCentreY() {
+        return PvCPUImageCentreY;
     }
 
-    public void setLevelWorldLeadersImageCentreY(float levelWorldLeadersImageCentreY) {
-        this.levelWorldLeadersImageCentreY = levelWorldLeadersImageCentreY;
+    public void setPvCPUImageCentreY(float pvCPUImageCentreY) {
+        this.PvCPUImageCentreY = pvCPUImageCentreY;
     }
 
-    public float getLevelWorldLeadersTextCentreX() {
-        return levelWorldLeadersTextCentreX;
+    public float getPvCPUTextCentreX() {
+        return PvCPUTextCentreX;
     }
 
-    public void setLevelWorldLeadersTextCentreX(float levelWorldLeadersTextCentreX) {
-        this.levelWorldLeadersTextCentreX = levelWorldLeadersTextCentreX;
+    public void setPvCPUTextCentreX(float pvCPUTextCentreX) {
+        this.PvCPUTextCentreX = pvCPUTextCentreX;
     }
 
-    public float getLevelWorldLeadersTextCentreY() {
-        return levelWorldLeadersTextCentreY;
+    public float getPvCPUTextCentreY() {
+        return PvCPUTextCentreY;
     }
 
-    public void setLevelWorldLeadersTextCentreY(float levelWorldLeadersTextCentreY) {
-        this.levelWorldLeadersTextCentreY = levelWorldLeadersTextCentreY;
+    public void setPvCPUTextCentreY(float pvCPUTextCentreY) {
+        this.PvCPUTextCentreY = pvCPUTextCentreY;
+    }
+
+    public static float getUiRotation() {
+        return UI_ROTATION;
+    }
+
+    public UIElement getCPUvCPU() {
+        return CPUvCPU;
+    }
+
+    public void setCPUvCPU(UIElement CPUvCPU) {
+        this.CPUvCPU = CPUvCPU;
+    }
+
+    public UIElement getCPUvCPUText() {
+        return CPUvCPUText;
+    }
+
+    public void setCPUvCPUText(UIElement CPUvCPUText) {
+        this.CPUvCPUText = CPUvCPUText;
+    }
+
+    public float getCPUvCPUImageCentreX() {
+        return CPUvCPUImageCentreX;
+    }
+
+    public void setCPUvCPUImageCentreX(float CPUvCPUImageCentreX) {
+        this.CPUvCPUImageCentreX = CPUvCPUImageCentreX;
+    }
+
+    public float getCPUvCPUImageCentreY() {
+        return CPUvCPUImageCentreY;
+    }
+
+    public void setCPUvCPUImageCentreY(float CPUvCPUImageCentreY) {
+        this.CPUvCPUImageCentreY = CPUvCPUImageCentreY;
+    }
+
+    public float getCPUvCPUTextCentreX() {
+        return CPUvCPUTextCentreX;
+    }
+
+    public void setCPUvCPUTextCentreX(float CPUvCPUTextCentreX) {
+        this.CPUvCPUTextCentreX = CPUvCPUTextCentreX;
+    }
+
+    public float getCPUvCPUTextCentreY() {
+        return CPUvCPUTextCentreY;
+    }
+
+    public void setCPUvCPUTextCentreY(float CPUvCPUTextCentreY) {
+        this.CPUvCPUTextCentreY = CPUvCPUTextCentreY;
     }
 
     public float getBackWidth() {
