@@ -218,7 +218,7 @@ public class AICardGameController extends CardGameController {
         //Copy of list of cards in play
         ArrayList<CharacterCard> cardsToSelectToAttackWith = new ArrayList<>(getCardsWithEnergy(player.getBoard().getPlayArea(player.getPlayerNumber()).getCardsInArea()));
         ArrayList<CharacterCard> cardsToAttackWith = new ArrayList<>();
-
+        
         //While the card to kill still has health keep adding the card with the highest attack to the list of cards to attack it
         //Or while the cards to select from still have the potential to kill that card
         while (enemyCardToKill.getHealth() > getTotalAttack(cardsToAttackWith) && getTotalAttack(cardsToSelectToAttackWith) >= enemyCardToKill.getHealth()) {
