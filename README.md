@@ -1,4 +1,3 @@
-================================
 Course of History
 ================================
 
@@ -17,6 +16,5 @@ Instead of just taking back Great Minds, Evil World Leaders are taken back with 
 the modern world, and conscripting the bright, young youth of Queen’s University Belfast.. 
 Now a new crisis is affecting the world: Great Minds and World Leaders clash, in an event of epic scale. 
 The future is uncertain, but it is sure to change the 
-=====================================================
                 Course of History!
 =====================================================
