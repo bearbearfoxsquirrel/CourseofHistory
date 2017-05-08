@@ -73,8 +73,6 @@ public class LevelSelectScreen extends Menu {
             }
 
 
-            }
-
             if (back.checkForInput(inputBuddy)) {
                 back.applyAction();
             }
