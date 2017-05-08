@@ -1,23 +1,12 @@
 package test.puigames.courseofhistory.framework.game.levels;
 
-import android.graphics.Bitmap;
 import android.util.Log;
 
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.controlling.Controlling;
-import test.puigames.courseofhistory.framework.engine.screen.Placer;
-import test.puigames.courseofhistory.framework.engine.screen.Screen;
 import test.puigames.courseofhistory.framework.game.CourseOfHistoryMachine;
-import test.puigames.courseofhistory.framework.game.assets.CardHand;
-import test.puigames.courseofhistory.framework.game.assets.Coin;
-import test.puigames.courseofhistory.framework.game.assets.Deck;
-import test.puigames.courseofhistory.framework.game.assets.Hero;
-import test.puigames.courseofhistory.framework.game.assets.Mana;
-import test.puigames.courseofhistory.framework.game.assets.boards.Board;
-import test.puigames.courseofhistory.framework.game.assets.players.Player;
 import test.puigames.courseofhistory.framework.game.assets.players.controllers.HumanCardGameController;
 import test.puigames.courseofhistory.framework.game.screens.MainMenu;
-import test.puigames.courseofhistory.framework.game.screens.SplashScreen;
 
 /**
  * Created by Jordan on 10/11/2016.
@@ -27,7 +16,6 @@ public class PvPLevel extends Level {
 
     public PvPLevel(GameProperties gameProperties) {
         super(gameProperties);
-        load();
     }
 
     @Override

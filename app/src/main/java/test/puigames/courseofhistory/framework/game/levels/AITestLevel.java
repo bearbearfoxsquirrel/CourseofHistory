@@ -15,7 +15,6 @@ import test.puigames.courseofhistory.framework.game.screens.SplashScreen;
 public class AITestLevel extends Level {
     public AITestLevel(GameProperties gameProperties) {
         super(gameProperties);
-        load();
     }
 
     @Override

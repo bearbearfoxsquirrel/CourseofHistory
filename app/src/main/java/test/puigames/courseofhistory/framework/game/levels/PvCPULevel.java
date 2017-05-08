@@ -8,7 +8,6 @@ import test.puigames.courseofhistory.framework.game.CourseOfHistoryMachine;
 import test.puigames.courseofhistory.framework.game.assets.players.controllers.AICardGameController;
 import test.puigames.courseofhistory.framework.game.assets.players.controllers.HumanCardGameController;
 import test.puigames.courseofhistory.framework.game.screens.MainMenu;
-import test.puigames.courseofhistory.framework.game.screens.SplashScreen;
 
 /**
  * Created by Jordan on 08/05/2017.
@@ -19,7 +18,6 @@ public class PvCPULevel extends Level
     public PvCPULevel(GameProperties gameProperties)
     {
         super(gameProperties);
-        load();
     }
 
     @Override
