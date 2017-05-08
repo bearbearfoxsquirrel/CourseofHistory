@@ -6,7 +6,7 @@ import android.util.Log;
 import test.puigames.courseofhistory.framework.engine.GameProperties;
 import test.puigames.courseofhistory.framework.engine.screen.Menu;
 import test.puigames.courseofhistory.framework.engine.ui.UIElement;
-import test.puigames.courseofhistory.framework.game.levels.TestLevel;
+import test.puigames.courseofhistory.framework.game.levels.PvPLevel;
 
 /**
  * Created by Christopher on 04/05/2017.
@@ -35,7 +35,7 @@ public class LoadingScreen extends Menu {
         super.update(deltaTime);
 
         if(duration > delay)
-            gameProperties.setScreen(new TestLevel(this.gameProperties));
+            gameProperties.setScreen(new PvPLevel(this.gameProperties));
 
         duration += deltaTime;
     }
