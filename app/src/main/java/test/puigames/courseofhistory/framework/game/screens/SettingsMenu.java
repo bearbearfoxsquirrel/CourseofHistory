@@ -35,11 +35,11 @@ public class SettingsMenu extends Menu {
 
     private float volumeWidth = 100.0f, volumeHeight= 75.0f;
 
-    private float volumeUpImageCentreX = 160.0f, volumeUpImageCentreY = 140.0f;
-    private float volumeDownImageCentreX = 320.0f, volumeDownImageCentreY = 140.0f;
+    private float volumeDownImageCentreX = 160.0f, volumeDownImageCentreY = 140.0f;
+    private float volumeUpImageCentreX = 320.0f, volumeUpImageCentreY = 140.0f;
 
-    private float volumeUpCentreX = 160.0f, volumeUpCentreY = 200.0f;
-    private float volumeDownCentreX = 320.0f, volumeDownCentreY = 200.0f;
+    private float volumeDownCentreX = 160.0f, volumeDownCentreY = 200.0f;
+    private float volumeUpCentreX = 320.0f, volumeUpCentreY = 200.0f;
 
 
 
